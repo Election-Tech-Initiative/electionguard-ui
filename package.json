@@ -68,7 +68,7 @@
         "@testing-library/user-event": "^12.1.10",
         "@typescript-eslint/eslint-plugin": "^4.22.0",
         "@typescript-eslint/parser": "^4.22.0",
-        "babel-loader": "^8.2.2",
+        "babel-loader": "8.1.0",
         "eslint": "^7.24.0",
         "eslint-config-airbnb-typescript": "^12.3.1",
         "eslint-config-prettier": "^8.2.0",
@@ -80,11 +80,11 @@
         "eslint-plugin-react-hooks": "^4.2.0",
         "husky": "^6.0.0",
         "import-sort-style-module": "^6.0.0",
-        "jest": "^26.6.3",
+        "jest": "26.6.0",
         "prettier": "2.2.1",
         "prettier-plugin-import-sort": "^0.0.6",
         "pretty-quick": "^3.1.0",
-        "webpack": "^5.32.0"
+        "webpack": "4.44.2"
     },
     "husky": {
         "hooks": {
