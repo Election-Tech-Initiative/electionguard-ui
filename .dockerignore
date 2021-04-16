@@ -1,0 +1,8 @@
+.dockerignore
+.github
+.vscode
+docs
+Dockerfile
+build
+node_modules
+storybook-static
