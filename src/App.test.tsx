@@ -3,8 +3,9 @@ import React from 'react';
 
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders logo', () => {
     render(<App />);
-    const linkElement = screen.getByText(/learn react/i);
-    expect(linkElement).toBeInTheDocument();
+    const logos = screen.getAllByText(/electionguard-logo.svg/i);
+    const firstLogo = logos[0];
+    expect(firstLogo).toBeInTheDocument();
 });
