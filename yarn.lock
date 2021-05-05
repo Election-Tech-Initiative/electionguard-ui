@@ -3098,6 +3098,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-intl@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-intl/-/react-intl-3.0.0.tgz#a2cce0024b6cfe403be28ccf67f49d720fa810ec"
+  integrity sha512-k8F3d05XQGEqSWIfK97bBjZe4z9RruXU9Wa7OZ2iUC5pdeIpzuQDZe/9C2J3Xir5//ZtAkhcv08Wfx3n5TBTQg==
+  dependencies:
+    react-intl "*"
+
 "@types/react-syntax-highlighter@11.0.5":
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-11.0.5.tgz#0d546261b4021e1f9d85b50401c0a42acb106087"
@@ -12446,7 +12453,7 @@ react-inspector@^5.1.0:
     is-dom "^1.0.0"
     prop-types "^15.0.0"
 
-react-intl@^5.17.4:
+react-intl@*, react-intl@^5.17.4:
   version "5.17.4"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-5.17.4.tgz#9f715ad0831bf4b9ea058bbe39e63fd38202c5d5"
   integrity sha512-Y4JaY8zxJc2CpNai0MY/UvuDJL3YlzRVRrhgOnitKngNBIen+rCmqefZ3fF+mwpwejcP4Kycv3ql/x3tVlUgNw==
