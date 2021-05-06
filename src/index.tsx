@@ -14,14 +14,16 @@ ReactDOM.render(
     <React.StrictMode>
         <ConfigContext.Provider value={defaultConfig}>
             <LanguageContext.Provider value={defaultLanguage}>
-                {(language: Language) => (
-                    <IntlProvider locale={language.locale} messages={language.messages}>
-                        <MuiThemeProvider theme={theme(language.mui)}>
-                            <CssBaseline />
-                            <App />
-                        </MuiThemeProvider>
-                    </IntlProvider>
-                )}
+                <LanguageContext.Consumer>
+                    {(language: Language) => (
+                        <IntlProvider locale={language.locale} messages={language.messages}>
+                            <MuiThemeProvider theme={theme(language.mui)}>
+                                <CssBaseline />
+                                <App />
+                            </MuiThemeProvider>
+                        </IntlProvider>
+                    )}
+                </LanguageContext.Consumer>
             </LanguageContext.Provider>
         </ConfigContext.Provider>
     </React.StrictMode>,
