@@ -9,7 +9,7 @@ module.exports = {
         'plugin:jest/recommended',
         'prettier',
     ],
-    plugins: ['react-hooks'],
+    plugins: ['react-hooks', 'formatjs'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -31,6 +31,8 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'warn',
         'react/jsx-one-expression-per-line': 0,
         'import/no-extraneous-dependencies': 'off',
+        'formatjs/no-offset': 'error',
+        'formatjs/enforce-id': 'error',
     },
     settings: {
         react: {
