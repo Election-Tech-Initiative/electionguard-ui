@@ -1,17 +1,29 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { IntlProvider } from 'react-intl';
 
 import App from './App';
+import { ConfigContext, defaultConfig } from './contexts/config';
+import { LanguageContext, defaultLanguage } from './contexts/language';
+import Language from './models/language';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 
 ReactDOM.render(
     <React.StrictMode>
-        <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-        </MuiThemeProvider>
+        <ConfigContext.Provider value={defaultConfig}>
+            <LanguageContext.Provider value={defaultLanguage}>
+                {(language: Language) => (
+                    <IntlProvider locale={language.locale} messages={language.messages}>
+                        <MuiThemeProvider theme={theme(language.mui)}>
+                            <CssBaseline />
+                            <App />
+                        </MuiThemeProvider>
+                    </IntlProvider>
+                )}
+            </LanguageContext.Provider>
+        </ConfigContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
