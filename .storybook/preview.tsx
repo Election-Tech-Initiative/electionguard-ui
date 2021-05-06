@@ -1,4 +1,6 @@
-import contextDecorator from './decorators/contextDecorator';
+import configDecorator from './decorators/configDecorator';
+import languageDecorator, { languageGlobals } from './decorators/languageDecorator';
+import themeDecorator from './decorators/themeDecorator';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -6,4 +8,8 @@ export const parameters = {
     layout: 'centered',
 };
 
-export const decorators = [contextDecorator];
+export const globalTypes = {
+    ...languageGlobals,
+};
+
+export const decorators = [themeDecorator, languageDecorator, configDecorator];
