@@ -1,6 +1,8 @@
 import { Box, Container, Grid, Typography, lighten, makeStyles } from '@material-ui/core';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
+import { IntlText } from '../../models/internationalText';
 import Permission from '../../models/permission';
 import MenuOption from '../MenuOption';
 import getMenuOptions from './getMenuOptions';
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuOptionsProps {
-    prompt: string;
+    prompt: IntlText;
     permissions: Permission[];
 }
 
@@ -39,13 +41,17 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ prompt, permissions }) => {
     return (
         <Box className={classes.root}>
             <Typography variant="h5" component="p" className={classes.prompt}>
-                {prompt}
+                <FormattedMessage
+                    id={prompt.id}
+                    description="Prompt for a user on menu"
+                    defaultMessage={prompt.defaultText}
+                />
             </Typography>
             <Container maxWidth="xs">
                 <Grid container className={classes.options}>
                     {options.map((option) => (
                         <MenuOption
-                            key={`menu-option-${option.title}`}
+                            key={`menu-option-${option.title.id}`}
                             title={option.title}
                             Icon={option.Icon}
                         />
