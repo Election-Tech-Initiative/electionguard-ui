@@ -1,9 +1,7 @@
 import {
     AccountCircleOutlined,
     BallotOutlined,
-    HowToVoteOutlined,
     LibraryAddCheckOutlined,
-    LibraryAddOutlined,
     VpnKeyOutlined,
 } from '@material-ui/icons';
 
