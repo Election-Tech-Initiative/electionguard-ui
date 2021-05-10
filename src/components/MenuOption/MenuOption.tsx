@@ -7,6 +7,9 @@ import {
     makeStyles,
 } from '@material-ui/core';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import { InternationalText } from '../../models/internationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuOptionProps {
-    title: string;
+    title: InternationalText;
     Icon: React.ComponentType<SvgIconProps>;
 }
 
@@ -52,7 +55,11 @@ const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon }) => {
                 <CardContent className={classes.content}>
                     <Icon color="primary" fontSize="large" />
                     <Typography className={classes.title} color="textSecondary">
-                        {title}
+                        <FormattedMessage
+                            id={title.id}
+                            description={`Menu option of ${title.defaultText}`}
+                            defaultMessage={title.defaultText}
+                        />
                     </Typography>
                 </CardContent>
             </ButtonBase>

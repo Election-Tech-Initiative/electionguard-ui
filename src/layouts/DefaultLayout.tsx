@@ -1,9 +1,9 @@
 import { Box, CircularProgress, makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import AppBar from '../components/AppBar';
 import Footer from '../components/Footer';
-import Config from '../models/config';
+import { ConfigContext } from '../contexts/config';
 
 const useStyles = makeStyles((theme) => ({
     loader: {
@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
 
 export interface DefaultLayoutProps {
     isLoading?: boolean;
-    config: Config;
 }
 
-const DefaultLayout: React.FC<DefaultLayoutProps> = ({ config, children, isLoading = false }) => {
+const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoading = false }) => {
+    const config = useContext(ConfigContext);
     const classes = useStyles();
     return (
         <Box height="100vh" display="flex" flexDirection="column">

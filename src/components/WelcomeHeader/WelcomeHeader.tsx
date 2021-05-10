@@ -1,5 +1,6 @@
 import { Grid, Typography, makeStyles } from '@material-ui/core';
 import React, { SVGProps } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,8 +33,6 @@ export interface WelcomeHeaderProps {
     Logo: React.ComponentType<SVGProps<SVGSVGElement>>;
 }
 
-const welcomeText = 'Welcome to';
-
 /**
  * A menu option card for the menu screens
  */
@@ -43,7 +42,11 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
         <Grid container className={classes.root}>
             <Grid item>
                 <Typography variant="h3" component="span" className={classes.welcomeText}>
-                    {welcomeText}
+                    <FormattedMessage
+                        id="app.greeting"
+                        description="Greeting to welcome the user to the app"
+                        defaultMessage="Welcome to"
+                    />
                 </Typography>
             </Grid>
             <Grid item>
