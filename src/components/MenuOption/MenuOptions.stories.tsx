@@ -2,8 +2,9 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
 import { InternationalText } from '../../models/internationalText';
-import Permission from '../../models/permission';
 import MenuOptions, { MenuOptionsProps } from './MenuOptions';
+import { MenuOptionType } from './MenuOptionType';
+import TypedMenuOption from './TypedMenuOption';
 
 export default {
     title: 'Components/MenuOptions',
@@ -11,25 +12,33 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story<MenuOptionsProps> = (args) => <MenuOptions {...args} />;
+const Template: Story<MenuOptionsProps> = (args) => (
+    <MenuOptions {...args}>
+        <TypedMenuOption type={MenuOptionType.ManageUsers} />
+        <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
+        <TypedMenuOption type={MenuOptionType.BeginTallyCeremony} />
+        <TypedMenuOption type={MenuOptionType.SetupElection} />
+    </MenuOptions>
+);
+
+const UnevenTemplate: Story<MenuOptionsProps> = (args) => (
+    <MenuOptions {...args}>
+        <TypedMenuOption type={MenuOptionType.ManageUsers} />
+        <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
+        <TypedMenuOption type={MenuOptionType.BeginTallyCeremony} />
+    </MenuOptions>
+);
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
     prompt: new InternationalText('overload', 'What would you like to do?'),
-    permissions: [
-        Permission.ManageUsers,
-        Permission.BeginKeyCeremony,
-        Permission.SetupElection,
-        Permission.BeginTallyCeremony,
-    ],
 };
 
-export const Uneven = Template.bind({});
+export const Uneven = UnevenTemplate.bind({});
 Uneven.storyName = 'Uneven Number of Options';
 Uneven.args = {
     prompt: new InternationalText('overload', 'What would you like to do?'),
-    permissions: [Permission.ManageUsers, Permission.SetupElection, Permission.BeginTallyCeremony],
 };
 
 export const LongPrompt = Template.bind({});
@@ -39,5 +48,4 @@ LongPrompt.args = {
         'overload',
         'What would you really really really really really really like to do?'
     ),
-    permissions: [Permission.ManageUsers, Permission.SetupElection, Permission.BeginTallyCeremony],
 };
