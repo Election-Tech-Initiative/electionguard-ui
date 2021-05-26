@@ -1,6 +1,8 @@
-import { Grid, Typography, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import React, { SVGProps } from 'react';
-import { FormattedMessage } from 'react-intl';
+
+import { MessageId } from '../../lang';
+import InternationalText from '../InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,13 +43,14 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
     return (
         <Grid container className={classes.root}>
             <Grid item>
-                <Typography variant="h3" component="span" className={classes.welcomeText}>
-                    <FormattedMessage
-                        id="app.greeting"
-                        description="Greeting to welcome the user to the app"
-                        defaultMessage="Welcome to"
-                    />
-                </Typography>
+                <InternationalText
+                    variant="h3"
+                    component="span"
+                    className={classes.welcomeText}
+                    id={MessageId.AppGreeting}
+                    description="Greeting to welcome the user to the app"
+                    defaultMessage="Welcome to"
+                />
             </Grid>
             <Grid item>
                 <Logo className={classes.logo} />

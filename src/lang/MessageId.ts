@@ -9,6 +9,8 @@ enum MessageId {
     MenuOptionBeginKeyCeremony = 'menu.option.begin_key_ceremony',
     MenuOptionSetupElection = 'menu.option.setup_election',
     MenuOptionBeginTallyCeremony = 'menu.option.begin_tally_ceremony',
+    MenuOptionUploadManifest = 'menu.option.upload_manifest',
+    MenuOptionBuildManifest = 'menu.option.build_manifest',
 }
 
 export default MessageId;

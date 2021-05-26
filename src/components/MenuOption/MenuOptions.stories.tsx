@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { InternationalText } from '../../models/internationalText';
+import { Message, MessageId } from '../../lang';
 import MenuOptions, { MenuOptionsProps } from './MenuOptions';
 import { MenuOptionType } from './MenuOptionType';
 import TypedMenuOption from './TypedMenuOption';
@@ -32,20 +32,20 @@ const UnevenTemplate: Story<MenuOptionsProps> = (args) => (
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    prompt: new InternationalText('overload', 'What would you like to do?'),
+    prompt: new Message(MessageId.Overload, 'What would you like to do?'),
 };
 
 export const Uneven = UnevenTemplate.bind({});
 Uneven.storyName = 'Uneven Number of Options';
 Uneven.args = {
-    prompt: new InternationalText('overload', 'What would you like to do?'),
+    prompt: new Message(MessageId.Overload, 'What would you like to do?'),
 };
 
 export const LongPrompt = Template.bind({});
 LongPrompt.storyName = 'Long Prompt Message';
 LongPrompt.args = {
-    prompt: new InternationalText(
-        'overload',
+    prompt: new Message(
+        MessageId.Overload,
         'What would you really really really really really really like to do?'
     ),
 };
