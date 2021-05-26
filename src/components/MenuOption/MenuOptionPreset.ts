@@ -9,7 +9,7 @@ import {
     VpnKeyOutlined,
 } from '@material-ui/icons';
 
-import { Message, MessageId } from '../../lang';
+import { Message, MessageId, OverloadMessageId } from '../../lang';
 import { MenuOptionType } from './MenuOptionType';
 
 export default interface MenuOptionPreset {
@@ -51,7 +51,7 @@ export const getPreset = (type: MenuOptionType): MenuOptionPreset => {
             };
         default:
             return {
-                title: new Message(MessageId.Overload, 'Unknown'),
+                title: new Message(OverloadMessageId, 'Unknown'),
                 Icon: QuestionAnswer,
             };
     }
