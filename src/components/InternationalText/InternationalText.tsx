@@ -21,7 +21,7 @@ const InternationalText: React.FC<InternationalTextProps> = (props) => {
     return (
         <Typography {...typographyProps} component={component || 'span'}>
             <FormattedMessage
-                id={id || MessageId.AppPlaceholder}
+                id={id || MessageId.Placeholder}
                 description={description}
                 defaultMessage={defaultMessage || 'placeholder'}
             />

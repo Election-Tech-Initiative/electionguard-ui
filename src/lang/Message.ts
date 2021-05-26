@@ -12,7 +12,7 @@ export class Message implements MessageDescriptor {
     description?: string;
 
     constructor(
-        id = MessageId.AppPlaceholder,
+        id = MessageId.Placeholder,
         defaultMessage = PLACEHOLDER_TEXT,
         description?: string
     ) {
