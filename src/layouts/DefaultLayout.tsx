@@ -20,7 +20,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoading = fal
     const classes = useStyles();
     return (
         <Box height="100vh" display="flex" flexDirection="column">
-            <AppBar title={config.appName} Logo={config.logo} />
+            <AppBar title={config.appName} Logo={config.logo} loggedIn />
             <Box display="flex" flexDirection="column" flexGrow={1}>
                 {isLoading ? (
                     <Box
