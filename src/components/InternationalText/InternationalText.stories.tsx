@@ -2,7 +2,7 @@ import { Box } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { MessageId } from '../../lang';
+import { OverloadMessageId } from '../../lang';
 import InternationalText, { InternationalTextProps } from './InternationalText';
 
 export default {
@@ -25,7 +25,7 @@ const Template: Story<InternationalTextProps> = (args) => (
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    id: MessageId.Overload,
+    id: OverloadMessageId,
     defaultMessage: 'International Text',
 };
 

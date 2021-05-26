@@ -3,10 +3,10 @@ import { Typography, TypographyProps } from '@material-ui/core';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { MessageId } from '../../lang';
+import { MessageId, OverloadableMessageId } from '../../lang';
 
 export interface InternationalTextProps extends TypographyProps {
-    id?: MessageId;
+    id?: OverloadableMessageId;
     description?: string;
     defaultMessage?: string;
     component?: React.ElementType;

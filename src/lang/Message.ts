@@ -1,19 +1,19 @@
 import { MessageDescriptor } from '@formatjs/intl';
 
-import MessageId from './MessageId';
+import MessageId, { OverloadableMessageId } from './MessageId';
 
-const PLACEHOLDER_TEXT = 'placeholder';
+const placeholder = 'placeholder';
 
 export class Message implements MessageDescriptor {
-    id: MessageId;
+    id: OverloadableMessageId;
 
     defaultMessage: string;
 
     description?: string;
 
     constructor(
-        id = MessageId.Placeholder,
-        defaultMessage = PLACEHOLDER_TEXT,
+        id: OverloadableMessageId = MessageId.Placeholder,
+        defaultMessage = placeholder,
         description?: string
     ) {
         this.id = id;

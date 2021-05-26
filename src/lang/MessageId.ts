@@ -1,12 +1,14 @@
-enum MessageId {
-    // Not Required, Only for Testing
-    Overload = 'overload',
+export const OverloadMessageId = 'overload';
 
+enum MessageId {
     // App
     AppName = 'app.name',
     Placeholder = 'app.placeholder',
     AppGreeting = 'app.greeting',
     AppAbout = 'app.about',
+
+    // Auth
+    AuthLogout = 'auth.logout',
 
     // Menu
     MenuPrompt = 'menu.prompt',
@@ -18,8 +20,11 @@ enum MessageId {
     MenuOptionBuildManifest = 'menu.option.build_manifest',
 
     // Login Form
-    LoginFormUsernamePlaceholder = 'login_form.username_placeholder',
+    LoginFormUsername = 'login_form.username',
+    LoginFormPassword = 'login_form.password',
     LoginFormSubmit = 'login_form.submit',
 }
+
+export type OverloadableMessageId = MessageId | typeof OverloadMessageId;
 
 export default MessageId;
