@@ -1,8 +1,8 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useContext } from 'react';
 
-import { MenuOptionType, MenuOptions, TypedMenuOption } from '../components/MenuOption';
 import InternationalText from '../components/InternationalText';
+import { MenuOptionType, MenuOptions, TypedMenuOption } from '../components/MenuOption';
 import WelcomeHeader from '../components/WelcomeHeader';
 import { ConfigContext } from '../contexts/config';
 import { Message, MessageId, loremIpsum } from '../lang';
@@ -26,9 +26,7 @@ const MenuPage: React.FC = () => {
                 <WelcomeHeader Logo={config.logo} />
                 <InternationalText id={MessageId.AppAbout} defaultMessage={loremIpsum} />
             </Container>
-            <MenuOptions
-                prompt={new Message(MessageId.MenuPrompt, 'What do you want to do?')}
-            >
+            <MenuOptions prompt={new Message(MessageId.MenuPrompt, 'What do you want to do?')}>
                 <TypedMenuOption type={MenuOptionType.ManageUsers} />
                 <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
                 <TypedMenuOption type={MenuOptionType.SetupElection} />

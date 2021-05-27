@@ -4,7 +4,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 function Alert(props: AlertProps) {
@@ -79,8 +79,8 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
             <Container maxWidth="md" className={classes.content}>
                 <IconHeader
                     title={
-                        new InternationalText(
-                            'election_setup.upload_manifest.title',
+                        new Message(
+                            MessageId.ElectionSetupUploadManifestTitle,
                             'Upload Election Manifest'
                         )
                     }
@@ -94,7 +94,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
                         component="label"
                     >
                         <FormattedMessage
-                            id="election_setup.upload_manifest.upload"
+                            id={MessageId.ElectionSetupUploadManifestUpload}
                             defaultMessage="Select Files to Upload"
                         />
                         <input
@@ -117,7 +117,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
             <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert severity="error" onClose={handleClose}>
                     <FormattedMessage
-                        id="election_setup.upload_manifest.error"
+                        id={MessageId.ElectionSetupUploadManifestError}
                         defaultMessage="Manifest upload failed"
                     />
                 </Alert>

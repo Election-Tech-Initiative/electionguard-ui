@@ -1,9 +1,11 @@
-import { Button, Container, Grid, Typography, makeStyles } from '@material-ui/core';
+import { Button, Container, Grid, makeStyles } from '@material-ui/core';
 import { Home } from '@material-ui/icons';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import ElectionTable from '../components/ElectionTable';
+import InternationalText from '../components/InternationalText';
+import { MessageId, loremIpsum } from '../lang';
 import getElections from '../mocks/elections';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,18 +32,24 @@ const ElectionListPage: React.FC = () => {
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="lg" className={classes.content}>
-                <Typography className={classes.spaced} variant="h3" component="h1">
-                    <FormattedMessage id="election_list.title" defaultMessage="Election List" />
-                </Typography>
-                <Typography className={classes.spaced}>
-                    <FormattedMessage
-                        id="election_list.description"
-                        defaultMessage="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor."
-                    />
-                </Typography>
+                <InternationalText
+                    className={classes.spaced}
+                    variant="h3"
+                    component="h1"
+                    id={MessageId.ElectionListTitle}
+                    defaultMessage="Election List"
+                />
+                <InternationalText
+                    className={classes.spaced}
+                    id={MessageId.ElectionListDescription}
+                    defaultMessage={loremIpsum}
+                />
                 <Button className={classes.spaced} variant="contained" color="secondary">
                     <Home className={classes.buttonIcon} />
-                    <FormattedMessage id="election_list.go_home" defaultMessage="Return to Home" />
+                    <FormattedMessage
+                        id={MessageId.ElectionListGoHome}
+                        defaultMessage="Return to Home"
+                    />
                 </Button>
                 <ElectionTable data={getElections()} />
             </Container>

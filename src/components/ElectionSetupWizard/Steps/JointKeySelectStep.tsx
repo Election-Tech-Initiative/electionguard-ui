@@ -13,8 +13,7 @@ import { SaveAlt as SaveIcon } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { loremIpsum } from '../../../lang';
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 import JointKey from '../../../models/jointKey';
 import IconHeader from '../../IconHeader';
 
@@ -51,8 +50,8 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys })
             <Box display="flex" flexDirection="column">
                 <IconHeader
                     title={
-                        new InternationalText(
-                            'election_setup.joint_key_select.title',
+                        new Message(
+                            MessageId.ElectionSetupJointKeySelectTitle,
                             'Pull Guardian Keys'
                         )
                     }
@@ -60,7 +59,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys })
                 />
                 <Typography className={classes.spaced}>
                     <FormattedMessage
-                        id="election_setup.joint_key_select.description"
+                        id={MessageId.ElectionSetupJointKeySelectDescription}
                         defaultMessage={loremIpsum}
                     />
                 </Typography>
@@ -68,7 +67,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys })
                     <FormControl className={classes.control}>
                         <InputLabel id="joint-key-select-label">
                             <FormattedMessage
-                                id="election_setup.joint_key_select.prompt"
+                                id={MessageId.ElectionSetupJointKeySelectPrompt}
                                 defaultMessage="Select Key for Election"
                             />
                         </InputLabel>
@@ -93,7 +92,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys })
                         onClick={onNext}
                     >
                         <FormattedMessage
-                            id="election_setup.joint_key_select.next"
+                            id={MessageId.ElectionSetupJointKeySelectNext}
                             defaultMessage="Pull keys for selected election"
                         />
                     </Button>

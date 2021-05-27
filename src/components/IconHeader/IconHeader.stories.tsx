@@ -2,7 +2,7 @@ import { Ballot } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { InternationalText } from '../../models/internationalText';
+import { Message, OverloadMessageId } from '../../lang';
 import IconHeader, { IconHeaderProps } from './IconHeader';
 
 export default {
@@ -15,12 +15,12 @@ const Template: Story<IconHeaderProps> = (props) => <IconHeader {...props} />;
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    title: new InternationalText('overload', 'Example Heading'),
+    title: new Message(OverloadMessageId, 'Example Heading'),
     Icon: Ballot,
 };
 
 export const NoIcon = Template.bind({});
 NoIcon.storyName = 'No Icon';
 NoIcon.args = {
-    title: new InternationalText('overload', 'Example Heading'),
+    title: new Message(OverloadMessageId, 'Example Heading'),
 };

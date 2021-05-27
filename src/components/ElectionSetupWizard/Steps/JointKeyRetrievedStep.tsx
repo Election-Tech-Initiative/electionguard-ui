@@ -1,11 +1,11 @@
-import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, Container, makeStyles } from '@material-ui/core';
 import { VpnKey as KeyIcon } from '@material-ui/icons';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { loremIpsum } from '../../../lang';
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 import IconHeader from '../../IconHeader';
+import InternationalText from '../../InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,26 +44,27 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
             <Container maxWidth="md" className={classes.content}>
                 <IconHeader
                     title={
-                        new InternationalText(
-                            'election_setup.joint_key_retrieved.title',
+                        new Message(
+                            MessageId.ElectionSetupJointKeyRetrievedTitle,
                             'Joint Key Retrieved'
                         )
                     }
                     Icon={KeyIcon}
                 />
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <Typography className={classes.spaced} variant="h5" component="h2">
-                        <FormattedMessage
-                            id="election_setup.joint_key_retrieved.cta"
-                            defaultMessage="Create a new election with retrieved key"
-                        />
-                    </Typography>
-                    <Typography className={classes.spaced}>
-                        <FormattedMessage
-                            id="election_setup.joint_key_retrieved.description"
-                            defaultMessage={loremIpsum}
-                        />
-                    </Typography>
+                    <InternationalText
+                        className={classes.spaced}
+                        variant="h5"
+                        component="h2"
+                        id={MessageId.ElectionSetupJointKeyRetrievedCTA}
+                        defaultMessage="Create a new election with retrieved key"
+                    />
+                    <InternationalText
+                        className={classes.spaced}
+                        id={MessageId.ElectionSetupJointKeyRetrievedDescription}
+                        defaultMessage={loremIpsum}
+                    />
+
                     <Button
                         className={classes.spaced}
                         variant="contained"
@@ -71,7 +72,7 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         onClick={onNext}
                     >
                         <FormattedMessage
-                            id="election_setup.joint_key_retrieved.next"
+                            id={MessageId.ElectionSetupJointKeyRetreivedNext}
                             defaultMessage="Continue"
                         />
                     </Button>

@@ -1,10 +1,10 @@
-import { Button, Container, Typography, makeStyles } from '@material-ui/core';
+import { Button, Container, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { loremIpsum } from '../../../lang';
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 import IconHeader from '../../IconHeader';
+import InternationalText from '../../InternationalText';
 import OrderedList from '../../OrderedList';
 
 export interface SetupInstructionsStepProps {
@@ -38,18 +38,17 @@ const SetupInstructionsStep: React.FC<SetupInstructionsStepProps> = ({ onNext })
         <Container maxWidth="md">
             <IconHeader
                 title={
-                    new InternationalText(
-                        'election_setup.introduction.title',
+                    new Message(
+                        MessageId.ElectionSetupIntroductionTitle,
                         'Welcome to the Election Setup'
                     )
                 }
             />
-            <Typography className={classes.spaced}>
-                <FormattedMessage
-                    id="election_setup.introduction.description"
-                    defaultMessage={loremIpsum}
-                />
-            </Typography>
+            <InternationalText
+                className={classes.spaced}
+                id={MessageId.ElectionSetupIntroductionDescription}
+                defaultMessage={loremIpsum}
+            />
             <Button
                 className={classes.spaced}
                 variant="contained"
@@ -57,50 +56,40 @@ const SetupInstructionsStep: React.FC<SetupInstructionsStepProps> = ({ onNext })
                 onClick={onNext}
             >
                 <FormattedMessage
-                    id="election_setup.joint_key_select.next"
+                    id={MessageId.ElectionSetupIntroductionNext}
                     defaultMessage="Continue"
                 />
             </Button>
-            <Typography className={classes.spaced} color="primary" variant="h6" component="h2">
-                <FormattedMessage
-                    id="election_setup.introduction.steps_heading"
-                    defaultMessage="Here's what to expect"
-                />
-            </Typography>
-            <Typography className={classes.spaced}>
-                <FormattedMessage
-                    id="election_setup.introduction.steps_instruction"
+            <InternationalText
+                className={classes.spaced}
+                color="primary"
+                variant="h6"
+                component="h2"
+                id={MessageId.ElectionSetupIntroductionStepsHeading}
+                defaultMessage="Here's what to expect"
+            />
+            <InternationalText
+                className={classes.spaced}
+                id={MessageId.ElectionSetupIntroductionStepsInstructions}
+                defaultMessage={loremIpsum}
+            />
+            <OrderedList>
+                <InternationalText
+                    id={MessageId.ElectionSetupIntroductionStep1}
                     defaultMessage={loremIpsum}
                 />
-            </Typography>
-            <OrderedList>
-                <Typography>
-                    <FormattedMessage
-                        id="election_setup.introduction.step1"
-                        defaultMessage={loremIpsum}
-                    />
-                </Typography>
-
-                <Typography>
-                    <FormattedMessage
-                        id="election_setup.introduction.step2"
-                        defaultMessage={loremIpsum}
-                    />
-                </Typography>
-
-                <Typography>
-                    <FormattedMessage
-                        id="election_setup.introduction.step3"
-                        defaultMessage={loremIpsum}
-                    />
-                </Typography>
-
-                <Typography>
-                    <FormattedMessage
-                        id="election_setup.introduction.step4"
-                        defaultMessage={loremIpsum}
-                    />
-                </Typography>
+                <InternationalText
+                    id={MessageId.ElectionSetupIntroductionStep2}
+                    defaultMessage={loremIpsum}
+                />
+                <InternationalText
+                    id={MessageId.ElectionSetupIntroductionStep3}
+                    defaultMessage={loremIpsum}
+                />
+                <InternationalText
+                    id={MessageId.ElectionSetupIntroductionStep4}
+                    defaultMessage={loremIpsum}
+                />
             </OrderedList>
         </Container>
     );
