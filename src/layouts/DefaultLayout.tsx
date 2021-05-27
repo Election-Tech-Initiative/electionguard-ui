@@ -6,6 +6,9 @@ import Footer from '../components/Footer';
 import { ConfigContext } from '../contexts/config';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: '100vh',
+    },
     loader: {
         padding: theme.spacing(5),
     },
@@ -19,7 +22,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoading = fal
     const config = useContext(ConfigContext);
     const classes = useStyles();
     return (
-        <Box height="100vh" display="flex" flexDirection="column">
+        <Box className={classes.root} height="100vh" display="flex" flexDirection="column">
             <AppBar title={config.appName} Logo={config.logo} loggedIn />
             <Box display="flex" flexDirection="column" flexGrow={1}>
                 {isLoading ? (

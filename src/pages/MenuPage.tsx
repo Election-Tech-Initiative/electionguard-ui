@@ -2,11 +2,10 @@ import { Container, Grid, Typography, makeStyles } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import MenuOptions from '../components/MenuOptions';
+import { MenuOptionType, MenuOptions, TypedMenuOption } from '../components/MenuOption';
 import WelcomeHeader from '../components/WelcomeHeader';
 import { ConfigContext } from '../contexts/config';
 import { InternationalText } from '../models/internationalText';
-import Permission from '../models/permission';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,13 +16,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
     },
 }));
-
-const permissions = [
-    Permission.ManageUsers,
-    Permission.BeginKeyCeremony,
-    Permission.SetupElection,
-    Permission.BeginTallyCeremony,
-];
 
 const MenuPage: React.FC = () => {
     const config = useContext(ConfigContext);
@@ -40,10 +32,12 @@ const MenuPage: React.FC = () => {
                     />
                 </Typography>
             </Container>
-            <MenuOptions
-                prompt={new InternationalText('menu.prompt', 'What do you want to do?')}
-                permissions={permissions}
-            />
+            <MenuOptions prompt={new InternationalText('menu.prompt', 'What do you want to do?')}>
+                <TypedMenuOption type={MenuOptionType.ManageUsers} />
+                <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
+                <TypedMenuOption type={MenuOptionType.SetupElection} />
+                <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
+            </MenuOptions>
         </Grid>
     );
 };

@@ -8,6 +8,9 @@ enum Permission {
     ManageElectionList = 'election_list:edit',
     ViewElectionList = 'election_list:read',
 
+    UploadManifest = 'election_manifest:upload',
+    BuildManifest = 'election_manifest:build',
+
     BeginTallyCeremony = 'tally_ceremony:edit',
     JoinTallyCeremony = 'tally_ceremony:join',
     ViewTallyCeremony = 'tally_ceremony:view',

@@ -42,16 +42,18 @@ const useStyles = makeStyles((theme) => ({
 export interface MenuOptionProps {
     title: InternationalText;
     Icon: React.ComponentType<SvgIconProps>;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 /**
  * A menu option card for the menu screens
  */
-const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon }) => {
+const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon, disabled, onClick }) => {
     const classes = useStyles();
     return (
         <Card elevation={10} className={classes.root}>
-            <ButtonBase className={classes.clickable} onClick={() => {}}>
+            <ButtonBase className={classes.clickable} disabled={disabled} onClick={onClick}>
                 <CardContent className={classes.content}>
                     <Icon color="primary" fontSize="large" />
                     <Typography className={classes.title} color="textSecondary">
