@@ -1,15 +1,8 @@
-import {
-    ButtonBase,
-    Card,
-    CardContent,
-    SvgIconProps,
-    Typography,
-    makeStyles,
-} from '@material-ui/core';
+import { ButtonBase, Card, CardContent, SvgIconProps, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { InternationalText } from '../../models/internationalText';
+import { Message } from '../../lang';
+import InternationalText from '../InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuOptionProps {
-    title: InternationalText;
+    title: Message;
     Icon: React.ComponentType<SvgIconProps>;
     onClick?: () => void;
     disabled?: boolean;
@@ -56,13 +49,12 @@ const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon, disabled, onClick 
             <ButtonBase className={classes.clickable} disabled={disabled} onClick={onClick}>
                 <CardContent className={classes.content}>
                     <Icon color="primary" fontSize="large" />
-                    <Typography className={classes.title} color="textSecondary">
-                        <FormattedMessage
-                            id={title.id}
-                            description={`Menu option of ${title.defaultText}`}
-                            defaultMessage={title.defaultText}
-                        />
-                    </Typography>
+                    <InternationalText
+                        className={classes.title}
+                        color="textSecondary"
+                        id={title.id}
+                        defaultMessage={title.defaultMessage}
+                    />
                 </CardContent>
             </ButtonBase>
         </Card>

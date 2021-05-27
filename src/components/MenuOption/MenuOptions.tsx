@@ -1,8 +1,8 @@
-import { Box, Container, Grid, Typography, lighten, makeStyles } from '@material-ui/core';
+import { Box, Container, Grid, lighten, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { IntlText } from '../../models/internationalText';
+import { Message } from '../../lang';
+import InternationalText from '../InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuOptionsProps {
-    prompt: IntlText;
+    prompt: Message;
 }
 
 /**
@@ -35,13 +35,14 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ prompt, children }) => {
     const classes = useStyles();
     return (
         <Box className={classes.root}>
-            <Typography variant="h5" component="p" className={classes.prompt}>
-                <FormattedMessage
-                    id={prompt.id}
-                    description="Prompt for a user on menu"
-                    defaultMessage={prompt.defaultText}
-                />
-            </Typography>
+            <InternationalText
+                variant="h5"
+                component="p"
+                className={classes.prompt}
+                id={prompt.id}
+                description="Prompt for a user on menu"
+                defaultMessage={prompt.defaultMessage}
+            />
             <Container maxWidth="xs">
                 <Grid container className={classes.options}>
                     {children}

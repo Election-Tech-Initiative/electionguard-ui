@@ -9,11 +9,11 @@ import {
     VpnKeyOutlined,
 } from '@material-ui/icons';
 
-import { InternationalText, IntlText } from '../../models/internationalText';
+import { Message, MessageId, OverloadMessageId } from '../../lang';
 import { MenuOptionType } from './MenuOptionType';
 
 export default interface MenuOptionPreset {
-    title: IntlText;
+    title: Message;
     Icon: React.ComponentType<SvgIconProps>;
 }
 
@@ -21,43 +21,37 @@ export const getPreset = (type: MenuOptionType): MenuOptionPreset => {
     switch (type) {
         case MenuOptionType.ManageUsers:
             return {
-                title: new InternationalText('menu.option.manage_users', 'Manage Users'),
+                title: new Message(MessageId.MenuOptionManageUsers, 'Manage Users'),
                 Icon: AccountCircleOutlined,
             };
         case MenuOptionType.BeginKeyCeremony:
             return {
-                title: new InternationalText(
-                    'menu.option.begin_key_ceremony',
-                    'Begin Key Ceremony'
-                ),
+                title: new Message(MessageId.MenuOptionBeginKeyCeremony, 'Begin Key Ceremony'),
                 Icon: VpnKeyOutlined,
             };
         case MenuOptionType.SetupElection:
             return {
-                title: new InternationalText('menu.option.setup_election', 'Setup Election'),
+                title: new Message(MessageId.MenuOptionSetupElection, 'Setup Election'),
                 Icon: BallotOutlined,
             };
         case MenuOptionType.BeginTallyCeremony:
             return {
-                title: new InternationalText(
-                    'menu.option.begin_tally_ceremony',
-                    'Begin Tally Ceremony'
-                ),
+                title: new Message(MessageId.MenuOptionBeginTallyCeremony, 'Begin Tally Ceremony'),
                 Icon: LibraryAddCheckOutlined,
             };
         case MenuOptionType.UploadManifest:
             return {
-                title: new InternationalText('menu.option.upload_manifest', 'Upload Manifest'),
+                title: new Message(MessageId.MenuOptionUploadManifest, 'Upload Manifest'),
                 Icon: PublishOutlined,
             };
         case MenuOptionType.BuildManifest:
             return {
-                title: new InternationalText('menu.option.build_manifest', 'Build Manifest'),
+                title: new Message(MessageId.MenuOptionBuildManifest, 'Build Manifest'),
                 Icon: AddCircleOutlineOutlined,
             };
         default:
             return {
-                title: new InternationalText('overload', 'Unknown'),
+                title: new Message(OverloadMessageId, 'Unknown'),
                 Icon: QuestionAnswer,
             };
     }

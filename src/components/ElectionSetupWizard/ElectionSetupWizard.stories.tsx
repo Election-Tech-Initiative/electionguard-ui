@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getJointKeys } from '../../mock/electionSetup';
+import { getJointKeys } from '../../mocks/electionSetup';
 import ElectionSetupWizard, { ElectionSetupWizardProps } from './ElectionSetupWizard';
 
 export default {

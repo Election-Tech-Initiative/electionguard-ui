@@ -1,10 +1,9 @@
-import { Container, Grid, Typography, makeStyles } from '@material-ui/core';
+import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { loremIpsum } from '../../../lang';
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 import IconHeader from '../../IconHeader';
+import InternationalText from '../../InternationalText';
 import { MenuOptionType, MenuOptions, TypedMenuOption } from '../../MenuOption';
 
 const useStyles = makeStyles(() => ({
@@ -29,23 +28,21 @@ const ManifestMenuStep: React.FC<ManifestMenuStepProps> = ({
             <Container maxWidth="md">
                 <IconHeader
                     title={
-                        new InternationalText(
-                            'election_setup.manifest_menu.title',
+                        new Message(
+                            MessageId.ElectionSetupManifestMenuTitle,
                             'Add Election Manifest'
                         )
                     }
                 />
-                <Typography>
-                    <FormattedMessage
-                        id="election_setup.manifest_menu.about"
-                        defaultMessage={loremIpsum}
-                    />
-                </Typography>
+                <InternationalText
+                    id={MessageId.ElectionSetupManifestMenuAbout}
+                    defaultMessage={loremIpsum}
+                />
             </Container>
             <MenuOptions
                 prompt={
-                    new InternationalText(
-                        'election_setup.manifest_menu.prompt',
+                    new Message(
+                        MessageId.ElectionSetupManifestMenuPrompt,
                         'Select what you would like to do:'
                     )
                 }

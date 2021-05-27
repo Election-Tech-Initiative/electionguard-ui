@@ -2,6 +2,8 @@ import { Box, Button, AppBar as MaterialAppBar, Toolbar, makeStyles } from '@mat
 import React, { SVGProps, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { MessageId } from '../../lang';
+
 export interface AppBarProps {
     title?: string;
     Logo?: React.ComponentType<SVGProps<SVGSVGElement>>;
@@ -47,7 +49,7 @@ const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn = 
                 {signedIn && (
                     <Button color="inherit" onClick={() => setSignIn(!signedIn)}>
                         <FormattedMessage
-                            id="auth.logout"
+                            id={MessageId.AuthLogout}
                             description="Sign out of application"
                             defaultMessage="Sign Out"
                         />

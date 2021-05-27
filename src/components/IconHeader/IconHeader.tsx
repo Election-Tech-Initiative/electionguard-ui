@@ -1,8 +1,8 @@
-import { Box, SvgIconProps, Typography, makeStyles } from '@material-ui/core';
+import { Box, SvgIconProps, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 
-import { IntlText } from '../../models/internationalText';
+import { Message } from '../../lang';
+import InternationalText from '../InternationalText';
 
 const iconSize = 64;
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IconHeaderProps {
-    title: IntlText;
+    title: Message;
     Icon?: React.ComponentType<SvgIconProps>;
 }
 
@@ -29,13 +29,13 @@ const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
     return (
         <Box className={classes.root} display="flex" flexDirection="column" alignItems="center">
             {Icon && <Icon color="primary" fontSize="inherit" />}
-            <Typography variant="h3" component="h1">
-                <FormattedMessage
-                    id={title.id}
-                    description="Heading of header for section"
-                    defaultMessage={title.defaultText}
-                />
-            </Typography>
+            <InternationalText
+                variant="h3"
+                component="h1"
+                id={title.id}
+                description="Heading of header for section"
+                defaultMessage={title.defaultMessage}
+            />
         </Box>
     );
 };

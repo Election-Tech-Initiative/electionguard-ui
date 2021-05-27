@@ -3,7 +3,7 @@ import { CheckCircleOutlineOutlined } from '@material-ui/icons';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,8 +40,8 @@ const SetupCompleteStep: React.FC<SetupCompleteStepProps> = ({ onComplete }) => 
             <Container maxWidth="md" className={classes.content}>
                 <IconHeader
                     title={
-                        new InternationalText(
-                            'election_setup.setup_complete.title',
+                        new Message(
+                            MessageId.ElectionSetupSetupCompleteTitle,
                             'Congratulations, the election is ready.'
                         )
                     }
@@ -54,7 +54,7 @@ const SetupCompleteStep: React.FC<SetupCompleteStepProps> = ({ onComplete }) => 
                     component="label"
                 >
                     <FormattedMessage
-                        id="election_setup.setup_complete.next"
+                        id={MessageId.ElectionSetupSetupCompleteNext}
                         defaultMessage="Return to Election List"
                     />
                 </Button>

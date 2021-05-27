@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { InternationalText } from '../../../models/internationalText';
+import { Message, MessageId } from '../../../lang';
 import ManifestPreview from '../../../models/manifestPreview';
 import IconHeader from '../../IconHeader';
 
@@ -50,8 +50,8 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                 <Box display="flex" flexDirection="column" alignItems="center">
                     <IconHeader
                         title={
-                            new InternationalText(
-                                'election_setup.manifest_preview.title',
+                            new Message(
+                                MessageId.ElectionSetupManifestPreviewTitle,
                                 'Election Manifest Uploaded'
                             )
                         }
@@ -60,7 +60,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.name"
+                                    id={MessageId.ElectionSetupManifestPreviewPropertyName}
                                     defaultMessage="Name"
                                 />
                             </TableCell>
@@ -69,7 +69,9 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.number_of_contests"
+                                    id={
+                                        MessageId.ElectionSetupManifestPreviewPropertyNumberOfContests
+                                    }
                                     defaultMessage="Number of Contests"
                                 />
                             </TableCell>
@@ -78,7 +80,9 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.numberOfStyles"
+                                    id={
+                                        MessageId.ElectionSetupManifestPreviewPropertyNumberOfStyles
+                                    }
                                     defaultMessage="Number of Ballot Styles"
                                 />
                             </TableCell>
@@ -87,7 +91,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.start_date"
+                                    id={MessageId.ElectionSetupManifestPreviewPropertyStartDate}
                                     defaultMessage="Start Date"
                                 />
                             </TableCell>
@@ -99,7 +103,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.end_date"
+                                    id={MessageId.ElectionSetupManifestPreviewPropertyEndDate}
                                     defaultMessage="End Date"
                                 />
                             </TableCell>
@@ -111,7 +115,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.file_hash"
+                                    id={MessageId.ElectionSetupManifestPreviewPropertyFileHash}
                                     defaultMessage="File Hash"
                                 />
                             </TableCell>
@@ -120,7 +124,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id="election_setup.manifest_preview.property.file_name"
+                                    id={MessageId.ElectionSetupManifestPreviewPropertyFileName}
                                     defaultMessage="File Name"
                                 />
                             </TableCell>
@@ -128,7 +132,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         </TableRow>
                         <caption>
                             <FormattedMessage
-                                id="election_setup.manifest_preview.caption"
+                                id={MessageId.ElectionSetupManifestPreviewCaption}
                                 defaultMessage="Preview of Manifest"
                             />
                         </caption>
@@ -143,13 +147,13 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         className={classes.button}
                     >
                         <FormattedMessage
-                            id="election_setup.manifest_preview.next"
+                            id={MessageId.ElectionSetupManifestPreviewNext}
                             defaultMessage="Submit"
                         />
                     </Button>
                     <Button color="primary" onClick={backToMenu} className={classes.button}>
                         <FormattedMessage
-                            id="election_setup.manifest_preview.back_to_menu"
+                            id={MessageId.ElectionSetupManifestPreviewBackToMenu}
                             defaultMessage="Cancel"
                         />
                     </Button>
