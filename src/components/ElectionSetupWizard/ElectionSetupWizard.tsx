@@ -8,11 +8,11 @@ import {
     JointKeyRetrievedStep,
     JointKeySelectStep,
     ManifestMenuStep,
+    ManifestPreviewStep,
+    ManifestUploadStep,
+    SetupCompleteStep,
     SetupInstructionsStep,
 } from './Steps';
-import ManifestPreviewStep from './Steps/ManifestPreviewStep';
-import ManifestUploadStep from './Steps/ManifestUploadStep';
-import SetupCompleteStep from './Steps/SetupCompleteStep';
 
 export enum ElectionSetupStep {
     Instructions = 0,
