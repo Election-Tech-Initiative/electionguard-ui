@@ -83,7 +83,7 @@ const KeySetupStep: React.FC<KeySetupStepProps> = ({ onSubmit, onCancel }) => {
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
         if (validate()) {
-            onSubmit({ name: name || defaultKeyName, numberOfGuardians, quorum, guardians: {} });
+            onSubmit({ name: name || defaultKeyName, numberOfGuardians, quorum, guardians: [] });
         }
     };
 

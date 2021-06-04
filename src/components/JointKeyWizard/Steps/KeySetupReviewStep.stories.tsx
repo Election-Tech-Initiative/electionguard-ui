@@ -20,6 +20,6 @@ Standard.args = {
         name: 'Magical Joint Key',
         numberOfGuardians: 5,
         quorum: 3,
-        guardians: {},
+        guardians: [],
     },
 };
