@@ -5,7 +5,7 @@ import { getUsersWithGuardianRole } from '../../mocks/users';
 import AssignmentTable, { AssignmentTableProps } from './AssignmentTable';
 
 export default {
-    title: 'Components/AssignmentTable',
+    title: 'Tables/AssignmentTable',
     component: AssignmentTable,
     parameters: { layout: 'fullscreen' },
 } as Meta;

@@ -4,7 +4,7 @@ import React from 'react';
 import JointKeyRetrievedStep, { JointKeyRetrievedStepProps } from './JointKeyRetrievedStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/JointKeyRetrievedStep',
+    title: 'Wizards/Election Setup/Steps/JointKeyRetrievedStep',
     component: JointKeyRetrievedStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

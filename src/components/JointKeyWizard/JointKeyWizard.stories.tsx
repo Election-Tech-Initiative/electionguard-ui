@@ -5,7 +5,7 @@ import { getUsersWithGuardianRole } from '../../mocks/users';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
 
 export default {
-    title: 'Components/Joint Key Setup/JointKeyWizard',
+    title: 'Wizards/Joint Key Setup/JointKeyWizard',
     component: JointKeyWizard,
     parameters: { layout: 'fullscreen' },
 } as Meta;

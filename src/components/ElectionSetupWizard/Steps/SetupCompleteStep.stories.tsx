@@ -4,7 +4,7 @@ import React from 'react';
 import SetupCompleteStep, { SetupCompleteStepProps } from './SetupCompleteStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/SetupCompleteStep',
+    title: 'Wizards/Election Setup/Steps/SetupCompleteStep',
     component: SetupCompleteStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

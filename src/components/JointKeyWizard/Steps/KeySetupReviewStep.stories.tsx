@@ -4,7 +4,7 @@ import React from 'react';
 import KeySetupReviewStep, { KeySetupReviewStepProps } from './KeySetupReviewStep';
 
 export default {
-    title: 'Components/Joint Key Setup/Steps/KeySetupReviewStep',
+    title: 'Wizards/Joint Key Setup/Steps/KeySetupReviewStep',
     component: KeySetupReviewStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

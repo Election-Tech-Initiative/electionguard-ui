@@ -7,7 +7,7 @@ import GuardianAssignmentReviewStep, {
 } from './GuardianAssignmentReviewStep';
 
 export default {
-    title: 'Components/Joint Key Setup/Steps/GuardianAssignmentReviewStep',
+    title: 'Wizards/Joint Key Setup/Steps/GuardianAssignmentReviewStep',
     component: GuardianAssignmentReviewStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

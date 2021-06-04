@@ -5,7 +5,7 @@ import { getUsersWithGuardianRole } from '../../../mocks/users';
 import GuardianAssignmentStep, { GuardianAssignmentStepProps } from './GuardianAssignmentStep';
 
 export default {
-    title: 'Components/Joint Key Setup/Steps/GuardianAssignmentStep',
+    title: 'Wizards/Joint Key Setup/Steps/GuardianAssignmentStep',
     component: GuardianAssignmentStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

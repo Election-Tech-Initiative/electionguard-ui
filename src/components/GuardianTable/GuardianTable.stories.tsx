@@ -5,7 +5,7 @@ import { getAssignedGuardians } from '../../mocks/guardians';
 import GuardianTable, { GuardianTableProps } from './GuardianTable';
 
 export default {
-    title: 'Components/GuardianTable',
+    title: 'Tables/GuardianTable',
     component: GuardianTable,
     parameters: { layout: 'fullscreen' },
 } as Meta;

@@ -5,7 +5,7 @@ import { getJointKeys } from '../../mocks/electionSetup';
 import ElectionSetupWizard, { ElectionSetupWizardProps } from './ElectionSetupWizard';
 
 export default {
-    title: 'Components/Election Setup/ElectionSetupWizard',
+    title: 'Wizards/Election Setup/ElectionSetupWizard',
     component: ElectionSetupWizard,
     parameters: { layout: 'fullscreen' },
 } as Meta;

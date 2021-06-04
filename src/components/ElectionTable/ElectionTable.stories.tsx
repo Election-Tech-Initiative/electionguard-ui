@@ -5,7 +5,7 @@ import getElections from '../../mocks/elections';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {
-    title: 'Components/ElectionTable',
+    title: 'Tables/ElectionTable',
     component: ElectionTable,
     parameters: { layout: 'fullscreen' },
 } as Meta;

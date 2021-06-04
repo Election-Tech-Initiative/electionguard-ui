@@ -4,7 +4,7 @@ import React from 'react';
 import ManifestUploadStep, { ManifestUploadStepProps } from './ManifestUploadStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/ManifestUploadStep',
+    title: 'Wizards/Election Setup/Steps/ManifestUploadStep',
     component: ManifestUploadStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

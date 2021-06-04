@@ -4,7 +4,7 @@ import React from 'react';
 import SetupInstructionsStep, { SetupInstructionsStepProps } from './SetupInstructionsStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/SetupInstructionsStep',
+    title: 'Wizards/Election Setup/Steps/SetupInstructionsStep',
     component: SetupInstructionsStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

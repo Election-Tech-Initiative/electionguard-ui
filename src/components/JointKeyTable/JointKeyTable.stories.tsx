@@ -5,7 +5,7 @@ import { getJointKeys } from '../../mocks/electionSetup';
 import JointKeyTable, { JointKeyTableProps } from './JointKeyTable';
 
 export default {
-    title: 'Components/JointKeyTable',
+    title: 'Tables/JointKeyTable',
     component: JointKeyTable,
     parameters: { layout: 'fullscreen' },
 } as Meta;
