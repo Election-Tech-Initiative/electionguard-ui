@@ -28,6 +28,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
+            docker-compose build --no-cache app
             docker build . -f Dockerfile.dev -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:${{ github.sha }} -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest
             docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui --all-tags
         
