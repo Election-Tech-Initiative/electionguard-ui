@@ -4,7 +4,7 @@ import React from 'react';
 import ManifestMenuStep, { ManifestMenuStepProps } from './ManifestMenuStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/ManifestMenuStep',
+    title: 'Wizards/Election Setup/Steps/ManifestMenuStep',
     component: ManifestMenuStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

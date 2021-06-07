@@ -1,5 +1,6 @@
 import JointKey from '../models/jointKey';
 import ManifestPreview from '../models/manifestPreview';
+import { getAssignedGuardians } from './guardians';
 
 export const getManifestPreview = (): ManifestPreview => {
     const endDate = new Date();
@@ -19,9 +20,15 @@ export const getJointKeys = (): JointKey[] => [
     {
         id: 'joint-key-1',
         name: 'Joint Key 1',
+        numberOfGuardians: 3,
+        quorum: 2,
+        guardians: getAssignedGuardians(),
     },
     {
         id: 'joint-key-2',
         name: 'Joint Key 2',
+        numberOfGuardians: 3,
+        quorum: 2,
+        guardians: getAssignedGuardians(),
     },
 ];

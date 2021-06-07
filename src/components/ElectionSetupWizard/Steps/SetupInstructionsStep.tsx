@@ -46,6 +46,7 @@ const SetupInstructionsStep: React.FC<SetupInstructionsStepProps> = ({ onNext })
             />
             <InternationalText
                 className={classes.spaced}
+                component="p"
                 id={MessageId.ElectionSetupIntroductionDescription}
                 defaultMessage={loremIpsum}
             />

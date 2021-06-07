@@ -10,8 +10,11 @@ export type { JointKeyRetrievedStepProps } from './JointKeyRetrievedStep';
 export { default as ManifestMenuStep } from './ManifestMenuStep';
 export type { ManifestMenuStepProps } from './ManifestMenuStep';
 
-// export { default as ManifestUploadStep } from './ManifestUploadStep';
-// export type { ManifestUploadStepProps } from './ManifestUploadStep';
+export { default as ManifestUploadStep } from './ManifestUploadStep';
+export type { ManifestUploadStepProps } from './ManifestUploadStep';
 
-// export { default as ManifestPreviewStep } from './ManifestPreviewStep';
-// export type { ManifestPreviewStepProps } from './ManifestPreviewStep';
+export { default as ManifestPreviewStep } from './ManifestPreviewStep';
+export type { ManifestPreviewStepProps } from './ManifestPreviewStep';
+
+export { default as SetupCompleteStep } from './SetupCompleteStep';
+export type { SetupCompleteStepProps } from './SetupCompleteStep';

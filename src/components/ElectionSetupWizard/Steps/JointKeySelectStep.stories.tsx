@@ -5,7 +5,7 @@ import { getJointKeys } from '../../../mocks/electionSetup';
 import JointKeySelectStep, { JointKeySelectStepProps } from './JointKeySelectStep';
 
 export default {
-    title: 'Components/Election Setup/Steps/JointKeySelectStep',
+    title: 'Wizards/Election Setup/Steps/JointKeySelectStep',
     component: JointKeySelectStep,
     parameters: { layout: 'fullscreen' },
 } as Meta;

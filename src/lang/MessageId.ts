@@ -72,6 +72,42 @@ enum MessageId {
     ElectionListTitle = 'election_list.title',
     ElectionListDescription = 'election_list.description',
     ElectionListGoHome = 'election_list.go_home',
+
+    // Joint Key Setup
+    JointKeySetup_KeySetup_Title = 'joint_key_setup.key_setup.title',
+    JointKeySetup_KeySetup_Description = 'joint_key_setup.key_setup.description',
+    JointKeySetup_KeySetup_KeyHeading = 'joint_key_setup.key_setup.key_heading',
+    JointKeySetup_KeySetup_NumberOfGuardiansHeading = 'joint_key_setup.key_setup.number_of_guardians_heading',
+    JointKeySetup_KeySetup_NumberOfGuardiansEmphasis = 'joint_key_setup.key_setup.number_of_guardians_emphasis',
+    JointKeySetup_KeySetup_NumberOfGuardiansDescription = 'joint_key_setup.key_setup.number_of_guardians_description',
+    JointKeySetup_KeySetup_QuorumHeading = 'joint_key_setup.key_setup.quorum_heading',
+    JointKeySetup_KeySetup_QuorumEmphasis = 'joint_key_setup.key_setup.quorum_emphasis',
+    JointKeySetup_KeySetup_QuorumDescription = 'joint_key_setup.key_setup.quorum_description',
+    JointKeySetup_KeySetupReview_Title = 'joint_key_setup.key_setup_review.title',
+    JointKeySetup_GuardianAssignment_Title = 'joint_key_setup.guardian_assignment.title',
+    JointKeySetup_GuardianAssignment_Description = 'joint_key_setup.guardian_assignment.description',
+    JointKeySetup_GuardianAssignment_AssignedLabel = 'joint_key_setup.guardian_assignment.assigned_label',
+    JointKeySetup_GuardianAssignment_NoGuardians = 'joint_key_setup.guardian_assignment.no_guardians',
+    JointKeySetup_GuardianAssignment_Assign = 'joint_key_setup.guardian_assignment.assign',
+    JointKeySetup_GuardianAssignmentReview_Title = 'joint_key_setup.guardian_assignment_review.title',
+    JointKeySetup_GuardianAssignmentReview_Description = 'joint_key_setup.guardian_assignment_review.description',
+    JointKeySetup_GuardianAssignmentReview_ConfirmationCallout = 'joint_key_setup.guardian_assignment_review.confirmation_callout',
+    JointKeySetup_GuardianAssignmentReview_Confirmation = 'joint_key_setup.guardian_assignment_review.confirmation',
+
+    // Models
+    JointKey_Name = 'joint_key.name',
+    JointKey_NumberOfGuardians = 'joint_key.number_of_guardians',
+    JointKey_Quorum = 'joint_key.quorum',
+
+    Guardian_Name = 'guardian.name',
+
+    // Actions
+    Actions_Cancel = 'actions.cancel',
+    Actions_Submit = 'actions.submit',
+    Actions_Confirm = 'actions.confirm',
+    Actions_Next = 'actions.next',
+    Actions_Previous = 'actions.previous',
+    Actions_Edit = 'actions.edit',
 }
 
 export type OverloadableMessageId = MessageId | typeof OverloadMessageId;

@@ -2,18 +2,18 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
 import { getJointKeys } from '../../mocks/electionSetup';
-import ElectionSetupWizard, { ElectionSetupWizardProps } from './ElectionSetupWizard';
+import JointKeyTable, { JointKeyTableProps } from './JointKeyTable';
 
 export default {
-    title: 'Wizards/Election Setup/ElectionSetupWizard',
-    component: ElectionSetupWizard,
+    title: 'Tables/JointKeyTable',
+    component: JointKeyTable,
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story<ElectionSetupWizardProps> = (props) => <ElectionSetupWizard {...props} />;
+const Template: Story<JointKeyTableProps> = (props) => <JointKeyTable {...props} />;
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    keys: getJointKeys(),
+    data: getJointKeys(),
 };

@@ -24,7 +24,7 @@
 
     "election_setup.joint_key_retrieved.title": "Joint Key Retrieved",
     "election_setup.joint_key_retrieved.cta": "Create a new election with retrieved key",
-    "election_setup.joint_key_retrieved.description": "election_setup.joint_key_retrieved.description",
+    "election_setup.joint_key_retrieved.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "election_setup.joint_key_retrieved.next": "Continue",
 
     "election_setup.joint_key_select.title": "Pull Guardian Keys",
@@ -63,5 +63,38 @@
 
     "election_list.title": "Election List",
     "election_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
-    "election_list.go_home": "Return to Home"
+    "election_list.go_home": "Return to Home",
+
+    "joint_key_setup.key_setup.title": "Define Key Requirements",
+    "joint_key_setup.key_setup.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.key_setup.key_heading": "Name your joint key",
+    "joint_key_setup.key_setup.number_of_guardians_heading": "How many total guardians for this election?",
+    "joint_key_setup.key_setup.number_of_guardians_emphasis": "Intended Number:",
+    "joint_key_setup.key_setup.number_of_guardians_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.key_setup.quorum_heading": "Select a quorum number for this key.",
+    "joint_key_setup.key_setup.quorum_emphasis": "What is the quorum and why is it important?",
+    "joint_key_setup.key_setup.quorum_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.key_setup_review.title": "Review and Confirm",
+    "joint_key_setup.guardian_assignment.title": "Assign Guardians",
+    "joint_key_setup.guardian_assignment.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.guardian_assignment.assigned_label": "Guardians Assigned",
+    "joint_key_setup.guardian_assignment.no_guardians": "You currently have no guardians for this election. You have not met your quorum.",
+    "joint_key_setup.guardian_assignment.assign": "Assign Guardian",
+    "joint_key_setup.guardian_assignment_review.title": "Review and Confirm",
+    "joint_key_setup.guardian_assignment_review.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.guardian_assignment_review.confirmation_callout": "If all the information is correct, please confirm",
+    "joint_key_setup.guardian_assignment_review.confirmation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "joint_key.name": "Name",
+    "joint_key.number_of_guardians": "Number of Guardians",
+    "joint_key.quorum": "Quorum",
+
+    "guardian.name": "Name",
+
+    "actions.cancel": "Cancel",
+    "actions.submit": "Submit",
+    "actions.confirm": "Confirm",
+    "actions.next": "Next",
+    "actions.previous": "Previous",
+    "actions.edit": "Edit"
 }

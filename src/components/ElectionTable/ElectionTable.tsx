@@ -4,8 +4,8 @@ import { GetApp as DownloadIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
+import FilterToolbar from '../FilterToolbar';
 import { ElectionRowData } from './ElectionRowData';
-import FilterToolbar from './FilterToolbar';
 
 export interface ElectionTableProps {
     data: ElectionRowData[];

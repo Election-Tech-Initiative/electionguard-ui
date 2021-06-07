@@ -19,6 +19,7 @@ module.exports = {
         project: './tsconfig.json',
     },
     rules: {
+        'react/jsx-props-no-spreading': 'off',
         'class-methods-use-this': 'off',
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',
