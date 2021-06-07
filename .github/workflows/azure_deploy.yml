@@ -21,7 +21,7 @@ jobs:
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: 'Build and push image'
+        - name: 'Build and push image UI App'
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -29,8 +29,21 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
             docker-compose build --no-cache app
-            docker build . -f Dockerfile.dev -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:${{ github.sha }} -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest
-            docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui --all-tags
+            docker tag electionguard-ui_app ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-app:${{ github.sha }}
+            docker tag electionguard-ui_app ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-app:latest
+            docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-app --all-tags
+        
+        - name: 'Build and push image UI Storybook'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            docker-compose build --no-cache storybook
+            docker tag electionguard-ui_storybook ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-storybook:${{ github.sha }}
+            docker tag electionguard-ui_storybook ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-storybook:latest
+            docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-storybook --all-tags
         
         - name: 'Deploy UI to Azure Container Instances'
           uses: 'pierreVH2/azure-containergroup-deploy@master'
@@ -44,16 +57,14 @@ jobs:
             containers: '[
               { 
                 "name": "electionguard-ui-app",
-                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "yarn start",
+                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-app:latest",
                 "cpu": 2,
                 "memory": 2,
                 "ports": "3000"
               }, 
               { 
                 "name": "electionguard-ui-storybook",
-                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "yarn storybook",
+                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui-storybook:latest",
                 "cpu": 2,
                 "memory": 2,
                 "ports": "6006"
