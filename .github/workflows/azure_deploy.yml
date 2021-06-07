@@ -28,16 +28,33 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build . -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:${{ github.sha }} -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest
+            docker build . -f Dockerfile.dev -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:${{ github.sha }} -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest
             docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui --all-tags
         
         - name: 'Deploy UI to Azure Container Instances'
           uses: 'pierreVH2/azure-containergroup-deploy@master'
           with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
-            group-name: electionguard-ui
+            group-name: electionguard-api-python
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             location: 'east us'
-            containers: '[]'
+            containers: '[
+              { 
+                "name": "electionguard-ui-app",
+                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
+                "command": "yarn start",
+                "cpu": 2,
+                "memory": 2,
+                "ports": "3000"
+              }, 
+              { 
+                "name": "electionguard-ui-storybook",
+                "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
+                "command": "yarn storybook",
+                "cpu": 2,
+                "memory": 2,
+                "ports": "6006"
+              }
+            ]'
