@@ -35,7 +35,7 @@ jobs:
           uses: 'pierreVH2/azure-containergroup-deploy@master'
           with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
-            group-name: electionguard-api-python
+            group-name: electionguard-demo
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
