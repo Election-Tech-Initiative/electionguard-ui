@@ -1,0 +1,43 @@
+name: Azure_Deploy_Workflow
+on: 
+  push:
+    branches:
+      - feature/azure-deploy
+  milestone:
+    types: [closed]
+  repository_dispatch:
+    types: [milestone_closed]
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@main
+          
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        - name: 'Build and push image'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            docker build . -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:${{ github.sha }} -t ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest
+            docker push ${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui --all-tags
+        
+        - name: 'Deploy UI to Azure Container Instances'
+          uses: 'pierreVH2/azure-containergroup-deploy@master'
+          with:
+            resource-group: ${{ secrets.RESOURCE_GROUP }}
+            group-name: electionguard-ui
+            registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            registry-username: ${{ secrets.REGISTRY_USERNAME }}
+            registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+            location: 'east us'
+            containers: '[]'
