@@ -1,12 +1,9 @@
 import React from 'react';
 
 import KeyCeremonyTable from '../components/KeyCeremonyTable';
-// import KeyCeremonyTable from '../components/KeyCeremonyTable';
 import { Message, MessageId } from '../lang';
 import ListPageLayout from '../layouts/ListPageLayout';
 import { getKeyCeremonies } from '../mocks/keyCeremony';
-
-// import getKeyCeremonies from '../mocks/keyCeremony';
 
 const KeyCeremonyListPage: React.FC = () => (
     <ListPageLayout

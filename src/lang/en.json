@@ -8,11 +8,13 @@
 
     "menu.prompt": "What do you want to do?",
     "menu.option.manage_users": "Manage Users",
-    "menu.option.begin_key_ceremony": "Begin Key Ceremony",
+    "menu.option.join_key_ceremony": "Join Key Ceremony",
     "menu.option.setup_election": "Setup Election",
     "menu.option.begin_tally_ceremony": "Begin Tally Ceremony",
     "menu.option.upload_manifest": "Upload Manifest",
     "menu.option.build_manifest": "Build Manifest",
+    "menu.option.manage_joint_keys": "Manage Joint Keys",
+    "menu.option.manage_elections": "Manage Elections",
 
     "login_form.username": "Username",
     "login_form.password": "Password",

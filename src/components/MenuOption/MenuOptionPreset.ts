@@ -21,33 +21,43 @@ export const getPreset = (type: MenuOptionType): MenuOptionPreset => {
     switch (type) {
         case MenuOptionType.ManageUsers:
             return {
-                title: new Message(MessageId.MenuOptionManageUsers, 'Manage Users'),
+                title: new Message(MessageId.MenuOption_ManageUsers),
                 Icon: AccountCircleOutlined,
             };
         case MenuOptionType.BeginKeyCeremony:
             return {
-                title: new Message(MessageId.MenuOptionBeginKeyCeremony, 'Begin Key Ceremony'),
+                title: new Message(MessageId.MenuOption_JoinKeyCeremony),
                 Icon: VpnKeyOutlined,
             };
         case MenuOptionType.SetupElection:
             return {
-                title: new Message(MessageId.MenuOptionSetupElection, 'Setup Election'),
+                title: new Message(MessageId.MenuOption_SetupElection),
                 Icon: BallotOutlined,
             };
         case MenuOptionType.BeginTallyCeremony:
             return {
-                title: new Message(MessageId.MenuOptionBeginTallyCeremony, 'Begin Tally Ceremony'),
+                title: new Message(MessageId.MenuOption_BeginTallyCeremony),
                 Icon: LibraryAddCheckOutlined,
             };
         case MenuOptionType.UploadManifest:
             return {
-                title: new Message(MessageId.MenuOptionUploadManifest, 'Upload Manifest'),
+                title: new Message(MessageId.MenuOption_UploadManifest),
                 Icon: PublishOutlined,
             };
         case MenuOptionType.BuildManifest:
             return {
-                title: new Message(MessageId.MenuOptionBuildManifest, 'Build Manifest'),
+                title: new Message(MessageId.MenuOption_BuildManifest),
                 Icon: AddCircleOutlineOutlined,
+            };
+        case MenuOptionType.ManageJointKeys:
+            return {
+                title: new Message(MessageId.MenuOption_ManageJointKeys),
+                Icon: VpnKeyOutlined,
+            };
+        case MenuOptionType.ManageElections:
+            return {
+                title: new Message(MessageId.MenuOption_ManageElections),
+                Icon: BallotOutlined,
             };
         default:
             return {

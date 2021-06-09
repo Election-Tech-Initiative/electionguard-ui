@@ -12,12 +12,14 @@ enum MessageId {
 
     // Menu
     MenuPrompt = 'menu.prompt',
-    MenuOptionManageUsers = 'menu.option.manage_users',
-    MenuOptionBeginKeyCeremony = 'menu.option.begin_key_ceremony',
-    MenuOptionSetupElection = 'menu.option.setup_election',
-    MenuOptionBeginTallyCeremony = 'menu.option.begin_tally_ceremony',
-    MenuOptionUploadManifest = 'menu.option.upload_manifest',
-    MenuOptionBuildManifest = 'menu.option.build_manifest',
+    MenuOption_ManageUsers = 'menu.option.manage_users',
+    MenuOption_JoinKeyCeremony = 'menu.option.join_key_ceremony',
+    MenuOption_SetupElection = 'menu.option.setup_election',
+    MenuOption_BeginTallyCeremony = 'menu.option.begin_tally_ceremony',
+    MenuOption_UploadManifest = 'menu.option.upload_manifest',
+    MenuOption_BuildManifest = 'menu.option.build_manifest',
+    MenuOption_ManageJointKeys = 'menu.option.manage_joint_keys',
+    MenuOption_ManageElections = 'menu.option.manage_elections',
 
     // Login Form
     LoginFormUsername = 'login_form.username',

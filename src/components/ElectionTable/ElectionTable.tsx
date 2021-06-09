@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Theme, lighten, makeStyles } from '@material-ui/core';
+import { Box, Button, Theme, lighten, makeStyles } from '@material-ui/core';
 import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@material-ui/data-grid';
 import { GetApp as DownloadIcon } from '@material-ui/icons';
 import * as React from 'react';

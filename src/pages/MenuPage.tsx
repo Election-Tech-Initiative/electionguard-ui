@@ -1,5 +1,6 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 
 import InternationalText from '../components/InternationalText';
 import { MenuOptionType, MenuOptions, TypedMenuOption } from '../components/MenuOption';
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MenuPage: React.FC = () => {
     const config = useContext(ConfigContext);
+    const history = useHistory();
     const classes = useStyles();
     return (
         <Grid container className={classes.root}>
@@ -26,11 +28,23 @@ const MenuPage: React.FC = () => {
                 <WelcomeHeader Logo={config.logo} />
                 <InternationalText id={MessageId.AppAbout} defaultMessage={loremIpsum} />
             </Container>
-            <MenuOptions prompt={new Message(MessageId.MenuPrompt, 'What do you want to do?')}>
-                <TypedMenuOption type={MenuOptionType.ManageUsers} />
-                <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
-                <TypedMenuOption type={MenuOptionType.SetupElection} />
-                <TypedMenuOption type={MenuOptionType.BeginKeyCeremony} />
+            <MenuOptions prompt={new Message(MessageId.MenuPrompt)}>
+                <TypedMenuOption
+                    onClick={() => history.push('/key-ceremony')}
+                    type={MenuOptionType.BeginKeyCeremony}
+                />
+                <TypedMenuOption
+                    onClick={() => history.push('/election')}
+                    type={MenuOptionType.ManageElections}
+                />
+                <TypedMenuOption
+                    onClick={() => history.push('/election-setup')}
+                    type={MenuOptionType.SetupElection}
+                />
+                <TypedMenuOption
+                    onClick={() => history.push('/joint-key')}
+                    type={MenuOptionType.ManageJointKeys}
+                />
             </MenuOptions>
         </Grid>
     );
