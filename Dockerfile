@@ -5,7 +5,11 @@ COPY ./package.json .
 COPY ./yarn.lock .
 RUN yarn install
 
-EXPOSE 3000
-CMD ["yarn", "start"]
-
 COPY . /app
+
+RUN yarn build
+RUN yarn global add serve
+
+EXPOSE 4500
+CMD ["serve", "-l", "4500", "-s", "build"]
+

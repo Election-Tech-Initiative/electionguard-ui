@@ -44,7 +44,7 @@ jobs:
               { 
                 "name": "electionguard-ui-app",
                 "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "yarn start",
+                "command": "serve -l 3000 -s build",
                 "cpu": 2,
                 "memory": 2,
                 "ports": "3000"
