@@ -3,7 +3,7 @@ import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
-import JointKey from '../../models/jointKey';
+import { KeyCeremony } from '../../models/keyCeremony';
 import { FormattedDateCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export interface JointKeyTableProps {
-    data: JointKey[];
+export interface KeyCeremonyTableProps {
+    data: KeyCeremony[];
 }
 
-const LinkCell = (): React.ReactElement => <Button color="primary">Open</Button>;
+const LinkCell = (): React.ReactElement => <Button color="primary">Join</Button>;
 
 const columns = (intl: IntlShape): GridColDef[] => [
     { field: 'name', headerName: 'Name', width: 400, headerClassName: 'bold-style--header' },
@@ -61,7 +61,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
     },
 ];
 
-const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
+const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     return (
@@ -80,4 +80,4 @@ const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     );
 };
 
-export default JointKeyTable;
+export default KeyCeremonyTable;

@@ -94,6 +94,12 @@ enum MessageId {
     JointKeySetup_GuardianAssignmentReview_ConfirmationCallout = 'joint_key_setup.guardian_assignment_review.confirmation_callout',
     JointKeySetup_GuardianAssignmentReview_Confirmation = 'joint_key_setup.guardian_assignment_review.confirmation',
 
+    KeyCeremonyList_Title = 'key_ceremony_list.title',
+    KeyCeremonyList_Description = 'key_ceremony_list.description',
+
+    JointKeyList_Title = 'joint_key_list.title',
+    JointKeyList_Description = 'joint_key_list.description',
+
     // Models
     JointKey_Name = 'joint_key.name',
     JointKey_NumberOfGuardians = 'joint_key.number_of_guardians',
@@ -108,6 +114,8 @@ enum MessageId {
     Actions_Next = 'actions.next',
     Actions_Previous = 'actions.previous',
     Actions_Edit = 'actions.edit',
+
+    Nav_Return_Home = 'nav.return_home',
 }
 
 export type OverloadableMessageId = MessageId | typeof OverloadMessageId;

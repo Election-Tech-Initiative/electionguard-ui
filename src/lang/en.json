@@ -85,6 +85,12 @@
     "joint_key_setup.guardian_assignment_review.confirmation_callout": "If all the information is correct, please confirm",
     "joint_key_setup.guardian_assignment_review.confirmation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
 
+    "key_ceremony_list.title": "Join a Key Ceremony",
+    "key_ceremony_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "joint_key_list.title": "Joint Encryption Keys",
+    "joint_key_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
     "joint_key.name": "Name",
     "joint_key.number_of_guardians": "Number of Guardians",
     "joint_key.quorum": "Quorum",
@@ -96,5 +102,7 @@
     "actions.confirm": "Confirm",
     "actions.next": "Next",
     "actions.previous": "Previous",
-    "actions.edit": "Edit"
+    "actions.edit": "Edit",
+
+    "nav.return_home": "Return to Home"
 }

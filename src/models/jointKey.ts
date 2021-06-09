@@ -9,4 +9,5 @@ export interface BaseJointKey {
 
 export default interface JointKey extends BaseJointKey {
     id: string;
+    dateCreated: Date;
 }
