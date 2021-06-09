@@ -52,7 +52,7 @@ jobs:
               { 
                 "name": "electionguard-ui-storybook",
                 "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "yarn storybook",
+                "command": "serve -l 6006",
                 "cpu": 2,
                 "memory": 2,
                 "ports": "6006"

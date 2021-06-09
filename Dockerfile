@@ -8,6 +8,9 @@ RUN yarn install
 COPY . /app
 
 RUN yarn build
+
+RUN yarn build-storybook
+
 RUN yarn global add serve
 
 EXPOSE 4500
