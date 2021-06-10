@@ -102,11 +102,26 @@ enum MessageId {
     JointKeyList_Title = 'joint_key_list.title',
     JointKeyList_Description = 'joint_key_list.description',
 
+    // Key Ceremony
+    KeyCeremony_Introduction_Title = 'key_ceremony.introduction.title',
+    KeyCeremony_Introduction_Description = 'key_ceremony.introduction.description',
+    KeyCeremony_Introduction_StepsHeading = 'key_ceremony.introduction.steps_heading',
+    KeyCeremony_Introduction_StepsDescription = 'key_ceremony.introduction.steps_description',
+    KeyCeremony_Introduction_Step1 = 'key_ceremony.introduction.step1',
+    KeyCeremony_Introduction_Step2 = 'key_ceremony.introduction.step2',
+    KeyCeremony_Introduction_Step3 = 'key_ceremony.introduction.step3',
+    KeyCeremony_Introduction_Step4 = 'key_ceremony.introduction.step4',
+    KeyCeremony_MeetGuardians_Title = 'key_ceremony.meet_guardians.title',
+    KeyCeremony_MeetGuardians_Description = 'key_ceremony.meet_guardians.description',
+    KeyCeremony_MeetGuardians_GuardianHeading = 'key_ceremony.meet_guardians.guardian_heading',
+    KeyCeremony_MeetGuardians_Button = 'key_ceremony.meet_guardians.button',
+
     // Models
     JointKey_Name = 'joint_key.name',
     JointKey_NumberOfGuardians = 'joint_key.number_of_guardians',
     JointKey_Quorum = 'joint_key.quorum',
 
+    Guardian = 'guardian',
     Guardian_Name = 'guardian.name',
 
     // Actions
@@ -114,6 +129,7 @@ enum MessageId {
     Actions_Submit = 'actions.submit',
     Actions_Confirm = 'actions.confirm',
     Actions_Next = 'actions.next',
+    Actions_Continue = 'actions.continue',
     Actions_Previous = 'actions.previous',
     Actions_Edit = 'actions.edit',
 

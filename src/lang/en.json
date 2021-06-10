@@ -93,16 +93,32 @@
     "joint_key_list.title": "Joint Encryption Keys",
     "joint_key_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
 
+    "key_ceremony.introduction.title": "Welcome to the Key Ceremony",
+    "key_ceremony.introduction.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.steps_heading": "Here's what to expect",
+    "key_ceremony.introduction.steps_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step4": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "key_ceremony.meet_guardians.title": "Meet the Guardians",
+    "key_ceremony.meet_guardians.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.meet_guardians.guardian_heading": "Guardians for this election:",
+    "key_ceremony.meet_guardians.button": "Start Key Ceremony",
+
     "joint_key.name": "Name",
     "joint_key.number_of_guardians": "Number of Guardians",
     "joint_key.quorum": "Quorum",
 
+    "guardian": "Guardian",
     "guardian.name": "Name",
 
     "actions.cancel": "Cancel",
     "actions.submit": "Submit",
     "actions.confirm": "Confirm",
     "actions.next": "Next",
+    "actions.continue": "Continue",
     "actions.previous": "Previous",
     "actions.edit": "Edit",
 
