@@ -2,7 +2,7 @@ import { Container, makeStyles } from '@material-ui/core';
 import React from 'react';
 
 import { Message } from '../../lang';
-import FormattedButton from '../FormattedButton/FormattedButton';
+import FormattedButton from '../FormattedButton';
 import IconHeader from '../IconHeader';
 import InternationalText from '../InternationalText';
 

@@ -6,7 +6,7 @@ import { IntlShape } from 'react-intl';
 import { Message } from '../../lang';
 import TaskStatus from '../../models/taskStatus';
 import { getColor } from '../../theme';
-import FormattedButton from '../FormattedButton/FormattedButton';
+import FormattedButton from '../FormattedButton';
 import GuardianIcon from '../GuardianIcon';
 import TaskStatusIcon from '../TaskStatusIcon';
 
