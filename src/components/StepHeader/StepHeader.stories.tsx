@@ -13,7 +13,7 @@ export default {
 const Template: Story<StepHeaderProps> = (props) => <StepHeader {...props} />;
 
 export const Standard = Template.bind({});
-Standard.storyName = 'Guardian Flow';
+Standard.storyName = 'Standard';
 Standard.args = {
     title: new Message('overload', 'Example Title'),
     description: new Message('overload', loremIpsum),
