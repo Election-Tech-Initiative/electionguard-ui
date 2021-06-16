@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../mocks/users';
+import { getUsersWithGuardianRole } from '../../data/dataService';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
 
 export default {

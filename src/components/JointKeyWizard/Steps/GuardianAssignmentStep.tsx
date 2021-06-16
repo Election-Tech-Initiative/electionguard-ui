@@ -2,8 +2,8 @@ import { Box, Button, Container, Typography, makeStyles } from '@material-ui/cor
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { getUsersWithGuardianRole } from '../../../data/dataService';
 import { Message, MessageId } from '../../../lang';
-import { getUsersWithGuardianRole } from '../../../mocks/users';
 import AssignedGuardian from '../../../models/assignedGuardian';
 import { BaseJointKey } from '../../../models/jointKey';
 import User from '../../../models/user';

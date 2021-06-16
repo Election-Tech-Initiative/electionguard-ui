@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getAssignedGuardians } from '../../mocks/guardians';
+import { getAssignedGuardians } from '../../data/dataService';
 import GuardianTable, { GuardianTableProps } from './GuardianTable';
 
 export default {

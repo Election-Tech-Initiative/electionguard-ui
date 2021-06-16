@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getManifestPreview } from '../../../mocks/electionSetup';
+import { getManifestPreview } from '../../../data/dataService';
 import ManifestPreviewStep, { ManifestPreviewStepProps } from './ManifestPreviewStep';
 
 export default {

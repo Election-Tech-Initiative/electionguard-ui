@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import { getManifestPreview } from '../../mocks/electionSetup';
+import { getManifestPreview } from '../../data/dataService';
 import JointKey from '../../models/jointKey';
 import WizardStep from '../WizardStep';
 import {

@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 
 import ElectionTable from '../components/ElectionTable';
 import InternationalText from '../components/InternationalText';
+import { getElections } from '../data/dataService';
 import { MessageId, loremIpsum } from '../lang';
-import getElections from '../mocks/elections';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
+import { getJointKeys } from '../data/dataService';
 import DefaultLayout from '../layouts/DefaultLayout';
-import { getJointKeys } from '../mocks/electionSetup';
 import ElectionSetupPage, { ElectionSetupPageProps } from './ElectionSetupPage';
 
 export default {

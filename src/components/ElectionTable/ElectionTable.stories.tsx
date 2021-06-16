@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import getElections from '../../mocks/elections';
+import { getElections } from '../../data/dataService';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {
