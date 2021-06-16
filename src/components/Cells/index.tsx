@@ -8,7 +8,7 @@ import TaskStatus from '../../models/taskStatus';
 import { getColor } from '../../theme';
 import FormattedButton from '../FormattedButton/FormattedButton';
 import GuardianIcon from '../GuardianIcon';
-import TaskStatusIcon from '../TaskStatusIcon/TaskStatusIcon';
+import TaskStatusIcon from '../TaskStatusIcon';
 
 export const EmptyCell = (): ReactElement => <></>;
 
