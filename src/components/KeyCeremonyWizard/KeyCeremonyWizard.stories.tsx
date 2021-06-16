@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getKeyCeremonyGuardians } from '../../mocks/keyCeremony';
+import { getKeyCeremonies, getKeyCeremonyGuardians } from '../../mocks/keyCeremony';
 import KeyCeremonyWizard, { KeyCeremonyWizardProps } from './KeyCeremonyWizard';
 
 export default {
@@ -15,5 +15,6 @@ const Template: Story<KeyCeremonyWizardProps> = (props) => <KeyCeremonyWizard {.
 export const Standard = Template.bind({});
 Standard.storyName = 'Guardian Flow';
 Standard.args = {
-    guardians: getKeyCeremonyGuardians(),
+    keyCeremony: getKeyCeremonies()[0],
+    guardian: getKeyCeremonyGuardians()[0],
 };
