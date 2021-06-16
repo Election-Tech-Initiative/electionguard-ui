@@ -22,6 +22,7 @@ const Template: Story<GuardianIconProps> = (props) => (
         <GuardianIcon sequenceOrder={8} color={getColor(8)} />
         <GuardianIcon sequenceOrder={9} color={getColor(9)} />
         <GuardianIcon sequenceOrder={10} color={getColor(10)} />
+        <GuardianIcon sequenceOrder={11} color={getColor(11)} missing />
     </Box>
 );
 
