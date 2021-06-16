@@ -4,18 +4,27 @@ import TaskStatus from './taskStatus';
 export enum KeyCeremonyStatus {
     Canceled = -1,
     Inactive = 0,
-    SharePublicKeys = 1,
-    SharePartialKeyBackups = 2,
-    VerifyBackups = 3,
-    ConfirmReadyToCombine = 4,
-    Complete = 5,
+    Active = 1,
+    Complete = 2,
 }
 
 export interface KeyCeremonyGuardian extends AssignedGuardian {
-    sharedPublicKey: TaskStatus;
-    sharedPartialKeyBackups: TaskStatus;
+    // From Guardian API
+    keypairCreated: TaskStatus;
+    backupsCreated: TaskStatus;
+
+    // From Mediator API
+    publicKeyShared: TaskStatus;
+    backupsShared: TaskStatus;
     backupsVerified: TaskStatus;
-    readyForCombine: TaskStatus;
+
+    verifications: BackupVerification[];
+}
+
+export interface BackupVerification {
+    verifier: AssignedGuardian;
+    owner: AssignedGuardian;
+    verified: TaskStatus;
 }
 
 export interface KeyCeremony {
