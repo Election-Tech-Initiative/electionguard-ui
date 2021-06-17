@@ -20,10 +20,11 @@ export interface KeyCeremonyActiveStepProps {
     onSharePublicKey: () => void;
     onCreateBackups: () => void;
     onShareBackups: () => void;
-    onVerifyBackup: () => void;
+    onVerifyBackup: (id: string) => void;
     onAllBackupsVerified: () => void;
     onCombineKeys: () => void;
     onComplete: () => void;
+    loading?: boolean;
 }
 
 const KeyCeremonyActiveStep: React.FC<KeyCeremonyActiveStepProps> = ({

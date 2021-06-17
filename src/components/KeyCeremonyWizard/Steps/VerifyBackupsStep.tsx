@@ -1,10 +1,11 @@
 import { Box, makeStyles } from '@material-ui/core';
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
-import React from 'react';
+import { DataGrid, GridColDef, GridRowId, GridSortDirection } from '@material-ui/data-grid';
+import React, { useState } from 'react';
 
 import { Message, MessageId } from '../../../lang';
 import { BackupVerification } from '../../../models/keyCeremony';
-import { GuardianIconCell, IdButtonCell, TaskStatusCell } from '../../Cells';
+import TaskStatus from '../../../models/taskStatus';
+import { GuardianIconCell, TaskStatusCell } from '../../Cells';
 import FilterToolbar from '../../FilterToolbar';
 import StepHeader from '../../StepHeader';
 
@@ -12,6 +13,8 @@ export interface VerifyBackupsStepProps {
     verifications: BackupVerification[];
     onVerifyBackup: (id: string) => void;
     onAllBackupsVerified?: () => void;
+    disabled?: boolean;
+    loading?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +35,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const columns = (verifyBackup: (id: string) => void): GridColDef[] => [
+const columns = (verifyBackup: () => void): GridColDef[] => [
+    {
+        field: 'id',
+        hide: true,
+    },
     {
         field: 'sequenceOrder',
         headerName: ' ',
@@ -41,20 +48,12 @@ const columns = (verifyBackup: (id: string) => void): GridColDef[] => [
         renderCell: GuardianIconCell,
         headerClassName: 'bold-style--header',
     },
-    { field: 'name', headerName: 'Name', width: 400, headerClassName: 'bold-style--header' },
-    {
-        field: 'id',
-        headerName: ' ',
-        headerAlign: 'center',
-        renderCell: (params) => IdButtonCell(params, new Message('overload'), verifyBackup),
-        align: 'center',
-        width: 200,
-        headerClassName: 'bold-style--header',
-    },
+    { field: 'name', headerName: 'Name', width: 600, headerClassName: 'bold-style--header' },
     {
         field: 'verified',
         headerName: 'Verified',
-        renderCell: TaskStatusCell,
+        renderCell: (params) =>
+            TaskStatusCell(params, new Message('overload', 'Verify Backup'), verifyBackup),
         headerAlign: 'center',
         align: 'center',
         width: 200,
@@ -69,20 +68,29 @@ const VerifyBackupsStep: React.FC<VerifyBackupsStepProps> = ({
     verifications,
     onVerifyBackup,
     onAllBackupsVerified,
+    disabled,
+    loading,
 }) => {
+    const [guardianId, setGuardianId] = useState<GridRowId[]>();
     const classes = useStyles();
     const data = verifications.map((v) => ({
-        id: v.verifier.id,
-        sequenceOrder: v.verifier.id,
-        name: v.verifier.name,
+        id: v.owner.id,
+        sequenceOrder: v.owner.id,
+        name: v.owner.name,
         verified: v.verified,
     }));
+    const allVerificationsComplete = verifications.reduce(
+        (prev, value) => prev && value.verified === TaskStatus.Complete,
+        true
+    );
     return (
         <>
             <StepHeader
                 title={new Message(MessageId.KeyCeremony_VerifyBackups_Title)}
                 description={new Message(MessageId.KeyCeremony_VerifyBackups_Description)}
                 buttonText={new Message(MessageId.KeyCeremony_VerifyBackups_Button)}
+                disabled={disabled || !allVerificationsComplete}
+                loading={loading}
                 onClick={onAllBackupsVerified}
             />
             <Box
@@ -97,10 +105,22 @@ const VerifyBackupsStep: React.FC<VerifyBackupsStepProps> = ({
                     autoHeight
                     className={classes.table}
                     rows={data}
-                    columns={columns(onVerifyBackup)}
+                    columns={columns(() => {
+                        if (guardianId && guardianId[0]) {
+                            onVerifyBackup(guardianId[0] as string);
+                        }
+                    })}
+                    sortModel={[
+                        {
+                            field: 'sequenceOrder',
+                            sort: 'asc' as GridSortDirection,
+                        },
+                    ]}
                     components={{
                         Toolbar: FilterToolbar,
                     }}
+                    selectionModel={guardianId}
+                    onSelectionModelChange={(row) => setGuardianId(row.selectionModel)}
                     hideFooterPagination
                 />
             </Box>

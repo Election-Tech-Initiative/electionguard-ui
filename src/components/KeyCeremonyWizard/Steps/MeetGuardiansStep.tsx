@@ -28,12 +28,19 @@ const useStyles = makeStyles((theme) => ({
 export interface MeetGuardiansStepProps {
     onNext?: () => void;
     guardians: AssignedGuardian[];
+    disabled?: boolean;
+    loading?: boolean;
 }
 
 /**
  * Meet Guardians Step for Key Ceremony
  */
-const MeetGuardiansStep: React.FC<MeetGuardiansStepProps> = ({ onNext, guardians }) => {
+const MeetGuardiansStep: React.FC<MeetGuardiansStepProps> = ({
+    onNext,
+    guardians,
+    disabled,
+    loading,
+}) => {
     const classes = useStyles();
     return (
         <Container maxWidth="md">
@@ -42,6 +49,8 @@ const MeetGuardiansStep: React.FC<MeetGuardiansStepProps> = ({ onNext, guardians
                 description={new Message(MessageId.KeyCeremony_MeetGuardians_Description)}
                 buttonText={new Message(MessageId.KeyCeremony_MeetGuardians_Button)}
                 onClick={onNext}
+                disabled={disabled}
+                loading={loading}
             />
             <InternationalText
                 className={classes.spaced}

@@ -10,13 +10,20 @@ import KeyCeremonyGuardianTable from './KeyCeremonyGuardianTable';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyStepper from './KeyCeremonyStepper';
 import KeyCeremonyVisualization from './KeyCeremonyVisualization';
-import { KeyCeremonyIntroductionStep } from './Steps';
-import MeetGuardiansStep from './Steps/MeetGuardiansStep';
+import { KeyCeremonyIntroductionStep, MeetGuardiansStep } from './Steps';
 
 export interface KeyCeremonyWizardProps {
     keyCeremony: KeyCeremony;
     guardian: AssignedGuardian;
     loading?: boolean;
+    createKeyPair: () => void;
+    sharePublicKey: () => void;
+    createBackups: () => void;
+    shareBackups: () => void;
+    verifyBackup: (id: string) => void;
+    backupsAllVerified: () => void;
+    combineKeys: () => void;
+    completeKeyCeremony: () => void;
 }
 
 const nextStep = (step: KeyCeremonyStep): KeyCeremonyStep => {
@@ -92,7 +99,18 @@ const getStartingStep = (
 /**
  * Wizard to setup the election
  */
-const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({ guardian, keyCeremony }) => {
+const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({
+    guardian,
+    keyCeremony,
+    createKeyPair,
+    sharePublicKey,
+    createBackups,
+    shareBackups,
+    verifyBackup,
+    backupsAllVerified,
+    combineKeys,
+    completeKeyCeremony,
+}) => {
     const startingStep = getStartingStep(guardian, keyCeremony);
     const [step, setStep] = useState(startingStep);
     const next = () => setStep(nextStep(step));
@@ -112,14 +130,35 @@ const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({ guardian, keyCere
                     <KeyCeremonyActiveStep
                         activeStep={step}
                         verifications={guardians.find((g) => g.id === guardian.id)?.verifications}
-                        onCreateKeyPair={next}
-                        onSharePublicKey={next}
-                        onCreateBackups={next}
-                        onShareBackups={next}
-                        onVerifyBackup={() => {}}
-                        onCombineKeys={next}
-                        onComplete={next}
-                        onAllBackupsVerified={next}
+                        onCreateKeyPair={() => {
+                            createKeyPair();
+                            next();
+                        }}
+                        onSharePublicKey={() => {
+                            sharePublicKey();
+                            next();
+                        }}
+                        onCreateBackups={() => {
+                            createBackups();
+                            next();
+                        }}
+                        onShareBackups={() => {
+                            shareBackups();
+                            next();
+                        }}
+                        onVerifyBackup={verifyBackup}
+                        onAllBackupsVerified={() => {
+                            backupsAllVerified();
+                            next();
+                        }}
+                        onCombineKeys={() => {
+                            combineKeys();
+                            next();
+                        }}
+                        onComplete={() => {
+                            completeKeyCeremony();
+                            next();
+                        }}
                     />
                     {step <= KeyCeremonyStep.CombineKeys && (
                         <KeyCeremonyGuardianTable activeStep={step} guardians={guardians} />

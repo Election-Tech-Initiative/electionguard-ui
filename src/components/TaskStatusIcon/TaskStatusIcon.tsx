@@ -5,8 +5,9 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 
-import { MessageId } from '../../lang';
+import { Message, MessageId } from '../../lang';
 import TaskStatus from '../../models/taskStatus';
+import FormattedButton from '../FormattedButton';
 import InternationalText from '../InternationalText';
 
 const iconSize = 36;
@@ -22,12 +23,14 @@ const useStyles = makeStyles(() => ({
 
 export interface TaskStatusIconProps {
     status: TaskStatus;
+    buttonText?: Message;
+    onClick?: () => void;
 }
 
 /**
  * A menu option card for the menu screens
  */
-const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status }) => {
+const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status, buttonText, onClick }) => {
     const classes = useStyles();
     switch (status) {
         case TaskStatus.Complete:
@@ -51,6 +54,9 @@ const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status }) => {
                 </InternationalText>
             );
         case TaskStatus.Incomplete:
+            if (buttonText && onClick) {
+                return <FormattedButton text={buttonText} onClick={onClick} />;
+            }
             return (
                 <InternationalText
                     className={classes.icon}

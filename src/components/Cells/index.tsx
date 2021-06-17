@@ -28,10 +28,14 @@ export const GuardianIconCell = (params: GridCellParams): ReactElement => {
     return <GuardianIcon sequenceOrder={sequenceOrder} color={getColor(sequenceOrder)} />;
 };
 
-export const TaskStatusCell = (params: GridCellParams): ReactElement => {
+export const TaskStatusCell = (
+    params: GridCellParams,
+    buttonText?: Message,
+    onClick?: () => void
+): ReactElement => {
     const { value } = params;
     const status = value as TaskStatus;
-    return <TaskStatusIcon status={status} />;
+    return <TaskStatusIcon status={status} buttonText={buttonText} onClick={onClick} />;
 };
 
 export const IdButtonCell = (

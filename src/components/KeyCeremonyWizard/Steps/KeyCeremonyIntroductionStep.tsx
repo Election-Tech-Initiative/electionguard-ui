@@ -26,12 +26,18 @@ const useStyles = makeStyles((theme) => ({
 
 export interface KeyCeremonyIntroductionStepProps {
     onNext?: () => void;
+    disabled?: boolean;
+    loading?: boolean;
 }
 
 /**
  * Introduction Step for Key Ceremony
  */
-const KeyCeremonyInstructionsStep: React.FC<KeyCeremonyIntroductionStepProps> = ({ onNext }) => {
+const KeyCeremonyInstructionsStep: React.FC<KeyCeremonyIntroductionStepProps> = ({
+    onNext,
+    loading,
+    disabled,
+}) => {
     const classes = useStyles();
     return (
         <Container maxWidth="md">
@@ -40,6 +46,8 @@ const KeyCeremonyInstructionsStep: React.FC<KeyCeremonyIntroductionStepProps> = 
                 description={new Message(MessageId.KeyCeremony_Introduction_Description)}
                 buttonText={new Message(MessageId.Actions_Continue)}
                 onClick={onNext}
+                disabled={disabled}
+                loading={loading}
             />
             <InternationalText
                 className={classes.spaced}
