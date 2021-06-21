@@ -1,3 +1,5 @@
+import { DateRangeTwoTone } from '@material-ui/icons';
+
 import JointKey from '../models/jointKey';
 import ManifestPreview from '../models/manifestPreview';
 import { getAssignedGuardians } from './guardians';
@@ -23,6 +25,7 @@ export const getJointKeys = (): JointKey[] => [
         numberOfGuardians: 3,
         quorum: 2,
         guardians: getAssignedGuardians(),
+        dateCreated: new Date(),
     },
     {
         id: 'joint-key-2',
@@ -30,5 +33,6 @@ export const getJointKeys = (): JointKey[] => [
         numberOfGuardians: 3,
         quorum: 2,
         guardians: getAssignedGuardians(),
+        dateCreated: new Date(),
     },
 ];
