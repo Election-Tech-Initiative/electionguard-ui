@@ -2,9 +2,9 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import KeyCeremonyTable from '../components/KeyCeremonyTable';
+import { getKeyCeremonies } from '../data/dataService';
 import { Message, MessageId } from '../lang';
 import ListPageLayout from '../layouts/ListPageLayout';
-import { getKeyCeremonies } from '../mocks/keyCeremony';
 
 const KeyCeremonyListPage: React.FC = () => {
     const history = useHistory();

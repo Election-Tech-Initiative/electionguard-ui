@@ -3,7 +3,7 @@ import React from 'react';
 
 import { getJointKeys } from '../data/dataService';
 import DefaultLayout from '../layouts/DefaultLayout';
-import ElectionSetupPage, { ElectionSetupPageProps } from './ElectionSetupPage';
+import ElectionSetupPage from './ElectionSetupPage';
 
 export default {
     title: 'Pages/ElectionSetupPage',

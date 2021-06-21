@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ElectionSetupWizard from '../components/ElectionSetupWizard';
-import { getJointKeys } from '../mocks/electionSetup';
+import { getJointKeys } from '../data/dataService';
 
 const ElectionSetupPage: React.FC = () => <ElectionSetupWizard keys={getJointKeys()} />;
 

@@ -1,4 +1,5 @@
 import ElectionRow from '../components/ElectionTable/ElectionRow';
+import KeyCeremonyStep from '../components/KeyCeremonyWizard/KeyCeremonyStep';
 import AssignedGuardian from '../models/assignedGuardian';
 import JointKey from '../models/jointKey';
 import { KeyCeremony, KeyCeremonyGuardian, KeyCeremonyStatus } from '../models/keyCeremony';
@@ -29,9 +30,10 @@ let manifestPreviewFunction: { (): ManifestPreview };
 let assignedGuardiansFunction: { (): AssignedGuardian[] };
 let getKeyCeremonyGuardiansFunction: { (): KeyCeremonyGuardian[] };
 let getKeyCeremonyGuardiansByStepFunction: { (step: KeyCeremonyStep): KeyCeremonyGuardian[] };
-let getKeyCeremonyGuardiansMidwayFunction: { (): KeyCeremonyGuardian[] };
+let setKeyCeremonyGuardianToStepFunction: {
+    (guardian: KeyCeremonyGuardian, step: KeyCeremonyStep): KeyCeremonyGuardian;
+};
 let getKeyCeremoniesFunction: { (): KeyCeremony[] };
-//export default class MockKeyCeremonyApi implements KeyCeremonyApi {
 
 if (process.env.REACT_APP_DATA === 'MOCK') {
     jointKeysFunction = mockElectionSetup.getJointKeys;
@@ -41,7 +43,7 @@ if (process.env.REACT_APP_DATA === 'MOCK') {
     assignedGuardiansFunction = mockGuardians.getAssignedGuardians;
     getKeyCeremonyGuardiansFunction = mockKeyCeremony.getKeyCeremonyGuardians;
     getKeyCeremonyGuardiansByStepFunction = mockKeyCeremony.getKeyCeremonyGuardiansByStep;
-    getKeyCeremonyGuardiansMidwayFunction = mockKeyCeremony.getKeyCeremonyGuardiansMidway;
+    setKeyCeremonyGuardianToStepFunction = mockKeyCeremony.setKeyCeremonyGuardianToStep;
     getKeyCeremoniesFunction = mockKeyCeremony.getKeyCeremonies;
 } else {
     jointKeysFunction = serverElectionSetup.getJointKeys;
@@ -51,7 +53,7 @@ if (process.env.REACT_APP_DATA === 'MOCK') {
     assignedGuardiansFunction = serverGuardians.getAssignedGuardians;
     getKeyCeremonyGuardiansFunction = serverKeyCeremony.getKeyCeremonyGuardians;
     getKeyCeremonyGuardiansByStepFunction = serverKeyCeremony.getKeyCeremonyGuardiansByStep;
-    getKeyCeremonyGuardiansMidwayFunction = serverKeyCeremony.getKeyCeremonyGuardiansMidway;
+    setKeyCeremonyGuardianToStepFunction = serverKeyCeremony.setKeyCeremonyGuardianToStep;
     getKeyCeremoniesFunction = serverKeyCeremony.getKeyCeremonies;
 }
 
@@ -62,7 +64,7 @@ const maniPrev = manifestPreviewFunction;
 const assignGuard = assignedGuardiansFunction;
 const keyCeremonyGuardian = getKeyCeremonyGuardiansFunction;
 const keyCeremonyGuardiansByStep = getKeyCeremonyGuardiansByStepFunction;
-const keyCeremonyGuardiansMidway = getKeyCeremonyGuardiansMidwayFunction;
+const keyCeremonyGuardianToStep = setKeyCeremonyGuardianToStepFunction;
 const keyCeremonies = getKeyCeremoniesFunction;
 
 export { joint as getJointKeys };
@@ -71,6 +73,6 @@ export { elect as getElections };
 export { maniPrev as getManifestPreview };
 export { assignGuard as getAssignedGuardians };
 export { keyCeremonyGuardian as getKeyCeremonyGuardians };
-export { keyCeremonyGuardiansByStep as getKeyCeremonyGuardiansByStepFunction };
-export { keyCeremonyGuardiansMidway as getKeyCeremonyGuardiansMidwayFunction };
-export { keyCeremonies as getKeyCeremoniesFunction };
+export { keyCeremonyGuardiansByStep as getKeyCeremonyGuardiansByStep };
+export { keyCeremonyGuardianToStep as setKeyCeremonyGuardianToStep };
+export { keyCeremonies as getKeyCeremonies };

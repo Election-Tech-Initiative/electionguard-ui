@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
 import { getKeyCeremonies, setKeyCeremonyGuardianToStep } from '../../data/dataService';
-import { BackupVerification, KeyCeremonyGuardian } from '../../data/dataService';
+import { BackupVerification, KeyCeremonyGuardian } from '../../models/keyCeremony';
 import TaskStatus from '../../models/taskStatus';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyWizard, { KeyCeremonyWizardProps } from './KeyCeremonyWizard';

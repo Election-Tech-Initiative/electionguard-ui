@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getKeyCeremonyGuardiansByStep } from '../../mocks/keyCeremony';
+import { getKeyCeremonyGuardiansByStep } from '../../data/dataService';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyVisualization, {
     KeyCeremonyVisualizationProps,

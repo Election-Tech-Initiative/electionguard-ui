@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getKeyCeremonies } from '../../mocks/keyCeremony';
+import { getKeyCeremonies } from '../../data/dataService';
 import KeyCeremonyTable, { KeyCeremonyTableProps } from './KeyCeremonyTable';
 
 export default {
