@@ -23,6 +23,7 @@ export const getJointKeys = (): JointKey[] => [
         numberOfGuardians: 3,
         quorum: 2,
         guardians: getAssignedGuardians(),
+        dateCreated: new Date(),
     },
     {
         id: 'joint-key-2',
@@ -30,5 +31,6 @@ export const getJointKeys = (): JointKey[] => [
         numberOfGuardians: 3,
         quorum: 2,
         guardians: getAssignedGuardians(),
+        dateCreated: new Date(),
     },
 ];

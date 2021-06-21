@@ -1,14 +1,8 @@
 import React from 'react';
 
 import ElectionSetupWizard from '../components/ElectionSetupWizard';
-import JointKey from '../models/jointKey';
+import { getJointKeys } from '../mocks/electionSetup';
 
-export interface ElectionSetupPageProps {
-    getJointKeys: () => JointKey[];
-}
-
-const ElectionSetupPage: React.FC<ElectionSetupPageProps> = ({ getJointKeys }) => (
-    <ElectionSetupWizard keys={getJointKeys()} />
-);
+const ElectionSetupPage: React.FC = () => <ElectionSetupWizard keys={getJointKeys()} />;
 
 export default ElectionSetupPage;

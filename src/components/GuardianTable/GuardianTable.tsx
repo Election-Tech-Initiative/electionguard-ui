@@ -1,43 +1,54 @@
-import { Box } from '@material-ui/core';
-import { DataGrid, GridCellParams, GridColDef } from '@material-ui/data-grid';
-import { Brightness1 as CircleIcon } from '@material-ui/icons';
+import { Box, makeStyles } from '@material-ui/core';
+import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 
 import AssignedGuardian from '../../models/assignedGuardian';
+import { GuardianIconCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
 export interface GuardianTableProps {
     data: AssignedGuardian[];
 }
 
-const ColorCell = (params: GridCellParams): React.ReactElement => {
-    const { value } = params;
-    return <CircleIcon style={{ color: value?.toString() }} />;
-};
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .bold-style--header': {
+            marginLeft: -theme.spacing(0.25),
+            '& .MuiDataGrid-columnSeparator': {
+                opacity: `0 !important`,
+            },
+        },
+    },
+}));
 
 const columns: GridColDef[] = [
     {
-        field: 'color',
-        headerName: '',
+        field: 'sequenceOrder',
+        headerName: ' ',
         disableColumnMenu: true,
-        width: 40,
-        renderCell: ColorCell,
+        width: 50,
+        renderCell: GuardianIconCell,
+        headerClassName: 'bold-style--header',
     },
-    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'name', headerName: 'Name', width: 250, headerClassName: 'bold-style--header' },
 ];
 
-const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => (
-    <Box display="flex" minHeight="500px" height="100%" width="100%">
-        <DataGrid
-            autoHeight
-            rows={data}
-            columns={columns}
-            components={{
-                Toolbar: FilterToolbar,
-            }}
-            hideFooterPagination
-        />
-    </Box>
-);
+const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
+    const classes = useStyles();
+    return (
+        <Box display="flex" minHeight="500px" height="100%" width="100%">
+            <DataGrid
+                autoHeight
+                className={classes.root}
+                rows={data}
+                columns={columns}
+                components={{
+                    Toolbar: FilterToolbar,
+                }}
+                hideFooterPagination
+            />
+        </Box>
+    );
+};
 
 export default GuardianTable;

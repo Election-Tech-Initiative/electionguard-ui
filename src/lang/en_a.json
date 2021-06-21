@@ -8,11 +8,13 @@
 
     "menu.prompt": "What do you want to do?",
     "menu.option.manage_users": "Manage Users",
-    "menu.option.begin_key_ceremony": "Begin Key Ceremony",
+    "menu.option.join_key_ceremony": "Join Key Ceremony",
     "menu.option.setup_election": "Setup Election",
     "menu.option.begin_tally_ceremony": "Begin Tally Ceremony",
     "menu.option.upload_manifest": "Upload Manifest",
     "menu.option.build_manifest": "Build Manifest",
+    "menu.option.manage_joint_keys": "Manage Joint Keys",
+    "menu.option.manage_elections": "Manage Elections",
 
     "login_form.username": "Username",
     "login_form.password": "Password",
@@ -85,16 +87,85 @@
     "joint_key_setup.guardian_assignment_review.confirmation_callout": "If all the information is correct, please confirm",
     "joint_key_setup.guardian_assignment_review.confirmation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
 
+    "key_ceremony_list.title": "Join a Key Ceremony",
+    "key_ceremony_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "joint_key_list.title": "Joint Encryption Keys",
+    "joint_key_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "key_ceremony.introduction.title": "Welcome to the Key Ceremony",
+    "key_ceremony.introduction.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.steps_heading": "Here's what to expect",
+    "key_ceremony.introduction.steps_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.step4": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "key_ceremony.meet_guardians.title": "Meet the Guardians",
+    "key_ceremony.meet_guardians.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.meet_guardians.guardian_heading": "Guardians for this election:",
+    "key_ceremony.meet_guardians.button": "Start Key Ceremony",
+
+    "key_ceremony.create_keypair.title": "Create your Election Key Pair",
+    "key_ceremony.create_keypair.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.create_keypair.button": "Generate Election Key Pair",
+
+    "key_ceremony.share_public_key.title": "Share your Public Key",
+    "key_ceremony.share_public_key.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.share_public_key.button": "Share Public Key",
+
+    "key_ceremony.create_backups.title": "Create your Partial Key Backups",
+    "key_ceremony.create_backups.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.create_backups.button": "Generate Partial Key Backups",
+    "key_ceremony.create_backups.disabled_button": "Awaiting Other Guardians",
+
+    "key_ceremony.share_backups.title": "Share your Partial Key Backups",
+    "key_ceremony.share_backups.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.share_backups.button": "Share Partial Key Backups",
+
+    "key_ceremony.verify_backups.title": "Verify Backups",
+    "key_ceremony.verify_backups.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.verify_backups.button": "Confirm Backups Verified",
+    "key_ceremony.verify_backups.disabled_button": "Awaiting Verifications",
+
+    "key_ceremony.combine_keys.title": "Combine Public Keys into Joint Key",
+    "key_ceremony.combine_keys.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.combine_keys.button": "Form Joint Key",
+    "key_ceremony.combine_keys.disabled_button": "Awaiting Guardians",
+
+    "key_ceremony.complete.title": "Key Ceremony Complete",
+    "key_ceremony.complete.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.complete.button": "Return to Home",
+
+    "key_ceremony.steps.instructions": "Instructions",
+    "key_ceremony.steps.meet_guardians": "Meet the Guardians",
+    "key_ceremony.steps.create_keypair": "Create Election KeyPair",
+    "key_ceremony.steps.share_public_key": "Share Election Public Key",
+    "key_ceremony.steps.create_backups": "Create Partial Key Backups",
+    "key_ceremony.steps.share_backups": "Share Partial Key Backups",
+    "key_ceremony.steps.verify_backups": "Verify Partial Key Backups",
+    "key_ceremony.steps.combine_keys": "Form Joint Key",
+    "key_ceremony.steps.complete": "Key Ceremony Complete",
+
     "joint_key.name": "Name",
     "joint_key.number_of_guardians": "Number of Guardians",
     "joint_key.quorum": "Quorum",
 
+    "guardian": "Guardian",
     "guardian.name": "Name",
 
     "actions.cancel": "Cancel",
     "actions.submit": "Submit",
     "actions.confirm": "Confirm",
     "actions.next": "Next",
+    "actions.continue": "Continue",
     "actions.previous": "Previous",
-    "actions.edit": "Edit"
+    "actions.edit": "Edit",
+
+    "nav.return_home": "Return to Home",
+
+    "task_status.error": "Error",
+    "task_status.complete": "Complete",
+    "task_status.incomplete": "Incomplete"
 }
