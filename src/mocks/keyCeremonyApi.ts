@@ -2,9 +2,8 @@ import AssignedGuardian from '../models/assignedGuardian';
 import { KeyCeremony, KeyCeremonyStatus } from '../models/keyCeremony';
 import { KeyCeremonyApi } from '../models/KeyCeremonyApi';
 import TaskStatus from '../models/taskStatus';
+import delay from '../utils/delay';
 import { getKeyCeremonyGuardians } from './keyCeremony';
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export default class MockKeyCeremonyApi implements KeyCeremonyApi {
     state: KeyCeremony = {
