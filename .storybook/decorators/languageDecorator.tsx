@@ -8,7 +8,7 @@ export const languageGlobals = {
     language: {
         name: 'Language',
         description: 'Change the language',
-        defaultValue: supported.englishB,
+        defaultValue: supported.english,
         toolbar: {
             icon: 'globe',
             items: [

@@ -11,8 +11,8 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-export const PageDemo: Story<ElectionSetupPageProps> = (props) => (
+export const PageDemo: Story = () => (
     <DefaultLayout>
-        <ElectionSetupPage {...props} getJointKeys={getJointKeys} />
+        <ElectionSetupPage />
     </DefaultLayout>
 );

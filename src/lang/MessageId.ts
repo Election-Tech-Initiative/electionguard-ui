@@ -12,12 +12,14 @@ enum MessageId {
 
     // Menu
     MenuPrompt = 'menu.prompt',
-    MenuOptionManageUsers = 'menu.option.manage_users',
-    MenuOptionBeginKeyCeremony = 'menu.option.begin_key_ceremony',
-    MenuOptionSetupElection = 'menu.option.setup_election',
-    MenuOptionBeginTallyCeremony = 'menu.option.begin_tally_ceremony',
-    MenuOptionUploadManifest = 'menu.option.upload_manifest',
-    MenuOptionBuildManifest = 'menu.option.build_manifest',
+    MenuOption_ManageUsers = 'menu.option.manage_users',
+    MenuOption_JoinKeyCeremony = 'menu.option.join_key_ceremony',
+    MenuOption_SetupElection = 'menu.option.setup_election',
+    MenuOption_BeginTallyCeremony = 'menu.option.begin_tally_ceremony',
+    MenuOption_UploadManifest = 'menu.option.upload_manifest',
+    MenuOption_BuildManifest = 'menu.option.build_manifest',
+    MenuOption_ManageJointKeys = 'menu.option.manage_joint_keys',
+    MenuOption_ManageElections = 'menu.option.manage_elections',
 
     // Login Form
     LoginFormUsername = 'login_form.username',
@@ -94,11 +96,73 @@ enum MessageId {
     JointKeySetup_GuardianAssignmentReview_ConfirmationCallout = 'joint_key_setup.guardian_assignment_review.confirmation_callout',
     JointKeySetup_GuardianAssignmentReview_Confirmation = 'joint_key_setup.guardian_assignment_review.confirmation',
 
+    KeyCeremonyList_Title = 'key_ceremony_list.title',
+    KeyCeremonyList_Description = 'key_ceremony_list.description',
+
+    JointKeyList_Title = 'joint_key_list.title',
+    JointKeyList_Description = 'joint_key_list.description',
+
+    // Key Ceremony
+    KeyCeremony_Introduction_Title = 'key_ceremony.introduction.title',
+    KeyCeremony_Introduction_Description = 'key_ceremony.introduction.description',
+    KeyCeremony_Introduction_StepsHeading = 'key_ceremony.introduction.steps_heading',
+    KeyCeremony_Introduction_StepsDescription = 'key_ceremony.introduction.steps_description',
+    KeyCeremony_Introduction_Step1 = 'key_ceremony.introduction.step1',
+    KeyCeremony_Introduction_Step2 = 'key_ceremony.introduction.step2',
+    KeyCeremony_Introduction_Step3 = 'key_ceremony.introduction.step3',
+    KeyCeremony_Introduction_Step4 = 'key_ceremony.introduction.step4',
+
+    KeyCeremony_MeetGuardians_Title = 'key_ceremony.meet_guardians.title',
+    KeyCeremony_MeetGuardians_Description = 'key_ceremony.meet_guardians.description',
+    KeyCeremony_MeetGuardians_GuardianHeading = 'key_ceremony.meet_guardians.guardian_heading',
+    KeyCeremony_MeetGuardians_Button = 'key_ceremony.meet_guardians.button',
+
+    KeyCeremony_CreateKeyPair_Title = 'key_ceremony.create_keypair.title',
+    KeyCeremony_CreateKeyPair_Description = 'key_ceremony.create_keypair.description',
+    KeyCeremony_CreateKeyPair_Button = 'key_ceremony.create_keypair.button',
+
+    KeyCeremony_SharePublicKey_Title = 'key_ceremony.share_public_key.title',
+    KeyCeremony_SharePublicKey_Description = 'key_ceremony.share_public_key.description',
+    KeyCeremony_SharePublicKey_Button = 'key_ceremony.share_public_key.button',
+
+    KeyCeremony_CreateBackups_Title = 'key_ceremony.create_backups.title',
+    KeyCeremony_CreateBackups_Description = 'key_ceremony.create_backups.description',
+    KeyCeremony_CreateBackups_Button = 'key_ceremony.create_backups.button',
+    KeyCeremony_CreateBackups_DisabledButton = 'key_ceremony.create_backups.disabled_button',
+
+    KeyCeremony_ShareBackups_Title = 'key_ceremony.share_backups.title',
+    KeyCeremony_ShareBackups_Description = 'key_ceremony.share_backups.description',
+    KeyCeremony_ShareBackups_Button = 'key_ceremony.share_backups.button',
+
+    KeyCeremony_VerifyBackups_Title = 'key_ceremony.verify_backups.title',
+    KeyCeremony_VerifyBackups_Description = 'key_ceremony.verify_backups.description',
+    KeyCeremony_VerifyBackups_Button = 'key_ceremony.verify_backups.button',
+
+    KeyCeremony_CombineKeys_Title = 'key_ceremony.combine_keys.title',
+    KeyCeremony_CombineKeys_Description = 'key_ceremony.combine_keys.description',
+    KeyCeremony_CombineKeys_Button = 'key_ceremony.combine_keys.button',
+    KeyCeremony_CombineKeys_DisabledButton = 'key_ceremony.combine_keys.disabled_button',
+
+    KeyCeremony_Complete_Title = 'key_ceremony.complete.title',
+    KeyCeremony_Complete_Description = 'key_ceremony.complete.description',
+    KeyCeremony_Complete_Button = 'key_ceremony.complete.button',
+
+    KeyCeremony_Steps_Instructions = 'key_ceremony.steps.instructions',
+    KeyCeremony_Steps_MeetGuardians = 'key_ceremony.steps.meet_guardians',
+    KeyCeremony_Steps_CreateKeypair = 'key_ceremony.steps.create_keypair',
+    KeyCeremony_Steps_SharePublicKey = 'key_ceremony.steps.share_public_key',
+    KeyCeremony_Steps_CreateBackups = 'key_ceremony.steps.create_backups',
+    KeyCeremony_Steps_ShareBackups = 'key_ceremony.steps.share_backups',
+    KeyCeremony_Steps_VerifyBackups = 'key_ceremony.steps.verify_backups',
+    KeyCeremony_Steps_CombineKeys = 'key_ceremony.steps.combine_keys',
+    KeyCeremony_Steps_Complete = 'key_ceremony.steps.complete',
+
     // Models
     JointKey_Name = 'joint_key.name',
     JointKey_NumberOfGuardians = 'joint_key.number_of_guardians',
     JointKey_Quorum = 'joint_key.quorum',
 
+    Guardian = 'guardian',
     Guardian_Name = 'guardian.name',
 
     // Actions
@@ -106,8 +170,15 @@ enum MessageId {
     Actions_Submit = 'actions.submit',
     Actions_Confirm = 'actions.confirm',
     Actions_Next = 'actions.next',
+    Actions_Continue = 'actions.continue',
     Actions_Previous = 'actions.previous',
     Actions_Edit = 'actions.edit',
+
+    Nav_Return_Home = 'nav.return_home',
+
+    TaskStatus_Error = 'task_status.error',
+    TaskStatus_Complete = 'task_status.complete',
+    TaskStatus_Incomplete = 'task_status.incomplete',
 }
 
 export type OverloadableMessageId = MessageId | typeof OverloadMessageId;

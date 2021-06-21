@@ -5,6 +5,8 @@ export enum MenuOptionType {
     BeginTallyCeremony = 'begin-tally-ceremony',
     UploadManifest = 'upload-manifest',
     BuildManifest = 'build-manifest',
+    ManageJointKeys = 'manage-joint-key',
+    ManageElections = 'manage-elections',
 }
 
 export default MenuOptionType;
