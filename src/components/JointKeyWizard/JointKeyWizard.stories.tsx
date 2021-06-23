@@ -16,4 +16,5 @@ export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
     getGuardians: getUsersWithGuardianRole,
+    createJointKey: () => {},
 };

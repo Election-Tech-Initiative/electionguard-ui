@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import { BaseJointKey } from '../../models/jointKey';
 import User from '../../models/user';
+import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
     GuardianAssignmentReviewStep,
@@ -24,22 +25,6 @@ export interface JointKeyWizardProps {
     onCancel: () => void;
 }
 
-const nextStep = (step: JointKeyStep): JointKeyStep => {
-    let newStep = step + 1;
-    if (newStep === Object.keys(JointKeyStep).length / 2) {
-        newStep = JointKeyStep.KeySetup;
-    }
-    return newStep;
-};
-
-const previousStep = (step: JointKeyStep): JointKeyStep => {
-    let newStep = step - 1;
-    if (newStep < 0) {
-        newStep = JointKeyStep.KeySetup;
-    }
-    return newStep;
-};
-
 /**
  * Wizard to setup the election
  */
@@ -49,7 +34,7 @@ const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
     getGuardians,
 }) => {
     const [step, setStep] = useState(JointKeyStep.KeySetup);
-
+    const { nextStep, previousStep } = createEnumStepper(JointKeyStep);
     const [baseJointKey, setBaseJointKey] = useState<BaseJointKey>({
         name: 'Default Name',
         numberOfGuardians: 1,
@@ -92,7 +77,10 @@ const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
             <WizardStep active={step === JointKeyStep.GuardianAssignmentReview}>
                 <GuardianAssignmentReviewStep
                     baseJointKey={baseJointKey}
-                    onConfirm={createJointKey}
+                    onConfirm={(key) => {
+                        createJointKey(key);
+                        next();
+                    }}
                     onEditAssignedGuardians={() => setStep(JointKeyStep.GuardianAssignment)}
                     onEditKeySetup={() => setStep(JointKeyStep.KeySetup)}
                     onCancel={onCancel}
