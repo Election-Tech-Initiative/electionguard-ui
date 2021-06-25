@@ -1,4 +1,4 @@
-import { Container, makeStyles } from '@material-ui/core';
+import { Container, SvgIconProps, makeStyles } from '@material-ui/core';
 import React from 'react';
 
 import { Message } from '../../lang';
@@ -23,6 +23,7 @@ export interface StepHeaderProps {
     loading?: boolean;
     disabled?: boolean;
     onClick?: () => void;
+    Icon?: React.ComponentType<SvgIconProps>;
 }
 
 /**
@@ -36,11 +37,12 @@ const StepHeader: React.FC<StepHeaderProps> = ({
     onClick,
     loading,
     disabled,
+    Icon,
 }) => {
     const classes = useStyles();
     return (
         <Container className={classes.root}>
-            <IconHeader title={title} />
+            <IconHeader Icon={Icon} title={title} />
             <InternationalText
                 className={classes.spaced}
                 component="p"
