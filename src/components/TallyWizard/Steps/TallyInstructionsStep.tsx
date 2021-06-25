@@ -15,19 +15,19 @@ export interface TallyInstructionsStepProps {
 const TallyInstructionsStep: React.FC<TallyInstructionsStepProps> = ({ onNext }) => (
     <Container maxWidth="md">
         <StepHeader
-            title={new Message(MessageId.ElectionSetupIntroductionTitle)}
-            description={new Message(MessageId.ElectionSetupIntroductionDescription)}
-            buttonText={new Message(MessageId.ElectionSetupIntroductionNext)}
+            title={new Message(MessageId.TallyCeremony_Introduction_Title)}
+            description={new Message(MessageId.TallyCeremony_Introduction_Description)}
+            buttonText={new Message(MessageId.TallyCeremony_Introduction_Button)}
             onClick={onNext}
         />
         <StepIntroduction
-            heading={new Message(MessageId.ElectionSetupIntroductionStepsHeading)}
-            description={new Message(MessageId.ElectionSetupIntroductionStepsInstructions)}
+            heading={new Message(MessageId.TallyCeremony_Introduction_StepsHeading)}
+            description={new Message(MessageId.TallyCeremony_Introduction_StepsDescription)}
             steps={[
-                new Message(MessageId.ElectionSetupIntroductionStep1),
-                new Message(MessageId.ElectionSetupIntroductionStep2),
-                new Message(MessageId.ElectionSetupIntroductionStep3),
-                new Message(MessageId.ElectionSetupIntroductionStep4),
+                new Message(MessageId.TallyCeremony_Introduction_Step1),
+                new Message(MessageId.TallyCeremony_Introduction_Step2),
+                new Message(MessageId.TallyCeremony_Introduction_Step3),
+                new Message(MessageId.TallyCeremony_Introduction_Step4),
             ]}
         />
     </Container>
