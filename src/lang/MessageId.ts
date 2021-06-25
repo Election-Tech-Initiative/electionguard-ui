@@ -157,6 +157,63 @@ enum MessageId {
     KeyCeremony_Steps_CombineKeys = 'key_ceremony.steps.combine_keys',
     KeyCeremony_Steps_Complete = 'key_ceremony.steps.complete',
 
+    // Tally Ceremony
+    // -- Steps
+    TallyCeremony_Introduction_Title = 'tally_ceremony.introduction.title',
+    TallyCeremony_Introduction_Description = 'tally_ceremony.introduction.description',
+    TallyCeremony_Introduction_Button = 'tally_ceremony.introduction.button',
+    TallyCeremony_Introduction_StepsHeading = 'tally_ceremony.introduction.steps_heading',
+    TallyCeremony_Introduction_StepsDescription = 'tally_ceremony.introduction.steps_description',
+    TallyCeremony_Introduction_Step1 = 'tally_ceremony.introduction.step1',
+    TallyCeremony_Introduction_Step2 = 'tally_ceremony.introduction.step2',
+    TallyCeremony_Introduction_Step3 = 'tally_ceremony.introduction.step3',
+    TallyCeremony_Introduction_Step4 = 'tally_ceremony.introduction.step4',
+
+    TallyCeremony_DownloadTally_Title = 'tally_ceremony.download_tally.title',
+    TallyCeremony_DownloadTally_Description = 'tally_ceremony.download_tally.description',
+    TallyCeremony_DownloadTally_Button = 'tally_ceremony.download_tally.button',
+
+    TallyCeremony_DecryptTallyShare_Title = 'tally_ceremony.decrypt_tally_share.title',
+    TallyCeremony_DecryptTallyShare_Description = 'tally_ceremony.decrypt_tally_share.description',
+    TallyCeremony_DecryptTallyShare_Button = 'tally_ceremony.decrypt_tally_share.button',
+    TallyCeremony_DecryptTallyShare_Decrypting = 'tally_ceremony.decrypt_tally_share.decrypting',
+    TallyCeremony_DecryptTallyShare_Complete = 'tally_ceremony.decrypt_tally_share.complete',
+    TallyCeremony_DecryptTallyShare_CompleteButton = 'tally_ceremony.decrypt_tally_share.complete_button',
+
+    TallyCeremony_UploadTallyShare_Title = 'tally_ceremony.upload_tally_share.title',
+    TallyCeremony_UploadTallyShare_Description = 'tally_ceremony.upload_tally_share.description',
+    TallyCeremony_UploadTallyShare_Button = 'tally_ceremony.upload_tally_share.button',
+
+    TallyCeremony_DecryptMissing_Title = 'tally_ceremony.decrypt_missing.title',
+    TallyCeremony_DecryptMissing_Description = 'tally_ceremony.decrypt_missing.description',
+    TallyCeremony_DecryptMissing_Button = 'tally_ceremony.decrypt_missing.button',
+    TallyCeremony_DecryptMissing_Decrypting = 'tally_ceremony.decrypt_missing.decrypting',
+    TallyCeremony_DecryptMissing_Complete = 'tally_ceremony.decrypt_missing.complete',
+    TallyCeremony_DecryptMissing_CompleteButton = 'tally_ceremony.decrypt_missing.complete_button',
+
+    TallyCeremony_UploadMissing_Title = 'tally_ceremony.upload_missing.title',
+    TallyCeremony_UploadMissing_Description = 'tally_ceremony.upload_missing.description',
+    TallyCeremony_UploadMissing_Button = 'tally_ceremony.upload_missing.button',
+
+    TallyCeremony_CombineShares_Title = 'tally_ceremony.combine_shares.title',
+    TallyCeremony_CombineShares_Description = 'tally_ceremony.combine_shares.description',
+    TallyCeremony_CombineShares_Button = 'tally_ceremony.combine_shares.button',
+    TallyCeremony_CombineShares_ButtonDisabled = 'tally_ceremony.combine_shares.button_disabled',
+
+    TallyCeremony_Complete_Title = 'tally_ceremony.complete.title',
+    TallyCeremony_Complete_Description = 'tally_ceremony.complete.description',
+    TallyCeremony_Complete_Button = 'tally_ceremony.complete.button',
+
+    // -- Step Descriptions
+    TallyCeremony_Steps_Introduction = 'tally_ceremony.steps.introduction',
+    TallyCeremony_Steps_DownloadTally = 'tally_ceremony.steps.download_tally',
+    TallyCeremony_Steps_DecryptTallyShare = 'tally_ceremony.steps.decrypt_tally_share',
+    TallyCeremony_Steps_UploadTallyShare = 'tally_ceremony.steps.upload_tally_share',
+    TallyCeremony_Steps_DecryptMissing = 'tally_ceremony.steps.decrypt_missing',
+    TallyCeremony_Steps_UploadMissing = 'tally_ceremony.steps.upload_missing',
+    TallyCeremony_Steps_CombineShares = 'tally_ceremony.steps.combine_shares',
+    TallyCeremony_Steps_TallyComplete = 'tally_ceremony.steps.tally_complete',
+
     // Models
     JointKey_Name = 'joint_key.name',
     JointKey_NumberOfGuardians = 'joint_key.number_of_guardians',
