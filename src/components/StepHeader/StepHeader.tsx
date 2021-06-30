@@ -1,4 +1,4 @@
-import { Container, SvgIconProps, makeStyles } from '@material-ui/core';
+import { Box, Container, SvgIconProps, makeStyles } from '@material-ui/core';
 import React from 'react';
 
 import { Message } from '../../lang';
@@ -49,16 +49,18 @@ const StepHeader: React.FC<StepHeaderProps> = ({
                 id={description.id}
                 defaultMessage={description.defaultMessage}
             />
-            <FormattedButton
-                className={classes.spaced}
-                variant="contained"
-                color="secondary"
-                onClick={onClick}
-                disabled={disabled}
-                loading={loading}
-                text={buttonText}
-                disabledText={disabledButtonText}
-            />
+            <Box width="100%" display="flex" justifyContent="center">
+                <FormattedButton
+                    className={classes.spaced}
+                    variant="contained"
+                    color="secondary"
+                    onClick={onClick}
+                    disabled={disabled}
+                    loading={loading}
+                    text={buttonText}
+                    disabledText={disabledButtonText}
+                />
+            </Box>
         </Container>
     );
 };
