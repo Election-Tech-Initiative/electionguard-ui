@@ -191,6 +191,10 @@ enum MessageId {
     TallyCeremony_DecryptMissing_Complete = 'tally_ceremony.decrypt_missing.complete',
     TallyCeremony_DecryptMissing_CompleteButton = 'tally_ceremony.decrypt_missing.complete_button',
 
+    TallyCeremony_NoMissing_Title = 'tally_ceremony.no_missing.title',
+    TallyCeremony_NoMissing_Description = 'tally_ceremony.no_missing.description',
+    TallyCeremony_NoMissing_Button = 'tally_ceremony.no_missing.button',
+
     TallyCeremony_UploadMissing_Title = 'tally_ceremony.upload_missing.title',
     TallyCeremony_UploadMissing_Description = 'tally_ceremony.upload_missing.description',
     TallyCeremony_UploadMissing_Button = 'tally_ceremony.upload_missing.button',
@@ -222,11 +226,17 @@ enum MessageId {
     Guardian = 'guardian',
     Guardian_Name = 'guardian.name',
 
+    // Placeholder
+    Placeholder_Processing = 'placeholder.processing',
+    Placeholder_Complete = 'placeholder.complete',
+    Placeholder_Error = 'placeholder.error',
+
     // Actions
     Actions_Cancel = 'actions.cancel',
     Actions_Submit = 'actions.submit',
     Actions_Confirm = 'actions.confirm',
     Actions_Next = 'actions.next',
+    Actions_Back = 'actions.back',
     Actions_Continue = 'actions.continue',
     Actions_Previous = 'actions.previous',
     Actions_Edit = 'actions.edit',

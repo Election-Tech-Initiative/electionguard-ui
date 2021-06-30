@@ -181,6 +181,10 @@
     "tally_ceremony.decrypt_missing.complete": "Decryption Complete",
     "tally_ceremony.decrypt_missing.complete_button": "Continue",
 
+    "tally_ceremony.no_missing.title": "No Missing Guardians",
+    "tally_ceremony.no_missing.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.no_missing.button": "Skip",
+
     "tally_ceremony.upload_missing.title": "Upload Missing Guardian Shares",
     "tally_ceremony.upload_missing.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "tally_ceremony.upload_missing.button": "Upload",
@@ -210,10 +214,15 @@
     "guardian": "Guardian",
     "guardian.name": "Name",
 
+    "placeholder.processing": "Processing",
+    "placeholder.complete": "Complete",
+    "placeholder.error": "Error",
+
     "actions.cancel": "Cancel",
     "actions.submit": "Submit",
     "actions.confirm": "Confirm",
     "actions.next": "Next",
+    "actions.back": "Back",
     "actions.continue": "Continue",
     "actions.previous": "Previous",
     "actions.edit": "Edit",
