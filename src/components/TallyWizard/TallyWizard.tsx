@@ -1,6 +1,7 @@
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
+import delay from '../../utils/delay';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
@@ -17,13 +18,13 @@ import TallyStep from './TallyCeremonyStep';
 import TallyCeremonyStepper from './TallyCeremonyStepper';
 
 export interface TallyWizardProps {
-    test?: boolean;
+    missing?: boolean;
 }
 
 /**
  * Wizard to setup the election
  */
-const TallyWizard: React.FC<TallyWizardProps> = () => {
+const TallyWizard: React.FC<TallyWizardProps> = ({ missing }) => {
     const [step, setStep] = useState(TallyStep.Instructions);
     const { nextStep } = createEnumStepper(TallyStep);
     const next = () => setStep(nextStep(step));
@@ -34,18 +35,23 @@ const TallyWizard: React.FC<TallyWizardProps> = () => {
             </WizardStep>
             <WizardStep active={step > TallyStep.Instructions}>
                 <TallyCeremonyStepper activeStep={step} />
-                <Box>
+                <Box height="100%">
                     <WizardStep active={step === TallyStep.DownloadTally}>
                         <DownloadTallyStep onNext={next} />
                     </WizardStep>
                     <WizardStep active={step === TallyStep.DecryptTallyShare}>
-                        <DecryptTallyShareStep onNext={next} />
+                        <DecryptTallyShareStep onDecrypt={() => delay(3000)} onComplete={next} />
                     </WizardStep>
                     <WizardStep active={step === TallyStep.UploadTallyShare}>
                         <UploadTallyShareStep onNext={next} />
                     </WizardStep>
                     <WizardStep active={step === TallyStep.DecryptMissing}>
-                        <DecryptMissingStep onNext={next} />
+                        <DecryptMissingStep
+                            missing={missing}
+                            onDecrypt={() => delay(3000)}
+                            onComplete={next}
+                            onSkip={() => setStep(TallyStep.CombineShares)}
+                        />
                     </WizardStep>
                     <WizardStep active={step === TallyStep.UploadMissing}>
                         <UploadMissingStep onNext={next} />
