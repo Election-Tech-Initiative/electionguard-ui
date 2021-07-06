@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { getKeyCeremonies, setKeyCeremonyGuardianToStep } from '../../mocks/keyCeremony';
 import { BackupVerification, KeyCeremonyGuardian } from '../../models/keyCeremony';
 import TaskStatus from '../../models/taskStatus';
+import delay from '../../utils/delay';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyWizard, { KeyCeremonyWizardProps } from './KeyCeremonyWizard';
 
@@ -12,8 +13,6 @@ export default {
     component: KeyCeremonyWizard,
     parameters: { layout: 'fullscreen' },
 } as Meta;
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 const Template: Story<KeyCeremonyWizardProps> = (props) => {
     const [keyCeremony, setKeyCeremony] = useState(getKeyCeremonies()[0]);
