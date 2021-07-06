@@ -1,25 +1,22 @@
-.PHONY: install build build-storybook start storybook test
+.PHONY: install build start storybook test
 
 install:
-	yarn install
+	lerna bootstrap
 
 build:
-	yarn build
-
-build-storybook:
-	yarn build-storybook
+	lerna run build
 
 lint:
-	yarn lint
+	lerna run lint
 
 start:
-	yarn start
+	lerna run start
 
 storybook:
-	yarn storybook
+	lerna run storybook
 
 test:
-	yarn test
+	lerna run test
 
 # Docker
 docker-dev-app:
