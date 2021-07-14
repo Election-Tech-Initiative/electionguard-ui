@@ -1,6 +1,7 @@
 .PHONY: install build start storybook test
 
 install:
+	sudo npm install --global lerna
 	lerna bootstrap
 
 build:

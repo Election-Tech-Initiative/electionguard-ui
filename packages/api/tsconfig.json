@@ -1,11 +1,9 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./build",
-    "strict": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+    "extends": "../../tsconfig",
+    "compilerOptions": {
+        "declaration": true,
+        "outDir": "./build"
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "**/__tests__/*"]
 }
