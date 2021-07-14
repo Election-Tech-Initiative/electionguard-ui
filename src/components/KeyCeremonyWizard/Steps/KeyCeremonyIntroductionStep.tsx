@@ -36,6 +36,9 @@ const KeyCeremonyInstructionsStep: React.FC<KeyCeremonyIntroductionStepProps> = 
                 new Message(MessageId.KeyCeremony_Introduction_Step2),
                 new Message(MessageId.KeyCeremony_Introduction_Step3),
                 new Message(MessageId.KeyCeremony_Introduction_Step4),
+                new Message(MessageId.KeyCeremony_Introduction_Step5),
+                new Message(MessageId.KeyCeremony_Introduction_Step6),
+                new Message(MessageId.KeyCeremony_Introduction_Step7),
             ]}
         />
     </Container>
