@@ -2,7 +2,7 @@ name: Azure_Deploy_Workflow
 on: 
   push:
     branches:
-      - main
+      - feature/lerna
   milestone:
     types: [closed]
   repository_dispatch:
@@ -44,7 +44,7 @@ jobs:
               { 
                 "name": "electionguard-ui-app",
                 "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "serve -l 3000 -s build",
+                "command": "serve -l 3000 packages/admin-app/build",
                 "cpu": 0.5,
                 "memory": 1.5,
                 "ports": "3000"
@@ -52,7 +52,7 @@ jobs:
               { 
                 "name": "electionguard-ui-storybook",
                 "image": "${{ secrets.DEPLOY_REGISTRY }}.azurecr.io/electionguard-ui:latest",
-                "command": "serve -l 6006",
+                "command": "serve -l 6006 packages/library/storybook-static",
                 "cpu": 1,
                 "memory": 1.5,
                 "ports": "6006"
