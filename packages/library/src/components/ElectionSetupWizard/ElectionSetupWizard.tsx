@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import { getManifestPreview } from '../../mocks/electionSetup';
 import JointKey from '../../models/jointKey';
+import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
     JointKeyRetrievedStep,
@@ -29,19 +30,12 @@ export interface ElectionSetupWizardProps {
     keys: JointKey[];
 }
 
-const nextStep = (step: ElectionSetupStep): ElectionSetupStep => {
-    let newStep = step + 1;
-    if (newStep === Object.keys(ElectionSetupStep).length / 2) {
-        newStep = ElectionSetupStep.Instructions;
-    }
-    return newStep;
-};
-
 /**
  * Wizard to setup the election
  */
 const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
+    const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
     return (
         <Box height="100%">

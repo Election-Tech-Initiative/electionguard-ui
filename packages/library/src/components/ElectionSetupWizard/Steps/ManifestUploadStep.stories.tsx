@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
+import delay from '../../../utils/delay';
 import ManifestUploadStep, { ManifestUploadStepProps } from './ManifestUploadStep';
 
 export default {
@@ -10,8 +11,6 @@ export default {
 } as Meta;
 
 const Template: Story<ManifestUploadStepProps> = (props) => <ManifestUploadStep {...props} />;
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';

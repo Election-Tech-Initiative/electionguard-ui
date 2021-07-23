@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import AssignedGuardian from '../../models/assignedGuardian';
 import { KeyCeremony, KeyCeremonyStatus } from '../../models/keyCeremony';
 import TaskStatus from '../../models/taskStatus';
+import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import KeyCeremonyActiveStep from './KeyCeremonyActiveStep';
 import KeyCeremonyGuardianTable from './KeyCeremonyGuardianTable';
@@ -25,14 +26,6 @@ export interface KeyCeremonyWizardProps {
     combineKeys: () => void;
     completeKeyCeremony: () => void;
 }
-
-const nextStep = (step: KeyCeremonyStep): KeyCeremonyStep => {
-    let newStep = step + 1;
-    if (newStep === Object.keys(KeyCeremonyStep).length / 2) {
-        newStep = KeyCeremonyStep.Instructions;
-    }
-    return newStep;
-};
 
 const getStartingStep = (
     guardian?: AssignedGuardian,
@@ -113,6 +106,7 @@ const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({
 }) => {
     const startingStep = getStartingStep(guardian, keyCeremony);
     const [step, setStep] = useState(startingStep);
+    const { nextStep } = createEnumStepper(KeyCeremonyStep);
     const next = () => setStep(nextStep(step));
     const { guardians } = keyCeremony;
     return (

@@ -95,6 +95,7 @@
 
     "key_ceremony.introduction.title": "Welcome to the Key Ceremony",
     "key_ceremony.introduction.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "key_ceremony.introduction.button": "Continue",
     "key_ceremony.introduction.steps_heading": "Here's what to expect",
     "key_ceremony.introduction.steps_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "key_ceremony.introduction.step1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
@@ -148,6 +149,64 @@
     "key_ceremony.steps.combine_keys": "Form Joint Key",
     "key_ceremony.steps.complete": "Key Ceremony Complete",
 
+    "tally_ceremony.introduction.title": "Welcome to the Tally Ceremony",
+    "tally_ceremony.introduction.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.introduction.button": "Continue",
+    "tally_ceremony.introduction.steps_heading": "Here's what to expect:",
+    "tally_ceremony.introduction.steps_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.introduction.step1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.introduction.step2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.introduction.step3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.introduction.step4": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+
+    "tally_ceremony.download_tally.title": "Download Encrypted Tally",
+    "tally_ceremony.download_tally.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.download_tally.button": "Download",
+
+    "tally_ceremony.decrypt_tally_share.title": "Decrypt Your Share",
+    "tally_ceremony.decrypt_tally_share.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.decrypt_tally_share.button": "Decrypt",
+    "tally_ceremony.decrypt_tally_share.decrypting": "Decrypting. Decryption may take a while",
+    "tally_ceremony.decrypt_tally_share.complete": "Decryption Complete",
+    "tally_ceremony.decrypt_tally_share.complete_button": "Continue",
+
+    "tally_ceremony.upload_tally_share.title": "Upload Your Share",
+    "tally_ceremony.upload_tally_share.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.upload_tally_share.button": "Upload",
+
+    "tally_ceremony.decrypt_missing.title": "Decrypt Missing Guardian Shares",
+    "tally_ceremony.decrypt_missing.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.decrypt_missing.button": "Decrypt",
+    "tally_ceremony.decrypt_missing.decrypting": "Decrypting. Decryption may take a while",
+    "tally_ceremony.decrypt_missing.complete": "Decryption Complete",
+    "tally_ceremony.decrypt_missing.complete_button": "Continue",
+
+    "tally_ceremony.no_missing.title": "No Missing Guardians",
+    "tally_ceremony.no_missing.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.no_missing.button": "Skip",
+
+    "tally_ceremony.upload_missing.title": "Upload Missing Guardian Shares",
+    "tally_ceremony.upload_missing.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.upload_missing.button": "Upload",
+
+    "tally_ceremony.combine_shares.title": "Combine Shares",
+    "tally_ceremony.combine_shares.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.combine_shares.button": "Combine",
+    "tally_ceremony.combine_shares.button_disabled": "Awaiting other guardians",
+
+    "tally_ceremony.complete.title": "Tally Ceremony is Complete",
+    "tally_ceremony.complete.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "tally_ceremony.complete.button": "Return to Home",
+
+    "tally_ceremony.steps.introduction": "Introduction",
+    "tally_ceremony.steps.download_tally": "Download Encrypted Tally",
+    "tally_ceremony.steps.decrypt_tally_share": "Decrypt Tally Share",
+    "tally_ceremony.steps.upload_tally_share": "Upload Tally Share",
+    "tally_ceremony.steps.decrypt_missing": "Decrypt Share of Missing",
+    "tally_ceremony.steps.upload_missing": "Upload Share of Missing",
+    "tally_ceremony.steps.combine_shares": "Combine Shares",
+    "tally_ceremony.steps.tally_complete": "Tally Ceremony Complete",
+
     "joint_key.name": "Name",
     "joint_key.number_of_guardians": "Number of Guardians",
     "joint_key.quorum": "Quorum",
@@ -155,10 +214,15 @@
     "guardian": "Guardian",
     "guardian.name": "Name",
 
+    "placeholder.processing": "Processing",
+    "placeholder.complete": "Complete",
+    "placeholder.error": "Error",
+
     "actions.cancel": "Cancel",
     "actions.submit": "Submit",
     "actions.confirm": "Confirm",
     "actions.next": "Next",
+    "actions.back": "Back",
     "actions.continue": "Continue",
     "actions.previous": "Previous",
     "actions.edit": "Edit",
