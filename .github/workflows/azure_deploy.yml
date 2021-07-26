@@ -2,7 +2,7 @@ name: Azure_Deploy_Workflow
 on: 
   push:
     branches:
-      - feature/lerna
+      - main
   milestone:
     types: [closed]
   repository_dispatch:
