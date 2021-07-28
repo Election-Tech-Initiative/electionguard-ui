@@ -32,7 +32,7 @@ const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) =>
                     Toolbar: FilterToolbar,
                 }}
                 onSelectionModelChange={(newSelection) => {
-                    onSelectionChange(newSelection.selectionModel);
+                    onSelectionChange(newSelection);
                 }}
                 hideFooterPagination
                 selectionModel={selectionModel}
