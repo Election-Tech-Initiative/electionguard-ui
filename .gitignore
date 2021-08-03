@@ -1,5 +1,7 @@
+# ignore all build folders
 **/build/
 **/node_modules/
 **/storybook-static/
 
+# ignore mac file
 .DS_store
