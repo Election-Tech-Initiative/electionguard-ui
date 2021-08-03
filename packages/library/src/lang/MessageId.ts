@@ -111,6 +111,9 @@ enum MessageId {
     KeyCeremony_Introduction_Step2 = 'key_ceremony.introduction.step2',
     KeyCeremony_Introduction_Step3 = 'key_ceremony.introduction.step3',
     KeyCeremony_Introduction_Step4 = 'key_ceremony.introduction.step4',
+    KeyCeremony_Introduction_Step5 = 'key_ceremony.introduction.step5',
+    KeyCeremony_Introduction_Step6 = 'key_ceremony.introduction.step6',
+    KeyCeremony_Introduction_Step7 = 'key_ceremony.introduction.step7',
 
     KeyCeremony_MeetGuardians_Title = 'key_ceremony.meet_guardians.title',
     KeyCeremony_MeetGuardians_Description = 'key_ceremony.meet_guardians.description',
@@ -146,6 +149,8 @@ enum MessageId {
     KeyCeremony_Complete_Title = 'key_ceremony.complete.title',
     KeyCeremony_Complete_Description = 'key_ceremony.complete.description',
     KeyCeremony_Complete_Button = 'key_ceremony.complete.button',
+
+    KeyCeremony_Vizualization_Complete = 'key_ceremony.visualization_complete',
 
     KeyCeremony_Steps_Instructions = 'key_ceremony.steps.instructions',
     KeyCeremony_Steps_MeetGuardians = 'key_ceremony.steps.meet_guardians',

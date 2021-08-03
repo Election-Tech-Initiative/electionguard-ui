@@ -2,6 +2,7 @@ import { Box, Container, makeStyles, useTheme } from '@material-ui/core';
 import { CheckCircle as CompleteIcon } from '@material-ui/icons';
 import React from 'react';
 
+import { MessageId } from '../../lang';
 import { KeyCeremonyGuardian } from '../../models/keyCeremony';
 import TaskStatus from '../../models/taskStatus';
 import InternationalText from '../InternationalText';
@@ -42,8 +43,7 @@ const KeyCeremonyVisualization: React.FC<KeyCeremonyVisualizationProps> = ({
                     >
                         <CompleteIcon color="primary" fontSize="inherit" />
                         <InternationalText
-                            id="overload"
-                            defaultMessage="Joint Key Created"
+                            id={MessageId.KeyCeremony_Vizualization_Complete}
                             variant="h4"
                             color="primary"
                         />
