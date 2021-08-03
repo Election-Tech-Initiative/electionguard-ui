@@ -62,7 +62,6 @@
     "election_setup.introduction.step2": "The Guardians combine their encryption keys to create the election encryption key for the election.",
     "election_setup.introduction.step3": "Each Guardian exchanges decryption keys with the other Guardians to create their part of the key that will unlock the election after Election Day.",
     "election_setup.introduction.step4": "As the keys are exchanged, each Guardian confirms that they have received keys from all the other Guardians. The process continues until all keys are exchanged.",
-
     "election_list.title": "Election List",
     "election_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "election_list.go_home": "Return to Home",
@@ -142,7 +141,9 @@
     "key_ceremony.complete.description": "You have successfully completed the key ceremony. Thanks for participating!",
     "key_ceremony.complete.button": "Return to Home",
 
+
     "key_ceremony.steps.instructions": "Steps",
+    "key_ceremony.visualization_complete": "Joint Key Created",
     "key_ceremony.steps.meet_guardians": "Meet the Guardians",
     "key_ceremony.steps.create_keypair": "Create keys",
     "key_ceremony.steps.share_public_key": "Share encryption key",
