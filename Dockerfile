@@ -3,16 +3,19 @@ WORKDIR /app
 
 COPY ./package.json .
 COPY ./yarn.lock .
-RUN yarn install
+COPY ./lerna.json .
 
+RUN yarn install
 COPY . /app
 
-RUN yarn build
+RUN npm i -g lerna
+RUN lerna bootstrap
 
-RUN yarn build-storybook
 
+RUN lerna run build
+RUN lerna run build-storybook
 RUN yarn global add serve
 
 EXPOSE 4500
-CMD ["serve", "-l", "4500", "-s", "build"]
+CMD ["serve", "-l", "4500", "-s", "packages\admin-app\build"]
 

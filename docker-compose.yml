@@ -2,7 +2,7 @@ version: '3.8'
 services:
     app:
         build:
-            dockerfile: ./Dockerfile.dev
+            dockerfile: ./Dockerfile
             context: .
         ports:
             - 3000:3000
@@ -11,15 +11,15 @@ services:
             - '/app/node_modules'
         # https://github.com/facebook/create-react-app/issues/8688
         stdin_open: true
-        command: 'yarn start'
+        command: 'serve -l 3000 packages/admin-app/build'
 
     storybook:
         build:
-            dockerfile: ./Dockerfile.dev
+            dockerfile: ./Dockerfile
             context: .
         ports:
             - 6006:6006
         volumes:
             - '.:/app'
             - '/app/node_modules'
-        command: 'yarn storybook'
+        command: 'serve -l 6006 packages/library/storybook-static'

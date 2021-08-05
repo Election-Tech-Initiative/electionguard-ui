@@ -6,3 +6,11 @@ Dockerfile
 build
 node_modules
 storybook-static
+packages/api/build
+packages/api/node_modules
+packages/library/build
+packages/library/node_modules
+packages/admin-app/build
+packages/admin-app/node_modules
+packages/result-app/build
+packages/result-app/node_modules

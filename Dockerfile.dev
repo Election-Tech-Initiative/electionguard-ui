@@ -3,7 +3,13 @@ WORKDIR /app
 
 COPY ./package.json .
 COPY ./yarn.lock .
+COPY ./lerna.json .
+
 RUN yarn install
+RUN npm i -g lerna
+RUN lerna bootstrap
+
+RUN lerna run build
 
 EXPOSE 3000
-CMD ["yarn", "start"]
+CMD ["lerna", "run", "start"]

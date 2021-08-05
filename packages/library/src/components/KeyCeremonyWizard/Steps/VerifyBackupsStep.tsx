@@ -120,7 +120,7 @@ const VerifyBackupsStep: React.FC<VerifyBackupsStepProps> = ({
                         Toolbar: FilterToolbar,
                     }}
                     selectionModel={guardianId}
-                    onSelectionModelChange={(row) => setGuardianId(row.selectionModel)}
+                    onSelectionModelChange={(row) => setGuardianId(row)}
                     hideFooterPagination
                 />
             </Box>
