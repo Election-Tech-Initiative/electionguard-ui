@@ -16,6 +16,9 @@ start:
 storybook:
 	lerna run storybook
 
+build-storybook:
+	lerna run build-storybook
+
 test:
 	lerna run test
 
