@@ -1,2 +1,2 @@
 export type { default as Api } from './Api';
-export type { default as MockApi } from './MockApi';
+export { default as MockApi } from './MockApi';

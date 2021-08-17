@@ -1,3 +1,4 @@
+import { MockApi } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
 import * as React from 'react';
@@ -17,6 +18,11 @@ const columns: GridColDef[] = [
 
 const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) => {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+    const service = new MockApi();
+    const test = service.healthCheck();
+    if (test) console.log('test was true non story');
+    else console.log('test was false again');
+
     const onSelectionChange = (rows: GridRowId[]) => {
         setSelectionModel(rows);
         onChanged(rows.map((rowId: GridRowId) => rowId.toString()));
