@@ -1,8 +1,7 @@
-import { MockApi } from '@electionguard-ui/api';
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../mocks/users';
 import AssignmentTable, { AssignmentTableProps } from './AssignmentTable';
 
 export default {
@@ -12,12 +11,10 @@ export default {
 } as Meta;
 
 const Template: Story<AssignmentTableProps> = (props) => <AssignmentTable {...props} />;
-const service = new MockApi();
-const test = service.healthCheck();
-if (test) console.log('test story was true yea!!!!!');
+const service = getApi(true);
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: getUsersWithGuardianRole(),
+    data: service.getUsersWithGuardianRole(),
 };

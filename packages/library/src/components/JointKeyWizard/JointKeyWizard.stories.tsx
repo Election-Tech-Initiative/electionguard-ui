@@ -1,7 +1,7 @@
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../mocks/users';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
 
 export default {
@@ -12,9 +12,10 @@ export default {
 
 const Template: Story<JointKeyWizardProps> = (props) => <JointKeyWizard {...props} />;
 
+const service = getApi(true);
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    getGuardians: getUsersWithGuardianRole,
-    createJointKey: () => {},
+    getGuardians: service.getUsersWithGuardianRole,
+    createJointKey: service.createJointKey,
 };

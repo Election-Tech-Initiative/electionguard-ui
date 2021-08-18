@@ -1,12 +1,9 @@
+import { AssignedGuardian, BaseJointKey, User, getApi } from '@electionguard-ui/api';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
-import { getUsersWithGuardianRole } from '../../../mocks/users';
-import AssignedGuardian from '../../../models/assignedGuardian';
-import { BaseJointKey } from '../../../models/jointKey';
-import User from '../../../models/user';
 import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';
 import IconHeader from '../../IconHeader';
@@ -86,7 +83,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
             guardians: assignedGuardians,
         });
     };
-
+    const service = getApi(true);
     return (
         <Container maxWidth="md">
             <IconHeader title={new Message(MessageId.JointKeySetup_GuardianAssignment_Title)} />
@@ -154,7 +151,10 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                     </Box>
                 </Box>
                 <Box className={classes.tableContainer} width="100%">
-                    <AssignmentTable data={getUsersWithGuardianRole()} onChanged={onAssign} />
+                    <AssignmentTable
+                        data={service.getUsersWithGuardianRole()}
+                        onChanged={onAssign}
+                    />
                 </Box>
                 <Box className={classes.buttonContainer}>
                     <Button

@@ -1,7 +1,7 @@
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getAssignedGuardians } from '../../../mocks/guardians';
 import GuardianAssignmentReviewStep, {
     GuardianAssignmentReviewStepProps,
 } from './GuardianAssignmentReviewStep';
@@ -16,6 +16,7 @@ const Template: Story<GuardianAssignmentReviewStepProps> = (props) => (
     <GuardianAssignmentReviewStep {...props} />
 );
 
+const service = getApi(true);
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
@@ -23,6 +24,6 @@ Standard.args = {
         name: 'Montgomery School Board Key',
         numberOfGuardians: 3,
         quorum: 2,
-        guardians: getAssignedGuardians(),
+        guardians: service.getAssignedGuardians(),
     },
 };

@@ -1,7 +1,7 @@
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../../mocks/users';
 import GuardianAssignmentStep, { GuardianAssignmentStepProps } from './GuardianAssignmentStep';
 
 export default {
@@ -14,6 +14,7 @@ const Template: Story<GuardianAssignmentStepProps> = (props) => (
     <GuardianAssignmentStep {...props} />
 );
 
+const service = getApi(true);
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
@@ -23,5 +24,5 @@ Standard.args = {
         quorum: 2,
         guardians: [],
     },
-    possibleGuardians: getUsersWithGuardianRole(),
+    possibleGuardians: service.getUsersWithGuardianRole(),
 };
