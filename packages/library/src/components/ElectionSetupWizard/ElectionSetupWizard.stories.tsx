@@ -1,7 +1,7 @@
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getJointKeys } from '../../mocks/electionSetup';
 import ElectionSetupWizard, { ElectionSetupWizardProps } from './ElectionSetupWizard';
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
 const Template: Story<ElectionSetupWizardProps> = (props) => <ElectionSetupWizard {...props} />;
 
+const service = getApi(true);
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    keys: getJointKeys(),
+    keys: service.getJointKeys(),
 };

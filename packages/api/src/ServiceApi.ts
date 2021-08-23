@@ -1,25 +1,31 @@
 import Api from './Api';
-import AssignedGuardian from './models/assignedGuardian';
-import ElectionRow from './models/ElectionRow';
-import user from './models/user';
-import { BaseJointKey } from './models/jointKey';
+import { getUsersWithGuardianRole as serverGetUsersWithGuardianRole } from './server/users'
+import { createJointKey as serverCreateJointKey } from './server/jointKey'
+import { getElections as serverGetElections } from './server/elections';
+import { getAssignedGuardians as serverGetAssignedGuardians } from './server/guardians'
+import { getJointKeys as serverGetJointKeys, getManifestPreview as serverGetManifestPreview } from './server/electionSetup';
+import { getKeyCeremonies as serverGetKeyCeremonies, getKeyCeremonyGuardians as serverGetKeyCeremonyGuardians, setKeyCeremonyGuardianToStep as serverSetKeyCeremonyGuardianToStep, getKeyCeremonyGuardiansByStep as serverGetKeyCeremonyGuardiansByStep } from './mocks/keyCeremony';
 
 export default class ServiceApi implements Api {
-    getElections(): ElectionRow[] {
-        throw new Error("Method not implemented.");
-    };
+    getElections = serverGetElections;
 
-    getUsersWithGuardianRole(): user[] {
-        throw new Error("Method not implemented.");
-    };
+    getUsersWithGuardianRole = serverGetUsersWithGuardianRole;
 
-    getAssignedGuardians(): AssignedGuardian[] {
-        throw new Error("Method not implemented.");
-    };
+    getAssignedGuardians = serverGetAssignedGuardians;
 
-    createJointKey(data: BaseJointKey): boolean {
-        throw new Error("Method not implemented.");
-    };
+    createJointKey =  serverCreateJointKey;
+
+    getJointKeys = serverGetJointKeys;
+
+    getManifestPreview = serverGetManifestPreview;
+
+    getKeyCeremonyGuardians = serverGetKeyCeremonyGuardians;
+
+    setKeyCeremonyGuardianToStep = serverSetKeyCeremonyGuardianToStep;
     
+    getKeyCeremonyGuardiansByStep = serverGetKeyCeremonyGuardiansByStep;
+    
+    getKeyCeremonies = serverGetKeyCeremonies;
+
     healthCheck = (): boolean => true;
 }

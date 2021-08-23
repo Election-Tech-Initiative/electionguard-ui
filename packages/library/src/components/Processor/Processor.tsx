@@ -1,3 +1,4 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { Box, CircularProgress, Container, SvgIconProps, makeStyles } from '@material-ui/core';
 import {
     CheckCircle as DefaultCompleteIcon,
@@ -8,7 +9,6 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 
 import { Message, MessageId } from '../../lang';
-import TaskStatus from '../../models/taskStatus';
 import FormattedButton from '../FormattedButton';
 import InternationalText from '../InternationalText';
 import StepHeader from '../StepHeader';

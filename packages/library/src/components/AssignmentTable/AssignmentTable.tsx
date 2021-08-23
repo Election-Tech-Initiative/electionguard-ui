@@ -1,8 +1,8 @@
+import { User } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
 import * as React from 'react';
 
-import User from '../../models/user';
 import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {

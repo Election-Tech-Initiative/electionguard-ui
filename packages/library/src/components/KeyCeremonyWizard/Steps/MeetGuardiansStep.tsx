@@ -1,8 +1,8 @@
+import { AssignedGuardian } from '@electionguard-ui/api';
 import { Container, makeStyles } from '@material-ui/core';
 import React from 'react';
 
 import { Message, MessageId } from '../../../lang';
-import AssignedGuardian from '../../../models/assignedGuardian';
 import GuardianTable from '../../GuardianTable';
 import InternationalText from '../../InternationalText';
 import StepHeader from '../../StepHeader';

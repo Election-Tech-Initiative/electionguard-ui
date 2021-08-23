@@ -1,9 +1,9 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { BallotOutlined } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
 import { Message, loremIpsum } from '../../lang';
-import TaskStatus from '../../models/taskStatus';
 import delay from '../../utils/delay';
 import Processor, { ProcessorProps } from './Processor';
 

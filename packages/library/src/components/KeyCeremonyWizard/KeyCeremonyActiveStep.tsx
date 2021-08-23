@@ -1,7 +1,7 @@
+import { BackupVerification } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import React from 'react';
 
-import { BackupVerification } from '../../models/keyCeremony';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import {
     CeremonyCompleteStep,

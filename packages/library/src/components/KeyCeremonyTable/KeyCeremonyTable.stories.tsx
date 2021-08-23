@@ -1,7 +1,7 @@
+import { getApi } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getKeyCeremonies } from '../../mocks/keyCeremony';
 import KeyCeremonyTable, { KeyCeremonyTableProps } from './KeyCeremonyTable';
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
 const Template: Story<KeyCeremonyTableProps> = (props) => <KeyCeremonyTable {...props} />;
 
+const service = getApi(true);
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: getKeyCeremonies(),
+    data: service.getKeyCeremonies(),
 };

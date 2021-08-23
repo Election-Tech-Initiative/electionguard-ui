@@ -7,7 +7,8 @@ export interface BaseJointKey {
     guardians: AssignedGuardian[];
 }
 
-export default interface JointKey extends BaseJointKey {
+export interface JointKey extends BaseJointKey {
     id: string;
     dateCreated: Date;
 }
+

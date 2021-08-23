@@ -1,8 +1,10 @@
 import Api from "./Api";
 import { getElections as mockGetElections } from './mocks/elections';
-import { getUsersWithGuardianRole as mockGetUsersWithGuardianRole } from './mocks/users';
-import { getAssignedGuardians as mockGetAssignedGuardians } from './mocks/guardians'
-import { createJointKey as mockCreateJointKey } from './mocks/jointKey'
+import { getJointKeys as mockGetJointKeys, getManifestPreview as mockGetManifestPreview } from './mocks/electionSetup';
+import { getUsersWithGuardianRole as mockGetUsersWithGuardianRole } from './server/users';
+import { getAssignedGuardians as mockGetAssignedGuardians } from './mocks/guardians';
+import { createJointKey as mockCreateJointKey } from './mocks/jointKey';
+import { getKeyCeremonies as mockGetKeyCeremonies, getKeyCeremonyGuardians as mockGetKeyCeremonyGuardians, setKeyCeremonyGuardianToStep as mockSetKeyCeremonyGuardianToStep, getKeyCeremonyGuardiansByStep as mockGetKeyCeremonyGuardiansByStep } from './mocks/keyCeremony';
 
 export default class MockApi implements Api {
     getElections = mockGetElections;
@@ -12,6 +14,19 @@ export default class MockApi implements Api {
     getAssignedGuardians = mockGetAssignedGuardians;
 
     createJointKey = mockCreateJointKey;
+
+    getJointKeys = mockGetJointKeys;
+
+    getManifestPreview = mockGetManifestPreview;
+
+    getKeyCeremonyGuardians = mockGetKeyCeremonyGuardians;
+
+    setKeyCeremonyGuardianToStep = mockSetKeyCeremonyGuardianToStep;
+    
+    getKeyCeremonyGuardiansByStep = mockGetKeyCeremonyGuardiansByStep;
+    
+    getKeyCeremonies = mockGetKeyCeremonies;
+    
 
     healthCheck = (): boolean => true;
 }

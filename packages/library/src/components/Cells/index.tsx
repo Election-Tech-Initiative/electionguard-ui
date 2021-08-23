@@ -1,10 +1,10 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { Chip } from '@material-ui/core';
 import { GridCellParams } from '@material-ui/data-grid';
 import React, { ReactElement } from 'react';
 import { IntlShape } from 'react-intl';
 
 import { Message } from '../../lang';
-import TaskStatus from '../../models/taskStatus';
 import { getColor } from '../../theme';
 import FormattedButton from '../FormattedButton';
 import GuardianIcon from '../GuardianIcon';

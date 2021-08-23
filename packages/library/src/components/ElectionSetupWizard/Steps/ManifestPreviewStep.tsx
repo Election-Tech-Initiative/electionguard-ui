@@ -1,3 +1,4 @@
+import { ManifestPreview } from '@electionguard-ui/api';
 import {
     Box,
     Button,
@@ -13,7 +14,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
-import ManifestPreview from '../../../models/manifestPreview';
 import IconHeader from '../../IconHeader';
 
 export interface ManifestPreviewStepProps {

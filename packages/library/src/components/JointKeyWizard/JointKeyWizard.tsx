@@ -1,8 +1,7 @@
+import { BaseJointKey, User } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import { BaseJointKey } from '../../models/jointKey';
-import User from '../../models/user';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
