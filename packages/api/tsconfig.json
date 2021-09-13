@@ -1,27 +1,35 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "target": "es2017",
-        "module": "esnext",
-        "lib": ["dom", "ESNext"],
-        "strict": true,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "composite": true,
-        "allowJs": true,
-        "allowSyntheticDefaultImports": true,
-        "noFallthroughCasesInSwitch": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "react",
-        "noEmit": false
-    },
-    "include": ["src"],
-    "exclude": ["node_modules", "**/__tests__/*"]
+  "compilerOptions": {
+    "declaration": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "target": "es2017",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "ESNext"
+    ],
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": false,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*"
+  ]
 }
