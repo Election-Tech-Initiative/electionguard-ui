@@ -16,7 +16,7 @@ function AsyncContent<T>({
     children,
     errorMessage = 'Something went wrong!',
     query,
-}: AsyncContentProps<T>) {
+}: AsyncContentProps<T>): React.ReactElement {
     const { data, isLoading, isError } = query;
 
     if (isLoading) {
@@ -29,7 +29,7 @@ function AsyncContent<T>({
     if (isError || data === undefined) {
         return (
             <>
-                <p>Error</p>
+                <p>Error {errorMessage}</p>
             </>
         );
     }
