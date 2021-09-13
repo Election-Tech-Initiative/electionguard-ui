@@ -2,6 +2,7 @@ import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import App from './App';
 import { ConfigContext, defaultConfig } from './contexts/config';
@@ -10,21 +11,25 @@ import Language from './models/language';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
     <React.StrictMode>
         <ConfigContext.Provider value={defaultConfig}>
-            <LanguageContext.Provider value={defaultLanguage}>
-                <LanguageContext.Consumer>
-                    {(language: Language) => (
-                        <IntlProvider locale={language.locale} messages={language.messages}>
-                            <MuiThemeProvider theme={theme(language.mui)}>
-                                <CssBaseline />
-                                <App />
-                            </MuiThemeProvider>
-                        </IntlProvider>
-                    )}
-                </LanguageContext.Consumer>
-            </LanguageContext.Provider>
+            <QueryClientProvider client={queryClient}>
+                <LanguageContext.Provider value={defaultLanguage}>
+                    <LanguageContext.Consumer>
+                        {(language: Language) => (
+                            <IntlProvider locale={language.locale} messages={language.messages}>
+                                <MuiThemeProvider theme={theme(language.mui)}>
+                                    <CssBaseline />
+                                    <App />
+                                </MuiThemeProvider>
+                            </IntlProvider>
+                        )}
+                    </LanguageContext.Consumer>
+                </LanguageContext.Provider>
+            </QueryClientProvider>
         </ConfigContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')

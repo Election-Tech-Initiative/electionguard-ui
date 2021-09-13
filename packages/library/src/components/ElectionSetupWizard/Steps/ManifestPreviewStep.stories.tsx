@@ -12,7 +12,7 @@ export default {
 
 const Template: Story<ManifestPreviewStepProps> = (props) => <ManifestPreviewStep {...props} />;
 
-const service = getApi(true);
+const service = getApi();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

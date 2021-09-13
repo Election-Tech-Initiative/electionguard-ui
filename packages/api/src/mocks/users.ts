@@ -1,6 +1,6 @@
 import User from '../models/user';
 
-export const getUsersWithGuardianRole = (): User[] => [
+export const getUsersWithGuardianRole = async (): Promise<User[]> => [
     { id: '1', name: 'Snow api mock' },
     { id: '2', name: 'Lannister api mock' },
     { id: '3', name: 'Magic api mock' },

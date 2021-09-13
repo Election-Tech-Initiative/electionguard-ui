@@ -12,7 +12,7 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const service = getApi(true);
+const service = getApi();
 const Template: Story<KeyCeremonyWizardProps> = (props) => {
     const [keyCeremony, setKeyCeremony] = useState(service.getKeyCeremonies()[0]);
     const loggedInGuardian = keyCeremony.guardians.find(

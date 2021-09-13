@@ -8,4 +8,7 @@ export const getAssignedGuardians = (): AssignedGuardian[] => [
     { sequenceOrder: 5, id: '5', name: 'Targaryen assigned mock api' },
 ];
 
+export const createGuardian = (id: string, name: string, sequenceOrder:  number): void => {
+}
+
 export default getAssignedGuardians;

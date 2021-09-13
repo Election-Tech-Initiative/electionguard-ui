@@ -45,6 +45,10 @@ const MenuPage: React.FC = () => {
                     onClick={() => history.push('/joint-key')}
                     type={MenuOptionType.ManageJointKeys}
                 />
+                <TypedMenuOption
+                    onClick={() => history.push('/joint-key-setup')}
+                    type={MenuOptionType.SetupJointKeys}
+                />
             </MenuOptions>
         </Grid>
     );

@@ -15,7 +15,7 @@ export default {
 
 const Template: Story<KeyCeremonyVisualizationProps> = (props) => {
     const { activeStep } = props;
-    const service = getApi(true);
+    const service = getApi();
 
     return (
         <div>

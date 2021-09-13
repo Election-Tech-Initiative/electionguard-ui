@@ -12,7 +12,7 @@ export default {
 
 const Template: Story<JointKeyTableProps> = (props) => <JointKeyTable {...props} />;
 
-const service = getApi(true);
+const service = getApi();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

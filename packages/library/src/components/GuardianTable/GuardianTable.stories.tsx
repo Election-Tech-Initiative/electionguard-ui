@@ -12,7 +12,7 @@ export default {
 
 const Template: Story<GuardianTableProps> = (props) => <GuardianTable {...props} />;
 
-const service = getApi(true);
+const service = getApi();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

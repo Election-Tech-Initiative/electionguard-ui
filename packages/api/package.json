@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc -b",
+        "local": "tsc -b"
     }
 }

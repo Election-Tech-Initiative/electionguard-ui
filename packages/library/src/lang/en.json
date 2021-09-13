@@ -15,6 +15,7 @@
     "menu.option.build_manifest": "Build Manifest",
     "menu.option.manage_joint_keys": "Manage Joint Keys",
     "menu.option.manage_elections": "Manage Elections",
+    "menu.option.setup_joint_keys": "Setup Joint Keys",
 
     "login_form.username": "Username",
     "login_form.password": "Password",

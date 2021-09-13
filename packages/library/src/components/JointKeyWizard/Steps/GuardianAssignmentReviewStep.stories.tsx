@@ -16,7 +16,7 @@ const Template: Story<GuardianAssignmentReviewStepProps> = (props) => (
     <GuardianAssignmentReviewStep {...props} />
 );
 
-const service = getApi(true);
+const service = getApi();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

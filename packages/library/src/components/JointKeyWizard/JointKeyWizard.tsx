@@ -2,6 +2,7 @@ import { BaseJointKey, User } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
+import { AsyncResult } from '../../data/AsyncResult';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
@@ -19,7 +20,7 @@ export enum JointKeyStep {
 }
 
 export interface JointKeyWizardProps {
-    getGuardians: () => User[];
+    getGuardians: () => AsyncResult<User[]>;
     createJointKey: (baseJointKey: BaseJointKey) => void;
     onCancel: () => void;
 }
@@ -65,7 +66,7 @@ const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
                 <GuardianAssignmentStep
                     baseJointKey={baseJointKey}
-                    possibleGuardians={getGuardians()}
+                    getGuardians={getGuardians}
                     onSubmit={(key) => {
                         setBaseJointKey(key);
                         next();

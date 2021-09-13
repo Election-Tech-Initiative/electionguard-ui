@@ -22,6 +22,9 @@ build-storybook:
 test:
 	lerna run test
 
+local:
+	lerna run local
+
 # Docker
 docker-dev-app:
 	@echo 🐳 Running app in Docker with live reload 🚀

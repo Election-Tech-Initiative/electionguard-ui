@@ -59,6 +59,11 @@ export const getPreset = (type: MenuOptionType): MenuOptionPreset => {
                 title: new Message(MessageId.MenuOption_ManageElections),
                 Icon: BallotOutlined,
             };
+        case MenuOptionType.SetupJointKeys:
+            return {
+                title: new Message(MessageId.MenuOption_SetupJointKey),
+                Icon: VpnKeyOutlined,
+            };
         default:
             return {
                 title: new Message(OverloadMessageId, 'Unknown'),

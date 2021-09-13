@@ -8,7 +8,7 @@ import ListPageLayout from '../layouts/ListPageLayout';
 
 const KeyCeremonyListPage: React.FC = () => {
     const history = useHistory();
-    const service = getApi(true);
+    const service = getApi();
     return (
         <ListPageLayout
             title={new Message(MessageId.KeyCeremonyList_Title)}

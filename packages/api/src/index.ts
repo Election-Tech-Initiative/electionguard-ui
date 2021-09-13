@@ -14,9 +14,16 @@ export { KeyCeremonyStatus } from './models/keyCeremony';
 export { default as MockApi } from './MockApi';
 export { default as ServiceApi } from './ServiceApi';
 
-export function  getApi(mock = false) : Api {
-    if(mock) return new MockApi();
+let data: Api;
+
+export function  getApi() : Api {
+    if(!data) {
+        if (process.env.REACT_APP_DATA === 'MOCK') {
+            data = new MockApi();
+        }    
     
-    return new ServiceApi();
+        data = new ServiceApi();
+    }
+    return data;
 }
 

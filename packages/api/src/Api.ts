@@ -8,10 +8,11 @@ import KeyCeremonyStep from './models/KeyCeremonyStep';
 
 export default interface Api {
     healthCheck: () => boolean;
+    getUsersWithGuardianRole(): Promise<User[]>;
+    createJointKey(data: BaseJointKey): Promise<boolean>;
+
     getElections(): ElectionRow[];
-    getUsersWithGuardianRole(): User[];
     getAssignedGuardians(): AssignedGuardian[];
-    createJointKey(data: BaseJointKey): boolean;
     getJointKeys(): JointKey[];
     getManifestPreview(): ManifestPreview;
 
@@ -23,6 +24,7 @@ export default interface Api {
     ): KeyCeremonyGuardian; 
     getKeyCeremonyGuardiansByStep(step: KeyCeremonyStep): KeyCeremonyGuardian[];
     getKeyCeremonies(): KeyCeremony[];
+    createGuardian(id: string, name: string, sequenceOrder:  number): void;
 
     }
 

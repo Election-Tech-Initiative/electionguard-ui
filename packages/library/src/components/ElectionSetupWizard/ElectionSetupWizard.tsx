@@ -36,7 +36,7 @@ const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
-    const service = getApi(true);
+    const service = getApi();
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.Instructions}>

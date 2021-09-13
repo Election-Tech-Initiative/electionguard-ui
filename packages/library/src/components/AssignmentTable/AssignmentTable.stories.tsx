@@ -11,10 +11,12 @@ export default {
 } as Meta;
 
 const Template: Story<AssignmentTableProps> = (props) => <AssignmentTable {...props} />;
-const service = getApi(true);
+const service = getApi();
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
+const userData = await service.getUsersWithGuardianRole();
+
 Standard.args = {
-    data: service.getUsersWithGuardianRole(),
+    data: userData,
 };

@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "rootDir": "src",
+        "rootDir": "./src",
         "outDir": "./dist",
         /* Basic Options */
         "target": "es5",
         "module": "commonjs",
-        "lib": ["ESNext"],
+        "lib": ["dom", "ESNext"],
 
         /* Strict Type-Checking Options */
         "strict": true,
