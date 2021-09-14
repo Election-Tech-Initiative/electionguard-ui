@@ -1,7 +1,7 @@
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getAssignedGuardians } from '../../mocks/guardians';
 import GuardianTable, { GuardianTableProps } from './GuardianTable';
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
 const Template: Story<GuardianTableProps> = (props) => <GuardianTable {...props} />;
 
+const service = getApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: getAssignedGuardians(),
+    data: service.getAssignedGuardians(),
 };

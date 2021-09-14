@@ -1,7 +1,7 @@
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../mocks/users';
 import AssignmentTable, { AssignmentTableProps } from './AssignmentTable';
 
 export default {
@@ -11,9 +11,12 @@ export default {
 } as Meta;
 
 const Template: Story<AssignmentTableProps> = (props) => <AssignmentTable {...props} />;
+const service = getApiClient();
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
+const userData = await service.getUsersWithGuardianRole();
+
 Standard.args = {
-    data: getUsersWithGuardianRole(),
+    data: userData,
 };

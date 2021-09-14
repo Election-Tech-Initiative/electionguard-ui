@@ -1,9 +1,9 @@
+import { BaseJointKey } from '@electionguard-ui/api';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
-import { BaseJointKey } from '../../../models/jointKey';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
 

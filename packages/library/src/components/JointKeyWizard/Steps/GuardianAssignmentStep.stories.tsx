@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../../mocks/users';
+import { useGetUsersWithGuardianRole } from '../../../data/queries';
 import GuardianAssignmentStep, { GuardianAssignmentStepProps } from './GuardianAssignmentStep';
 
 export default {
@@ -15,6 +15,7 @@ const Template: Story<GuardianAssignmentStepProps> = (props) => (
 );
 
 export const Standard = Template.bind({});
+
 Standard.storyName = 'Standard';
 Standard.args = {
     baseJointKey: {
@@ -23,5 +24,5 @@ Standard.args = {
         quorum: 2,
         guardians: [],
     },
-    possibleGuardians: getUsersWithGuardianRole(),
+    getGuardians: useGetUsersWithGuardianRole,
 };

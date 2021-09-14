@@ -1,9 +1,12 @@
+import {
+    BackupVerification,
+    KeyCeremonyGuardian,
+    TaskStatus,
+    getApiClient,
+} from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { getKeyCeremonies, setKeyCeremonyGuardianToStep } from '../../mocks/keyCeremony';
-import { BackupVerification, KeyCeremonyGuardian } from '../../models/keyCeremony';
-import TaskStatus from '../../models/taskStatus';
 import delay from '../../utils/delay';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyWizard, { KeyCeremonyWizardProps } from './KeyCeremonyWizard';
@@ -14,8 +17,9 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
+const service = getApiClient();
 const Template: Story<KeyCeremonyWizardProps> = (props) => {
-    const [keyCeremony, setKeyCeremony] = useState(getKeyCeremonies()[0]);
+    const [keyCeremony, setKeyCeremony] = useState(service.getKeyCeremonies()[0]);
     const loggedInGuardian = keyCeremony.guardians.find(
         (i) => i.sequenceOrder === 1
     ) as KeyCeremonyGuardian;
@@ -24,7 +28,7 @@ const Template: Story<KeyCeremonyWizardProps> = (props) => {
         const guardian = keyCeremony.guardians.find(
             (i) => i.sequenceOrder === 1
         ) as KeyCeremonyGuardian;
-        const updated = setKeyCeremonyGuardianToStep(guardian, step);
+        const updated = service.setKeyCeremonyGuardianToStep(guardian, step);
         setKeyCeremony({
             ...keyCeremony,
             guardians: [updated, ...keyCeremony.guardians.filter((i) => i.sequenceOrder !== 1)],
@@ -32,7 +36,9 @@ const Template: Story<KeyCeremonyWizardProps> = (props) => {
     };
 
     const updateGuardians = (step: KeyCeremonyStep) => {
-        const updated = keyCeremony.guardians.map((g) => setKeyCeremonyGuardianToStep(g, step));
+        const updated = keyCeremony.guardians.map((g) =>
+            service.setKeyCeremonyGuardianToStep(g, step)
+        );
         setKeyCeremony({
             ...keyCeremony,
             guardians: updated,
@@ -98,7 +104,7 @@ const Template: Story<KeyCeremonyWizardProps> = (props) => {
     };
 
     const completeCeremony = async () => {
-        setKeyCeremony(getKeyCeremonies()[0]);
+        setKeyCeremony(service.getKeyCeremonies()[0]);
     };
 
     return (

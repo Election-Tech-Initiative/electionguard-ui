@@ -7,6 +7,7 @@ export enum MenuOptionType {
     BuildManifest = 'build-manifest',
     ManageJointKeys = 'manage-joint-key',
     ManageElections = 'manage-elections',
+    SetupJointKeys = 'setup-joint-key',
 }
 
 export default MenuOptionType;

@@ -1,4 +1,4 @@
-import KeyCeremonyStep from '../components/KeyCeremonyWizard/KeyCeremonyStep';
+import KeyCeremonyStep from '../models/KeyCeremonyStep';
 import { KeyCeremony, KeyCeremonyGuardian, KeyCeremonyStatus } from '../models/keyCeremony';
 import TaskStatus from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';

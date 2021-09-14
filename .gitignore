@@ -5,3 +5,6 @@
 
 # ignore mac file
 .DS_store
+
+**/dist
+**/tsconfig.tsbuildinfo

@@ -1,7 +1,7 @@
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getKeyCeremonyGuardiansByStep } from '../../mocks/keyCeremony';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyVisualization, {
     KeyCeremonyVisualizationProps,
@@ -15,15 +15,17 @@ export default {
 
 const Template: Story<KeyCeremonyVisualizationProps> = (props) => {
     const { activeStep } = props;
+    const service = getApiClient();
+
     return (
         <div>
             <KeyCeremonyVisualization
                 {...props}
-                guardians={getKeyCeremonyGuardiansByStep(activeStep)}
+                guardians={service.getKeyCeremonyGuardiansByStep(activeStep)}
             />
             <KeyCeremonyVisualization
                 {...props}
-                guardians={getKeyCeremonyGuardiansByStep(activeStep + 1)}
+                guardians={service.getKeyCeremonyGuardiansByStep(activeStep + 1)}
             />
         </div>
     );

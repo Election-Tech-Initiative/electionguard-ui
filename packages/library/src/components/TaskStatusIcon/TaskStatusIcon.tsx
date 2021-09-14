@@ -1,3 +1,4 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { makeStyles } from '@material-ui/core';
 import {
     CheckCircleOutlined as CompleteIcon,
@@ -6,7 +7,6 @@ import {
 import React from 'react';
 
 import { Message, MessageId } from '../../lang';
-import TaskStatus from '../../models/taskStatus';
 import FormattedButton from '../FormattedButton';
 import InternationalText from '../InternationalText';
 

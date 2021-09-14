@@ -1,10 +1,9 @@
+import { KeyCeremonyGuardian, TaskStatus } from '@electionguard-ui/api';
 import { Box, Container, makeStyles, useTheme } from '@material-ui/core';
 import { CheckCircle as CompleteIcon } from '@material-ui/icons';
 import React from 'react';
 
 import { MessageId } from '../../lang';
-import { KeyCeremonyGuardian } from '../../models/keyCeremony';
-import TaskStatus from '../../models/taskStatus';
 import InternationalText from '../InternationalText';
 import SequenceOrderProgress from '../SequenceOrderProgress';
 import KeyCeremonyStep from './KeyCeremonyStep';

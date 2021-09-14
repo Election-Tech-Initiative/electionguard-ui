@@ -1,9 +1,12 @@
+import {
+    AssignedGuardian,
+    KeyCeremony,
+    KeyCeremonyStatus,
+    TaskStatus,
+} from '@electionguard-ui/api';
 import { Box, Container } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import AssignedGuardian from '../../models/assignedGuardian';
-import { KeyCeremony, KeyCeremonyStatus } from '../../models/keyCeremony';
-import TaskStatus from '../../models/taskStatus';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import KeyCeremonyActiveStep from './KeyCeremonyActiveStep';

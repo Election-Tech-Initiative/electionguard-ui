@@ -1,10 +1,10 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { Chip } from '@material-ui/core';
 import { GridCellParams } from '@material-ui/data-grid';
 import React, { ReactElement } from 'react';
 import { IntlShape } from 'react-intl';
 
 import { Message } from '../../lang';
-import TaskStatus from '../../models/taskStatus';
 import { getColor } from '../../theme';
 import FormattedButton from '../FormattedButton';
 import GuardianIcon from '../GuardianIcon';
@@ -19,7 +19,8 @@ export const NewCell = (params: GridCellParams): ReactElement => {
 
 export const FormattedDateCell = (params: GridCellParams, intl: IntlShape): ReactElement => {
     const { value } = params;
-    return <>{intl.formatDate(value?.toString())}</>;
+    const { formatDate } = intl;
+    return <>{formatDate(value?.toString())}</>;
 };
 
 export const GuardianIconCell = (params: GridCellParams): ReactElement => {

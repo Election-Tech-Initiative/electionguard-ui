@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getUsersWithGuardianRole } from '../../mocks/users';
+import { useCreateJointKey, useGetUsersWithGuardianRole } from '../../data/queries';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
 
 export default {
@@ -15,6 +15,6 @@ const Template: Story<JointKeyWizardProps> = (props) => <JointKeyWizard {...prop
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    getGuardians: getUsersWithGuardianRole,
-    createJointKey: () => {},
+    getGuardians: useGetUsersWithGuardianRole,
+    createJointKey: useCreateJointKey,
 };

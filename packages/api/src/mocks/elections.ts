@@ -1,6 +1,6 @@
-import ElectionRow from '../components/ElectionTable/ElectionRow';
+import ElectionRow from '../models/ElectionRow';
 
-const getElections = (): ElectionRow[] => {
+export const getElections = (): ElectionRow[] => {
     const date = new Date();
     const laterDate = new Date();
     laterDate.setDate(date.getDate() + 10);

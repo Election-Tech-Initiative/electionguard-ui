@@ -1,7 +1,7 @@
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import getElections from '../../mocks/elections';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
 const Template: Story<ElectionTableProps> = (props) => <ElectionTable {...props} />;
 
+const service = getApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: getElections(),
+    data: service.getElections(),
 };

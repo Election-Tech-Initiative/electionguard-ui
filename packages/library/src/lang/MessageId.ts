@@ -20,6 +20,7 @@ enum MessageId {
     MenuOption_BuildManifest = 'menu.option.build_manifest',
     MenuOption_ManageJointKeys = 'menu.option.manage_joint_keys',
     MenuOption_ManageElections = 'menu.option.manage_elections',
+    MenuOption_SetupJointKey = 'menu.option.setup_joint_keys',
 
     // Login Form
     LoginFormUsername = 'login_form.username',

@@ -1,3 +1,4 @@
+import { JointKey } from '@electionguard-ui/api';
 import {
     Box,
     Button,
@@ -14,7 +15,6 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Message, MessageId, loremIpsum } from '../../../lang';
-import JointKey from '../../../models/jointKey';
 import IconHeader from '../../IconHeader';
 
 const useStyles = makeStyles((theme) => ({

@@ -1,10 +1,9 @@
+import { BackupVerification, TaskStatus } from '@electionguard-ui/api';
 import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId, GridSortDirection } from '@material-ui/data-grid';
 import React, { useState } from 'react';
 
 import { Message, MessageId } from '../../../lang';
-import { BackupVerification } from '../../../models/keyCeremony';
-import TaskStatus from '../../../models/taskStatus';
 import { GuardianIconCell, TaskStatusCell } from '../../Cells';
 import FilterToolbar from '../../FilterToolbar';
 import StepHeader from '../../StepHeader';

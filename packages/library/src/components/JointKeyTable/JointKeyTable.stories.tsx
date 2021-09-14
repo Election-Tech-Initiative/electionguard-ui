@@ -1,7 +1,7 @@
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { getJointKeys } from '../../mocks/electionSetup';
 import JointKeyTable, { JointKeyTableProps } from './JointKeyTable';
 
 export default {
@@ -12,8 +12,9 @@ export default {
 
 const Template: Story<JointKeyTableProps> = (props) => <JointKeyTable {...props} />;
 
+const service = getApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: getJointKeys(),
+    data: service.getJointKeys(),
 };

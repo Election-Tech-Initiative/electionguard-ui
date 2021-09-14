@@ -1,8 +1,8 @@
+import { KeyCeremonyGuardian } from '@electionguard-ui/api';
 import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 
-import { KeyCeremonyGuardian } from '../../models/keyCeremony';
 import { GuardianIconCell, TaskStatusCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 import InternationalText from '../InternationalText';

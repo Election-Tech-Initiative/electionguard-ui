@@ -1,8 +1,8 @@
+import { TaskStatus } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import TaskStatus from '../../models/taskStatus';
 import TaskStatusIcon, { TaskStatusIconProps } from './TaskStatusIcon';
 
 export default {

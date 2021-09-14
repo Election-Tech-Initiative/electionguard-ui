@@ -1,12 +1,14 @@
 {
-  "name": "@electionguard-ui/api",
-  "version": "0.1.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "typescript": "^4.3.5"
-  },
-  "scripts": {
-    "build": "tsc"
-  }
+    "name": "@electionguard-ui/api",
+    "version": "0.2.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "/dist"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc -b",
+        "build-local": "yarn build"
+    }
 }

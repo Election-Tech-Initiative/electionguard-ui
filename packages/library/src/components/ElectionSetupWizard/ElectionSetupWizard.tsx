@@ -1,8 +1,7 @@
+import { JointKey, getApiClient } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import { getManifestPreview } from '../../mocks/electionSetup';
-import JointKey from '../../models/jointKey';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
@@ -37,6 +36,7 @@ const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
+    const service = getApiClient();
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.Instructions}>
@@ -63,7 +63,7 @@ const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
                 <ManifestPreviewStep
                     onNext={next}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
-                    preview={getManifestPreview()}
+                    preview={service.getManifestPreview()}
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>

@@ -6,7 +6,7 @@ Dockerfile
 build
 node_modules
 storybook-static
-packages/api/build
+packages/api/dist
 packages/api/node_modules
 packages/library/build
 packages/library/node_modules
