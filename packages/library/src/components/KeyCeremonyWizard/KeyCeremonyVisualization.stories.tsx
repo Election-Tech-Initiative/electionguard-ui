@@ -1,4 +1,4 @@
-import { getApi } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export default {
 
 const Template: Story<KeyCeremonyVisualizationProps> = (props) => {
     const { activeStep } = props;
-    const service = getApi();
+    const service = getApiClient();
 
     return (
         <div>

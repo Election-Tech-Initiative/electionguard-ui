@@ -1,4 +1,4 @@
-import { getApi } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 const Template: Story<AssignmentTableProps> = (props) => <AssignmentTable {...props} />;
-const service = getApi();
+const service = getApiClient();
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';

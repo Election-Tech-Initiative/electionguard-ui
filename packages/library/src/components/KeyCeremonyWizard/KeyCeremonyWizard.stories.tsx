@@ -1,4 +1,9 @@
-import { BackupVerification, KeyCeremonyGuardian, TaskStatus, getApi } from '@electionguard-ui/api';
+import {
+    BackupVerification,
+    KeyCeremonyGuardian,
+    TaskStatus,
+    getApiClient,
+} from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
@@ -12,7 +17,7 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const service = getApi();
+const service = getApiClient();
 const Template: Story<KeyCeremonyWizardProps> = (props) => {
     const [keyCeremony, setKeyCeremony] = useState(service.getKeyCeremonies()[0]);
     const loggedInGuardian = keyCeremony.guardians.find(

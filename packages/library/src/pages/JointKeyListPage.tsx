@@ -1,4 +1,4 @@
-import { getApi } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard-ui/api';
 import React from 'react';
 import { useHistory } from 'react-router';
 
@@ -8,7 +8,7 @@ import ListPageLayout from '../layouts/ListPageLayout';
 
 const JointKeyListPage: React.FC = () => {
     const history = useHistory();
-    const service = getApi();
+    const service = getApiClient();
     return (
         <ListPageLayout
             title={new Message(MessageId.JointKeyList_Title)}

@@ -1,4 +1,4 @@
-import { getApi } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
@@ -16,7 +16,7 @@ const Template: Story<GuardianAssignmentReviewStepProps> = (props) => (
     <GuardianAssignmentReviewStep {...props} />
 );
 
-const service = getApi();
+const service = getApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

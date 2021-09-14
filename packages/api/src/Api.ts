@@ -6,7 +6,7 @@ import ManifestPreview from './models/manifestPreview';
 import { KeyCeremony, KeyCeremonyGuardian } from './models/keyCeremony';
 import KeyCeremonyStep from './models/KeyCeremonyStep';
 
-export default interface Api {
+export default interface ElectionGuardApiClient {
     healthCheck: () => boolean;
     getUsersWithGuardianRole(): Promise<User[]>;
     createJointKey(data: BaseJointKey): Promise<boolean>;
@@ -26,5 +26,5 @@ export default interface Api {
     getKeyCeremonies(): KeyCeremony[];
     createGuardian(id: string, name: string, sequenceOrder:  number): void;
 
-    }
+}
 

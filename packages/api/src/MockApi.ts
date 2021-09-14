@@ -1,4 +1,4 @@
-import Api from "./Api";
+import ElectionGuardApiClient from "./Api";
 import { getElections as mockGetElections } from './mocks/elections';
 import { getJointKeys as mockGetJointKeys, getManifestPreview as mockGetManifestPreview } from './mocks/electionSetup';
 import { getUsersWithGuardianRole as mockGetUsersWithGuardianRole } from './mocks/users';
@@ -6,7 +6,7 @@ import { getAssignedGuardians as mockGetAssignedGuardians, createGuardian as moc
 import { createJointKey as mockCreateJointKey } from './mocks/jointKey';
 import { getKeyCeremonies as mockGetKeyCeremonies, getKeyCeremonyGuardians as mockGetKeyCeremonyGuardians, setKeyCeremonyGuardianToStep as mockSetKeyCeremonyGuardianToStep, getKeyCeremonyGuardiansByStep as mockGetKeyCeremonyGuardiansByStep } from './mocks/keyCeremony';
 
-export default class MockApi implements Api {
+export default class MockApi implements ElectionGuardApiClient {
     getElections = mockGetElections;
 
     getUsersWithGuardianRole = mockGetUsersWithGuardianRole;

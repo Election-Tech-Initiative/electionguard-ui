@@ -1,4 +1,4 @@
-import Api from './Api';
+import ElectionGuardApiClient from './Api';
 import { getUsersWithGuardianRole as serverGetUsersWithGuardianRole } from './server/users'
 import { createJointKey as serverCreateJointKey } from './server/jointKey'
 import { getElections as serverGetElections } from './server/elections';
@@ -6,7 +6,7 @@ import { getAssignedGuardians as serverGetAssignedGuardians, createGuardian as s
 import { getJointKeys as serverGetJointKeys, getManifestPreview as serverGetManifestPreview } from './server/electionSetup';
 import { getKeyCeremonies as serverGetKeyCeremonies, getKeyCeremonyGuardians as serverGetKeyCeremonyGuardians, setKeyCeremonyGuardianToStep as serverSetKeyCeremonyGuardianToStep, getKeyCeremonyGuardiansByStep as serverGetKeyCeremonyGuardiansByStep } from './server/keyCeremony';
 
-export default class ServiceApi implements Api {
+export default class ServiceApi implements ElectionGuardApiClient {
     getElections = serverGetElections;
 
     getUsersWithGuardianRole = serverGetUsersWithGuardianRole;

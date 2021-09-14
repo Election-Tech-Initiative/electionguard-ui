@@ -19,7 +19,8 @@ export const NewCell = (params: GridCellParams): ReactElement => {
 
 export const FormattedDateCell = (params: GridCellParams, intl: IntlShape): ReactElement => {
     const { value } = params;
-    return <>{intl.formatDate(value?.toString())}</>;
+    const { formatDate } = intl;
+    return <>{formatDate(value?.toString())}</>;
 };
 
 export const GuardianIconCell = (params: GridCellParams): ReactElement => {
