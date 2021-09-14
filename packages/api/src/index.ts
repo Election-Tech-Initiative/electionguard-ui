@@ -18,7 +18,7 @@ let data: ElectionGuardApiClient;
 
 export function  getApiClient() : ElectionGuardApiClient {
     if(!data) {
-        if (process.env.REACT_APP_DATA === 'MOCK') {
+        if (process.env.REACT_APP_MOCK_ENABLED === 'true') {
             data = new MockApi();
         }    
     
