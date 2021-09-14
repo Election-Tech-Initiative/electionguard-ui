@@ -9,7 +9,6 @@
     "license": "MIT",
     "scripts": {
         "build": "tsc -b",
-        "local": "tsc -b",
-        "test": "tsc -b"
+        "build-local": "yarn build"
     }
 }
