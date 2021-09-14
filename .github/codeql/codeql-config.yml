@@ -1,2 +1,5 @@
 paths:
     - 'packages/**/src'
+paths-ignore:
+    - 'packages/**/build'
+    - 'packages/**/dist'
