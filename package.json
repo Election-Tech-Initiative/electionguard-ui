@@ -12,7 +12,7 @@
         "lint": "yarn run lerna run lint --parallel",
         "lint:fix": "yarn run lerna run lint:fix --parallel",
         "bundle": "yarn run lerna run bundle --parallel",
-        "clean": "yarn run lerna clean",
+        "clean": "yarn run lerna clean --yes",
         "bootstrap": "yarn clean && lerna bootstrap",
         "storybook": "yarn run lerna run storybook"
     },
