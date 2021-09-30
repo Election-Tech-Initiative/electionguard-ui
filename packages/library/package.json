@@ -58,17 +58,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged --pattern '{src,public}/**/*.{js,jsx,ts,tsx,css,html}'"
-        }
-    },
-    "importSort": {
-        ".js, .jsx, .ts, .tsx": {
-            "style": "module",
-            "parser": "typescript"
-        }
-    },
-    "license": "MIT"
+    }
 }
