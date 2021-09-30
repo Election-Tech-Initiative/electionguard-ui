@@ -11,7 +11,7 @@
         "/dist"
     ],
     "scripts": {
-        "build-archive": "tsc -b",
+        "build": "tsc -b",
         "build-local": "yarn build"
     }
 }
