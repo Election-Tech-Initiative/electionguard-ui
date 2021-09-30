@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg
@@ -56,7 +56,7 @@
 					C69.588,192.184,47.676,192.184,25.757,192.163z"
                     />
                 </g>
-                <g/>
+                <g />
             </g>
         </g>
         <g>
@@ -83,7 +83,7 @@
 					C177.686,108.788,160.615,125.558,139.3,125.711z"
                     />
                 </g>
-                <g/>
+                <g />
             </g>
         </g>
     </g>
@@ -91,7 +91,7 @@
         fill="current"
         d="M385.763,157.191H329.43V56.843h54.093v14.135h-37.438V99.39h34.498v14.063h-34.498v29.672h39.678V157.191z"
     />
-    <path fill="current" d="M418.092,157.191h-16.303V51.105h16.303V157.191z"/>
+    <path fill="current" d="M418.092,157.191h-16.303V51.105h16.303V157.191z" />
     <path
         fill="current"
         d="M499.897,125.774h-48.844c0.185,6.622,2.227,11.73,6.122,15.322c3.896,3.595,9.25,5.39,16.062,5.39

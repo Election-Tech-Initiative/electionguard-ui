@@ -46,7 +46,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
