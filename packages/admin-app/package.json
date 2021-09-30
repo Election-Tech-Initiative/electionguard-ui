@@ -1,6 +1,10 @@
 {
     "name": "@electionguard-ui/admin-app",
-    "version": "0.1.0",
+    "description": "Admin application for administrating electionguard",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",

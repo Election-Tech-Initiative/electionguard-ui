@@ -4,7 +4,7 @@
     "workspaces": [
         "packages/*"
     ],
-    "version": "0.1.0",
+    "scripts": {
     "devDependencies": {
         "@prettier/plugin-xml": "^1.1.0",
         "@typescript-eslint/eslint-plugin": "^4.32.0",
@@ -21,5 +21,6 @@
         "lerna": "^4.0.0",
         "prettier": "^2.4.1"
     },
+    "version": "1.0.0",
     "license": "MIT"
 }

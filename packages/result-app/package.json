@@ -1,6 +1,10 @@
 {
     "name": "@electionguard-ui/result-app",
-    "version": "0.1.0",
+    "description": "Result application for displaying electionguard results",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",

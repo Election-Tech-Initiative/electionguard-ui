@@ -1,6 +1,10 @@
 {
     "name": "@electionguard-ui/library",
-    "version": "0.0.0",
+    "description": "Component Library of specialized electionguard ui",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "dependencies": {
         "@babel/core": "^7.13.15",
         "@electionguard-ui/api": "1.0.0",
