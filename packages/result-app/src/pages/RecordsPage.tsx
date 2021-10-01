@@ -1,5 +1,7 @@
 import React from 'react';
 
-const RecordsPage = () =>  <h1>Records Page</h1>
+const RecordsPage: React.FC = () => {
+    <h1>Records Page</h1>
+};
 
 export default RecordsPage;
