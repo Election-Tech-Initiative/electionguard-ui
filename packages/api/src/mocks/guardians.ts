@@ -1,4 +1,11 @@
 import AssignedGuardian from '../models/assignedGuardian';
+import Guardian from '../models/guardian';
+
+export type ElectionPolynomial = any;
+export type ElectionPartialKeyBackup = any;
+export type ElectionPartialKeyChallenge = any;
+export type ElectionPartialKeyVerification = any;
+
 
 export const getAssignedGuardians = (): AssignedGuardian[] => [
     { sequenceOrder: 1, id: '1', name: 'Snow mock' },
@@ -10,5 +17,7 @@ export const getAssignedGuardians = (): AssignedGuardian[] => [
 
 export const createGuardian = (id: string, name: string, sequenceOrder:  number): void => {
 }
+
+export const getGuardian = async(guardian_id: string): Promise<Guardian | undefined>  => undefined;
 
 export default getAssignedGuardians;

@@ -13,8 +13,11 @@ import {
 import { SaveAlt as SaveIcon } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { AsyncResult } from '../../../data/AsyncResult';
 import { Message, MessageId, loremIpsum } from '../../../lang';
+import AsyncContent from '../../AsyncContent';
 import IconHeader from '../../IconHeader';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,20 +32,24 @@ const useStyles = makeStyles((theme) => ({
 
 export interface JointKeySelectStepProps {
     onNext?: () => void;
-    keys: JointKey[];
+    getKeys: () => AsyncResult<JointKey[]>;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys }) => {
+const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, getKeys }) => {
     const [jointKey, setJointKey] = useState<JointKey>();
+    let keys: JointKey[] = [];
+
     const onKeySelect = (event: React.ChangeEvent<{ value: unknown }>) => {
         const selectedKey = keys.find((k) => k.id === (event.target.value as string));
         if (selectedKey) {
             setJointKey(selectedKey);
         }
     };
+    const keyQuery = getKeys();
+    const queryClient = new QueryClient();
 
     const classes = useStyles();
     return (
@@ -64,26 +71,36 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, keys })
                     />
                 </Typography>
                 <Box display="flex" flexDirection="column" alignItems="start">
-                    <FormControl className={classes.control}>
-                        <InputLabel id="joint-key-select-label">
-                            <FormattedMessage
-                                id={MessageId.ElectionSetupJointKeySelectPrompt}
-                                defaultMessage="Select Key for Election"
-                            />
-                        </InputLabel>
-                        <Select
-                            labelId="joint-key-select-label"
-                            id="joint-key-select"
-                            value={jointKey?.id}
-                            onChange={onKeySelect}
-                        >
-                            {keys.map((key) => (
-                                <MenuItem key={key.id} value={key.id}>
-                                    {key.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    <AsyncContent query={keyQuery} errorMessage="there was an error">
+                        {(keysFound) => {
+                            keys = keysFound;
+                            return (
+                                <>
+                                    <FormControl className={classes.control}>
+                                        <InputLabel id="joint-key-select-label">
+                                            <FormattedMessage
+                                                id={MessageId.ElectionSetupJointKeySelectPrompt}
+                                                defaultMessage="Select Key for Election"
+                                            />
+                                        </InputLabel>
+                                        <Select
+                                            labelId="joint-key-select-label"
+                                            id="joint-key-select"
+                                            value={jointKey?.id}
+                                            onChange={onKeySelect}
+                                        >
+                                            {keysFound.map((key) => (
+                                                <MenuItem key={key.id} value={key.id}>
+                                                    {key.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </>
+                            );
+                        }}
+                    </AsyncContent>
+
                     <Button
                         disabled={jointKey === undefined}
                         className={classes.spaced}

@@ -33,7 +33,14 @@ export async function get<T>(
     body: any,
     args: RequestInit = { method: "post", body: JSON.stringify(body) }
   ): Promise<HttpResponse<T>>  {
-    return await http<T>(new Request(path, args));
+    
+    const localArgs: RequestInit = {
+      headers: { 'Content-Type':'application/json' },
+      method: "post",
+      body: JSON.stringify(body)
+    };
+
+    return await http<T>(new Request(path, localArgs));
   };
   
   export async function put<T>(
@@ -41,5 +48,11 @@ export async function get<T>(
     body: any,
     args: RequestInit = { method: "put", body: JSON.stringify(body) }
   ): Promise<HttpResponse<T>> {
-    return await http<T>(new Request(path, args));
+
+    const localArgs: RequestInit = {
+      headers: { 'Content-Type':'application/json' },
+      method: "put",
+      body: JSON.stringify(body)
+    };
+    return await http<T>(new Request(path, localArgs));
   };

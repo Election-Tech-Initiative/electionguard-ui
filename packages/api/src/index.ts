@@ -8,7 +8,7 @@ export type { BaseJointKey, JointKey } from './models/jointKey';
 export type { default as User } from './models/user';
 export type { default as ManifestPreview } from './models/manifestPreview';
 export { default as TaskStatus } from './models/taskStatus';
-export type { KeyCeremony, BackupVerification, KeyCeremonyGuardian } from './models/keyCeremony';
+export type { KeyCeremonyUi, BackupVerification, KeyCeremonyGuardianApi as KeyCeremonyGuardian } from './models/keyCeremony';
 export { KeyCeremonyStatus } from './models/keyCeremony';
 
 export { default as MockApi } from './MockApi';

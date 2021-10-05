@@ -4,6 +4,7 @@ import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
+import { AsyncResult } from '../../data/AsyncResult';
 import { FormattedDateCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyTableProps {
-    data: JointKey[];
+    data: () => AsyncResult<JointKey[]>;
 }
 
 const LinkCell = (): React.ReactElement => <Button color="primary">Open</Button>;
@@ -64,12 +65,16 @@ const columns = (intl: IntlShape): GridColDef[] => [
 const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
+    const keyData: JointKey[] = [];
+    // data().then((keys) => {
+    //     keyData = keys;
+    // });
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%">
             <DataGrid
                 className={classes.root}
                 autoHeight
-                rows={data}
+                rows={keyData}
                 columns={columns(intl)}
                 components={{
                     Toolbar: FilterToolbar,

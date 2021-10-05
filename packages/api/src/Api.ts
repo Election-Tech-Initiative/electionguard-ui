@@ -3,7 +3,7 @@ import User from './models/user';
 import AssignedGuardian from './models/assignedGuardian';
 import { BaseJointKey, JointKey } from './models/jointKey';
 import ManifestPreview from './models/manifestPreview';
-import { KeyCeremony, KeyCeremonyGuardian } from './models/keyCeremony';
+import { KeyCeremonyUi, KeyCeremonyGuardianApi } from './models/keyCeremony';
 import KeyCeremonyStep from './models/KeyCeremonyStep';
 
 export default interface ElectionGuardApiClient {
@@ -11,19 +11,20 @@ export default interface ElectionGuardApiClient {
     getUsersWithGuardianRole(): Promise<User[]>;
     createJointKey(data: BaseJointKey): Promise<boolean>;
 
+    getJointKeys(): Promise<JointKey[]>;
+
     getElections(): ElectionRow[];
     getAssignedGuardians(): AssignedGuardian[];
-    getJointKeys(): JointKey[];
     getManifestPreview(): ManifestPreview;
 
     // key ceremony methods
-    getKeyCeremonyGuardians(): KeyCeremonyGuardian[];
+    getKeyCeremonyGuardians(): KeyCeremonyGuardianApi[];
     setKeyCeremonyGuardianToStep(
-        guardian: KeyCeremonyGuardian,
+        guardian: KeyCeremonyGuardianApi,
         step: KeyCeremonyStep
-    ): KeyCeremonyGuardian; 
-    getKeyCeremonyGuardiansByStep(step: KeyCeremonyStep): KeyCeremonyGuardian[];
-    getKeyCeremonies(): KeyCeremony[];
+    ): KeyCeremonyGuardianApi; 
+    getKeyCeremonyGuardiansByStep(step: KeyCeremonyStep): KeyCeremonyGuardianApi[];
+    getKeyCeremonies(): KeyCeremonyUi[];
     createGuardian(id: string, name: string, sequenceOrder:  number): void;
 
 }

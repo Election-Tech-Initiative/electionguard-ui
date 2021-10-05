@@ -1,4 +1,4 @@
-import { KeyCeremony } from '@electionguard-ui/api';
+import { KeyCeremonyUi } from '@electionguard-ui/api';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface KeyCeremonyTableProps {
-    data: KeyCeremony[];
+    data: KeyCeremonyUi[];
 }
 
 const LinkCell = (): React.ReactElement => <Button color="primary">Join</Button>;

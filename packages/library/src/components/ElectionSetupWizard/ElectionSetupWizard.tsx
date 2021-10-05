@@ -2,6 +2,7 @@ import { JointKey, getApiClient } from '@electionguard-ui/api';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
+import { AsyncResult } from '../../data/AsyncResult';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
@@ -26,16 +27,17 @@ export enum ElectionSetupStep {
 }
 
 export interface ElectionSetupWizardProps {
-    keys: JointKey[];
+    getKeys: () => AsyncResult<JointKey[]>;
 }
 
 /**
  * Wizard to setup the election
  */
-const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
+const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ getKeys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
+
     const service = getApiClient();
     return (
         <Box height="100%">
@@ -43,7 +45,7 @@ const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
                 <SetupInstructionsStep onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep onNext={next} keys={keys} />
+                <JointKeySelectStep onNext={next} getKeys={getKeys} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
                 <JointKeyRetrievedStep onNext={next} />

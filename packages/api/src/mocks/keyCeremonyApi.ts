@@ -1,12 +1,12 @@
 import AssignedGuardian from '../models/assignedGuardian';
-import { KeyCeremony, KeyCeremonyStatus } from '../models/keyCeremony';
+import { KeyCeremonyUi, KeyCeremonyStatus } from '../models/keyCeremony';
 import { KeyCeremonyApi } from '../models/KeyCeremonyApi';
 import TaskStatus from '../models/taskStatus';
 import delay from '../utils/delay';
 import { getKeyCeremonyGuardians } from './keyCeremony';
 
 export default class MockKeyCeremonyApi implements KeyCeremonyApi {
-    state: KeyCeremony = {
+    state: KeyCeremonyUi = {
         id: 'key-ceremony-1',
         status: KeyCeremonyStatus.Active,
         name: 'General Election',
@@ -56,7 +56,7 @@ export default class MockKeyCeremonyApi implements KeyCeremonyApi {
         }
     };
 
-    getKeyCeremonyState = async (): Promise<KeyCeremony> => {
+    getKeyCeremonyState = async (): Promise<KeyCeremonyUi> => {
         await delay(1);
         return this.state;
     };

@@ -1,9 +1,12 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
-import { KeyCeremony, KeyCeremonyGuardian, KeyCeremonyStatus } from '../models/keyCeremony';
+import { KeyCeremonyUi, KeyCeremonyGuardianApi, KeyCeremonyStatus, KeyCeremonyQueryResponse, KeyCeremony, KeyCeremonyCreateRequest, GuardianId, KeyCeremonyStateResponse, KeyCeremonyState, ElectionJointKeyResponse, ElectionJointKey, PublishElectionJointKeyRequest, ElectionPublicKey, GuardianAnnounceRequest, PublicKeySet, GuardianSubmitBackupRequest, GuardianSubmitVerificationRequest, ElectionPartialKeyVerification, GuardianSubmitChallengeRequest, ElectionPartialKeyChallenge } from '../models/keyCeremony';
 import TaskStatus from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
+import { get, post, put } from '../utils/http';
+import { BaseQueryRequest, BaseResponse } from '../models/base';
+import { ElectionPartialKeyBackup } from '../mocks/guardians';
 
-export const getKeyCeremonyGuardians = (): KeyCeremonyGuardian[] =>
+export const getKeyCeremonyGuardians = (): KeyCeremonyGuardianApi[] =>
     getAssignedGuardians().map((guardian) => ({
         ...guardian,
         keypairCreated: TaskStatus.Incomplete,
@@ -15,9 +18,9 @@ export const getKeyCeremonyGuardians = (): KeyCeremonyGuardian[] =>
     }));
 
 export const setKeyCeremonyGuardianToStep = (
-    guardian: KeyCeremonyGuardian,
+    guardian: KeyCeremonyGuardianApi,
     step: KeyCeremonyStep
-): KeyCeremonyGuardian => ({
+): KeyCeremonyGuardianApi => ({
     ...guardian,
     keypairCreated:
         step > KeyCeremonyStep.CreateKeyPair ? TaskStatus.Complete : TaskStatus.Incomplete,
@@ -38,10 +41,10 @@ export const setKeyCeremonyGuardianToStep = (
         })),
 });
 
-export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardian[] =>
+export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
-export const getKeyCeremonies = (): KeyCeremony[] => [
+export const getKeyCeremoniesOld = (): KeyCeremonyUi[] => [
     {
         id: 'key-ceremony-1',
         status: KeyCeremonyStatus.Active,
@@ -52,3 +55,143 @@ export const getKeyCeremonies = (): KeyCeremony[] => [
         dateCreated: new Date(),
     },
 ];
+
+
+export const getKeyCeremonies = async (key_name: string): Promise<KeyCeremony[] | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony?key_name=${key_name}`;
+    const response = await get<{ resp: KeyCeremonyQueryResponse }>(path);
+    return response.parsedBody?.resp.key_ceremonies;
+}
+
+export const putKeyCeremony = async (key_name: string, number_of_guardians: number, quorum: number, guardian_ids: GuardianId[]): Promise<boolean | undefined> => {
+    const data: KeyCeremonyCreateRequest = {
+        key_name,
+        number_of_guardians,
+        quorum,
+        guardian_ids
+    }
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony`;
+    const response = await put<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
+}
+
+export const getKeyCeremonyState = async (key_name: string): Promise<KeyCeremonyState | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/state?key_name=${key_name}`;
+    const response = await get<{ resp: KeyCeremonyStateResponse }>(path);
+    return response.parsedBody?.resp.state;
+}
+
+export const findKeyCeremonies = async (skip: number, limit: number, ballot_id: string): Promise<KeyCeremony[] | undefined> => {
+    const data: BaseQueryRequest = {
+        filter: {}
+    };
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/find?skip=${skip}&limit=${limit}`;
+    const response = await post<{ resp:KeyCeremonyQueryResponse }>(path, data);
+    return response.parsedBody?.resp.key_ceremonies;
+}
+
+export const openKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/open?key_name=${key_name}`;
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
+}
+
+export const closeKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/close?key_name=${key_name}`;
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
+}
+
+export const challengeKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/challenge?key_name=${key_name}`;
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
+}
+
+export const challengeVerifyKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/challenge/verify?key_name=${key_name}`;
+    const response = await get<{ resp: BaseResponse }>(path);
+    return response.parsedBody?.resp.is_success();
+}
+
+export const cancelKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/cancel?key_name=${key_name}`;
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
+}
+
+export const getJointKeyKeyCeremony = async (key_name: string): Promise<ElectionJointKey | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/joint_key?key_name=${key_name}`;
+    const response = await get<{ resp: ElectionJointKeyResponse }>(path);
+    return response.parsedBody?.resp.elgamal_public_key;
+}
+
+export const combineKeyCeremony = async (key_name: string, election_public_keys: ElectionPublicKey[]): Promise<ElectionJointKey | undefined> => {
+    const data: PublishElectionJointKeyRequest = {
+        key_name,
+        election_public_keys
+    }
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/combine`;
+    const response = await post<{ resp: ElectionJointKeyResponse }>(path, data);
+    return response.parsedBody?.resp.elgamal_public_key;
+}
+
+export const publishKeyCeremony = async (key_name: string): Promise<ElectionJointKey | undefined> => {
+
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/publish?key_name=${key_name}`;
+    const response = await post<{ resp: ElectionJointKeyResponse }>(path, {});
+    return response.parsedBody?.resp.elgamal_public_key;
+}
+
+export const announceGuardianKeyCeremony = async (key_name: string, public_keys: PublicKeySet): Promise<ElectionJointKey | undefined> => {
+    const data: GuardianAnnounceRequest = {
+        key_name,
+        public_keys
+    }
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/announce`;
+    const response = await post<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
+}
+
+export const backupGuardianKeyCeremony = async (key_name: string, guardian_id: string, backups:ElectionPartialKeyBackup[]): Promise<ElectionJointKey | undefined> => {
+    const data: GuardianSubmitBackupRequest = {
+        key_name,
+        guardian_id,
+        backups
+    }
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/backup`;
+    const response = await post<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
+}
+
+export const verifyGuardianKeyCeremony = async (key_name: string, guardian_id: string, verifications: ElectionPartialKeyVerification[]): Promise<ElectionJointKey | undefined> => {
+    const data: GuardianSubmitVerificationRequest = {
+        key_name,
+        guardian_id,
+        verifications
+    }
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/verify`;
+    const response = await post<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
+}
+
+export const challengeGuardianKeyCeremony = async (key_name: string, guardian_id: string, challenges: ElectionPartialKeyChallenge[]): Promise<ElectionJointKey | undefined> => {
+    const data: GuardianSubmitChallengeRequest = {
+        key_name,
+        guardian_id,
+        challenges
+    }
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/challenge`;
+    const response = await post<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
+}

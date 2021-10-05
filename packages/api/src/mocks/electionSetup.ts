@@ -16,7 +16,7 @@ export const getManifestPreview = (): ManifestPreview => {
     };
 };
 
-export const getJointKeys = (): JointKey[] => [
+export const getJointKeys = async (): Promise<JointKey[]> => [
     {
         id: 'joint-key-1',
         name: 'Joint Key 1',
@@ -34,3 +34,5 @@ export const getJointKeys = (): JointKey[] => [
         dateCreated: new Date(),
     },
 ];
+
+

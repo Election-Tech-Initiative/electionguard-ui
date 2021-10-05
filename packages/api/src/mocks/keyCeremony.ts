@@ -1,9 +1,9 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
-import { KeyCeremony, KeyCeremonyGuardian, KeyCeremonyStatus } from '../models/keyCeremony';
+import { KeyCeremonyUi, KeyCeremonyGuardianApi, KeyCeremonyStatus } from '../models/keyCeremony';
 import TaskStatus from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
 
-export const getKeyCeremonyGuardians = (): KeyCeremonyGuardian[] =>
+export const getKeyCeremonyGuardians = (): KeyCeremonyGuardianApi[] =>
     getAssignedGuardians().map((guardian) => ({
         ...guardian,
         keypairCreated: TaskStatus.Incomplete,
@@ -15,9 +15,9 @@ export const getKeyCeremonyGuardians = (): KeyCeremonyGuardian[] =>
     }));
 
 export const setKeyCeremonyGuardianToStep = (
-    guardian: KeyCeremonyGuardian,
+    guardian: KeyCeremonyGuardianApi,
     step: KeyCeremonyStep
-): KeyCeremonyGuardian => ({
+): KeyCeremonyGuardianApi => ({
     ...guardian,
     keypairCreated:
         step > KeyCeremonyStep.CreateKeyPair ? TaskStatus.Complete : TaskStatus.Incomplete,
@@ -38,10 +38,10 @@ export const setKeyCeremonyGuardianToStep = (
         })),
 });
 
-export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardian[] =>
+export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
-export const getKeyCeremonies = (): KeyCeremony[] => [
+export const getKeyCeremonies = (): KeyCeremonyUi[] => [
     {
         id: 'key-ceremony-1',
         status: KeyCeremonyStatus.Active,

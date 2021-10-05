@@ -1,5 +1,5 @@
 import AssignedGuardian from './assignedGuardian';
-import { KeyCeremony } from './keyCeremony';
+import { KeyCeremonyUi } from './keyCeremony';
 
 // TODO Migrate to api folder
 export interface KeyCeremonyApi extends GuardianKeyCeremonyApi, MediatorKeyCeremonyApi {}
@@ -16,6 +16,6 @@ export interface GuardianKeyCeremonyApi {
 }
 
 export interface MediatorKeyCeremonyApi {
-    getKeyCeremonyState: () => Promise<KeyCeremony>;
+    getKeyCeremonyState: () => Promise<KeyCeremonyUi>;
     combineKeys: () => Promise<void>;
 }
