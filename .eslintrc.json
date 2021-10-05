@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "prettier",
+        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:jest/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint", "react-hooks", "prettier"],
+    "rules": {
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off"
+    },
+    "overrides": [
+        {
+            "files": ["**/*.stories.tsx"],
+            "rules": {
+                "react/jsx-props-no-spreading": "off"
+            }
+        }
+    ],
+    "ignorePatterns": ["dist", "build", "node_modules"]
+}

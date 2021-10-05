@@ -1,10 +1,10 @@
-![Microsoft Defending Democracy Program: ElectionGuard UI][banner image]
+![Microsoft Defending Democracy Program: ElectionGuard UI](https://www.electionguard.vote/images/electionguard-banner.svg)
 
 # 🗳 ElectionGuard UI
 
-![Github Package Action](https://github.com/microsoft/electionguard-ui/workflows/Release%20Build/badge.svg) [![license](https://img.shields.io/github/license/microsoft/electionguard)](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
+[![Azure_Deploy_Workflow](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml/badge.svg)](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml) [![license](https://img.shields.io/github/license/microsoft/electionguard)](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
 
-This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the compoent library use ReactComponents of this library can also be used to construct frontend implementations that need to talk to the ElectionGuard server API (https://github.com/microsoft/electionguard-api-python).
+This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the compoent library use ReactComponents of this library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
 
 ## 📁 In This Repository
 
@@ -129,7 +129,7 @@ Electionguard would love for you to ask questions out in the open using GitHub I
 
 ## License
 
-This repository is licensed under the [MIT License]
+This repository is licensed under the [MIT License](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
 
 ## Trademarks
 

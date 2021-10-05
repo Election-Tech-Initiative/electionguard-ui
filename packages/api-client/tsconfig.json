@@ -20,5 +20,5 @@
         "resolveJsonModule": true
     },
     "include": ["src"],
-    "exclude": ["node_modules", "dist", ".storybook"]
+    "exclude": ["node_modules", "dist"]
 }

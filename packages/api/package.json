@@ -1,12 +1,15 @@
 {
     "name": "@electionguard-ui/api",
-    "version": "0.2.0",
+    "description": "Archived Api Client Project",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
         "/dist"
     ],
-    "license": "MIT",
     "scripts": {
         "build": "tsc -b",
         "local": "yarn build"
