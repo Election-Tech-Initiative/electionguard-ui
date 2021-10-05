@@ -1,6 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
+import MainRoutes from './routes/MainRoutes';
+
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function App() {
@@ -20,6 +24,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <Router>
+            <MainRoutes />
+      </Router>
     </div>
   );
 }
