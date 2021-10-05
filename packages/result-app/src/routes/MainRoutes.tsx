@@ -1,11 +1,10 @@
-
-import React from "react";
-import {Route, Switch,Redirect } from "react-router-dom";
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ElectionPage from '../pages/ElectionPage';
 import RecordsPage from '../pages/RecordsPage';
 import ResultsPage from '../pages/ResultsPage';
 import BallotConfirmationPage from '../pages/BallotConfirmationPage';
-import SelectElectionPage from "../pages/SelectElectionPage";
+import SelectElectionPage from '../pages/SelectElectionPage';
 
 const MainRoutes: React.FC = () => (
     <Switch>
@@ -19,6 +18,5 @@ const MainRoutes: React.FC = () => (
         <Route path="/:election/:ballot" component={BallotConfirmationPage} />
     </Switch>
 );
-
 
 export default MainRoutes;

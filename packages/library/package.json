@@ -1,9 +1,14 @@
 {
     "name": "@electionguard-ui/library",
-    "version": "0.0.0",
+    "description": "Component Library of specialized electionguard ui",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "dependencies": {
         "@babel/core": "^7.13.15",
-        "@electionguard-ui/api": "0.2.0",
+        "@electionguard-ui/api": "1.0.0",
+        "@formatjs/intl": "^1.14.2",
         "@material-ui/core": "^4.11.3",
         "@material-ui/data-grid": "^4.0.0-alpha.29",
         "@material-ui/icons": "^4.11.2",
@@ -15,56 +20,38 @@
         "@storybook/node-logger": "^6.2.7",
         "@storybook/preset-create-react-app": "^3.1.7",
         "@storybook/react": "^6.2.7",
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.5.0",
+        "@testing-library/user-event": "^7.2.1",
         "@types/jest": "^26.0.15",
         "@types/node": "^12.0.0",
         "@types/react": "^17.0.2",
         "@types/react-dom": "^17.0.2",
         "@types/react-intl": "^3.0.0",
         "@types/react-router-dom": "^5.1.7",
-        "@typescript-eslint/eslint-plugin": "^4.22.0",
-        "@typescript-eslint/parser": "^4.22.0",
+        "babel-loader": "8.1.0",
         "clsx": "^1.1.1",
-        "eslint-plugin-formatjs": "^2.14.10",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-prettier": "^3.3.1",
-        "eslint-plugin-react": "^7.23.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-intl": "^5.17.4",
         "react-query": "^3.23.0",
+        "react-router": "^5.2.1",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
         "typescript": "^4.3.5",
         "web-vitals": "^1.0.1"
     },
-    "resolutions": {
-        "trim": "^0.0.3"
-    },
     "scripts": {
-        "local": "react-scripts start",
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx && prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
+        "build": "yarn run bundle",
+        "start": "yarn run bundle watch --no-compress",
+        "test": "react-scripts test --passWithNoTests",
+        "bundle": "microbundle --jsx 'React.createElement' --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs --external .*/images/.*",
+        "lint": "yarn eslint && yarn prettier",
+        "lint:fix": "yarn eslint --fix && yarn prettier --write",
+        "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
         "storybook": "start-storybook -p 6006 -s ./public",
         "build-storybook": "build-storybook -s public"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ],
-        "overrides": [
-            {
-                "files": [
-                    "**/*.stories.*"
-                ],
-                "rules": {
-                    "import/no-anonymous-default-export": "off"
-                }
-            }
-        ]
     },
     "browserslist": {
         "production": [
@@ -77,17 +64,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged --pattern '{src,public}/**/*.{js,jsx,ts,tsx,css,html}'"
-        }
-    },
-    "importSort": {
-        ".js, .jsx, .ts, .tsx": {
-            "style": "module",
-            "parser": "typescript"
-        }
-    },
-    "license": "MIT"
+    }
 }
