@@ -9,12 +9,18 @@
         "start-with-storybook": "yarn storybook && yarn start",
         "build": "yarn run lerna run build --stream",
         "test": "yarn run lerna run test --parallel",
-        "lint": "yarn run lerna run lint --parallel",
-        "lint:fix": "yarn run lerna run lint:fix --parallel",
+        "lint": "sh eslint.sh",
+        "lint:fix": "yarn lint -- --fix && yarn prettier",
+        "prettier": "prettier --check 'packages/**/{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}' --write",
         "bundle": "yarn run lerna run bundle --parallel",
         "clean": "yarn run lerna clean --yes",
         "bootstrap": "yarn clean && lerna bootstrap",
         "storybook": "yarn run lerna run storybook"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn run lint"
+        }
     },
     "devDependencies": {
         "@prettier/plugin-xml": "^1.1.0",
@@ -29,6 +35,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.26.0",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "husky": "^7.0.2",
         "lerna": "^4.0.0",
         "prettier": "^2.4.1"
     },
