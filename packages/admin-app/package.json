@@ -1,6 +1,10 @@
 {
     "name": "@electionguard-ui/admin-app",
-    "version": "0.1.0",
+    "description": "Admin application for administrating electionguard",
+    "author": "electionguard",
+    "license": "MIT",
+    "repository": "microsoft/electionguard-ui",
+    "version": "1.0.0",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",
@@ -11,6 +15,7 @@
         "@types/react": "^17.0.0",
         "@types/react-router-dom": "^5.1.7",
         "@types/react-dom": "^17.0.0",
+        "babel-loader": "8.1.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
@@ -19,16 +24,13 @@
         "web-vitals": "^1.0.1"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "PORT=3001 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+        "lint": "yarn eslint",
+        "lint:fix": "yarn eslint --fix && yarn prettier --write",
+        "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
     },
     "browserslist": {
         "production": [

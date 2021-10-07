@@ -3,9 +3,9 @@ interface EnumStepper<TEnumValue extends number> {
     previousStep: (step: TEnumValue) => TEnumValue;
 }
 
-export function createEnumStepper<T extends string, TEnumValue extends number>(
-    stepEnum: { [key in T]: TEnumValue }
-): EnumStepper<TEnumValue> {
+export function createEnumStepper<T extends string, TEnumValue extends number>(stepEnum: {
+    [key in T]: TEnumValue;
+}): EnumStepper<TEnumValue> {
     return {
         nextStep: (step: TEnumValue) =>
             step + 1 >= Object.keys(stepEnum).length / 2

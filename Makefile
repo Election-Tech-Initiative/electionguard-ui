@@ -1,29 +1,32 @@
-.PHONY: install build start storybook test
+.PHONY: install build start test lint storybook build-storybook docker-dev-app docker-dev-storybook docker-dev-all
 
 install:
-	sudo npm install --global lerna
-	lerna bootstrap
+	yarn install
+	yarn bootstrap
 
 build:
-	lerna run build
-
-lint:
-	lerna run lint
+	yarn build
 
 start:
-	lerna run start
+	yarn start
 
-storybook:
-	lerna run storybook
-
-build-storybook:
-	lerna run build-storybook
+start-with-storybook:
+	yarn start-with-storybook
 
 test:
-	lerna run test
+	yarn test
 
-local:
-	lerna run local
+lint:
+	yarn lint
+
+storybook:
+	yarn storybook
+
+build-storybook:
+	yarn build-storybook
+
+
+
 
 # Docker
 docker-dev-app:
