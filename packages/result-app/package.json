@@ -27,11 +27,7 @@
     "scripts": {
         "start": "PORT=3002 react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
-        "lint": "yarn eslint && yarn prettier",
-        "lint:fix": "yarn eslint --fix && yarn prettier --write",
-        "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
+        "test": "react-scripts test"
     },
     "browserslist": {
         "production": [

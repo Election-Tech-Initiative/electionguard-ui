@@ -46,10 +46,6 @@
         "start": "yarn run bundle watch --no-compress",
         "test": "react-scripts test --passWithNoTests",
         "bundle": "microbundle --jsx 'React.createElement' --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs --external .*/images/.*",
-        "lint": "yarn eslint && yarn prettier",
-        "lint:fix": "yarn eslint --fix && yarn prettier --write",
-        "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
         "storybook": "start-storybook -p 6006 -s ./public",
         "build-storybook": "build-storybook -s public"
     },
