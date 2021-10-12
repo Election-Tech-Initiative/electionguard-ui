@@ -1,4 +1,13 @@
-import { BaseJointKey, JointKey, User, getApiClient } from '@electionguard-ui/api';
+import {
+    BaseJointKey,
+    JointKey,
+    User,
+    MediatorClient,
+    Election,
+    KeyCeremony,
+    getApiClient,
+} from '@electionguard-ui/api-client';
+
 import { useQuery } from 'react-query';
 
 import { AsyncResult } from './AsyncResult';
@@ -17,6 +26,16 @@ export function useCreateJointKey(data: BaseJointKey): Promise<boolean> {
 export function useGetJointKeys(): AsyncResult<JointKey[]> {
     const service = getApiClient();
     return useQuery(QUERY_NAMES.JOINT_KEYS, () => service.getJointKeys());
+}
+
+export function useGetElections(): AsyncResult<Election[]> {
+    const service = new MediatorClient();
+    return useQuery(QUERY_NAMES.ELECTIONS, () => service.getElections(''));
+}
+
+export function useGetKeyCeremonies(): AsyncResult<KeyCeremony[]> {
+    const service = new MediatorClient();
+    return useQuery(QUERY_NAMES.KEY_CEREMONIES, () => service.getKeyCeremonies(''));
 }
 
 export default useGetUsersWithGuardianRole;

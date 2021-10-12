@@ -1,4 +1,4 @@
-import { JointKey } from '@electionguard-ui/api';
+import { JointKey } from '@electionguard-ui/api-client';
 import {
     Box,
     Button,
@@ -54,67 +54,69 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, getKeys
     const classes = useStyles();
     return (
         <Container maxWidth="md">
-            <Box display="flex" flexDirection="column">
-                <IconHeader
-                    title={
-                        new Message(
-                            MessageId.ElectionSetupJointKeySelectTitle,
-                            'Pull Guardian Keys'
-                        )
-                    }
-                    Icon={SaveIcon}
-                />
-                <Typography className={classes.spaced}>
-                    <FormattedMessage
-                        id={MessageId.ElectionSetupJointKeySelectDescription}
-                        defaultMessage={loremIpsum}
+            <QueryClientProvider client={queryClient}>
+                <Box display="flex" flexDirection="column">
+                    <IconHeader
+                        title={
+                            new Message(
+                                MessageId.ElectionSetupJointKeySelectTitle,
+                                'Pull Guardian Keys'
+                            )
+                        }
+                        Icon={SaveIcon}
                     />
-                </Typography>
-                <Box display="flex" flexDirection="column" alignItems="start">
-                    <AsyncContent query={keyQuery} errorMessage="there was an error">
-                        {(keysFound) => {
-                            keys = keysFound;
-                            return (
-                                <>
-                                    <FormControl className={classes.control}>
-                                        <InputLabel id="joint-key-select-label">
-                                            <FormattedMessage
-                                                id={MessageId.ElectionSetupJointKeySelectPrompt}
-                                                defaultMessage="Select Key for Election"
-                                            />
-                                        </InputLabel>
-                                        <Select
-                                            labelId="joint-key-select-label"
-                                            id="joint-key-select"
-                                            value={jointKey?.id}
-                                            onChange={onKeySelect}
-                                        >
-                                            {keysFound.map((key) => (
-                                                <MenuItem key={key.id} value={key.id}>
-                                                    {key.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </>
-                            );
-                        }}
-                    </AsyncContent>
-
-                    <Button
-                        disabled={jointKey === undefined}
-                        className={classes.spaced}
-                        variant="contained"
-                        color="secondary"
-                        onClick={onNext}
-                    >
+                    <Typography className={classes.spaced}>
                         <FormattedMessage
-                            id={MessageId.ElectionSetupJointKeySelectNext}
-                            defaultMessage="Pull keys for selected election"
+                            id={MessageId.ElectionSetupJointKeySelectDescription}
+                            defaultMessage={loremIpsum}
                         />
-                    </Button>
+                    </Typography>
+                    <Box display="flex" flexDirection="column" alignItems="start">
+                        <AsyncContent query={keyQuery} errorMessage="there was an error">
+                            {(keysFound) => {
+                                keys = keysFound;
+                                return (
+                                    <>
+                                        <FormControl className={classes.control}>
+                                            <InputLabel id="joint-key-select-label">
+                                                <FormattedMessage
+                                                    id={MessageId.ElectionSetupJointKeySelectPrompt}
+                                                    defaultMessage="Select Key for Election"
+                                                />
+                                            </InputLabel>
+                                            <Select
+                                                labelId="joint-key-select-label"
+                                                id="joint-key-select"
+                                                value={jointKey?.id}
+                                                onChange={onKeySelect}
+                                            >
+                                                {keysFound.map((key) => (
+                                                    <MenuItem key={key.id} value={key.id}>
+                                                        {key.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </>
+                                );
+                            }}
+                        </AsyncContent>
+
+                        <Button
+                            disabled={jointKey === undefined}
+                            className={classes.spaced}
+                            variant="contained"
+                            color="secondary"
+                            onClick={onNext}
+                        >
+                            <FormattedMessage
+                                id={MessageId.ElectionSetupJointKeySelectNext}
+                                defaultMessage="Pull keys for selected election"
+                            />
+                        </Button>
+                    </Box>
                 </Box>
-            </Box>
+            </QueryClientProvider>
         </Container>
     );
 };

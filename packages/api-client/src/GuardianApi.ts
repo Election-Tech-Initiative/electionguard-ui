@@ -1,10 +1,17 @@
-import { createGuardian, getGuardian, getGuardianPublicKeys, backupGuardian, backupVerificationGuardian, backupChallengeGuardian, verifyChallengeGuardian } from './server/guardians';
+import {
+    createGuardian,
+    getGuardian,
+    getGuardianPublicKeys,
+    backupGuardian,
+    backupVerificationGuardian,
+    backupChallengeGuardian,
+    verifyChallengeGuardian,
+} from './server/guardians';
 import { getUsersWithGuardianRole } from './server/users';
-import { decryptSharesBallot } from './server/ballots'
-import { decryptShareTally, decryptSharePostTally } from './server/tally'
+import { decryptSharesBallot } from './server/ballots';
+import { decryptShareTally, decryptSharePostTally } from './server/tally';
 
-export default class MediatorApi {
-
+export default class GuardianApi {
     // ballot
     // post /decrypt-shares
     decryptSharesBallot = decryptSharesBallot;
@@ -51,5 +58,4 @@ export default class MediatorApi {
     // post decrypt-share
     //  data in body
     tallyDecryptSharePost = decryptSharePostTally;
-
 }

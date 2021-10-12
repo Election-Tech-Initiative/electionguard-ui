@@ -1,4 +1,4 @@
-import { BackupVerification } from '@electionguard-ui/api';
+import { BackupVerification } from '@electionguard-ui/api-client';
 import { Box } from '@material-ui/core';
 import React from 'react';
 

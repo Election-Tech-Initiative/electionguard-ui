@@ -16,8 +16,18 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
-        "outDir": "dist",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "declarationMap": true,
+        "composite": false,
+        "noEmit": false,
+        "target": "esnext",
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "isolatedModules": true
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist"]

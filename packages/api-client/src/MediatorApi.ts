@@ -1,18 +1,46 @@
-import ElectionGuardApiClient from "./Api";
-import { getElections as mockGetElections } from './mocks/elections';
-import { getJointKeys as mockGetJointKeys, getManifestPreview as mockGetManifestPreview } from './mocks/electionSetup';
-import { getUsersWithGuardianRole as mockGetUsersWithGuardianRole } from './mocks/users';
-import { getAssignedGuardians as mockGetAssignedGuardians, createGuardian as mockCreateGuardian } from './mocks/guardians';
-import { createJointKey as mockCreateJointKey } from './mocks/jointKey';
-import { getKeyCeremonies as mockGetKeyCeremonies, getKeyCeremonyGuardians as mockGetKeyCeremonyGuardians, setKeyCeremonyGuardianToStep as mockSetKeyCeremonyGuardianToStep, getKeyCeremonyGuardiansByStep as mockGetKeyCeremonyGuardiansByStep } from './mocks/keyCeremony';
-import { getBallot, getBallotInventory, findBallots, castBallots, spoilBallots, submitBallots, validateBallot, decryptBallot, encryptBallot } from './server/ballots'
-import { closeElection, findElection, getConstants, getElections, makeContextElection, openElection, publishElection, putElection } from "./server/elections";
-import { announceGuardianKeyCeremony, backupGuardianKeyCeremony, cancelKeyCeremony, challengeGuardianKeyCeremony, challengeKeyCeremony, challengeVerifyKeyCeremony, closeKeyCeremony, combineKeyCeremony, findKeyCeremonies, getJointKeyKeyCeremony, getKeyCeremonies, getKeyCeremonyState, openKeyCeremony, publishKeyCeremony, putKeyCeremony, verifyGuardianKeyCeremony } from "./server/keyCeremony";
-import { findKeyGuardians, getGuardians, postGuardians, putGuardians } from "./server/guardians";
-import getManifest, { findManifest, putManifest, validateManifest } from "./server/manifest";
+import {
+    getBallot,
+    getBallotInventory,
+    findBallots,
+    castBallots,
+    spoilBallots,
+    submitBallots,
+    validateBallot,
+    decryptBallot,
+    encryptBallot,
+} from './server/ballots';
+import {
+    closeElection,
+    findElection,
+    getConstants,
+    getElections,
+    makeContextElection,
+    openElection,
+    publishElection,
+    putElection,
+} from './server/elections';
+import {
+    announceGuardianKeyCeremony,
+    backupGuardianKeyCeremony,
+    cancelKeyCeremony,
+    challengeGuardianKeyCeremony,
+    challengeKeyCeremony,
+    challengeVerifyKeyCeremony,
+    closeKeyCeremony,
+    combineKeyCeremony,
+    findKeyCeremonies,
+    getJointKeyKeyCeremony,
+    getKeyCeremonies,
+    getKeyCeremonyState,
+    openKeyCeremony,
+    publishKeyCeremony,
+    putKeyCeremony,
+    verifyGuardianKeyCeremony,
+} from './server/keyCeremony';
+import { findKeyGuardians, getGuardians, postGuardians, putGuardians } from './server/guardians';
+import getManifest, { findManifest, putManifest, validateManifest } from './server/manifest';
 
-export default class GuardianApi{
-
+export default class MediatorApi {
     // ballot
     // get ballot
     // election_id: str, ballot_id: str
@@ -35,7 +63,7 @@ export default class GuardianApi{
 
     // post validate
     validateBallot = validateBallot;
-    
+
     // ballot - decrypt
     // post decrypt
     decryptBallot = decryptBallot;
@@ -56,7 +84,7 @@ export default class GuardianApi{
 
     // post find
     findElection = findElection;
-    
+
     // post open
     openElection = openElection;
 
@@ -106,46 +134,45 @@ export default class GuardianApi{
 
     // post ceremony/publish
     publishKeyCeremony = publishKeyCeremony;
-    
+
     // key - ceremony
     // post guardian/announce
     announceGuardianKeyCeremony = announceGuardianKeyCeremony;
 
     // post guardian/backup
-    backupGuardianKeyCeremony = backupGuardianKeyCeremony
+    backupGuardianKeyCeremony = backupGuardianKeyCeremony;
 
     // post guardian/verify
-    verifyGuardianKeyCeremony = verifyGuardianKeyCeremony
+    verifyGuardianKeyCeremony = verifyGuardianKeyCeremony;
 
     // post guardian/challenge
-    challengeGuardianKeyCeremony = challengeGuardianKeyCeremony
+    challengeGuardianKeyCeremony = challengeGuardianKeyCeremony;
 
     // guardian
     // get guardian
-    getGuardians = getGuardians
+    getGuardians = getGuardians;
 
     // put guardian
-    putGuardians = putGuardians
+    putGuardians = putGuardians;
 
     // post guardian
-    postGuardians = postGuardians
+    postGuardians = postGuardians;
 
     // post find
-    findKeyGuardians = findKeyGuardians
+    findKeyGuardians = findKeyGuardians;
 
     // manifest
     // get manifest
-    getManifest = getManifest
+    getManifest = getManifest;
 
     // put manifest
-    putManifest = putManifest
+    putManifest = putManifest;
 
     // post find
-    findManifest = findManifest
+    findManifest = findManifest;
 
     // post validate
-    validateManifest = validateManifest
-
+    validateManifest = validateManifest;
 
     // tally
     // get tally

@@ -1,8 +1,11 @@
-import { KeyCeremonyUi } from '@electionguard-ui/api';
+import { KeyCeremony } from '@electionguard-ui/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { AsyncResult } from '../../data/AsyncResult';
+import AsyncContent from '../AsyncContent';
 
 import { FormattedDateCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface KeyCeremonyTableProps {
-    data: KeyCeremonyUi[];
+    data: () => AsyncResult<KeyCeremony[]>;
 }
 
 const LinkCell = (): React.ReactElement => <Button color="primary">Join</Button>;
@@ -64,19 +67,31 @@ const columns = (intl: IntlShape): GridColDef[] => [
 const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
+    const keyCeremonyQuery = data();
+    const queryClient = new QueryClient();
     return (
-        <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
-                className={classes.root}
-                autoHeight
-                rows={data}
-                columns={columns(intl)}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
-                hideFooterPagination
-            />
-        </Box>
+        <QueryClientProvider client={queryClient}>
+            <Box display="flex" minHeight="500px" height="100%" width="100%">
+                <AsyncContent query={keyCeremonyQuery} errorMessage="there was an error">
+                    {(keyCeremoniesFound) => {
+                        return (
+                            <>
+                                <DataGrid
+                                    className={classes.root}
+                                    autoHeight
+                                    rows={keyCeremoniesFound}
+                                    columns={columns(intl)}
+                                    components={{
+                                        Toolbar: FilterToolbar,
+                                    }}
+                                    hideFooterPagination
+                                />
+                            </>
+                        );
+                    }}
+                </AsyncContent>
+            </Box>
+        </QueryClientProvider>
     );
 };
 

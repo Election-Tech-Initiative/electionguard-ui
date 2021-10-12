@@ -1,4 +1,4 @@
-import { getApiClient } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard-ui/api-client';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 

@@ -1,5 +1,5 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
-import { KeyCeremonyUi, KeyCeremonyGuardianApi, KeyCeremonyStatus } from '../models/keyCeremony';
+import { KeyCeremonyGuardianApi, KeyCeremony } from '../models/keyCeremony';
 import TaskStatus from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
 
@@ -41,14 +41,5 @@ export const setKeyCeremonyGuardianToStep = (
 export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
-export const getKeyCeremonies = (): KeyCeremonyUi[] => [
-    {
-        id: 'key-ceremony-1',
-        status: KeyCeremonyStatus.Active,
-        name: 'Montgomery County Election',
-        numberOfGuardians: 5,
-        quorum: 3,
-        guardians: getKeyCeremonyGuardians(),
-        dateCreated: new Date(),
-    },
-];
+export const getKeyCeremonies = async (_key_name: string): Promise<KeyCeremony[] | undefined> =>
+    undefined;

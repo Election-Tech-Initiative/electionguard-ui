@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import { BaseRequest, BaseResponse, BaseValidationRequest, Schema } from "./base"
-import { CiphertextElectionContext, ElectionManifest } from "./election";
-import Guardian from "./guardian";
+import { BaseRequest, BaseResponse, BaseValidationRequest } from './base';
+import { CiphertextElectionContext, ElectionManifest } from './election';
+import { GuardianUI } from './guardian';
 
 export type CiphertextBallot = any;
 export type PlaintextBallot = any;
@@ -11,14 +11,12 @@ export type DecryptedBallots = any;
 export type BallotCode = string;
 export type BallotUrl = string;
 
-
-
 export class BaseBallotRequest extends BaseRequest {
-    election_id: string = "";
+    election_id: string = '';
 
     manifest: ElectionManifest = null;
 
-    context: CiphertextElectionContext = null
+    context: CiphertextElectionContext = null;
 }
 
 export class CastBallotsRequest extends BaseBallotRequest {
@@ -34,11 +32,10 @@ export class SubmitBallotsRequest extends BaseBallotRequest {
 }
 
 export class BallotQueryResponse extends BaseResponse {
-    election_id = "";
+    election_id = '';
 
     ballots: CiphertextBallot[] = [];
 }
-
 
 export class DecryptBallotsWithSharesRequest extends BaseRequest {
     encrypted_ballots: SubmittedBallot[] = [];
@@ -48,17 +45,15 @@ export class DecryptBallotsWithSharesRequest extends BaseRequest {
     context: CiphertextElectionContext;
 }
 
-
 export class DecryptBallotSharesRequest extends BaseRequest {
     // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
 
-    encrypted_ballots: SubmittedBallot[]=[]
+    encrypted_ballots: SubmittedBallot[] = [];
 
-    guardian: Guardian;
+    guardian: GuardianUI = new GuardianUI();
 
-    context: CiphertextElectionContext
+    context: CiphertextElectionContext;
 }
-
 
 export class DecryptBallotSharesResponse extends BaseResponse {
     shares: DecryptionShare[] = [];
@@ -67,47 +62,41 @@ export class DecryptBallotSharesResponse extends BaseResponse {
 export class ValidateBallotsRequest extends BaseValidationRequest {
     ballot: CiphertextBallot;
 
-    manifest: ElectionManifest
+    manifest: ElectionManifest;
 
-    context: CiphertextElectionContext
+    context: CiphertextElectionContext;
 }
-
-
 
 export class EncryptBallotsRequest extends BaseRequest {
     // A request to encrypt the enclosed ballots.
 
-    election_id: string
-    
-    seed_hash: string
+    election_id = '';
 
-    ballots: PlaintextBallot[]=[]
+    seed_hash = '';
+
+    ballots: PlaintextBallot[] = [];
 }
-
 
 export class EncryptBallotsResponse extends BaseResponse {
-    encrypted_ballots: CiphertextBallot[] = []
+    encrypted_ballots: CiphertextBallot[] = [];
     // The encrypted representations of the plaintext ballots.
 
-    next_seed_hash: string
+    next_seed_hash = '';
     // A seed hash which can optionally be used for the next call to encrypt.
-
 }
 
-
-
 export class BallotInventory {
-    election_id = "";
+    election_id = '';
 
     cast_ballot_count = 0;
 
     spoiled_ballot_count = 0;
 
     cast_ballots: Map<BallotCode, BallotUrl> = new Map<BallotCode, BallotUrl>();
-    
+
     spoiled_ballots: Map<BallotCode, BallotUrl> = new Map<BallotCode, BallotUrl>();
 }
 
 export class BallotInventoryResponse extends BaseResponse {
-    inventory: BallotInventory;
+    inventory: BallotInventory = new BallotInventory();
 }

@@ -1,8 +1,16 @@
 /* eslint-disable max-classes-per-file */
-import ElectionRow from '../models/ElectionRow';
 import { get, post, put } from '../utils/http';
-import { ElectionConstants, Election, ElectionQueryResponse, SubmitElectionRequest, ElectionManifest, CiphertextElectionContext, MakeElectionContextRequest, MakeElectionContextResponse } from '../models/election'
-import { BaseQueryRequest, BaseRequest, BaseResponse } from '../models/base';
+import {
+    ElectionConstants,
+    Election,
+    ElectionQueryResponse,
+    SubmitElectionRequest,
+    ElectionManifest,
+    CiphertextElectionContext,
+    MakeElectionContextRequest,
+    MakeElectionContextResponse,
+} from '../models/election';
+import { BaseQueryRequest, BaseResponse } from '../models/base';
 
 // export const getElections = (): ElectionRow[] => {
 //     const date = new Date();
@@ -17,46 +25,46 @@ import { BaseQueryRequest, BaseRequest, BaseResponse } from '../models/base';
 //     ];
 // };
 
-
 export const getConstants = async (): Promise<ElectionConstants | undefined> => {
-    
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election/constants`;
-    const response = await get<{data:ElectionConstants }>(path);
+    const response = await get<{ data: ElectionConstants }>(path);
 
-    if(typeof response.parsedBody !== "undefined") {
+    if (typeof response.parsedBody !== 'undefined') {
         return response.parsedBody.data;
     }
     return undefined;
-}
+};
 
-
-export const getElections = async (election_id: string): Promise<Election[] | undefined> => {
-    
+export const getElections = async (_election_id: string): Promise<Election[] | undefined> => {
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election`;
-    const response = await get<{data:ElectionQueryResponse }>(path);
+    const response = await get<{ data: ElectionQueryResponse }>(path);
 
-    if(typeof response.parsedBody !== "undefined") {
+    if (typeof response.parsedBody !== 'undefined') {
         return response.parsedBody.data.elections;
     }
     return undefined;
-}
+};
 
-
-export const putElection = async (election_id: string, key_name: string, manifest: ElectionManifest, context: CiphertextElectionContext): Promise<string | undefined> => {
+export const putElection = async (
+    election_id: string,
+    key_name: string,
+    manifest: ElectionManifest,
+    context: CiphertextElectionContext
+): Promise<string | undefined> => {
     const data: SubmitElectionRequest = {
         election_id,
         key_name,
         manifest,
-        context
-    }
+        context,
+    };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election`;
-    const response = await put<{status: string, message: string }>(path, data);
+    const response = await put<{ status: string; message: string }>(path, data);
 
-    if(typeof response.parsedBody !== "undefined") {
+    if (typeof response.parsedBody !== 'undefined') {
         return response.parsedBody.status;
     }
     return undefined;
-}
+};
 
 class ElectionQueryRequest extends BaseQueryRequest {
     // A request for elections using the specified filter.
@@ -65,16 +73,19 @@ class ElectionQueryRequest extends BaseQueryRequest {
     // }
 }
 
-
-export const findElection = async (filter: any, skip: number, limit: number): Promise<Election[]> => {
+export const findElection = async (
+    filter: any,
+    skip: number,
+    limit: number
+): Promise<Election[]> => {
     const elections: Election[] = [];
     const data: ElectionQueryRequest = {
-        filter
+        filter,
     };
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/find?skip=${skip}&limit=${limit}`;
 
-    const response = await post<{resp : ElectionQueryResponse}>(path, data);
-    if(typeof response.parsedBody !== "undefined") {
+    const response = await post<{ resp: ElectionQueryResponse }>(path, data);
+    if (typeof response.parsedBody !== 'undefined') {
         response.parsedBody.resp.elections.forEach((item) => {
             elections.push(item);
         });
@@ -85,27 +96,33 @@ export const findElection = async (filter: any, skip: number, limit: number): Pr
 
 export const openElection = async (election_id: string): Promise<boolean | undefined> => {
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/open?election_id=${election_id}`;
-    
-    const response = await post<{resp : BaseResponse}>(path, {});
-    return response.parsedBody?.resp.is_success()
+
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
 };
 
 export const closeElection = async (election_id: string): Promise<boolean | undefined> => {
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/close?election_id=${election_id}`;
-    
-    const response = await post<{resp : BaseResponse}>(path, {});
-    return response.parsedBody?.resp.is_success()
+
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
 };
 
 export const publishElection = async (election_id: string): Promise<boolean | undefined> => {
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/publish?election_id=${election_id}`;
-    
-    const response = await post<{resp : BaseResponse}>(path, {});
-    return response.parsedBody?.resp.is_success()
+
+    const response = await post<{ resp: BaseResponse }>(path, {});
+    return response.parsedBody?.resp.is_success();
 };
 
-
-export const makeContextElection = async (elgamal_public_key: string, commitment_hash: string, number_of_guardians: number, quorum: number, manifest_hash="", manifest={} ): Promise<CiphertextElectionContext | undefined> => {
+export const makeContextElection = async (
+    elgamal_public_key: string,
+    commitment_hash: string,
+    number_of_guardians: number,
+    quorum: number,
+    manifest_hash = '',
+    manifest = {}
+): Promise<CiphertextElectionContext | undefined> => {
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/context`;
     const data: MakeElectionContextRequest = {
         elgamal_public_key,
@@ -113,11 +130,10 @@ export const makeContextElection = async (elgamal_public_key: string, commitment
         number_of_guardians,
         quorum,
         manifest_hash,
-        manifest
-    }
-    const response = await post<{resp : MakeElectionContextResponse}>(path, data);
-    return response.parsedBody?.resp.context
+        manifest,
+    };
+    const response = await post<{ resp: MakeElectionContextResponse }>(path, data);
+    return response.parsedBody?.resp.context;
 };
-
 
 export default getElections;

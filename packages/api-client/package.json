@@ -5,8 +5,9 @@
     "author": "electionguard",
     "license": "MIT",
     "repository": "microsoft/electionguard-ui",
-    "main": "dist/index.js",
-    "module": "dist/index.modern.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": "./dist/index.modern.js",
     "source": "src/index.ts",
     "engines": {
         "node": ">=10"
@@ -40,6 +41,6 @@
         "typescript": "^4.3.5"
     },
     "files": [
-        "dist"
+        "/dist"
     ]
 }

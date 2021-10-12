@@ -1,10 +1,12 @@
-import { JointKey } from '@electionguard-ui/api';
+import { JointKey } from '@electionguard-ui/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { AsyncResult } from '../../data/AsyncResult';
+import AsyncContent from '../AsyncContent';
 import { FormattedDateCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
@@ -65,23 +67,35 @@ const columns = (intl: IntlShape): GridColDef[] => [
 const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
-    const keyData: JointKey[] = [];
+    const jointKeyQuery = data();
+    const queryClient = new QueryClient();
+
     // data().then((keys) => {
     //     keyData = keys;
     // });
     return (
-        <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
-                className={classes.root}
-                autoHeight
-                rows={keyData}
-                columns={columns(intl)}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
-                hideFooterPagination
-            />
-        </Box>
+        <QueryClientProvider client={queryClient}>
+            <Box display="flex" minHeight="500px" height="100%" width="100%">
+                <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
+                    {(keyData) => {
+                        return (
+                            <>
+                                <DataGrid
+                                    className={classes.root}
+                                    autoHeight
+                                    rows={keyData}
+                                    columns={columns(intl)}
+                                    components={{
+                                        Toolbar: FilterToolbar,
+                                    }}
+                                    hideFooterPagination
+                                />
+                            </>
+                        );
+                    }}
+                </AsyncContent>
+            </Box>
+        </QueryClientProvider>
     );
 };
 
