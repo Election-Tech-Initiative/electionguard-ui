@@ -36,5 +36,5 @@
             }
         }
     ],
-    "ignorePatterns": ["dist", "build", "node_modules"]
+    "ignorePatterns": ["dist", "build", "node_modules", "eslint.sh"]
 }
