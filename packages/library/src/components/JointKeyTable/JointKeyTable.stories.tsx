@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { useGetJointKeys } from '../../data/queries';
 import JointKeyTable, { JointKeyTableProps } from './JointKeyTable';
@@ -10,7 +11,13 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story<JointKeyTableProps> = (props) => <JointKeyTable {...props} />;
+const queryClient = new QueryClient();
+
+const Template: Story<JointKeyTableProps> = (props) => (
+    <QueryClientProvider client={queryClient}>
+        <JointKeyTable {...props} />;
+    </QueryClientProvider>
+);
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';

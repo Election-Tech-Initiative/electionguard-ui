@@ -113,60 +113,51 @@ const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
     const classes = useStyles();
     const intl = useIntl();
     const electionQuery = data();
-    const queryClient = new QueryClient();
     return (
-        <QueryClientProvider client={queryClient}>
-            <Box
-                display="flex"
-                minHeight="500px"
-                height="100%"
-                width="100%"
-                className={classes.root}
-            >
-                <AsyncContent query={electionQuery} errorMessage="there was an error">
-                    {(electionsFound) => {
-                        var data: ElectionRow[] = [];
-                        electionsFound.forEach((item) => {
-                            const date = new Date();
-                            data.push(
-                                new ElectionRow(
-                                    item.election_id,
-                                    item.key_name,
-                                    'Maryland',
-                                    'Montgomery County',
-                                    date,
-                                    item.state == ElectionState.CREATED
-                                )
-                            );
-                        });
-                        return (
-                            <>
-                                <DataGrid
-                                    rows={data}
-                                    columns={columns(intl)}
-                                    components={{
-                                        Toolbar: FilterToolbar,
-                                    }}
-                                    getRowClassName={(params) =>
-                                        `election-table--${
-                                            params.getValue(params.id, 'isNew') ? 'new' : ''
-                                        }`
-                                    }
-                                    sortModel={[
-                                        {
-                                            field: 'dateCreated',
-                                            sort: 'asc' as GridSortDirection,
-                                        },
-                                    ]}
-                                    hideFooter
-                                    disableSelectionOnClick
-                                />
-                            </>
+        <Box display="flex" minHeight="500px" height="100%" width="100%" className={classes.root}>
+            <AsyncContent query={electionQuery} errorMessage="there was an error">
+                {(electionsFound) => {
+                    const electionData: ElectionRow[] = [];
+                    electionsFound.forEach((item) => {
+                        const date = new Date();
+                        electionData.push(
+                            new ElectionRow(
+                                item.election_id,
+                                item.key_name,
+                                'Maryland',
+                                'Montgomery County',
+                                date,
+                                item.state === ElectionState.CREATED
+                            )
                         );
-                    }}
-                </AsyncContent>
-            </Box>
-        </QueryClientProvider>
+                    });
+                    return (
+                        <>
+                            <DataGrid
+                                rows={electionData}
+                                columns={columns(intl)}
+                                components={{
+                                    Toolbar: FilterToolbar,
+                                }}
+                                getRowClassName={(params) =>
+                                    `election-table--${
+                                        params.getValue(params.id, 'isNew') ? 'new' : ''
+                                    }`
+                                }
+                                sortModel={[
+                                    {
+                                        field: 'dateCreated',
+                                        sort: 'asc' as GridSortDirection,
+                                    },
+                                ]}
+                                hideFooter
+                                disableSelectionOnClick
+                            />
+                        </>
+                    );
+                }}
+            </AsyncContent>
+        </Box>
     );
 };
 

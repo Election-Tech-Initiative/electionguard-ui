@@ -73,22 +73,20 @@ const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
         <QueryClientProvider client={queryClient}>
             <Box display="flex" minHeight="500px" height="100%" width="100%">
                 <AsyncContent query={keyCeremonyQuery} errorMessage="there was an error">
-                    {(keyCeremoniesFound) => {
-                        return (
-                            <>
-                                <DataGrid
-                                    className={classes.root}
-                                    autoHeight
-                                    rows={keyCeremoniesFound}
-                                    columns={columns(intl)}
-                                    components={{
-                                        Toolbar: FilterToolbar,
-                                    }}
-                                    hideFooterPagination
-                                />
-                            </>
-                        );
-                    }}
+                    {(keyCeremoniesFound) => (
+                        <>
+                            <DataGrid
+                                className={classes.root}
+                                autoHeight
+                                rows={keyCeremoniesFound}
+                                columns={columns(intl)}
+                                components={{
+                                    Toolbar: FilterToolbar,
+                                }}
+                                hideFooterPagination
+                            />
+                        </>
+                    )}
                 </AsyncContent>
             </Box>
         </QueryClientProvider>
