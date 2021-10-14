@@ -29,10 +29,10 @@ export const putManifest = async (manifest: ElectionManifest): Promise<ElementMo
 export const findManifest = async (
     skip: number,
     limit: number,
-    _ballot_id: string
+    manifest_id: string
 ): Promise<Manifest[] | undefined> => {
     const data: BaseQueryRequest = {
-        filter: {},
+        filter: { manifest_id },
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}manifest/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: ManifestQueryResponse }>(path, data);

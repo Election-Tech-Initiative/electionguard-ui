@@ -35,14 +35,10 @@ export const getConstants = async (): Promise<ElectionConstants | undefined> => 
     return undefined;
 };
 
-export const getElections = async (_election_id: string): Promise<Election[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election`;
+export const getElection = async (election_id: string): Promise<Election[] | undefined> => {
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election?election_id=${election_id}`;
     const response = await get<{ data: ElectionQueryResponse }>(path);
-
-    if (typeof response.parsedBody !== 'undefined') {
-        return response.parsedBody.data.elections;
-    }
-    return undefined;
+    return response.parsedBody?.data.elections;
 };
 
 export const putElection = async (
@@ -66,12 +62,7 @@ export const putElection = async (
     return undefined;
 };
 
-class ElectionQueryRequest extends BaseQueryRequest {
-    // A request for elections using the specified filter.
-    // class Config {
-    //     schema_extra = {"example": {"filter": {"election_id": "some-election-id-123"}}}
-    // }
-}
+class ElectionQueryRequest extends BaseQueryRequest {}
 
 export const findElection = async (
     filter: any,
@@ -136,4 +127,4 @@ export const makeContextElection = async (
     return response.parsedBody?.resp.context;
 };
 
-export default getElections;
+export default getElection;

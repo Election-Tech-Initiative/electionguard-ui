@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { useGetElections } from '../../data/queries';
+import { useGetElection } from '../../data/queries';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {
@@ -22,5 +22,5 @@ const Template: Story<ElectionTableProps> = (props) => (
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: useGetElections,
+    data: useGetElection,
 };

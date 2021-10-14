@@ -14,7 +14,7 @@ export default interface ElectionGuardApiClient {
 
     getJointKeys(): Promise<JointKey[]>;
 
-    getElections(election_id: string): Promise<Election[] | undefined>;
+    getElection(election_id: string): Promise<Election[] | undefined>;
     getAssignedGuardians(): AssignedGuardian[];
     getManifestPreview(): ManifestPreview;
 

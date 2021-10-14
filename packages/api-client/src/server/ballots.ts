@@ -58,10 +58,10 @@ export const findBallots = async (
     election_id: string,
     skip: number,
     limit: number,
-    _ballot_id: string
+    ballot_id: string
 ): Promise<CiphertextBallot[] | undefined> => {
     const data: BaseQueryRequest = {
-        filter: {},
+        filter: { ballot_id },
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/find?election_id=${election_id}&skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: BallotQueryResponse }>(path, data);

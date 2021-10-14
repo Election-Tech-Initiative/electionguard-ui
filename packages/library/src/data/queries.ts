@@ -28,9 +28,9 @@ export function useGetJointKeys(): AsyncResult<JointKey[]> {
     return useQuery(QUERY_NAMES.JOINT_KEYS, () => service.getJointKeys());
 }
 
-export function useGetElections(): AsyncResult<Election[]> {
+export function useGetElection(election_id: string): AsyncResult<Election[]> {
     const service = new MediatorClient();
-    return useQuery(QUERY_NAMES.ELECTIONS, () => service.getElections(''));
+    return useQuery(QUERY_NAMES.ELECTIONS, () => service.getElection(election_id));
 }
 
 export function useGetKeyCeremonies(): AsyncResult<KeyCeremony[]> {

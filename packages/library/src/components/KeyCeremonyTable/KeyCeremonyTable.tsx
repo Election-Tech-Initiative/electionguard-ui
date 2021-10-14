@@ -3,7 +3,6 @@ import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 
@@ -68,28 +67,25 @@ const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     const keyCeremonyQuery = data();
-    const queryClient = new QueryClient();
     return (
-        <QueryClientProvider client={queryClient}>
-            <Box display="flex" minHeight="500px" height="100%" width="100%">
-                <AsyncContent query={keyCeremonyQuery} errorMessage="there was an error">
-                    {(keyCeremoniesFound) => (
-                        <>
-                            <DataGrid
-                                className={classes.root}
-                                autoHeight
-                                rows={keyCeremoniesFound}
-                                columns={columns(intl)}
-                                components={{
-                                    Toolbar: FilterToolbar,
-                                }}
-                                hideFooterPagination
-                            />
-                        </>
-                    )}
-                </AsyncContent>
-            </Box>
-        </QueryClientProvider>
+        <Box display="flex" minHeight="500px" height="100%" width="100%">
+            <AsyncContent query={keyCeremonyQuery} errorMessage="there was an error">
+                {(keyCeremoniesFound) => (
+                    <>
+                        <DataGrid
+                            className={classes.root}
+                            autoHeight
+                            rows={keyCeremoniesFound}
+                            columns={columns(intl)}
+                            components={{
+                                Toolbar: FilterToolbar,
+                            }}
+                            hideFooterPagination
+                        />
+                    </>
+                )}
+            </AsyncContent>
+        </Box>
     );
 };
 

@@ -20,7 +20,7 @@ import {
     ElectionPartialKeyVerification,
     GuardianSubmitChallengeRequest,
 } from '../models/keyCeremony';
-import TaskStatus from '../models/taskStatus';
+import { TaskStatus } from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
 import { get, post, put } from '../utils/http';
 import { BaseQueryRequest, BaseResponse } from '../models/base';

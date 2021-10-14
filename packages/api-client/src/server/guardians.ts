@@ -156,10 +156,10 @@ export const postGuardians = async (data: KeyCeremonyGuardian): Promise<boolean 
 export const findKeyGuardians = async (
     skip: number,
     limit: number,
-    _ballot_id: string
+    guardian_id: string
 ): Promise<KeyCeremonyGuardian[] | undefined> => {
     const data: BaseQueryRequest = {
-        filter: {},
+        filter: { guardian_id },
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}guardian/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: GuardianQueryResponse }>(path, data);

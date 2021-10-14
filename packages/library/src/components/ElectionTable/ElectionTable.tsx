@@ -4,7 +4,6 @@ import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@materi
 import { GetApp as DownloadIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 
@@ -13,7 +12,7 @@ import FilterToolbar from '../FilterToolbar';
 import ElectionRow from './ElectionRow';
 
 export interface ElectionTableProps {
-    data: () => AsyncResult<Election[]>;
+    data: (election_id: string) => AsyncResult<Election[]>;
 }
 
 const DownloadButtonCell = (params: GridCellParams, download: (id: number) => void) => {
@@ -112,7 +111,7 @@ const useStyles = makeStyles((theme: Theme) => {
 const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
     const classes = useStyles();
     const intl = useIntl();
-    const electionQuery = data();
+    const electionQuery = data('election-1');
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%" className={classes.root}>
             <AsyncContent query={electionQuery} errorMessage="there was an error">

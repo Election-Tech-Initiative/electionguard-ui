@@ -13,7 +13,7 @@ import {
     closeElection,
     findElection,
     getConstants,
-    getElections,
+    getElection,
     makeContextElection,
     openElection,
     publishElection,
@@ -38,7 +38,7 @@ import {
     verifyGuardianKeyCeremony,
 } from './server/keyCeremony';
 import { findKeyGuardians, getGuardians, postGuardians, putGuardians } from './server/guardians';
-import getManifest, { findManifest, putManifest, validateManifest } from './server/manifest';
+import { getManifest, findManifest, putManifest, validateManifest } from './server/manifest';
 
 export default class MediatorApi {
     // ballot
@@ -77,7 +77,7 @@ export default class MediatorApi {
     getConstants = getConstants;
 
     // get election
-    getElections = getElections;
+    getElection = getElection;
 
     // put election
     putElection = putElection;
