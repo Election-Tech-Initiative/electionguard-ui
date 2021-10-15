@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { supported } from '../lang';
+import { languages } from '../lang';
 
-export const defaultLanguage = supported.english;
+export const defaultLanguage = languages.en;
 
 export const LanguageContext = React.createContext(defaultLanguage);
 
