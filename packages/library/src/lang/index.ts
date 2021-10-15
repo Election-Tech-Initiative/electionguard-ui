@@ -1,8 +1,9 @@
-export { supported, getLanguage } from './supported';
-
-export { default as Message } from './Message';
-
-export { default as MessageId, OverloadMessageId } from './MessageId';
-export type { OverloadableMessageId } from './MessageId';
-
+export { default as GenericMessage, GenericMessageDescriptor } from './GenericMessage';
+export { default as Language, getLanguage, setupLanguages } from './Language';
+export { default as Locale } from './Locale';
 export { default as loremIpsum } from './loremIpsum';
+
+// TODO Remove redundant language files
+export { default as MessageId } from './MessageId';
+export { default as Message } from './Message';
+export { default as languages } from './languages';

@@ -1,5 +1,4 @@
-export const OverloadMessageId = 'overload';
-
+// TODO Remove after migration to Admin App
 enum MessageId {
     // App
     AppName = 'app.name',
@@ -253,7 +252,5 @@ enum MessageId {
     TaskStatus_Complete = 'task_status.complete',
     TaskStatus_Incomplete = 'task_status.incomplete',
 }
-
-export type OverloadableMessageId = MessageId | typeof OverloadMessageId;
 
 export default MessageId;

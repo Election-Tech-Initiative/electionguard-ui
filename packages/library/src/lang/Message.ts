@@ -1,25 +1,5 @@
-import { MessageDescriptor } from '@formatjs/intl';
+// TODO Remove after migration to Admin App
+import GenericMessage from './GenericMessage';
+import MessageId from './MessageId';
 
-import MessageId, { OverloadableMessageId } from './MessageId';
-
-const placeholder = 'placeholder';
-
-export class Message implements MessageDescriptor {
-    id: OverloadableMessageId;
-
-    defaultMessage: string;
-
-    description?: string;
-
-    constructor(
-        id: OverloadableMessageId = MessageId.Placeholder,
-        defaultMessage = placeholder,
-        description?: string
-    ) {
-        this.id = id;
-        this.defaultMessage = defaultMessage;
-        this.description = description;
-    }
-}
-
-export default Message;
+export default class Message extends GenericMessage<MessageId> {}
