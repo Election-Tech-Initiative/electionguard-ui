@@ -1,6 +1,6 @@
 import { MessageDescriptor } from '@formatjs/intl';
 
-const OverloadMessageId = 'overload';
+export const OverloadMessageId = 'overload';
 
 const PlaceHolderMessageId = 'placeholder';
 

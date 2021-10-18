@@ -3,10 +3,10 @@ import { Box, Typography, TypographyProps, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { MessageId, OverloadableMessageId } from '../../lang';
+import { GenericMessage } from '../../lang';
 
 export interface InternationalTextProps extends TypographyProps {
-    id?: OverloadableMessageId;
+    id?: string;
     description?: string;
     defaultMessage?: string;
     component?: React.ElementType;
@@ -40,11 +40,7 @@ const InternationalText: React.FC<InternationalTextProps> = (props) => {
     const typographyProps = props as TypographyProps;
     const { id, description, defaultMessage, component, screenReaderOnly } = props;
     const message = intl.formatMessage(
-        {
-            id: id || MessageId.Placeholder,
-            description,
-            defaultMessage: defaultMessage || 'placeholder',
-        },
+        new GenericMessage<string>(id, defaultMessage, description),
         {
             bold,
             italic,
