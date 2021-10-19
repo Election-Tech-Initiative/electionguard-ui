@@ -23,5 +23,3 @@ export default class GenericMessage<T extends string | number> implements Messag
         this.description = description;
     }
 }
-
-export type GenericMessageDescriptor = MessageDescriptor;

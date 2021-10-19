@@ -1,9 +1,9 @@
-export {
-    default as GenericMessage,
-    GenericMessageDescriptor,
-    OverloadMessageId,
-} from './GenericMessage';
-export { default as Language, getLanguage, setupLanguages } from './Language';
+import _Language from './Language';
+
+export { default as GenericMessage, OverloadMessageId } from './GenericMessage';
+export { getLanguage, setupLanguages } from './Language';
+
+export type Language = _Language;
 export { default as Locale } from './Locale';
 export { default as loremIpsum } from './loremIpsum';
 
