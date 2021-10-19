@@ -9,8 +9,9 @@ import {
     CiphertextElectionContext,
     MakeElectionContextRequest,
     MakeElectionContextResponse,
+    ElectionQueryRequest,
 } from '../models/election';
-import { BaseQueryRequest, BaseResponse } from '../models/base';
+import { BaseResponse } from '../models/base';
 
 // export const getElections = (): ElectionRow[] => {
 //     const date = new Date();
@@ -28,11 +29,7 @@ import { BaseQueryRequest, BaseResponse } from '../models/base';
 export const getConstants = async (): Promise<ElectionConstants | undefined> => {
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election/constants`;
     const response = await get<{ data: ElectionConstants }>(path);
-
-    if (typeof response.parsedBody !== 'undefined') {
-        return response.parsedBody.data;
-    }
-    return undefined;
+    return response.parsedBody?.data;
 };
 
 export const getElection = async (election_id: string): Promise<Election[] | undefined> => {
@@ -46,7 +43,7 @@ export const putElection = async (
     key_name: string,
     manifest: ElectionManifest,
     context: CiphertextElectionContext
-): Promise<string | undefined> => {
+): Promise<boolean | undefined> => {
     const data: SubmitElectionRequest = {
         election_id,
         key_name,
@@ -54,35 +51,21 @@ export const putElection = async (
         context,
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election`;
-    const response = await put<{ status: string; message: string }>(path, data);
-
-    if (typeof response.parsedBody !== 'undefined') {
-        return response.parsedBody.status;
-    }
-    return undefined;
+    const response = await put<{ resp: BaseResponse }>(path, data);
+    return response.parsedBody?.resp.is_success();
 };
-
-class ElectionQueryRequest extends BaseQueryRequest {}
 
 export const findElection = async (
     filter: any,
     skip: number,
     limit: number
-): Promise<Election[]> => {
-    const elections: Election[] = [];
+): Promise<Election[] | undefined> => {
     const data: ElectionQueryRequest = {
         filter,
     };
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/find?skip=${skip}&limit=${limit}`;
-
     const response = await post<{ resp: ElectionQueryResponse }>(path, data);
-    if (typeof response.parsedBody !== 'undefined') {
-        response.parsedBody.resp.elections.forEach((item) => {
-            elections.push(item);
-        });
-    }
-
-    return elections;
+    return response.parsedBody?.resp.elections;
 };
 
 export const openElection = async (election_id: string): Promise<boolean | undefined> => {

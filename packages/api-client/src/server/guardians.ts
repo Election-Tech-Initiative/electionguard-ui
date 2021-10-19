@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import AssignedGuardian from '../models/assignedGuardian';
 import {
+    AssignedGuardian,
     Guardian,
     ApiGuardianQueryResponse,
     BackupChallengeResponse,
@@ -12,14 +12,17 @@ import {
     GuardianBackupVerificationRequest,
     GuardianPublicKeysResponse,
     PublicKeySetApi,
+    BackupVerificationResponse,
 } from '../models/guardian';
 import { post, get, put } from '../utils/http';
 import {
     ElectionPartialKeyBackup,
+    ElectionPartialKeyVerification,
     GuardianQueryResponse,
     KeyCeremonyGuardian,
 } from '../models/keyCeremony';
 import { BaseQueryRequest, BaseResponse } from '../models/base';
+import { PublicKeySet } from '../models/election';
 
 // import getUsersWithGuardianRole from './users';
 
@@ -31,11 +34,11 @@ export const getAssignedGuardians = (): AssignedGuardian[] => [
     { sequenceOrder: 5, id: '5', name: 'Targaryen server' },
 ];
 
-export const createGuardian = async (
+export const postGuardian = async (
     id: string,
     username: string,
     sequenceOrder: number
-): Promise<string> => {
+): Promise<PublicKeySet | undefined> => {
     const data = {
         guardian_id: id,
         sequence_order: sequenceOrder,
@@ -44,10 +47,12 @@ export const createGuardian = async (
         name: username,
         key_name: '',
     };
+    /*
+    Create a guardian for the election process with the associated keys.
+    */
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian`;
-    const response = await post<string>(path, data);
-
-    return response.arrayBuffer.toString();
+    const response = await post<{ resp: GuardianPublicKeysResponse }>(path, data);
+    return response.parsedBody?.resp.public_keys;
 };
 
 export const getGuardian = async (guardian_id: string): Promise<Guardian | undefined> => {
@@ -122,14 +127,14 @@ export const backupChallengeGuardian = async (
 export const verifyChallengeGuardian = async (
     verifier_id: string,
     challenge: any
-): Promise<string | undefined> => {
+): Promise<ElectionPartialKeyVerification | undefined> => {
     const data: ChallengeVerificationRequest = {
         verifier_id,
         challenge,
     };
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/challenge/verify`;
-    const response = await post<{ resp: string }>(path, data);
-    return response.parsedBody?.resp;
+    const response = await post<{ resp: BackupVerificationResponse }>(path, data);
+    return response.parsedBody?.resp.verification;
 };
 
 export const getGuardians = async (

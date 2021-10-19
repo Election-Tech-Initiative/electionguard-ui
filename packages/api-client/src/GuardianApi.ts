@@ -1,36 +1,40 @@
 import {
-    createGuardian,
+    postGuardian,
     getGuardian,
     getGuardianPublicKeys,
     backupGuardian,
     backupVerificationGuardian,
     backupChallengeGuardian,
     verifyChallengeGuardian,
+    findGuardians,
 } from './server/guardians';
-import { getUsersWithGuardianRole } from './server/users';
 import { decryptSharesBallot } from './server/ballots';
 import { decryptShareTally, decryptSharePostTally } from './server/tally';
+import { ElectionGuardGuardianApiClient } from './Api';
+import { getManifestPreview } from './server/electionSetup';
 
-export default class GuardianApi {
+export default class GuardianApi implements ElectionGuardGuardianApiClient {
     decryptSharesBallot = decryptSharesBallot;
 
-    guardianGet = getGuardian;
+    getGuardian = getGuardian;
 
-    guardianPublicKeys = getGuardianPublicKeys;
+    getGuardianPublicKeys = getGuardianPublicKeys;
 
-    guardianCreate = createGuardian;
+    postGuardian = postGuardian;
 
-    guardianBackup = backupGuardian;
+    backupGuardian = backupGuardian;
 
-    guardianBackupVerification = backupVerificationGuardian;
+    backupVerificationGuardian = backupVerificationGuardian;
 
-    guardianBackupChallenge = backupChallengeGuardian;
+    backupChallengeGuardian = backupChallengeGuardian;
 
-    guardianVerifyChallenge = verifyChallengeGuardian;
+    verifyChallengeGuardian = verifyChallengeGuardian;
 
-    guardianFind = getUsersWithGuardianRole;
+    findGuardians = findGuardians;
 
-    tallyDecryptShare = decryptShareTally;
+    decryptShareTally = decryptShareTally;
 
-    tallyDecryptSharePost = decryptSharePostTally;
+    decryptSharePostTally = decryptSharePostTally;
+
+    getManifestPreview = getManifestPreview;
 }

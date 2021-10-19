@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { BaseResponse } from './base';
-import { ElectionPartialKeyVerification, GuardianId, PublicKeySet } from './keyCeremony';
+import { GuardianId, PublicKeySet } from './election';
 
 export class GuardianUI {
     id = '';
@@ -13,6 +13,7 @@ export type AuxiliaryKeyPair = any;
 export type ElectionPartialKeyBackup = any;
 export type PublicKeySetApi = any;
 export type ElectionPartialKeyChallenge = any;
+export type ElectionPartialKeyVerification = any;
 
 export class Guardian {
     // The API guardian tracks the state of a guardain's interactions with other guardians.
@@ -64,6 +65,12 @@ export class GuardianBackupResponse extends BaseResponse {
     backups: ElectionPartialKeyBackup[] = [];
 }
 
+export class BackupVerificationResponse extends BaseResponse {
+    // Returns a collection of verifications.
+
+    verification: ElectionPartialKeyVerification;
+}
+
 export class GuardianBackupVerificationRequest {
     // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
 
@@ -110,4 +117,8 @@ export class ApiGuardianQueryResponse extends BaseResponse {
     // Returns a collection of KeyCeremonyGuardians.
 
     guardians: Guardian[] = [];
+}
+
+export interface AssignedGuardian extends GuardianUI {
+    sequenceOrder: number;
 }

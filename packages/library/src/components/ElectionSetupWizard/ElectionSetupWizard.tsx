@@ -1,4 +1,4 @@
-import { JointKey, getApiClient } from '@electionguard-ui/api-client';
+import { JointKey, getGuardianApiClient } from '@electionguard-ui/api-client';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
@@ -38,7 +38,7 @@ const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ getKeys }) =>
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
 
-    const service = getApiClient();
+    const service = getGuardianApiClient();
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.Instructions}>

@@ -34,5 +34,3 @@ export const getJointKeys = async (): Promise<JointKey[]> => [
         dateCreated: new Date(),
     },
 ];
-
-

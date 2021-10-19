@@ -1,18 +1,15 @@
 /* eslint-disable max-classes-per-file */
-import AssignedGuardian from './assignedGuardian';
 import { BaseRequest, BaseResponse } from './base';
-import { ElectionPartialKeyChallenge } from './guardian';
-import TaskStatus from './taskStatus';
+import { ElectionPublicKey, GuardianId, PublicKeySet } from './election';
+import { AssignedGuardian, ElectionPartialKeyChallenge } from './guardian';
+import { TaskStatus } from './taskStatus';
 
-export type GuardianId = string;
-export type ElectionPublicKey = any;
 export type ElGamalKeyPair = any;
 
 export type ElectionJointKey = any;
 export type ElementModQ = any;
 
 export type MESSAGE = string;
-export type AuxiliaryPublicKeyType = string;
 export type AuxiliarySecretKey = string;
 export type EncryptedMessage = string;
 
@@ -149,34 +146,6 @@ export class PublishElectionJointKeyRequest extends BaseRequest {
     key_name = '';
 
     election_public_keys: ElectionPublicKey[] = [];
-}
-
-export class AuxiliaryPublicKey {
-    // A tuple of auxiliary public key and owner information that can be shared between guardians"""
-
-    owner_id: GuardianId = '';
-    /*
-    The unique identifier of the guardian owning the key
-    */
-
-    sequence_order = 0;
-    /*
-    The sequence order of the auxiliary public key (usually the guardian's sequence order)
-    */
-
-    key: AuxiliaryPublicKeyType = '';
-    /*
-    A string representation of the Auxiliary public key that can be shared between guardians.
-    It is up to the external `AuxiliaryEncrypt` function to know how to parse this value
-    */
-}
-
-export class PublicKeySet {
-    // A convenience set of public auxiliary and election keys
-
-    election: ElectionPublicKey;
-
-    auxiliary: AuxiliaryPublicKey = new AuxiliaryPublicKey();
 }
 
 export class GuardianAnnounceRequest extends BaseRequest {

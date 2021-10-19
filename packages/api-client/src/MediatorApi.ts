@@ -47,10 +47,13 @@ import {
     findTallyDecrypt,
     getTally,
     postTally,
-    submitShareTally,
+    postShareTally,
 } from './server/tally';
+import { ElectionGuardMediatorApiClient } from './Api';
+import { postJointKey } from './server/jointKey';
+import { getJointKeys } from './server/electionSetup';
 
-export default class MediatorApi {
+export default class MediatorApi implements ElectionGuardMediatorApiClient {
     getBallot = getBallot;
 
     getBallotInventory = getBallotInventory;
@@ -87,7 +90,7 @@ export default class MediatorApi {
 
     getKeyCeremonies = getKeyCeremonies;
 
-    putCeremony = putKeyCeremony;
+    putKeyCeremony = putKeyCeremony;
 
     getKeyCeremonyState = getKeyCeremonyState;
 
@@ -102,6 +105,10 @@ export default class MediatorApi {
     challengeVerifyKeyCeremony = challengeVerifyKeyCeremony;
 
     cancelKeyCeremony = cancelKeyCeremony;
+
+    getJointKeys = getJointKeys;
+
+    postJointKey = postJointKey;
 
     getJointKeyKeyCeremony = getJointKeyKeyCeremony;
 
@@ -147,5 +154,5 @@ export default class MediatorApi {
 
     findTallyDecrypt = findTallyDecrypt;
 
-    submitShareTally = submitShareTally;
+    postShareTally = postShareTally;
 }

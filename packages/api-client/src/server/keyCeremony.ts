@@ -6,15 +6,12 @@ import {
     KeyCeremonyQueryResponse,
     KeyCeremony,
     KeyCeremonyCreateRequest,
-    GuardianId,
     KeyCeremonyStateResponse,
     KeyCeremonyState,
     ElectionJointKeyResponse,
     ElectionJointKey,
     PublishElectionJointKeyRequest,
-    ElectionPublicKey,
     GuardianAnnounceRequest,
-    PublicKeySet,
     GuardianSubmitBackupRequest,
     GuardianSubmitVerificationRequest,
     ElectionPartialKeyVerification,
@@ -26,6 +23,7 @@ import { get, post, put } from '../utils/http';
 import { BaseQueryRequest, BaseResponse } from '../models/base';
 import { ElectionPartialKeyBackup } from '../mocks/guardians';
 import { ElectionPartialKeyChallenge } from '../models/guardian';
+import { ElectionPublicKey, GuardianId, PublicKeySet } from '../models/election';
 
 export const getKeyCeremonyGuardians = (): KeyCeremonyGuardianApi[] =>
     getAssignedGuardians().map((guardian) => ({
@@ -112,10 +110,10 @@ export const getKeyCeremonyState = async (
 export const findKeyCeremonies = async (
     skip: number,
     limit: number,
-    _ballot_id: string
+    ballot_id: string
 ): Promise<KeyCeremony[] | undefined> => {
     const data: BaseQueryRequest = {
-        filter: {},
+        filter: { ballot_id },
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: KeyCeremonyQueryResponse }>(path, data);

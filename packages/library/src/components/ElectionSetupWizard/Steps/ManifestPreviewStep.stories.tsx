@@ -1,4 +1,4 @@
-import { getApiClient } from '@electionguard-ui/api-client';
+import { getGuardianApiClient } from '@electionguard-ui/api-client';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
@@ -12,7 +12,7 @@ export default {
 
 const Template: Story<ManifestPreviewStepProps> = (props) => <ManifestPreviewStep {...props} />;
 
-const service = getApiClient();
+const service = getGuardianApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

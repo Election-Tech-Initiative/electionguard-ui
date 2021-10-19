@@ -3,7 +3,6 @@ import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
@@ -68,32 +67,26 @@ const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     const jointKeyQuery = data();
-    const queryClient = new QueryClient();
 
-    // data().then((keys) => {
-    //     keyData = keys;
-    // });
     return (
-        <QueryClientProvider client={queryClient}>
-            <Box display="flex" minHeight="500px" height="100%" width="100%">
-                <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
-                    {(keyData) => (
-                        <>
-                            <DataGrid
-                                className={classes.root}
-                                autoHeight
-                                rows={keyData}
-                                columns={columns(intl)}
-                                components={{
-                                    Toolbar: FilterToolbar,
-                                }}
-                                hideFooterPagination
-                            />
-                        </>
-                    )}
-                </AsyncContent>
-            </Box>
-        </QueryClientProvider>
+        <Box display="flex" minHeight="500px" height="100%" width="100%">
+            <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
+                {(keyData) => (
+                    <>
+                        <DataGrid
+                            className={classes.root}
+                            autoHeight
+                            rows={keyData}
+                            columns={columns(intl)}
+                            components={{
+                                Toolbar: FilterToolbar,
+                            }}
+                            hideFooterPagination
+                        />
+                    </>
+                )}
+            </AsyncContent>
+        </Box>
     );
 };
 

@@ -17,21 +17,17 @@ import { get, post } from '../utils/http';
 export const decryptShareTally = async (
     election_id: string,
     tally_name: string
-): Promise<DecryptionShareResponse | undefined> => {
+): Promise<CiphertextTallyDecryptionShare[] | undefined> => {
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}tally/decrypt-share?election_id=${election_id}&tally_name=${tally_name}`;
-    const response = await get<{
-        status: string;
-        message: string;
-        shares: DecryptionShareResponse;
-    }>(path);
-    return response.parsedBody?.shares;
+    const response = await get<{ resp: DecryptionShareResponse }>(path);
+    return response.parsedBody?.resp.shares;
 };
 
 export const decryptSharePostTally = async (
     guardian_id: string,
     encrypted_tally: CiphertextTally,
     context: CiphertextElectionContext
-): Promise<DecryptionShareResponse | undefined> => {
+): Promise<CiphertextTallyDecryptionShare[] | undefined> => {
     const data: DecryptTallyShareRequest = {
         guardian_id,
         encrypted_tally,
@@ -39,12 +35,8 @@ export const decryptSharePostTally = async (
     };
 
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}tally/decrypt-share`;
-    const response = await post<{
-        status: string;
-        message: string;
-        shares: DecryptionShareResponse;
-    }>(path, data);
-    return response.parsedBody?.shares;
+    const response = await post<{ resp: DecryptionShareResponse }>(path, data);
+    return response.parsedBody?.resp.shares;
 };
 
 export const getTallyDecrypt = async (
@@ -57,7 +49,7 @@ export const getTallyDecrypt = async (
     return response.parsedBody?.resp.shares;
 };
 
-export const submitShareTally = async (
+export const postShareTally = async (
     share: CiphertextTallyDecryptionShare
 ): Promise<boolean | undefined> => {
     const data: DecryptionShareRequest = {
