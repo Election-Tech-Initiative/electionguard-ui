@@ -8,7 +8,6 @@ import { AsyncResult } from '../../../data/AsyncResult';
 import { Message, MessageId } from '../../../lang';
 import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';
-import AsyncContent from '../../AsyncContent';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
 
@@ -89,7 +88,6 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
         });
     };
 
-    const guardianQuery = getGuardians();
     const queryClient = new QueryClient();
 
     return (
@@ -164,16 +162,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                         </Box>
                     </Box>
                     <Box className={classes.tableContainer} width="100%">
-                        <AsyncContent query={guardianQuery} errorMessage="there was an error">
-                            {(usersFound) => {
-                                foundGuardians = usersFound;
-                                return (
-                                    <>
-                                        <AssignmentTable data={usersFound} onChanged={onAssign} />
-                                    </>
-                                );
-                            }}
-                        </AsyncContent>
+                        <AssignmentTable data={getGuardians} onChanged={onAssign} />
                     </Box>
                     <Box className={classes.buttonContainer}>
                         <Button

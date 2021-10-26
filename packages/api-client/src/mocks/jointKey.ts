@@ -1,5 +1,5 @@
 import { BaseJointKey } from '../models/jointKey';
 
-export const createJointKey = async (_data: BaseJointKey): Promise<boolean> => true;
+export const postJointKey = async (_data: BaseJointKey): Promise<boolean | undefined> => true;
 
-export default createJointKey;
+export default postJointKey;

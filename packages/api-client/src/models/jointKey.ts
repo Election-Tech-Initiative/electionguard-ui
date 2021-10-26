@@ -1,4 +1,4 @@
-import AssignedGuardian from './assignedGuardian';
+import { AssignedGuardian } from './guardian';
 
 export interface BaseJointKey {
     name: string;
@@ -11,4 +11,3 @@ export interface JointKey extends BaseJointKey {
     id: string;
     dateCreated: Date;
 }
-

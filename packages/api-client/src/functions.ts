@@ -1,6 +1,8 @@
 import { ElectionGuardGuardianApiClient, ElectionGuardMediatorApiClient } from './Api';
 import GuardianApi from './GuardianApi';
 import MediatorApi from './MediatorApi';
+import MockGuardianApi from './MockGuardianApi';
+import MockMediatorApi from './MockMediatorApi';
 
 export interface UrlHolder {
     url: string;
@@ -14,7 +16,7 @@ let guardianClient: ElectionGuardGuardianApiClient;
 export const getGuardianApiClient = (): ElectionGuardGuardianApiClient => {
     if (!guardianClient) {
         if (process.env.REACT_APP_MOCK_ENABLED === 'true') {
-            // guardianClient = new MockGuardianApi();
+            guardianClient = new MockGuardianApi();
         }
 
         guardianClient = new GuardianApi();
@@ -27,7 +29,7 @@ let mediatorClient: ElectionGuardMediatorApiClient;
 export const getMediatorApiClient = (): ElectionGuardMediatorApiClient => {
     if (!mediatorClient) {
         if (process.env.REACT_APP_MOCK_ENABLED === 'true') {
-            // mediatorClient = new MockMediatorApi();
+            mediatorClient = new MockMediatorApi();
         } else {
             mediatorClient = new MediatorApi();
         }

@@ -21,8 +21,7 @@ import { TaskStatus } from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
 import { get, post, put } from '../utils/http';
 import { BaseQueryRequest, BaseResponse } from '../models/base';
-import { ElectionPartialKeyBackup } from '../mocks/guardians';
-import { ElectionPartialKeyChallenge } from '../models/guardian';
+import { ElectionPartialKeyBackup, ElectionPartialKeyChallenge } from '../models/guardian';
 import { ElectionPublicKey, GuardianId, PublicKeySet } from '../models/election';
 
 export const getKeyCeremonyGuardians = (): KeyCeremonyGuardianApi[] =>

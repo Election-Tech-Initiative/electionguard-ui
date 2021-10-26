@@ -1,7 +1,7 @@
-import AssignedGuardian from '../models/assignedGuardian';
+import { AssignedGuardian } from '../models/guardian';
 import { KeyCeremonyUi, KeyCeremonyStatus } from '../models/keyCeremony';
 import { KeyCeremonyApi } from '../models/KeyCeremonyApi';
-import TaskStatus from '../models/taskStatus';
+import { TaskStatus } from '../models/taskStatus';
 import delay from '../utils/delay';
 import { getKeyCeremonyGuardians } from './keyCeremony';
 

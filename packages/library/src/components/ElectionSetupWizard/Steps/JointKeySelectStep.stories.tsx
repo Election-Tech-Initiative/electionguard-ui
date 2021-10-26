@@ -1,4 +1,3 @@
-import { getApiClient } from '@electionguard-ui/api-client';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
@@ -13,7 +12,6 @@ export default {
 
 const Template: Story<JointKeySelectStepProps> = (props) => <JointKeySelectStep {...props} />;
 
-const service = getApiClient();
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {

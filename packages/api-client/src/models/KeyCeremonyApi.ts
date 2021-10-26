@@ -1,4 +1,4 @@
-import AssignedGuardian from './assignedGuardian';
+import { AssignedGuardian } from './guardian';
 import { KeyCeremonyUi } from './keyCeremony';
 
 // TODO Migrate to api folder

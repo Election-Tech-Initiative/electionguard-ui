@@ -1,4 +1,3 @@
-// import ElectionRow from './models/ElectionRow';
 import User from './models/user';
 import { BaseJointKey, JointKey } from './models/jointKey';
 import ManifestPreview, { Manifest } from './models/manifestPreview';

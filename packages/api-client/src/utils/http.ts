@@ -8,7 +8,9 @@ async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
     try {
         // may error if there is no body
         response.parsedBody = await response.json();
-    } catch (ex) {}
+    } catch (ex) {
+        // continue even with an error
+    }
 
     if (!response.ok) {
         throw new Error(response.statusText);
@@ -20,7 +22,8 @@ export async function get<T>(
     path: string,
     args: RequestInit = { method: 'get' }
 ): Promise<HttpResponse<T>> {
-    return await http<T>(new Request(path, args));
+    const ret = await http<T>(new Request(path, args));
+    return ret;
 }
 
 export async function post<T>(path: string, body: any): Promise<HttpResponse<T>> {
@@ -30,7 +33,8 @@ export async function post<T>(path: string, body: any): Promise<HttpResponse<T>>
         body: JSON.stringify(body),
     };
 
-    return await http<T>(new Request(path, localArgs));
+    const ret = await http<T>(new Request(path, localArgs));
+    return ret;
 }
 
 export async function put<T>(path: string, body: any): Promise<HttpResponse<T>> {
@@ -39,5 +43,6 @@ export async function put<T>(path: string, body: any): Promise<HttpResponse<T>> 
         method: 'put',
         body: JSON.stringify(body),
     };
-    return await http<T>(new Request(path, localArgs));
+    const ret = await http<T>(new Request(path, localArgs));
+    return ret;
 }

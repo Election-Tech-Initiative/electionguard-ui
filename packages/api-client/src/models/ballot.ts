@@ -10,9 +10,10 @@ export type SubmittedBallot = any;
 export type DecryptedBallots = any;
 export type BallotCode = string;
 export type BallotUrl = string;
+export type BallotId = string;
 
 export class BaseBallotRequest extends BaseRequest {
-    election_id: string = '';
+    election_id = '';
 
     manifest: ElectionManifest = null;
 

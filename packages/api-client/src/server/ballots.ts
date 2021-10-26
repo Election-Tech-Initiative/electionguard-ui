@@ -146,7 +146,7 @@ export const decryptBallot = async (
         shares,
         context,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/validate`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/decrypt`;
     const response = await post<{ resp: DecryptedBallots }>(path, data);
     return response.parsedBody?.resp;
 };
@@ -161,7 +161,7 @@ export const encryptBallot = async (
         seed_hash,
         ballots,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/validate`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/encrypt`;
     const response = await post<{ resp: EncryptBallotsResponse }>(path, data);
     return response.parsedBody?.resp.encrypted_ballots;
 };

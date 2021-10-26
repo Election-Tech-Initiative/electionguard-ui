@@ -1,11 +1,43 @@
 /* eslint-disable max-classes-per-file */
+import { BallotId, DecryptionShare } from './ballot';
 import { BaseRequest, BaseResponse } from './base';
 import { CiphertextElectionContext } from './election';
 
-export type CiphertextTallyDecryptionShare = any;
-export type CiphertextTally = any;
 export type ElectionGuardCiphertextTally = any;
 export type ElectionGuardPlaintextTally = any;
+
+export class CiphertextTallyDecryptionShare {
+    /*
+    A DecryptionShare provided by a guardian for a specific tally.
+
+    Optionally can include ballot_shares for challenge ballots.
+    */
+
+    election_id = '';
+
+    tally_name = '';
+
+    guardian_id = '';
+
+    tally_share: DecryptionShare;
+    // The EG Decryptionshare that includes a share for each contest in the election.
+
+    ballot_shares: Map<BallotId, DecryptionShare> = new Map<BallotId, DecryptionShare>();
+    // A collection of shares for each challenge ballot.
+}
+
+export class CiphertextTally {
+    // A Tally for a specific election.
+
+    election_id = '';
+
+    tally_name = '';
+
+    created = new Date();
+
+    tally: ElectionGuardCiphertextTally;
+    // The full electionguard CiphertextTally that includes the cast and spoiled ballot id's.
+}
 
 export class DecryptionShareResponse extends BaseResponse {
     shares: CiphertextTallyDecryptionShare[] = [];
@@ -14,7 +46,7 @@ export class DecryptionShareResponse extends BaseResponse {
 export class DecryptTallyShareRequest {
     guardian_id = '';
 
-    encrypted_tally: CiphertextTally = {};
+    encrypted_tally: CiphertextTally = new CiphertextTally();
 
     context: CiphertextElectionContext = {};
 }
@@ -22,7 +54,7 @@ export class DecryptTallyShareRequest {
 export class DecryptionShareRequest extends BaseRequest {
     // A request to submit a decryption share.
 
-    share: CiphertextTallyDecryptionShare;
+    share: CiphertextTallyDecryptionShare = new CiphertextTallyDecryptionShare();
 }
 
 export class CiphertextTallyQueryResponse extends BaseResponse {
