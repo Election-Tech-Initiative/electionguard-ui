@@ -65,8 +65,8 @@ export const postGuardian = async (
     },
 });
 
-export const getGuardian = async (_guardian_id: string): Promise<Guardian | undefined> => ({
-    guardian_id: 'guardian_1',
+export const getGuardian = async (guardian_id: string): Promise<Guardian | undefined> => ({
+    guardian_id,
     name: 'Benjamin Franklin',
     sequence_order: 1,
     number_of_guardians: 3,

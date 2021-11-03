@@ -17,25 +17,6 @@ export const getManifestPreview = (): ManifestPreview => {
     };
 };
 
-export const getJointKeysold = async (): Promise<JointKey[]> => [
-    {
-        id: 'joint-key-1',
-        name: 'Joint Key 1',
-        numberOfGuardians: 3,
-        quorum: 2,
-        guardians: getAssignedGuardians(),
-        dateCreated: new Date(),
-    },
-    {
-        id: 'joint-key-2',
-        name: 'Joint Key 2',
-        numberOfGuardians: 3,
-        quorum: 2,
-        guardians: getAssignedGuardians(),
-        dateCreated: new Date(),
-    },
-];
-
 export const getJointKeys = async (): Promise<JointKey[]> => {
     const keys: JointKey[] = [];
     const data = { filter: { state: 'CREATED' } };

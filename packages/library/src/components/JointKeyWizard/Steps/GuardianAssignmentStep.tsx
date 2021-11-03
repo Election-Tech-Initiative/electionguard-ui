@@ -68,7 +68,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const classes = useStyles();
     const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
     //    const [foundGuardians, setFoundGuardians] = useState<User[]>([]);
-    let foundGuardians: User[] = [];
+    const foundGuardians: User[] = [];
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
         const selected = foundGuardians.filter((user) => ids.includes(user.id));
