@@ -20,7 +20,8 @@
         "lint": "yarn eslint",
         "lint:fix": "yarn eslint --fix && yarn prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
+        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
+        "prepublish": "echo prepublish"
     },
     "peerDependencies": {
         "react": "^17.0.2"
@@ -33,8 +34,8 @@
         "@types/node": "^12.12.38",
         "@types/react": "^16.9.27",
         "@types/react-dom": "^16.9.7",
-        "microbundle": "^0.13.3",
         "babel-loader": "8.1.0",
+        "microbundle": "^0.13.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
@@ -42,5 +43,6 @@
     },
     "files": [
         "/dist"
-    ]
+    ],
+    "gitHead": "c3e7f29abf884c850e3d8206b5d87ecaa6633e91"
 }
