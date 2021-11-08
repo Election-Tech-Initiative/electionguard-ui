@@ -1,8 +1,8 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
 import {
-    KeyCeremonyUi,
+    // KeyCeremonyUi,
     KeyCeremonyGuardianApi,
-    KeyCeremonyStatus,
+    // KeyCeremonyStatus,
     KeyCeremonyQueryResponse,
     KeyCeremony,
     KeyCeremonyCreateRequest,
@@ -61,18 +61,6 @@ export const setKeyCeremonyGuardianToStep = (
 
 export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
-
-export const getKeyCeremoniesOld = (): KeyCeremonyUi[] => [
-    {
-        id: 'key-ceremony-1',
-        status: KeyCeremonyStatus.Active,
-        name: 'Montgomery County Election',
-        numberOfGuardians: 5,
-        quorum: 3,
-        guardians: getKeyCeremonyGuardians(),
-        dateCreated: new Date(),
-    },
-];
 
 export const getKeyCeremonies = async (key_name: string): Promise<KeyCeremony[] | undefined> => {
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony?key_name=${key_name}`;

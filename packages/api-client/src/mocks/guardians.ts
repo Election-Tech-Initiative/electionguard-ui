@@ -23,9 +23,10 @@ export const getAssignedGuardians = (): AssignedGuardian[] => [
 ];
 
 export const postGuardian = async (
-    _id: string,
-    _username: string,
-    _sequenceOrder: number
+    _key_name: string,
+    _guardian_id: string,
+    _name: string,
+    _sequence_order: number
 ): Promise<PublicKeySet | undefined> => ({
     election: {
         owner_id: 'guardian_1',

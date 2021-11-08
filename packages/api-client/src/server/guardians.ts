@@ -35,17 +35,18 @@ export const getAssignedGuardians = (): AssignedGuardian[] => [
 ];
 
 export const postGuardian = async (
-    id: string,
-    username: string,
-    sequenceOrder: number
+    key_name: string,
+    guardian_id: string,
+    name: string,
+    sequence_order: number
 ): Promise<PublicKeySet | undefined> => {
     const data = {
-        guardian_id: id,
-        sequence_order: sequenceOrder,
+        guardian_id,
+        sequence_order,
         number_of_guardians: 3,
         quorum: 2,
-        name: username,
-        key_name: '',
+        name,
+        key_name,
     };
     /*
     Create a guardian for the election process with the associated keys.

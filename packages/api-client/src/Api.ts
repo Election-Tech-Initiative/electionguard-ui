@@ -272,9 +272,10 @@ export interface ElectionGuardGuardianApiClient {
     getGuardianPublicKeys(guardian_id: string): Promise<PublicKeySetApi[] | undefined>;
 
     postGuardian(
-        id: string,
-        username: string,
-        sequenceOrder: number
+        key_name: string,
+        guardian_id: string,
+        name: string,
+        sequence_order: number
     ): Promise<PublicKeySet | undefined>;
 
     backupGuardian(
