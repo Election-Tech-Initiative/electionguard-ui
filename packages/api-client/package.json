@@ -1,6 +1,6 @@
 {
     "name": "@ysfred4/api-client",
-    "version": "1.0.3",
+    "version": "1.0.7",
     "description": "API client for electionguard-api-python",
     "author": "electionguard",
     "license": "MIT",
