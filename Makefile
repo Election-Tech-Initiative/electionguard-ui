@@ -26,6 +26,7 @@ build-storybook:
 	yarn build-storybook
 
 publish-npm:
+	npm version patch
 	yarn publish-npm
 
 
