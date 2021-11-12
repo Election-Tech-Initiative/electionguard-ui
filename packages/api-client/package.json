@@ -1,6 +1,6 @@
 {
     "name": "@ysfred4/api-client",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "API client for electionguard-api-python",
     "author": "electionguard",
     "license": "MIT",
@@ -45,7 +45,9 @@
         "/dist"
     ],
     "publishConfig": {
-        "directory": "/dist"
+        "access": "public",
+        "directory": "dist",
+        "registry": "https://registry.npmjs.org"
     },
     "gitHead": "6683d76bde98848a45980b6c8f1a8de212d52a56"
 }
