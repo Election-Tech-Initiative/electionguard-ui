@@ -25,6 +25,9 @@ storybook:
 build-storybook:
 	yarn build-storybook
 
+publish-npm:
+	yarn publish-npm
+
 
 
 
