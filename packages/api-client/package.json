@@ -42,7 +42,8 @@
         "typescript": "^4.3.5"
     },
     "files": [
-        "/dist"
+        "/dist",
+        "README.md"
     ],
     "publishConfig": {
         "access": "public",
