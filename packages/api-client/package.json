@@ -1,6 +1,6 @@
 {
     "name": "@ysfred4/api-client",
-    "version": "1.0.26",
+    "version": "1.0.27",
     "description": "API client for electionguard-api-python",
     "author": "electionguard",
     "license": "MIT",
@@ -43,7 +43,7 @@
     },
     "files": [
         "/dist",
-        "README.md"
+        "/README.md"
     ],
     "publishConfig": {
         "access": "public",
