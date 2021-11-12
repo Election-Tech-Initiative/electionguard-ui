@@ -21,7 +21,7 @@
         "lint:fix": "yarn eslint --fix && yarn prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
-        "publish-npm": "npm publish"
+        "publish-npm": "npm version patch && npm publish"
     },
     "peerDependencies": {
         "react": "^17.0.2"
