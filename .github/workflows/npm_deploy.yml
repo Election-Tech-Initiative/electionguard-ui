@@ -26,9 +26,9 @@ jobs:
             - name: Install dependencies
               run: make install
             - name: Set git username
-              run: git config --global user.name {{ secrets.UPDATE_USERNAME }}
+              run: git config --global user.name ${{ secrets.UPDATE_USERNAME }}
             - name: Set git user email
-              run: git config --global user.email {{ secrets.UPDATE_EMAIL }}
+              run: git config --global user.email ${{ secrets.UPDATE_EMAIL }}
             - name: Lint
               run: make lint
             - name: Update version
