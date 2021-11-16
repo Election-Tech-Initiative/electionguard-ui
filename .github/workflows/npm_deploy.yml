@@ -23,6 +23,7 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node-version }}
+                  registry-url: 'https://registry.npmjs.org'
             - name: Install dependencies
               run: make install
             - name: Set git username
@@ -34,15 +35,15 @@ jobs:
             - name: Update version
               run: make npm-version
             - name: Build
-              run: make build
+              run: lerna run --scope @electionguard/api-client build
             - name: Authenticate with Registry
               run: npm whoami
               env:
-                  NPM_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
             - name: Publish npm Package
               run: make npm-publish
               env:
-                  NPM_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
             - name: push changes
               run: git push
               env:
