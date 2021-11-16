@@ -1,4 +1,4 @@
-import { User } from '@electionguard-ui/api-client';
+import { User } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
 import * as React from 'react';

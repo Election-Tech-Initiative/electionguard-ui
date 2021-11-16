@@ -1,4 +1,4 @@
-import { JointKey } from '@electionguard-ui/api-client';
+import { JointKey } from '@electionguard/api-client';
 import {
     Box,
     Button,

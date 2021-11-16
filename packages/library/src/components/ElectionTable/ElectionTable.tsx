@@ -1,4 +1,4 @@
-import { Election, ElectionState } from '@electionguard-ui/api-client';
+import { Election, ElectionState } from '@electionguard/api-client';
 import { Box, Button, Theme, lighten, makeStyles } from '@material-ui/core';
 import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@material-ui/data-grid';
 import { GetApp as DownloadIcon } from '@material-ui/icons';

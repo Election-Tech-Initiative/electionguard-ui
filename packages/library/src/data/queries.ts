@@ -6,7 +6,7 @@ import {
     KeyCeremony,
     getMediatorApiClient,
     getGuardianApiClient,
-} from '@electionguard-ui/api-client';
+} from '@electionguard/api-client';
 
 import { useQuery } from 'react-query';
 

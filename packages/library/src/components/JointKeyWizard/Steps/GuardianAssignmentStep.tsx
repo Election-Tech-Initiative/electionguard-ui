@@ -1,4 +1,4 @@
-import { AssignedGuardian, BaseJointKey, User } from '@electionguard-ui/api-client';
+import { AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';

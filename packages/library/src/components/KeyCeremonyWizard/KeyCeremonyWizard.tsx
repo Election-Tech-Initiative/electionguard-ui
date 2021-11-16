@@ -3,7 +3,7 @@ import {
     KeyCeremonyStatus,
     KeyCeremonyUi,
     TaskStatus,
-} from '@electionguard-ui/api-client';
+} from '@electionguard/api-client';
 import { Box, Container } from '@material-ui/core';
 import React, { useState } from 'react';
 

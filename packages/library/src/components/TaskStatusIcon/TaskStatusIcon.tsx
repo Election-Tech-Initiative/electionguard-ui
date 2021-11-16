@@ -1,4 +1,4 @@
-import { TaskStatus } from '@electionguard-ui/api-client';
+import { TaskStatus } from '@electionguard/api-client';
 import { makeStyles } from '@material-ui/core';
 import {
     CheckCircleOutlined as CompleteIcon,

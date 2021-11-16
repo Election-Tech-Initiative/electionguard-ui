@@ -1,4 +1,4 @@
-import { TaskStatus } from '@electionguard-ui/api-client';
+import { TaskStatus } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';

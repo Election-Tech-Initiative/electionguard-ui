@@ -1,4 +1,4 @@
-import { ManifestPreview } from '@electionguard-ui/api-client';
+import { ManifestPreview } from '@electionguard/api-client';
 import {
     Box,
     Button,

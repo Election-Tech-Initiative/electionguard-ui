@@ -1,4 +1,4 @@
-import { KeyCeremonyGuardian, TaskStatus } from '@electionguard-ui/api-client';
+import { KeyCeremonyGuardian, TaskStatus } from '@electionguard/api-client';
 import { Box, Container, makeStyles, useTheme } from '@material-ui/core';
 import { CheckCircle as CompleteIcon } from '@material-ui/icons';
 import React from 'react';

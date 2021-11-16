@@ -3,7 +3,7 @@ import {
     KeyCeremonyGuardian,
     TaskStatus,
     getApiClient,
-} from '@electionguard-ui/api-client';
+} from '@electionguard/api-client';
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 

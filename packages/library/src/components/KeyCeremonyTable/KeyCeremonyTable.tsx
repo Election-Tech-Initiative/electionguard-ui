@@ -1,4 +1,4 @@
-import { KeyCeremony } from '@electionguard-ui/api-client';
+import { KeyCeremony } from '@electionguard/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';

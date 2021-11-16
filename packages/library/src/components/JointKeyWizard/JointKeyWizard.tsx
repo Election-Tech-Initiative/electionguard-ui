@@ -1,4 +1,4 @@
-import { BaseJointKey, User } from '@electionguard-ui/api-client';
+import { BaseJointKey, User } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
