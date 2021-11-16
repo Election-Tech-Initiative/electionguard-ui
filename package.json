@@ -15,7 +15,8 @@
         "clean": "yarn run lerna clean --yes",
         "bootstrap": "yarn clean && lerna bootstrap",
         "storybook": "yarn run lerna run storybook",
-        "publish-npm": "yarn run lerna run publish-npm"
+        "npm-publish": "yarn run lerna run npm-publish",
+        "npm-version": "yarn run lerna run npm-version-patch"
     },
     "devDependencies": {
         "@prettier/plugin-xml": "^1.1.0",
@@ -33,6 +34,6 @@
         "lerna": "^4.0.0",
         "prettier": "^2.4.1"
     },
-    "version": "1.0.38",
+    "version": "1.0.39",
     "license": "MIT"
 }
