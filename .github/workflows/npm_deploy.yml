@@ -3,7 +3,7 @@ name: Npm Deploy
 on:
     push:
         branches:
-            - main
+            - feature/api-client
     milestone:
         types: [closed]
     repository_dispatch:
@@ -11,7 +11,7 @@ on:
 
 jobs:
     build:
-        name: Code Analysis
+        name: Build and Deploy npm
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -29,5 +29,9 @@ jobs:
               run: make lint
             - name: Build
               run: make build
-            - name: Test
-              run: make test
+            - name: Update version
+              run: npm version patch
+            - name: Publish npm Package
+              run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
