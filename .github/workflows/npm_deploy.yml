@@ -35,7 +35,15 @@ jobs:
               run: make npm-version
             - name: Build
               run: make build
+            - name: Authenticate with Registry
+              run: npm whoami
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
             - name: Publish npm Package
               run: make npm-publish
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+            - name: push changes
+              run: git push
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
