@@ -3,7 +3,7 @@ name: Npm Deploy
 on:
     push:
         branches:
-            - feature/api-client
+            - main
     milestone:
         types: [closed]
     repository_dispatch:
