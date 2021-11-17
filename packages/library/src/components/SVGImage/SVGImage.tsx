@@ -8,6 +8,6 @@ export interface SVGImageProps extends SVGProps<SVGSVGElement> {
 /**
  * Wrapper for SVG to allow modifications
  */
-const SVGImage: React.FC<SVGImageProps> = (props) => <props.svg {...props} />;
+export const SVGImage: React.FC<SVGImageProps> = (props) => <props.svg {...props} />;
 
 export default SVGImage;

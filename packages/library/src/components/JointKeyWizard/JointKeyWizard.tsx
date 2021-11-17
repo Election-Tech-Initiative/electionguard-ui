@@ -28,7 +28,7 @@ export interface JointKeyWizardProps {
 /**
  * Wizard to setup the election
  */
-const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
+export const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
     createJointKey,
     onCancel,
     getGuardians,

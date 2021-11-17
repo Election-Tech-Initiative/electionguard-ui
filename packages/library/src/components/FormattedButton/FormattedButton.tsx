@@ -39,7 +39,7 @@ export interface FormattedButtonProps extends ButtonProps {
     onUpload?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const FormattedButton: React.FC<FormattedButtonProps> = (props) => {
+export const FormattedButton: React.FC<FormattedButtonProps> = (props) => {
     const classes = useStyles();
 
     const buttonProps = props as ButtonProps;

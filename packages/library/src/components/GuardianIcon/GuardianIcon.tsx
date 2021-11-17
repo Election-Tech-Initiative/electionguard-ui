@@ -36,7 +36,7 @@ export interface GuardianIconProps {
 /**
  * A menu option card for the menu screens
  */
-const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder, missing }) => {
+export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder, missing }) => {
     const classes = useStyles(color, missing);
     const intl = useIntl();
     return (

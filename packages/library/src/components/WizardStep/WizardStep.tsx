@@ -8,7 +8,7 @@ export interface WizardStepProps {
 /**
  * A generic wizard step wrapper for transitions
  */
-const WizardStep: React.FC<WizardStepProps> = ({ active, children }) => (
+export const WizardStep: React.FC<WizardStepProps> = ({ active, children }) => (
     <Slide direction="right" in={active} mountOnEnter unmountOnExit>
         <Box height="100%">{children}</Box>
     </Slide>

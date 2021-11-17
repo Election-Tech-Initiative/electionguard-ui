@@ -2,7 +2,7 @@ import { Box, Typography } from '@material-ui/core';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
 
-import DefaultLayout, { DefaultLayoutProps } from './DefaultLayout';
+import { DefaultLayout, DefaultLayoutProps } from './DefaultLayout';
 
 export default {
     title: 'Layouts/DefaultLayout',

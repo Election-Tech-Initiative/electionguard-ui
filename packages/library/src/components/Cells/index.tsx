@@ -1,5 +1,5 @@
 import { TaskStatus } from '@electionguard/api-client';
-import { Chip } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 import { GridCellParams } from '@material-ui/data-grid';
 import React, { ReactElement } from 'react';
 import { IntlShape } from 'react-intl';
@@ -48,3 +48,5 @@ export const IdButtonCell = (
     const id = value as string;
     return <FormattedButton text={text} onClick={() => onClick(id)} />;
 };
+
+export const LinkCell = (): React.ReactElement => <Button color="primary">Open</Button>;

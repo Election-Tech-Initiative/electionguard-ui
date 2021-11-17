@@ -1,5 +1,5 @@
 import KeyCeremonyWizard from './KeyCeremonyWizard';
 
-export type { KeyCeremonyWizardProps } from './KeyCeremonyWizard';
+export * from './KeyCeremonyWizard';
 
 export default KeyCeremonyWizard;

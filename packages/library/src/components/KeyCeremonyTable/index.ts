@@ -1,5 +1,5 @@
 import KeyCeremonyTable from './KeyCeremonyTable';
 
-export type { KeyCeremonyTableProps } from './KeyCeremonyTable';
+export * from './KeyCeremonyTable';
 
 export default KeyCeremonyTable;

@@ -1,7 +1,7 @@
 import { GridToolbarContainer, GridToolbarFilterButton } from '@material-ui/data-grid';
 import * as React from 'react';
 
-const FilterToolbar: React.FC = () => (
+export const FilterToolbar: React.FC = () => (
     <GridToolbarContainer>
         <GridToolbarFilterButton />
     </GridToolbarContainer>

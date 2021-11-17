@@ -1,5 +1,5 @@
 import StepHeader from './StepHeader';
 
-export type { StepHeaderProps } from './StepHeader';
+export * from './StepHeader';
 
 export default StepHeader;

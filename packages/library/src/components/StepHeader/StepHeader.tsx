@@ -29,7 +29,7 @@ export interface StepHeaderProps {
 /**
  * Common Header for Steps
  */
-const StepHeader: React.FC<StepHeaderProps> = ({
+export const StepHeader: React.FC<StepHeaderProps> = ({
     title,
     description,
     buttonText,

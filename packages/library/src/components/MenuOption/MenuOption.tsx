@@ -42,7 +42,7 @@ export interface MenuOptionProps {
 /**
  * A menu option card for the menu screens
  */
-const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon, disabled, onClick }) => {
+export const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon, disabled, onClick }) => {
     const classes = useStyles();
     return (
         <Card elevation={10} className={classes.root}>

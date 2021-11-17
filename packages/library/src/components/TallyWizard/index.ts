@@ -1,5 +1,5 @@
 import TallyWizard from './TallyWizard';
 
-export type { TallyWizardProps } from './TallyWizard';
+export * from './TallyWizard';
 
 export default TallyWizard;

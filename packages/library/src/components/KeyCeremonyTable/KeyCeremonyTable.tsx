@@ -63,7 +63,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
     },
 ];
 
-const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
+export const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     const keyCeremonyQuery = data();

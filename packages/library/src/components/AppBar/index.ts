@@ -1,5 +1,5 @@
 import AppBar from './AppBar';
 
-export type { AppBarProps } from './AppBar';
+export * from './AppBar';
 
 export default AppBar;

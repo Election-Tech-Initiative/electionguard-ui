@@ -23,7 +23,11 @@ export interface StepIntroductionProps {
 /**
  * Common Introduction for Steps
  */
-const StepIntroduction: React.FC<StepIntroductionProps> = ({ heading, description, steps }) => {
+export const StepIntroduction: React.FC<StepIntroductionProps> = ({
+    heading,
+    description,
+    steps,
+}) => {
     const classes = useStyles();
     return (
         <Container className={classes.root}>

@@ -32,13 +32,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface WelcomeHeaderProps {
-    Logo: React.ComponentType<SVGProps<SVGSVGElement>>;
+    Logo?: React.ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 /**
  * A menu option card for the menu screens
  */
-const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
+export const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
     const classes = useStyles();
     return (
         <Grid container className={classes.root}>
@@ -52,9 +52,11 @@ const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
                     defaultMessage="Welcome to"
                 />
             </Grid>
-            <Grid item>
-                <Logo className={classes.logo} />
-            </Grid>
+            {Logo && (
+                <Grid item>
+                    <Logo className={classes.logo} />
+                </Grid>
+            )}
         </Grid>
     );
 };

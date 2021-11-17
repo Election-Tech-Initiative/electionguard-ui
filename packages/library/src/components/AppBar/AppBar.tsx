@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent top App Bar with side drawer and optional additional content.
  */
-const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn = false }) => {
+export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn = false }) => {
     const [signedIn, setSignIn] = useState(loggedIn);
     const classes = useStyles();
     return (

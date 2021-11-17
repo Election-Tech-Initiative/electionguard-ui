@@ -34,7 +34,7 @@ const colored = (str: string, color: string) => (
 /**
  * International text to handle automatically finding correct language
  */
-const InternationalText: React.FC<InternationalTextProps> = (props) => {
+export const InternationalText: React.FC<InternationalTextProps> = (props) => {
     const theme = useTheme();
     const intl = useIntl();
     const typographyProps = props as TypographyProps;

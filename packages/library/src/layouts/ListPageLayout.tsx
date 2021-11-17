@@ -31,7 +31,7 @@ export interface ListPageLayoutProps {
     goHome?: () => void;
 }
 
-const ListPageLayout: React.FC<ListPageLayoutProps> = ({
+export const ListPageLayout: React.FC<ListPageLayoutProps> = ({
     title,
     description,
     goHome,
