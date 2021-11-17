@@ -46,7 +46,7 @@ const colorSet: string[] = [
 
 export const getColor = (index: number): string => colorSet[index % colorSet.length];
 
-const theme = (localization?: Localization): Theme => {
+export const theme = (localization?: Localization): Theme => {
     const options: ThemeOptions = {
         palette: {
             primary: teal,

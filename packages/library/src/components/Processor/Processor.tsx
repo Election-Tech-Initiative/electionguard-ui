@@ -88,7 +88,7 @@ const handleStatus = <T extends unknown>(
 /**
  * Processor for awaiting tasks
  */
-const Processor: React.FC<ProcessorProps> = ({
+export const Processor: React.FC<ProcessorProps> = ({
     startingStatus,
     Icon,
     title,

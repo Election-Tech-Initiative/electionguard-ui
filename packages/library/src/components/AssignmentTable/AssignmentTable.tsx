@@ -15,7 +15,7 @@ const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 250 },
 ];
 
-const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) => {
+export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) => {
     const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
 
     const onSelectionChange = (rows: GridRowId[]) => {

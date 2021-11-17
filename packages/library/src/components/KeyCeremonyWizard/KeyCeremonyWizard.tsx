@@ -95,7 +95,7 @@ const getStartingStep = (
 /**
  * Wizard to setup the election
  */
-const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({
+export const KeyCeremonyWizard: React.FC<KeyCeremonyWizardProps> = ({
     guardian,
     keyCeremony,
     createKeyPair,

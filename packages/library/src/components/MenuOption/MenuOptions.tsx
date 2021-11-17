@@ -31,7 +31,7 @@ export interface MenuOptionsProps {
  * A set of menu options with a prompt
  * TODO Deteremine options based on permissions
  */
-const MenuOptions: React.FC<MenuOptionsProps> = ({ prompt, children }) => {
+export const MenuOptions: React.FC<MenuOptionsProps> = ({ prompt, children }) => {
     const classes = useStyles();
     return (
         <Box className={classes.root}>

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent footer for additional content
  */
-const Footer: React.FunctionComponent = () => {
+export const Footer: React.FunctionComponent = () => {
     const classes = useStyles();
 
     return <Box className={classes.root} />;

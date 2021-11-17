@@ -29,7 +29,7 @@ export interface SequenceOrderProgressProps {
     completeColor?: string;
 }
 
-const SequenceOrderProgress: React.FC<SequenceOrderProgressProps> = ({
+export const SequenceOrderProgress: React.FC<SequenceOrderProgressProps> = ({
     steps,
     active,
     completeColor,

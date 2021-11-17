@@ -24,7 +24,7 @@ export interface IconHeaderProps {
 /**
  * A menu option card for the menu screens
  */
-const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
+export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
     const classes = useStyles();
     return (
         <Box className={classes.root} display="flex" flexDirection="column" alignItems="center">

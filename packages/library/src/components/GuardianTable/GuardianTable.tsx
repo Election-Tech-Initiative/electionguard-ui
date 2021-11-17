@@ -33,7 +33,7 @@ const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 250, headerClassName: 'bold-style--header' },
 ];
 
-const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
+export const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
     const classes = useStyles();
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%">

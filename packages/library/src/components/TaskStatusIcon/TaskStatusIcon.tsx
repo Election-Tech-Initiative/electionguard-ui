@@ -30,7 +30,7 @@ export interface TaskStatusIconProps {
 /**
  * A menu option card for the menu screens
  */
-const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status, buttonText, onClick }) => {
+export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status, buttonText, onClick }) => {
     const classes = useStyles();
     switch (status) {
         case TaskStatus.Complete:

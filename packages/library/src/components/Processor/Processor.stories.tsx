@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
 import { Message, loremIpsum } from '../../lang';
-import delay from '../../utils/delay';
+import { delay } from '../../utils/delay';
 import Processor, { ProcessorProps } from './Processor';
 
 export default {

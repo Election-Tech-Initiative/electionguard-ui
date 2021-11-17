@@ -7,7 +7,7 @@ import {
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import delay from '../../utils/delay';
+import { delay } from '../../utils/delay';
 import KeyCeremonyStep from './KeyCeremonyStep';
 import KeyCeremonyWizard, { KeyCeremonyWizardProps } from './KeyCeremonyWizard';
 

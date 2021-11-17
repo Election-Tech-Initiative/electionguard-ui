@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * An ordered list with material ui style numbers
  */
-const OrderedList: React.FC = ({ children }) => {
+export const OrderedList: React.FC = ({ children }) => {
     const classes = useStyles();
     const circle = (index: number) => (
         <Box boxShadow={4} className={classes.circle}>

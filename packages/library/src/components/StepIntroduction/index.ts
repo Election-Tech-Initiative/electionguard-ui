@@ -1,5 +1,5 @@
 import StepIntroduction from './StepIntroduction';
 
-export type { StepIntroductionProps } from './StepIntroduction';
+export * from './StepIntroduction';
 
 export default StepIntroduction;

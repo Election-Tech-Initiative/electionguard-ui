@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) => {
     };
 });
 
-const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
+export const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
     const classes = useStyles();
     const intl = useIntl();
     return (

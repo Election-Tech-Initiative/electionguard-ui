@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import delay from '../../../utils/delay';
+import { delay } from '../../../utils/delay';
 import ManifestUploadStep, { ManifestUploadStepProps } from './ManifestUploadStep';
 
 export default {

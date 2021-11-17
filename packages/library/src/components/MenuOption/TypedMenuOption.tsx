@@ -13,7 +13,7 @@ export interface TypedMenuOptionProps {
 /**
  * A typed menu option card for the menu screens
  */
-const TypedMenuOption: React.FC<TypedMenuOptionProps> = ({ type, disabled, onClick }) => {
+export const TypedMenuOption: React.FC<TypedMenuOptionProps> = ({ type, disabled, onClick }) => {
     const { title, Icon } = getPreset(type);
     return <MenuOption title={title} Icon={Icon} disabled={disabled} onClick={onClick} />;
 };

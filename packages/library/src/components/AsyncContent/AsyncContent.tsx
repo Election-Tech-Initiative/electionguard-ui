@@ -12,7 +12,7 @@ export interface AsyncContentProps<T> {
     query: AsyncResult<T>;
 }
 
-function AsyncContent<T>({
+export function AsyncContent<T>({
     children,
     errorMessage = 'Something went wrong!',
     query,

@@ -1,10 +1,10 @@
 import { JointKey } from '@electionguard-ui/api';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
-import { FormattedDateCell } from '../Cells';
+import { FormattedDateCell, LinkCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
 export interface JointKeyTableProps {
     data: JointKey[];
 }
-
-const LinkCell = (): React.ReactElement => <Button color="primary">Open</Button>;
 
 const columns = (intl: IntlShape): GridColDef[] => [
     { field: 'name', headerName: 'Name', width: 400, headerClassName: 'bold-style--header' },
@@ -61,7 +59,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
     },
 ];
 
-const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
+export const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     return (
