@@ -1,5 +1,4 @@
-import { MessageId, Locale, setupLanguages } from '@electionguard-ui/library/src/lang';
-import EnumDictionary from '@electionguard-ui/library/src/utils/EnumDictionary';
+import { MessageId, Locale, setupLanguages, EnumDictionary } from '@electionguard-ui/library';
 
 import en from './en.json';
 

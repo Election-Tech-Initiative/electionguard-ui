@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { languages } from '../lang';
+import languages from './languages';
 
 export const defaultLanguage = languages.en;
 

@@ -1,10 +1,10 @@
 import { enUS, Localization } from '@material-ui/core/locale';
 
-import EnumDictionary from '../utils/EnumDictionary';
+import { EnumDictionary } from '../utils/EnumDictionary';
 
 import Locale from './Locale';
 
-export default interface Language {
+export interface Language {
     name: string;
     locale: Locale;
     messages: { [key: string]: string };
@@ -44,3 +44,5 @@ export const setupLanguages = (
         [Locale.English]: english,
     };
 };
+
+export default Language;
