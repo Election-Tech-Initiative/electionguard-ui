@@ -1,10 +1,13 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-import JointKeyWizard from '../components/JointKeyWizard';
-import { useCreateJointKey, useGetUsersWithGuardianRole } from '../data/queries';
+import {
+    JointKeyWizard,
+    useCreateJointKey,
+    useGetUsersWithGuardianRole,
+} from '@electionguard-ui/library';
 
-const JointKeySetupPage: React.FC = () => {
+export const KeySetupPage: React.FC = () => {
     const history = useHistory();
     return (
         <JointKeyWizard
@@ -15,4 +18,4 @@ const JointKeySetupPage: React.FC = () => {
     );
 };
 
-export default JointKeySetupPage;
+export default KeySetupPage;

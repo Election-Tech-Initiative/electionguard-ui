@@ -1,12 +1,11 @@
 import { getApiClient } from '@electionguard-ui/api';
+import { JointKeyTable, ListPageLayout } from '@electionguard-ui/library';
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-import JointKeyTable from '../components/JointKeyTable';
 import { Message, MessageId } from '../lang';
-import ListPageLayout from '../layouts/ListPageLayout';
 
-const JointKeyListPage: React.FC = () => {
+export const KeyListPage: React.FC = () => {
     const history = useHistory();
     const service = getApiClient();
     return (
@@ -20,4 +19,4 @@ const JointKeyListPage: React.FC = () => {
     );
 };
 
-export default JointKeyListPage;
+export default KeyListPage;

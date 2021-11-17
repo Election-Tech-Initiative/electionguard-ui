@@ -1,12 +1,17 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
+import {
+    InternationalText,
+    MenuOptionType,
+    MenuOptions,
+    TypedMenuOption,
+    WelcomeHeader,
+    ConfigContext,
+    loremIpsum,
+} from '@electionguard-ui/library';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-import InternationalText from '../components/InternationalText';
-import { MenuOptionType, MenuOptions, TypedMenuOption } from '../components/MenuOption';
-import WelcomeHeader from '../components/WelcomeHeader';
-import { ConfigContext } from '../contexts/config';
-import { Message, MessageId, loremIpsum } from '../lang';
+import { Message, MessageId } from '../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MenuPage: React.FC = () => {
+export const MenuPage: React.FC = () => {
     const config = useContext(ConfigContext);
     const history = useHistory();
     const classes = useStyles();

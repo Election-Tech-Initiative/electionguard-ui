@@ -1,12 +1,11 @@
 import { getApiClient } from '@electionguard-ui/api';
+import { ElectionTable, ListPageLayout } from '@electionguard-ui/library';
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-import ElectionTable from '../components/ElectionTable';
 import { Message, MessageId } from '../lang';
-import ListPageLayout from '../layouts/ListPageLayout';
 
-const ElectionListPage: React.FC = () => {
+export const ElectionListPage: React.FC = () => {
     const history = useHistory();
     const service = getApiClient();
     return (
