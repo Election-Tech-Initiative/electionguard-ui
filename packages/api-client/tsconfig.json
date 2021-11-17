@@ -17,6 +17,7 @@
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
         "outDir": "dist",
+        "rootDir": "src",
         "resolveJsonModule": true
     },
     "include": ["src"],
