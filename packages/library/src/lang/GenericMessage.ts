@@ -6,7 +6,7 @@ const PlaceHolderMessageId = 'placeholder';
 
 const placeholderMessage = 'Message Not Found';
 
-export default class GenericMessage<T extends string | number> implements MessageDescriptor {
+export class GenericMessage<T extends string | number> implements MessageDescriptor {
     id: T | typeof OverloadMessageId | typeof PlaceHolderMessageId;
 
     defaultMessage: string;
@@ -23,3 +23,5 @@ export default class GenericMessage<T extends string | number> implements Messag
         this.description = description;
     }
 }
+
+export default GenericMessage;
