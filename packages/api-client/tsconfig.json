@@ -16,9 +16,9 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true,
-        "rootDir": "./src",
-        "outDir": "./dist",
+        "outDir": "dist",
+        "rootDir": "src",
+        "resolveJsonModule": true
         "declarationMap": true,
         "composite": false,
         "noEmit": false,
