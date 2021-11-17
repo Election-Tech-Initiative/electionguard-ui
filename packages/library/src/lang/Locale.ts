@@ -1,4 +1,4 @@
-enum Locale {
+export enum Locale {
     English = 'en',
 }
 

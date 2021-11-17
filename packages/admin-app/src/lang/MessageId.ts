@@ -1,4 +1,4 @@
-enum MessageId {
+export enum MessageId {
     // App
     AppName = 'app.name',
     Placeholder = 'app.placeholder',
