@@ -2,9 +2,9 @@ import { ElectionManifest } from '../models/election';
 import { ElementModQ } from '../models/keyCeremony';
 import { Manifest } from '../models/manifestPreview';
 
-export const getManifest = async (_manifest_hash: string): Promise<Manifest[] | undefined> => [
+export const getManifest = async (manifest_hash: string): Promise<Manifest[] | undefined> => [
     {
-        manifest_hash: 'F50393532F36544827661DF2279755CFFA079D32C6E0A8E8570D1D91FBAAD245',
+        manifest_hash,
         manifest: {
             ballot_styles: [
                 {

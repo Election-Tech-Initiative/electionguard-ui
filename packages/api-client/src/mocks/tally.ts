@@ -17,7 +17,7 @@ export const decryptShareTally = async (
         tally_name,
         guardian_id: 'guardian-1',
         tally_share: {},
-        // The EG Decryptionshare that includes a share for each contest in the election."""
+        // The EG Decryptionshare that includes a share for each contest in the election.
         ballot_shares: new Map<BallotId, DecryptionShare>(),
     },
 ];
@@ -32,7 +32,7 @@ export const decryptSharePostTally = async (
         tally_name: 'tally-1',
         guardian_id,
         tally_share: {},
-        // The EG Decryptionshare that includes a share for each contest in the election."""
+        // The EG Decryptionshare that includes a share for each contest in the election.
         ballot_shares: new Map<BallotId, DecryptionShare>(),
     },
 ];
@@ -47,7 +47,7 @@ export const getTallyDecrypt = async (
         tally_name,
         guardian_id,
         tally_share: {},
-        // The EG Decryptionshare that includes a share for each contest in the election."""
+        // The EG Decryptionshare that includes a share for each contest in the election.
         ballot_shares: new Map<BallotId, DecryptionShare>(),
     },
 ];
@@ -66,7 +66,7 @@ export const findTallyDecrypt = async (
         tally_name,
         guardian_id: 'guardian-1',
         tally_share: {},
-        // The EG Decryptionshare that includes a share for each contest in the election."""
+        // The EG Decryptionshare that includes a share for each contest in the election.
         ballot_shares: new Map<BallotId, DecryptionShare>(),
     },
 ];
@@ -111,7 +111,7 @@ export const decryptTally = async (
     _restart: boolean
 ): Promise<PlaintextTally[] | undefined> => [
     {
-        // A plaintext tally for a specific election."""
+        // A plaintext tally for a specific election.
         election_id,
         tally_name,
         created: new Date(),

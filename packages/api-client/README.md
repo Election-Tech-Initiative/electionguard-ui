@@ -22,13 +22,7 @@ ElectionGuard supports a variety of use cases. The Primary use case is to genera
 
 ## 🚀 Quick Start
 
-In a project directory, make sure it is setup for npm using:
-
-```
-npm init
-```
-
-Install the [ElectionGuard API-Client] package to the project using:
+In a project directory, make sure it is setup for npm and then install the [ElectionGuard API-Client] package to the project using:
 
 ```
 npm i @electionguard/api-client

@@ -47,7 +47,7 @@ export class DecryptBallotsWithSharesRequest extends BaseRequest {
 }
 
 export class DecryptBallotSharesRequest extends BaseRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
+    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
 
     encrypted_ballots: SubmittedBallot[] = [];
 

@@ -1,8 +1,6 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
 import {
-    // KeyCeremonyUi,
     KeyCeremonyGuardianApi,
-    // KeyCeremonyStatus,
     KeyCeremonyQueryResponse,
     KeyCeremony,
     KeyCeremonyCreateRequest,

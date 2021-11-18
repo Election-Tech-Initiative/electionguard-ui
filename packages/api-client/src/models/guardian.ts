@@ -72,7 +72,7 @@ export class BackupVerificationResponse extends BaseResponse {
 }
 
 export class GuardianBackupVerificationRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
+    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
 
     guardian_id = '';
 
@@ -82,7 +82,7 @@ export class GuardianBackupVerificationRequest {
 }
 
 export class GuardianBackupChallengeRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
+    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
 
     guardian_id = '';
 
@@ -90,7 +90,7 @@ export class GuardianBackupChallengeRequest {
 }
 
 export class ChallengeVerificationRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
+    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
 
     verifier_id = '';
 
@@ -102,7 +102,7 @@ export class BackupChallengeResponse extends BaseResponse {
 }
 
 export class GuardianBackupRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets."""
+    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
 
     guardian_id = '';
 

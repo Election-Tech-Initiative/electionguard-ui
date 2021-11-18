@@ -70,7 +70,7 @@ export class MakeElectionContextResponse extends BaseResponse {
 }
 
 export class AuxiliaryPublicKey {
-    // A tuple of auxiliary public key and owner information that can be shared between guardians"""
+    // A tuple of auxiliary public key and owner information that can be shared between guardians
 
     owner_id: GuardianId = '';
     /*

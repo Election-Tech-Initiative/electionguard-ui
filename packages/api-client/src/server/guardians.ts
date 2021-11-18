@@ -24,8 +24,6 @@ import {
 import { BaseQueryRequest, BaseResponse } from '../models/base';
 import { PublicKeySet } from '../models/election';
 
-// import getUsersWithGuardianRole from './users';
-
 export const getAssignedGuardians = (): AssignedGuardian[] => [
     { sequenceOrder: 1, id: '1', name: 'Snow server' },
     { sequenceOrder: 2, id: '2', name: 'Lannister server' },

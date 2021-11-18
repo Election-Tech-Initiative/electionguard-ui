@@ -71,7 +71,7 @@ export enum PlaintextTallyState {
 }
 
 export class PlaintextTally {
-    // A plaintext tally for a specific election."""
+    // A plaintext tally for a specific election.
 
     election_id = '';
 
