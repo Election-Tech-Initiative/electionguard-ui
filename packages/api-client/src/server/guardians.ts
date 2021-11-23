@@ -24,13 +24,7 @@ import {
 import { BaseQueryRequest, BaseResponse } from '../models/base';
 import { PublicKeySet } from '../models/election';
 
-export const getAssignedGuardians = (): AssignedGuardian[] => [
-    { sequenceOrder: 1, id: '1', name: 'Snow server' },
-    { sequenceOrder: 2, id: '2', name: 'Lannister server' },
-    { sequenceOrder: 3, id: '3', name: 'Magic server' },
-    { sequenceOrder: 4, id: '4', name: 'Stark server' },
-    { sequenceOrder: 5, id: '5', name: 'Targaryen server' },
-];
+export { getAssignedGuardians } from '../mocks/guardians';
 
 export const postGuardian = async (
     key_name: string,
@@ -46,9 +40,6 @@ export const postGuardian = async (
         name,
         key_name,
     };
-    /*
-    Create a guardian for the election process with the associated keys.
-    */
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian`;
     const response = await post<{ resp: GuardianPublicKeysResponse }>(path, data);
     return response.parsedBody?.resp.public_keys;
@@ -60,8 +51,6 @@ export const getGuardian = async (guardian_id: string): Promise<Guardian | undef
     return response.parsedBody?.guardian;
 };
 
-// get public-keys
-//  {{guardian-url}}/api/{{version}}/guardian/public-keys?guardian_id=guardian_1
 export const getGuardianPublicKeys = async (
     guardian_id: string
 ): Promise<PublicKeySetApi[] | undefined> => {
@@ -169,5 +158,3 @@ export const findKeyGuardians = async (
     const response = await post<{ resp: GuardianQueryResponse }>(path, data);
     return response.parsedBody?.resp.guardians;
 };
-
-export default getAssignedGuardians;

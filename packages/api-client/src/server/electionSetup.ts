@@ -1,21 +1,8 @@
 import { JointKey } from '../models/jointKey';
-import ManifestPreview from '../models/manifestPreview';
 import { getAssignedGuardians } from './guardians';
 import { post } from '../utils/http';
 
-export const getManifestPreview = (): ManifestPreview => {
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 2);
-    return {
-        name: 'Montgomery County Election',
-        numberOfContests: 5,
-        numberOfStyles: 3,
-        startDate: new Date(),
-        endDate,
-        fileHash: '1234lasdf98j3124klajksdflajsdfio',
-        fileName: 'manifest.json',
-    };
-};
+export { getManifestPreview } from '../mocks/electionSetup';
 
 export const getJointKeys = async (): Promise<JointKey[]> => {
     const keys: JointKey[] = [];
