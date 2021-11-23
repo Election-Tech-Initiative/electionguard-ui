@@ -46,7 +46,7 @@
         "web-vitals": "^1.0.1"
     },
     "devDependencies": {
-        "microbundle-crl": "^0.13.1"
+        "microbundle": "^0.13.1"
     },
     "scripts": {
         "build": "yarn run bundle",
