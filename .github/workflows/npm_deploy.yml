@@ -1,9 +1,6 @@
 name: Npm Deploy
 
 on:
-    push:
-        branches:
-            - main
     milestone:
         types: [closed]
     repository_dispatch:
