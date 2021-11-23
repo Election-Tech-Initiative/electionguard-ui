@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "dependencies": {
         "@babel/core": "^7.13.15",
-        "@electionguard-ui/api": "1.0.0",
+        "@electionguard/api-client": "^1.1.6",
         "@formatjs/intl": "^1.14.2",
         "@material-ui/core": "^4.11.3",
         "@material-ui/data-grid": "^4.0.0-alpha.29",
@@ -64,5 +64,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "gitHead": "af48ad285b2104174dccc68a4d66f2f7b3439a77"
 }

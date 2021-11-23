@@ -1,4 +1,4 @@
-import { AssignedGuardian, BaseJointKey, User } from '@electionguard-ui/api';
+import { AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -8,7 +8,6 @@ import { AsyncResult } from '../../../data/AsyncResult';
 import { Message, MessageId } from '../../../lang';
 import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';
-import AsyncContent from '../../AsyncContent';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
 
@@ -69,7 +68,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const classes = useStyles();
     const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
     //    const [foundGuardians, setFoundGuardians] = useState<User[]>([]);
-    let foundGuardians: User[] = [];
+    const foundGuardians: User[] = [];
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
         const selected = foundGuardians.filter((user) => ids.includes(user.id));
@@ -89,7 +88,6 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
         });
     };
 
-    const guardianQuery = getGuardians();
     const queryClient = new QueryClient();
 
     return (
@@ -164,16 +162,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                         </Box>
                     </Box>
                     <Box className={classes.tableContainer} width="100%">
-                        <AsyncContent query={guardianQuery} errorMessage="there was an error">
-                            {(usersFound) => {
-                                foundGuardians = usersFound;
-                                return (
-                                    <>
-                                        <AssignmentTable data={usersFound} onChanged={onAssign} />
-                                    </>
-                                );
-                            }}
-                        </AsyncContent>
+                        <AssignmentTable data={getGuardians} onChanged={onAssign} />
                     </Box>
                     <Box className={classes.buttonContainer}>
                         <Button

@@ -1,0 +1,47 @@
+name: Npm Deploy
+
+on:
+    milestone:
+        types: [closed]
+    repository_dispatch:
+        types: [milestone_closed]
+
+jobs:
+    build:
+        name: Build and Deploy npm
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [14.x]
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+            - name: Set up Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  registry-url: 'https://registry.npmjs.org'
+            - name: Install dependencies
+              run: make install
+            - name: Set git username
+              run: git config --global user.name ${{ secrets.UPDATE_USERNAME }}
+            - name: Set git user email
+              run: git config --global user.email ${{ secrets.UPDATE_EMAIL }}
+            - name: Lint
+              run: make lint
+            - name: Update version
+              run: make npm-version
+            - name: Build
+              run: lerna run --scope @electionguard/api-client build
+            - name: Authenticate with Registry
+              run: npm whoami
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+            - name: Publish npm Package
+              run: make npm-publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPLOY_TOKEN }}
+            - name: push changes
+              run: git push
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

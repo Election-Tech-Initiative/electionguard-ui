@@ -1,7 +1,8 @@
-import { getApiClient } from '@electionguard-ui/api';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { useGetElection } from '../../data/queries';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {
@@ -10,11 +11,16 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story<ElectionTableProps> = (props) => <ElectionTable {...props} />;
+const queryClient = new QueryClient();
 
-const service = getApiClient();
+const Template: Story<ElectionTableProps> = (props) => (
+    <QueryClientProvider client={queryClient}>
+        <ElectionTable {...props} />{' '}
+    </QueryClientProvider>
+);
+
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';
 Standard.args = {
-    data: service.getElections(),
+    data: useGetElection,
 };

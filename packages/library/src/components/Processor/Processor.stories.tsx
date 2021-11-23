@@ -1,4 +1,4 @@
-import { TaskStatus } from '@electionguard-ui/api';
+import { TaskStatus } from '@electionguard/api-client';
 import { BallotOutlined } from '@material-ui/icons';
 import { Meta, Story } from '@storybook/react';
 import React, { useState } from 'react';

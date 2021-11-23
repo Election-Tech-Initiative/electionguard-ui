@@ -1,4 +1,4 @@
-import { BackupVerification, TaskStatus } from '@electionguard-ui/api';
+import { BackupVerification, TaskStatus } from '@electionguard/api-client';
 import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId, GridSortDirection } from '@material-ui/data-grid';
 import React, { useState } from 'react';

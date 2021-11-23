@@ -1,4 +1,4 @@
-import { BaseJointKey } from '@electionguard-ui/api';
+import { BaseJointKey } from '@electionguard/api-client';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';

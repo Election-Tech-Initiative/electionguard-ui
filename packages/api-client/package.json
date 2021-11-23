@@ -1,12 +1,13 @@
 {
-    "name": "@electionguard-ui/api-client",
-    "version": "1.0.0",
+    "name": "@electionguard/api-client",
+    "version": "0.1.0",
     "description": "API client for electionguard-api-python",
     "author": "electionguard",
     "license": "MIT",
     "repository": "microsoft/electionguard-ui",
-    "main": "dist/index.js",
-    "module": "dist/index.modern.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": "./dist/index.modern.js",
     "source": "src/index.ts",
     "engines": {
         "node": ">=10"
@@ -19,7 +20,10 @@
         "lint": "yarn eslint",
         "lint:fix": "yarn eslint --fix && yarn prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
+        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
+        "npm-publish": "npm publish --access public",
+        "npm-version-patch": "npm version patch",
+        "npm-version-minor": "npm version minor"
     },
     "peerDependencies": {
         "react": "^17.0.2"
@@ -32,14 +36,21 @@
         "@types/node": "^12.12.38",
         "@types/react": "^16.9.27",
         "@types/react-dom": "^16.9.7",
-        "microbundle": "^0.13.3",
         "babel-loader": "8.1.0",
+        "microbundle": "^0.13.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
         "typescript": "^4.3.5"
     },
     "files": [
-        "dist"
-    ]
+        "/dist",
+        "/README.md"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "directory": "dist",
+        "registry": "https://registry.npmjs.org"
+    },
+    "gitHead": "d7af616d24e379e54f9dd50c84bf27691667a444"
 }

@@ -12,7 +12,7 @@ This repository is a "reference implementation" of ElectionGuard UI written usin
 | -------------------------------------------- | ------------------------------------- |
 | [`packages`](packages)                       | Monorepo packages for this project    |
 | [`package/admin-app`](/packages/admin-app)   | sample UI for an admin website        |
-| [`packages/api`](packages/api)               | library for connecting to api backend |
+| [`packages/api-client`](packages/api-client) | library for connecting to api backend |
 | [`packages/library`](packages/library)       | library for sample UI components      |
 | [`packages/result-app`](packages/result-app) | sample UI for election result website |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md)         | Guidelines for contributing           |

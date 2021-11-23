@@ -1,8 +1,11 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { useCreateJointKey, useGetUsersWithGuardianRole } from '../../data/queries';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
+
+const queryClient = new QueryClient();
 
 export default {
     title: 'Wizards/Joint Key Setup/JointKeyWizard',
@@ -10,7 +13,11 @@ export default {
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story<JointKeyWizardProps> = (props) => <JointKeyWizard {...props} />;
+const Template: Story<JointKeyWizardProps> = (props) => (
+    <QueryClientProvider client={queryClient}>
+        <JointKeyWizard {...props} />
+    </QueryClientProvider>
+);
 
 export const Standard = Template.bind({});
 Standard.storyName = 'Standard';

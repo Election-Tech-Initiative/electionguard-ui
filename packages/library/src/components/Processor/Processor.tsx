@@ -1,4 +1,4 @@
-import { TaskStatus } from '@electionguard-ui/api';
+import { TaskStatus } from '@electionguard/api-client';
 import { Box, CircularProgress, Container, SvgIconProps, makeStyles } from '@material-ui/core';
 import {
     CheckCircle as DefaultCompleteIcon,

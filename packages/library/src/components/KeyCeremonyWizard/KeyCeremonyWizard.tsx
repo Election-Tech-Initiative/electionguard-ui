@@ -1,9 +1,9 @@
 import {
     AssignedGuardian,
-    KeyCeremony,
     KeyCeremonyStatus,
+    KeyCeremonyUi,
     TaskStatus,
-} from '@electionguard-ui/api';
+} from '@electionguard/api-client';
 import { Box, Container } from '@material-ui/core';
 import React, { useState } from 'react';
 
@@ -17,7 +17,7 @@ import KeyCeremonyVisualization from './KeyCeremonyVisualization';
 import { KeyCeremonyIntroductionStep, MeetGuardiansStep } from './Steps';
 
 export interface KeyCeremonyWizardProps {
-    keyCeremony: KeyCeremony;
+    keyCeremony: KeyCeremonyUi;
     guardian: AssignedGuardian;
     loading?: boolean;
     createKeyPair: () => void;
@@ -32,7 +32,7 @@ export interface KeyCeremonyWizardProps {
 
 const getStartingStep = (
     guardian?: AssignedGuardian,
-    keyCeremony?: KeyCeremony
+    keyCeremony?: KeyCeremonyUi
 ): KeyCeremonyStep => {
     if (!keyCeremony) return KeyCeremonyStep.Instructions;
     if (keyCeremony.status === KeyCeremonyStatus.Complete) {
