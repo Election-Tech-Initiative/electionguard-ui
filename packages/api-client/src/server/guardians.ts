@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import {
-    AssignedGuardian,
     Guardian,
     ApiGuardianQueryResponse,
     BackupChallengeResponse,
