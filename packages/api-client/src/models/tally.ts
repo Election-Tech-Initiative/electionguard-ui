@@ -6,13 +6,12 @@ import { CiphertextElectionContext } from './election';
 export type ElectionGuardCiphertextTally = any;
 export type ElectionGuardPlaintextTally = any;
 
+/**
+ * @class CiphertextTallyDecryptionShare
+ * A DecryptionShare provided by a guardian for a specific tally.
+ * Optionally can include ballot_shares for challenge ballots.
+ */
 export class CiphertextTallyDecryptionShare {
-    /*
-    A DecryptionShare provided by a guardian for a specific tally.
-
-    Optionally can include ballot_shares for challenge ballots.
-    */
-
     election_id = '';
 
     tally_name = '';
@@ -20,15 +19,15 @@ export class CiphertextTallyDecryptionShare {
     guardian_id = '';
 
     tally_share: DecryptionShare;
-    // The EG Decryptionshare that includes a share for each contest in the election.
 
     ballot_shares: Map<BallotId, DecryptionShare> = new Map<BallotId, DecryptionShare>();
-    // A collection of shares for each challenge ballot.
 }
 
+/**
+ * @class CiphertextTally
+ * A Tally for a specific election.
+ */
 export class CiphertextTally {
-    // A Tally for a specific election.
-
     election_id = '';
 
     tally_name = '';
@@ -36,14 +35,21 @@ export class CiphertextTally {
     created = new Date();
 
     tally: ElectionGuardCiphertextTally;
-    // The full electionguard CiphertextTally that includes the cast and spoiled ballot id's.
 }
 
+/**
+ * @class DecryptionShareResponse reply from server with decryption tally shares
+ * @extends BaseResponse
+ */
 export class DecryptionShareResponse extends BaseResponse {
     shares: CiphertextTallyDecryptionShare[] = [];
 }
 
-export class DecryptTallyShareRequest {
+/**
+ * @class DecryptTallyShareRequest request to server for decrypting a tally
+ * @extends BaseRequest
+ */
+export class DecryptTallyShareRequest extends BaseRequest {
     guardian_id = '';
 
     encrypted_tally: CiphertextTally = new CiphertextTally();
@@ -51,18 +57,25 @@ export class DecryptTallyShareRequest {
     context: CiphertextElectionContext = {};
 }
 
+/**
+ * @class DecryptionShareRequest A request to submit a decryption share.
+ * @extends BaseRequest
+ */
 export class DecryptionShareRequest extends BaseRequest {
-    // A request to submit a decryption share.
-
     share: CiphertextTallyDecryptionShare = new CiphertextTallyDecryptionShare();
 }
 
+/**
+ * @class CiphertextTallyQueryResponse A collection of Ciphertext Tallies.
+ * @extends BaseResponse
+ */
 export class CiphertextTallyQueryResponse extends BaseResponse {
-    // A collection of Ciphertext Tallies.
-
     tallies: CiphertextTally[] = [];
 }
 
+/**
+ * @enum {string}}
+ */
 export enum PlaintextTallyState {
     CREATED = 'CREATED',
     PROCESSING = 'PROCESSING',
@@ -70,9 +83,11 @@ export enum PlaintextTallyState {
     COMPLETE = 'COMPLETE',
 }
 
+/**
+ * @class PlaintextTally
+ * A plaintext tally for a specific election.
+ */
 export class PlaintextTally {
-    // A plaintext tally for a specific election.
-
     election_id = '';
 
     tally_name = '';
@@ -84,15 +99,19 @@ export class PlaintextTally {
     tally: ElectionGuardPlaintextTally;
 }
 
+/**
+ * @class PlaintextTallyQueryResponse A collection of Plaintext Tallies.
+ * @extends BaseResponse
+ */
 export class PlaintextTallyQueryResponse extends BaseResponse {
-    // A collection of Plaintext Tallies.
-
     tallies: PlaintextTally[] = [];
 }
 
+/**
+ * @class DecryptTallyRequest A request to decrypt a specific tally.  Can optionally include the tally to decrypt.
+ * @extends BaseRequest
+ */
 export class DecryptTallyRequest extends BaseRequest {
-    // A request to decrypt a specific tally.  Can optionally include the tally to decrypt.
-
     election_id = '';
 
     tally_name = '';

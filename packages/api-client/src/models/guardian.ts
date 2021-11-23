@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { BaseResponse } from './base';
+import { BaseRequest, BaseResponse } from './base';
 import { GuardianId, PublicKeySet } from './election';
 
 export class GuardianUI {
@@ -15,9 +15,11 @@ export type PublicKeySetApi = any;
 export type ElectionPartialKeyChallenge = any;
 export type ElectionPartialKeyVerification = any;
 
+/**
+ * @class Guardian
+ * The API guardian tracks the state of a guardain's interactions with other guardians.
+ */
 export class Guardian {
-    // The API guardian tracks the state of a guardain's interactions with other guardians.
-
     guardian_id = '';
 
     name = '';
@@ -55,25 +57,37 @@ export class Guardian {
     >();
 }
 
+/**
+ * @class GuardianPublicKeysResponse reply from server with teh public key info
+ * @extends BaseResponse
+ */
 export class GuardianPublicKeysResponse extends BaseResponse {
     public_keys: PublicKeySetApi;
 }
 
+/**
+ * @class GuardianBackupResponse reply from server with the guardian backup info
+ * @extends BaseResponse
+ */
 export class GuardianBackupResponse extends BaseResponse {
     guardian_id = '';
 
     backups: ElectionPartialKeyBackup[] = [];
 }
 
+/**
+ * @class BackupVerificationResponse Returns a collection of verifications.
+ * @extends BaseResponse
+ */
 export class BackupVerificationResponse extends BaseResponse {
-    // Returns a collection of verifications.
-
     verification: ElectionPartialKeyVerification;
 }
 
-export class GuardianBackupVerificationRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
-
+/**
+ * @class GuardianBackupVerificationRequest Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
+ * @extends BaseRequest
+ */
+export class GuardianBackupVerificationRequest extends BaseRequest {
     guardian_id = '';
 
     backup: any = {};
@@ -81,29 +95,39 @@ export class GuardianBackupVerificationRequest {
     override_rsa = false;
 }
 
-export class GuardianBackupChallengeRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
-
+/**
+ * @class GuardianBackupChallengeRequest Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
+ * @extends BaseRequest
+ */
+export class GuardianBackupChallengeRequest extends BaseRequest {
     guardian_id = '';
 
     backup: any = {};
 }
 
-export class ChallengeVerificationRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
-
+/**
+ * @class ChallengeVerificationRequest Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
+ * @extends BaseRequest
+ */
+export class ChallengeVerificationRequest extends BaseRequest {
     verifier_id = '';
 
     challenge: any = {};
 }
 
+/**
+ * @class BackupChallengeResponse reply from server with the key challenge data
+ * @extends BaseResponse
+ */
 export class BackupChallengeResponse extends BaseResponse {
     challenge: ElectionPartialKeyChallenge;
 }
 
-export class GuardianBackupRequest {
-    // Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
-
+/**
+ * @class GuardianBackupRequest Request to generate ElectionPartialKeyBackups for the given PublicKeySets.
+ * @extends BaseRequest
+ */
+export class GuardianBackupRequest extends BaseRequest {
     guardian_id = '';
 
     quorum = 0;
@@ -113,12 +137,18 @@ export class GuardianBackupRequest {
     override_rsa = false;
 }
 
+/**
+ * @class ApiGuardianQueryResponse Returns a collection of KeyCeremonyGuardians.
+ * @extends BaseResponse
+ */
 export class ApiGuardianQueryResponse extends BaseResponse {
-    // Returns a collection of KeyCeremonyGuardians.
-
     guardians: Guardian[] = [];
 }
 
+/**
+ * @class AssignedGuardian class for UI work for showning assigned guardians
+ * @extends GuardianUI
+ */
 export interface AssignedGuardian extends GuardianUI {
     sequenceOrder: number;
 }

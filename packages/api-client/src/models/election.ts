@@ -2,6 +2,7 @@
 
 import { BaseQueryRequest, BaseRequest, BaseResponse } from './base';
 
+/** @enum {string} */
 export const enum ElectionState {
     CREATED = 'CREATED',
     OPEN = 'OPEN',
@@ -16,6 +17,9 @@ export type ElectionConstants = any;
 export type ElectionPublicKey = any;
 export type AuxiliaryPublicKeyType = string;
 
+/**
+ * @class Election data class that represents the election data from the server
+ */
 export class Election {
     election_id = '';
 
@@ -28,13 +32,24 @@ export class Election {
     manifest: ElectionManifest;
 }
 
+/**
+ * @class ElectionQueryResponse reply from election query with matching array of elections
+ * @extends BaseResponse
+ */
 export class ElectionQueryResponse extends BaseResponse {
-    // A collection of elections.
     elections: Election[] = [];
 }
 
+/**
+ * @class ElectionQueryRequest request data for finding elections
+ * @extends BaseQueryRequest
+ */
 export class ElectionQueryRequest extends BaseQueryRequest {}
 
+/**
+ * @class SubmitElectionRequest request data to submit a new election to the server
+ * @extends BaseRequest
+ */
 export class SubmitElectionRequest extends BaseRequest {
     election_id = '';
 
@@ -45,11 +60,11 @@ export class SubmitElectionRequest extends BaseRequest {
     manifest: ElectionManifest;
 }
 
+/**
+ * @class MakeElectionContextRequest request to build an Election Context for a given election.
+ * @extends BaseRequest
+ */
 export class MakeElectionContextRequest extends BaseRequest {
-    /*
-    A request to build an Election Context for a given election.
-    */
-
     elgamal_public_key = '';
 
     commitment_hash = '';
@@ -63,35 +78,41 @@ export class MakeElectionContextRequest extends BaseRequest {
     manifest: ElectionManifest;
 }
 
+/**
+ * @class MakeElectionContextResponse reply with Ciphertext Election Context.
+ * @extends BaseResponse
+ */
 export class MakeElectionContextResponse extends BaseResponse {
-    // A Ciphertext Election Context.
-
     context: CiphertextElectionContext;
 }
 
+/**
+ * @class AuxiliaryPublicKey
+ * A tuple of auxiliary public key and owner information that can be shared between guardians
+ */
 export class AuxiliaryPublicKey {
-    // A tuple of auxiliary public key and owner information that can be shared between guardians
-
+    /**
+     * The unique identifier of the guardian owning the key
+     */
     owner_id: GuardianId = '';
-    /*
-    The unique identifier of the guardian owning the key
-    */
 
+    /**
+     * The sequence order of the auxiliary public key (usually the guardian's sequence order)
+     */
     sequence_order = 0;
-    /*
-    The sequence order of the auxiliary public key (usually the guardian's sequence order)
-    */
 
+    /**
+     * A string representation of the Auxiliary public key that can be shared between guardians.
+     * It is up to the external `AuxiliaryEncrypt` function to know how to parse this value
+     */
     key: AuxiliaryPublicKeyType = '';
-    /*
-    A string representation of the Auxiliary public key that can be shared between guardians.
-    It is up to the external `AuxiliaryEncrypt` function to know how to parse this value
-    */
 }
 
+/**
+ * @class PublicKeySet
+ * A convenience set of public auxiliary and election keys
+ */
 export class PublicKeySet {
-    // A convenience set of public auxiliary and election keys
-
     election: ElectionPublicKey;
 
     auxiliary: AuxiliaryPublicKey = new AuxiliaryPublicKey();

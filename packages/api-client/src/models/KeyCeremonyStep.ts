@@ -1,3 +1,6 @@
+/**
+ * @enum {number}
+ */
 enum KeyCeremonyStep {
     Instructions = 0,
     MeetGuardians = 1,

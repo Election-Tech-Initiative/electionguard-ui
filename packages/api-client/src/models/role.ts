@@ -1,3 +1,6 @@
+/**
+ * @enum {string}
+ */
 enum Role {
     Observer = 'Observer',
     Guardian = 'Guardian',

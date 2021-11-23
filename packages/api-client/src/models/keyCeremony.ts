@@ -16,6 +16,9 @@ export type EncryptedMessage = string;
 export type ElectionPartialKeyBackup = any;
 export type ElectionPartialKeyVerification = any;
 
+/**
+ * @enum {number}
+ */
 export enum KeyCeremonyStatus {
     Canceled = -1,
     Inactive = 0,
@@ -23,12 +26,14 @@ export enum KeyCeremonyStatus {
     Complete = 2,
 }
 
+/**
+ * @interface KeyCeremonyGuardianApi data used by the KeyCeremony UI for dislaying steps
+ * @extends AssignedGuardian
+ */
 export interface KeyCeremonyGuardianApi extends AssignedGuardian {
-    // From Guardian API
     keypairCreated: TaskStatus;
     backupsCreated: TaskStatus;
 
-    // From Mediator API
     publicKeyShared: TaskStatus;
     backupsShared: TaskStatus;
     backupsVerified: TaskStatus;
@@ -36,12 +41,20 @@ export interface KeyCeremonyGuardianApi extends AssignedGuardian {
     verifications: BackupVerification[];
 }
 
+/**
+ * @interface BackupVerification
+ * data for backup verification
+ */
 export interface BackupVerification {
     verifier: AssignedGuardian;
     owner: AssignedGuardian;
     verified: TaskStatus;
 }
 
+/**
+ * @interface KeyCeremonyUi
+ * data used by UI for showing KeyCeremonies
+ */
 export interface KeyCeremonyUi {
     id: string;
     status: KeyCeremonyStatus;
@@ -52,6 +65,9 @@ export interface KeyCeremonyUi {
     dateCreated: Date;
 }
 
+/**
+ * @enum {string}
+ */
 export enum KeyCeremonyState {
     // Enumeration expressing the state of the key ceremony.
     CREATED = 'CREATED',
@@ -61,6 +77,9 @@ export enum KeyCeremonyState {
     CANCELLED = 'CANCELLED',
 }
 
+/**
+ * @enum {string}
+ */
 export enum KeyCeremonyGuardianStatus {
     // Enumeration expressing the status of a guardian's operations.
     INCOMPLETE = 'INCOMPLETE',
@@ -68,9 +87,11 @@ export enum KeyCeremonyGuardianStatus {
     COMPLETE = 'COMPLETE',
 }
 
+/**
+ * @class KeyCeremonyGuardianState
+ * Describes the operations each guardian must fulfill to complete a key ceremony.
+ */
 export class KeyCeremonyGuardianState {
-    // Describes the operations each guardian must fulfill to complete a key ceremony.
-
     public_key_shared: KeyCeremonyGuardianStatus = KeyCeremonyGuardianStatus.INCOMPLETE;
 
     backups_shared: KeyCeremonyGuardianStatus = KeyCeremonyGuardianStatus.INCOMPLETE;
@@ -78,9 +99,11 @@ export class KeyCeremonyGuardianState {
     backups_verified: KeyCeremonyGuardianStatus = KeyCeremonyGuardianStatus.INCOMPLETE;
 }
 
+/**
+ * @class KeyCEremony
+ * The Key Ceremony is a record of the state of a key ceremony.
+ */
 export class KeyCeremony {
-    // The Key Ceremony is a record of the state of a key ceremony.
-
     key_name = '';
 
     state: KeyCeremonyState = KeyCeremonyState.CREATED;
@@ -101,15 +124,19 @@ export class KeyCeremony {
     commitment_hash: ElementModQ = null;
 }
 
+/**
+ * @class KeyCeremonyQueryResponse Returns a collection of Key Ceremonies.
+ * @extends BaseResponse
+ */
 export class KeyCeremonyQueryResponse extends BaseResponse {
-    // Returns a collection of Key Ceremonies.
-
     key_ceremonies: KeyCeremony[] = [];
 }
 
+/**
+ * @class KeyCeremonyCreateRequest Request to create a new key ceremony.
+ * @extends BaseRequest
+ */
 export class KeyCeremonyCreateRequest extends BaseRequest {
-    // Request to create a new key ceremony.
-
     key_name = '';
 
     number_of_guardians = 0;
@@ -119,9 +146,11 @@ export class KeyCeremonyCreateRequest extends BaseRequest {
     guardian_ids: GuardianId[] = [];
 }
 
+/**
+ * @class KeyCeremonyStateResponse Returns a subset of KeyCeremony data that describes only the state.
+ * @extends BaseResponse
+ */
 export class KeyCeremonyStateResponse {
-    // Returns a subset of KeyCeremony data that describes only the state.
-
     key_name = '';
 
     state: KeyCeremonyState = KeyCeremonyState.CREATED;
@@ -132,40 +161,49 @@ export class KeyCeremonyStateResponse {
     >();
 }
 
+/**
+ * @class ElectionJointKeyResponse Response object containing the Election Joint Key.
+ * @extends BaseResponse
+ */
 export class ElectionJointKeyResponse extends BaseResponse {
-    // Response object containing the Election Joint Key.
-
     elgamal_public_key: ElectionJointKey;
 
     commitment_hash: ElementModQ;
 }
 
+/**
+ * @class PublishElectionJointKeyRequest Request to publish the election joint key.
+ * @extends BaseRequest
+ */
 export class PublishElectionJointKeyRequest extends BaseRequest {
-    // Request to publish the election joint key.
-
     key_name = '';
 
     election_public_keys: ElectionPublicKey[] = [];
 }
 
+/**
+ * @class GuardianAnnounceRequest A set of public auxiliary and election keys.
+ * @extends BaseRequest
+ */
 export class GuardianAnnounceRequest extends BaseRequest {
-    // A set of public auxiliary and election keys.
-
     key_name = '';
 
-    // The Key Ceremony to announce
     public_keys: PublicKeySet = new PublicKeySet();
 }
 
+/**
+ * @class GuardianQueryResponse Returns a collection of KeyCeremonyGuardians.
+ * @extends BaseResponse
+ */
 export class GuardianQueryResponse extends BaseResponse {
-    // Returns a collection of KeyCeremonyGuardians.
-
     guardians: KeyCeremonyGuardian[] = [];
 }
 
+/**
+ * @class GuardianSubmitBackupRequest Submit a collection of backups for a guardian.
+ * @extends BaseRequest
+ */
 export class GuardianSubmitBackupRequest extends BaseRequest {
-    // Submit a collection of backups for a guardian.
-
     key_name = '';
 
     guardian_id = '';
@@ -173,9 +211,11 @@ export class GuardianSubmitBackupRequest extends BaseRequest {
     backups: ElectionPartialKeyBackup[] = [];
 }
 
+/**
+ * @class GuardianSubmitVerificationRequest Submit a collection of verifications for a guardian.
+ * @extends BaseRequest
+ */
 export class GuardianSubmitVerificationRequest extends BaseRequest {
-    // Submit a collection of verifications for a guardian.
-
     key_name = '';
 
     guardian_id = '';
@@ -183,9 +223,11 @@ export class GuardianSubmitVerificationRequest extends BaseRequest {
     verifications: ElectionPartialKeyVerification[] = [];
 }
 
+/**
+ * @class GuardianSubmitChallengeRequest Submit a collection of challenges for a guardian.
+ * @extends BaseRequest
+ */
 export class GuardianSubmitChallengeRequest extends BaseRequest {
-    // Submit a collection of challenges for a guardian.
-
     key_name = '';
 
     guardian_id = '';
@@ -193,11 +235,12 @@ export class GuardianSubmitChallengeRequest extends BaseRequest {
     challenges: ElectionPartialKeyChallenge[] = [];
 }
 
+/**
+ * @class KeyCeremonyGuardian
+ *
+ * A record of the public data exchanged between guardians.
+ */
 export class KeyCeremonyGuardian {
-    /*
-    A record of the public data exchanged between guardians.
-    */
-
     key_name = '';
 
     guardian_id: GuardianId = '';

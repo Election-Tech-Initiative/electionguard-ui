@@ -1,3 +1,6 @@
+/**
+ * @enum {string}
+ */
 enum Permission {
     ManageUsers = 'users:edit',
     ViewUsers = 'users:view',

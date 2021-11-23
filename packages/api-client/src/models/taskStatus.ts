@@ -1,3 +1,6 @@
+/**
+ * @enum {number}
+ */
 export const enum TaskStatus {
     Error = -1,
     Incomplete = 0,
