@@ -1,10 +1,7 @@
-import { getApiClient } from '@electionguard-ui/api';
-import { ElectionSetupWizard } from '@electionguard-ui/library';
 import React from 'react';
+import { useGetJointKeys } from '@electionguard-ui/api-client';
+import { ElectionSetupWizard } from '@electionguard-ui/library';
 
-const service = getApiClient();
-export const ElectionSetupPage: React.FC = () => (
-    <ElectionSetupWizard keys={service.getJointKeys()} />
-);
+export const ElectionSetupPage: React.FC = () => <ElectionSetupWizard keys={useGetJointKeys} />;
 
 export default ElectionSetupPage;

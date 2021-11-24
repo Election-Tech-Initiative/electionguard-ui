@@ -1,10 +1,8 @@
-import { User } from '@electionguard/api-client';
+import { AsyncResult, User } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
 import * as React from 'react';
-import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
-
 import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {

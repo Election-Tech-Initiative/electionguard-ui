@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { useGetKeyCeremonies } from '../../data/queries';
+import { useGetKeyCeremonies } from '@electionguard-ui/api-client';
 import KeyCeremonyTable, { KeyCeremonyTableProps } from './KeyCeremonyTable';
 
 export default {

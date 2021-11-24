@@ -1,10 +1,9 @@
-import { JointKey } from '@electionguard-ui/api';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { AsyncResult, JointKey } from '@electionguard-ui/api-client';
+import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
-import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 import { FormattedDateCell, LinkCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';

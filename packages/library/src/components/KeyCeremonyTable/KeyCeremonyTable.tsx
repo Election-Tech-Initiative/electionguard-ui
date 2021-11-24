@@ -1,9 +1,8 @@
-import { KeyCeremony } from '@electionguard/api-client';
+import { AsyncResult, KeyCeremony } from '@electionguard/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 
 import { FormattedDateCell } from '../Cells';

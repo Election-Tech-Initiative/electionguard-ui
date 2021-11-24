@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { useGetElection } from '../../data/queries';
+import { useGetElection } from '@electionguard-ui/api-client';
 import ElectionTable, { ElectionTableProps } from './ElectionTable';
 
 export default {

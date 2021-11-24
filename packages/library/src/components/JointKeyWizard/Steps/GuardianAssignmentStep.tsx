@@ -1,10 +1,9 @@
-import { AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
+import { AsyncResult, AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { AsyncResult } from '../../../data/AsyncResult';
 import { Message, MessageId } from '../../../lang';
 import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';

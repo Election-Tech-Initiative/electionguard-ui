@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { useGetJointKeys } from '../../data/queries';
+import { useGetJointKeys } from '@electionguard-ui/api-client';
 import JointKeyTable, { JointKeyTableProps } from './JointKeyTable';
 
 export default {

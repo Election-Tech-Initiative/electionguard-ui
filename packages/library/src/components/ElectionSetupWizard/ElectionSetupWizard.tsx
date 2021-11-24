@@ -1,8 +1,7 @@
-import { JointKey, getGuardianApiClient } from '@electionguard/api-client';
+import { AsyncResult, JointKey, getGuardianApiClient } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import { AsyncResult } from '../../data/AsyncResult';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
