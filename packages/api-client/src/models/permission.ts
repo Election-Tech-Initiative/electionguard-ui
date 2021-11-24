@@ -1,7 +1,8 @@
 /**
+ * Permission
  * @enum {string}
  */
-enum Permission {
+export enum Permission {
     ManageUsers = 'users:edit',
     ViewUsers = 'users:view',
 

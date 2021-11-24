@@ -2,7 +2,9 @@
  * @interface User
  * data to represent a user for the UI
  */
-export default interface User {
+export interface User {
     id: string;
     name: string;
 }
+
+export default User;

@@ -8,7 +8,7 @@ import {
     validateBallot,
     decryptBallot,
     encryptBallot,
-} from './server/ballots';
+} from '../mocks/ballots';
 import {
     closeElection,
     findElection,
@@ -18,7 +18,7 @@ import {
     openElection,
     publishElection,
     putElection,
-} from './server/elections';
+} from '../mocks/elections';
 import {
     announceGuardianKeyCeremony,
     backupGuardianKeyCeremony,
@@ -36,9 +36,9 @@ import {
     publishKeyCeremony,
     putKeyCeremony,
     verifyGuardianKeyCeremony,
-} from './server/keyCeremony';
-import { findKeyGuardians, getGuardians, postGuardians, putGuardians } from './server/guardians';
-import { getManifest, findManifest, putManifest, validateManifest } from './server/manifest';
+} from '../mocks/keyCeremony';
+import { findKeyGuardians, getGuardians, postGuardians, putGuardians } from '../mocks/guardians';
+import { getManifest, findManifest, putManifest, validateManifest } from '../mocks/manifest';
 import {
     decryptShareTally,
     decryptSharePostTally,
@@ -48,12 +48,12 @@ import {
     getTally,
     postTally,
     postShareTally,
-} from './server/tally';
+} from '../mocks/tally';
 import { ElectionGuardMediatorApiClient } from './Api';
-import { postJointKey } from './server/jointKey';
-import { getJointKeys } from './server/electionSetup';
+import { postJointKey } from '../mocks/jointKey';
+import { getJointKeys } from '../mocks/electionSetup';
 
-export default class MediatorApi implements ElectionGuardMediatorApiClient {
+export default class MockMediatorApi implements ElectionGuardMediatorApiClient {
     getBallot = getBallot;
 
     getBallotInventory = getBallotInventory;

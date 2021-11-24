@@ -7,13 +7,13 @@ import {
     backupChallengeGuardian,
     verifyChallengeGuardian,
     findGuardians,
-} from './server/guardians';
-import { decryptSharesBallot } from './server/ballots';
-import { decryptShareTally, decryptSharePostTally } from './server/tally';
+} from '../mocks/guardians';
+import { decryptSharesBallot } from '../mocks/ballots';
+import { decryptShareTally, decryptSharePostTally } from '../mocks/tally';
 import { ElectionGuardGuardianApiClient } from './Api';
-import { getManifestPreview } from './server/electionSetup';
+import { getManifestPreview } from '../mocks/electionSetup';
 
-export default class GuardianApi implements ElectionGuardGuardianApiClient {
+export default class MockGuardianApi implements ElectionGuardGuardianApiClient {
     decryptSharesBallot = decryptSharesBallot;
 
     getGuardian = getGuardian;

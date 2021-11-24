@@ -26,7 +26,8 @@
         "npm-version-minor": "npm version minor"
     },
     "peerDependencies": {
-        "react": "^17.0.2"
+        "react": "^17.0.2",
+        "react-query": "^3.23.0"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^4.2.4",
@@ -36,7 +37,6 @@
         "@types/node": "^12.12.38",
         "@types/react": "^16.9.27",
         "@types/react-dom": "^16.9.7",
-        "microbundle": "^0.13.1",
         "babel-loader": "8.1.0",
         "microbundle": "^0.13.3",
         "react": "^17.0.2",

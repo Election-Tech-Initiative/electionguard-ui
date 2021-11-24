@@ -10,10 +10,10 @@ export class GuardianUI {
 
 export type ElectionKeyPair = any;
 export type AuxiliaryKeyPair = any;
-export type ElectionPartialKeyBackup = any;
+type ElectionPartialKeyBackup = any;
 export type PublicKeySetApi = any;
 export type ElectionPartialKeyChallenge = any;
-export type ElectionPartialKeyVerification = any;
+type ElectionPartialKeyVerification = any;
 
 /**
  * @class Guardian

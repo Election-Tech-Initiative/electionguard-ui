@@ -15,11 +15,10 @@ let guardianClient: ElectionGuardGuardianApiClient;
 
 export const getGuardianApiClient = (): ElectionGuardGuardianApiClient => {
     if (!guardianClient) {
-        if (process.env.REACT_APP_MOCK_ENABLED === 'true') {
-            guardianClient = new MockGuardianApi();
-        }
-
-        guardianClient = new GuardianApi();
+        guardianClient =
+            process.env.REACT_APP_MOCK_ENABLED === 'true'
+                ? new MockGuardianApi()
+                : new GuardianApi();
     }
     return guardianClient;
 };
@@ -28,11 +27,10 @@ let mediatorClient: ElectionGuardMediatorApiClient;
 
 export const getMediatorApiClient = (): ElectionGuardMediatorApiClient => {
     if (!mediatorClient) {
-        if (process.env.REACT_APP_MOCK_ENABLED === 'true') {
-            mediatorClient = new MockMediatorApi();
-        } else {
-            mediatorClient = new MediatorApi();
-        }
+        mediatorClient =
+            process.env.REACT_APP_MOCK_ENABLED === 'true'
+                ? new MockMediatorApi()
+                : new MediatorApi();
     }
     return mediatorClient;
 };

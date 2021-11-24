@@ -1,15 +1,14 @@
-import User from './models/user';
-import { BaseJointKey, JointKey } from './models/jointKey';
-import ManifestPreview, { Manifest } from './models/manifestPreview';
+import { BaseJointKey, JointKey } from '../models/jointKey';
+import ManifestPreview, { Manifest } from '../models/manifestPreview';
 import {
-    KeyCeremonyGuardianApi,
+    ElectionPartialKeyBackup,
+    ElectionPartialKeyVerification,
     KeyCeremony,
     ElectionJointKey,
     ElementModQ,
     KeyCeremonyGuardian,
     KeyCeremonyState,
-} from './models/keyCeremony';
-import KeyCeremonyStep from './models/KeyCeremonyStep';
+} from '../models/keyCeremony';
 import {
     CiphertextElectionContext,
     Election,
@@ -18,7 +17,7 @@ import {
     ElectionPublicKey,
     GuardianId,
     PublicKeySet,
-} from './models/election';
+} from '../models/election';
 import {
     BallotInventory,
     CiphertextBallot,
@@ -26,39 +25,10 @@ import {
     DecryptionShare,
     PlaintextBallot,
     SubmittedBallot,
-} from './models/ballot';
-import {
-    AssignedGuardian,
-    ElectionPartialKeyBackup,
-    ElectionPartialKeyChallenge,
-    ElectionPartialKeyVerification,
-    Guardian,
-    PublicKeySetApi,
-} from './models/guardian';
-import { CiphertextTally, CiphertextTallyDecryptionShare, PlaintextTally } from './models/tally';
-import { Schema } from './models/base';
-
-export default interface ElectionGuardApiClient {
-    healthCheck: () => boolean;
-    getUsersWithGuardianRole(): Promise<User[]>;
-    createJointKey(data: BaseJointKey): Promise<boolean>;
-
-    getJointKeys(): Promise<JointKey[]>;
-
-    getElection(election_id: string): Promise<Election[] | undefined>;
-    getAssignedGuardians(): AssignedGuardian[];
-    getManifestPreview(): ManifestPreview;
-
-    // key ceremony methods
-    getKeyCeremonyGuardians(): KeyCeremonyGuardianApi[];
-    setKeyCeremonyGuardianToStep(
-        guardian: KeyCeremonyGuardianApi,
-        step: KeyCeremonyStep
-    ): KeyCeremonyGuardianApi;
-    getKeyCeremonyGuardiansByStep(step: KeyCeremonyStep): KeyCeremonyGuardianApi[];
-    getKeyCeremonies(key_name: string): Promise<KeyCeremony[] | undefined>;
-    createGuardian(id: string, name: string, sequenceOrder: number): void;
-}
+} from '../models/ballot';
+import { ElectionPartialKeyChallenge, Guardian, PublicKeySetApi } from '../models/guardian';
+import { CiphertextTally, CiphertextTallyDecryptionShare, PlaintextTally } from '../models/tally';
+import { Schema } from '../models/base';
 
 export interface ElectionGuardMediatorApiClient {
     getBallot(election_id: string, ballot_id: string): Promise<CiphertextBallot[] | undefined>;
