@@ -7,6 +7,8 @@
     "scripts": {
         "start": "yarn run lerna run start --parallel",
         "start-with-storybook": "yarn storybook && yarn start",
+        "admin-app": "yarn run lerna run start --scope=@electionguard-ui/admin-app",
+        "result-app": "yarn run lerna run start --scope=@electionguard-ui/result-app",
         "build": "yarn run lerna run build --stream",
         "test": "yarn run lerna run test --parallel",
         "lint": "yarn run lerna run lint --parallel",
