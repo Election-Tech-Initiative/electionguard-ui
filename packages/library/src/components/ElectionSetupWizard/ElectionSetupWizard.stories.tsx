@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { useGetJointKeys } from '@electionguard-ui/api-client';
+import { useGetJointKeys } from '@electionguard/api-client';
 import ElectionSetupWizard, { ElectionSetupWizardProps } from './ElectionSetupWizard';
 
 export default {

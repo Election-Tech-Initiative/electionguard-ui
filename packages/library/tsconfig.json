@@ -18,8 +18,7 @@
         "allowSyntheticDefaultImports": true,
         "outDir": "./dist",
         "rootDir": "./src",
-        "resolveJsonModule": true,
-        "isolatedModules": true
+        "resolveJsonModule": true
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist", ".storybook"]

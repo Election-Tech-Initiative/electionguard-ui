@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AsyncResult } from '@electionguard-ui/api-client';
+import { AsyncResult } from '@electionguard/api-client';
 
 // import InternationalText from '../InternationalText';
 

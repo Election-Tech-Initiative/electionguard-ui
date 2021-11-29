@@ -13,7 +13,7 @@ export const filterByTerm = (inputArr: UrlHolder[], searchTerm: string): UrlHold
 
 let guardianClient: ElectionGuardGuardianApiClient;
 
-export const getGuardianApiClient = (): ElectionGuardGuardianApiClient => {
+export function getGuardianApiClient(): ElectionGuardGuardianApiClient {
     if (!guardianClient) {
         guardianClient =
             process.env.REACT_APP_MOCK_ENABLED === 'true'
@@ -21,11 +21,11 @@ export const getGuardianApiClient = (): ElectionGuardGuardianApiClient => {
                 : new GuardianApi();
     }
     return guardianClient;
-};
+}
 
 let mediatorClient: ElectionGuardMediatorApiClient;
 
-export const getMediatorApiClient = (): ElectionGuardMediatorApiClient => {
+export function getMediatorApiClient(): ElectionGuardMediatorApiClient {
     if (!mediatorClient) {
         mediatorClient =
             process.env.REACT_APP_MOCK_ENABLED === 'true'
@@ -33,4 +33,6 @@ export const getMediatorApiClient = (): ElectionGuardMediatorApiClient => {
                 : new MediatorApi();
     }
     return mediatorClient;
-};
+}
+
+export default getMediatorApiClient;

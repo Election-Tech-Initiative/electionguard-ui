@@ -7,7 +7,7 @@ import { ElementModQ } from './keyCeremony';
  * @interface ManifestPreview
  * Data to be shown when Manifest is displayed to user
  */
-export default interface ManifestPreview {
+export interface ManifestPreview {
     name: string;
     numberOfContests: number;
     numberOfStyles: number;

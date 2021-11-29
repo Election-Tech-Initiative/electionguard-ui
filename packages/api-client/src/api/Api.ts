@@ -1,7 +1,6 @@
 import { BaseJointKey, JointKey } from '../models/jointKey';
-import ManifestPreview, { Manifest } from '../models/manifestPreview';
+import { ManifestPreview, Manifest } from '../models/manifestPreview';
 import {
-    ElectionPartialKeyBackup,
     ElectionPartialKeyVerification,
     KeyCeremony,
     ElectionJointKey,
@@ -26,7 +25,12 @@ import {
     PlaintextBallot,
     SubmittedBallot,
 } from '../models/ballot';
-import { ElectionPartialKeyChallenge, Guardian, PublicKeySetApi } from '../models/guardian';
+import {
+    ElectionPartialKeyChallenge,
+    Guardian,
+    PublicKeySetApi,
+    ElectionPartialKeyBackup,
+} from '../models/guardian';
 import { CiphertextTally, CiphertextTallyDecryptionShare, PlaintextTally } from '../models/tally';
 import { Schema } from '../models/base';
 
@@ -286,3 +290,5 @@ export interface ElectionGuardGuardianApiClient {
 
     getManifestPreview(): ManifestPreview;
 }
+
+export default ElectionGuardGuardianApiClient;

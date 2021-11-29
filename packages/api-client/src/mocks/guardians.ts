@@ -3,13 +3,10 @@ import {
     AssignedGuardian,
     Guardian,
     ElectionPartialKeyChallenge,
+    ElectionPartialKeyBackup,
     PublicKeySetApi,
 } from '../models/guardian';
-import {
-    ElectionPartialKeyBackup,
-    ElectionPartialKeyVerification,
-    KeyCeremonyGuardian,
-} from '../models/keyCeremony';
+import { ElectionPartialKeyVerification, KeyCeremonyGuardian } from '../models/keyCeremony';
 import { GuardianId, PublicKeySet } from '../models/election';
 
 export const getAssignedGuardians = (): AssignedGuardian[] => [

@@ -1,5 +1,5 @@
 import { JointKey } from '../models/jointKey';
-import ManifestPreview from '../models/manifestPreview';
+import { ManifestPreview } from '../models/manifestPreview';
 import { getAssignedGuardians } from './guardians';
 
 export const getManifestPreview = (): ManifestPreview => {

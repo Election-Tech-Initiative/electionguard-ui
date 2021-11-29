@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { useCreateJointKey, useGetUsersWithGuardianRole } from '@electionguard-ui/api-client';
+import { useCreateJointKey, useGetUsersWithGuardianRole } from '@electionguard/api-client';
 import JointKeyWizard, { JointKeyWizardProps } from './JointKeyWizard';
 
 const queryClient = new QueryClient();
