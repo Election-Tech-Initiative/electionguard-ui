@@ -1,15 +1,17 @@
+import { AsyncResult, Election, ElectionState } from '@electionguard/api-client';
 import { Box, Button, Theme, lighten, makeStyles } from '@material-ui/core';
 import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@material-ui/data-grid';
 import { GetApp as DownloadIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import AsyncContent from '../AsyncContent';
 
 import { EmptyCell, FormattedDateCell, NewCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
-import { ElectionRowData } from './ElectionRowData';
+import ElectionRow from './ElectionRow';
 
 export interface ElectionTableProps {
-    data: ElectionRowData[];
+    data: (election_id: string) => AsyncResult<Election[]>;
 }
 
 const DownloadButtonCell = (params: GridCellParams, download: (id: number) => void) => {
@@ -108,26 +110,51 @@ const useStyles = makeStyles((theme: Theme) => {
 export const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
     const classes = useStyles();
     const intl = useIntl();
+    const electionQuery = data('election-1');
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%" className={classes.root}>
-            <DataGrid
-                rows={data}
-                columns={columns(intl)}
-                components={{
-                    Toolbar: FilterToolbar,
+            <AsyncContent query={electionQuery} errorMessage="there was an error">
+                {(electionsFound) => {
+                    const electionData: ElectionRow[] = [];
+                    electionsFound.forEach((item) => {
+                        const date = new Date();
+                        electionData.push(
+                            new ElectionRow(
+                                item.election_id,
+                                item.key_name,
+                                'Maryland',
+                                'Montgomery County',
+                                date,
+                                item.state === ElectionState.CREATED
+                            )
+                        );
+                    });
+                    return (
+                        <>
+                            <DataGrid
+                                rows={electionData}
+                                columns={columns(intl)}
+                                components={{
+                                    Toolbar: FilterToolbar,
+                                }}
+                                getRowClassName={(params) =>
+                                    `election-table--${
+                                        params.getValue(params.id, 'isNew') ? 'new' : ''
+                                    }`
+                                }
+                                sortModel={[
+                                    {
+                                        field: 'dateCreated',
+                                        sort: 'asc' as GridSortDirection,
+                                    },
+                                ]}
+                                hideFooter
+                                disableSelectionOnClick
+                            />
+                        </>
+                    );
                 }}
-                getRowClassName={(params) =>
-                    `election-table--${params.getValue(params.id, 'isNew') ? 'new' : ''}`
-                }
-                sortModel={[
-                    {
-                        field: 'dateCreated',
-                        sort: 'asc' as GridSortDirection,
-                    },
-                ]}
-                hideFooter
-                disableSelectionOnClick
-            />
+            </AsyncContent>
         </Box>
     );
 };

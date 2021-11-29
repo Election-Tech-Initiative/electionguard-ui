@@ -1,6 +1,3 @@
-export interface UrlHolder {
-    url: string;
-}
-
-export const filterByTerm = (inputArr: UrlHolder[], searchTerm: string): UrlHolder[] =>
-    inputArr.filter((arrayElement) => arrayElement.url.match(searchTerm));
+export * from './api';
+export * from './data';
+export * from './models';

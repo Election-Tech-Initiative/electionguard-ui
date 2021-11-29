@@ -1,4 +1,4 @@
-import { AssignedGuardian } from '@electionguard-ui/api';
+import { AssignedGuardian } from '@electionguard/api-client';
 import { Container, makeStyles } from '@material-ui/core';
 import React from 'react';
 

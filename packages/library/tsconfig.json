@@ -16,8 +16,8 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "allowSyntheticDefaultImports": true,
-        "outDir": "dist",
-        "rootDir": "src",
+        "outDir": "./dist",
+        "rootDir": "./src",
         "resolveJsonModule": true,
         "isolatedModules": true
     },

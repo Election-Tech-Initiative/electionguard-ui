@@ -1,9 +1,10 @@
-import { JointKey } from '@electionguard-ui/api';
+import { AsyncResult, JointKey } from '@electionguard/api-client';
 import { Box, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
+import AsyncContent from '../AsyncContent';
 import { FormattedDateCell, LinkCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyTableProps {
-    data: JointKey[];
+    data: () => AsyncResult<JointKey[]>;
 }
 
 const columns = (intl: IntlShape): GridColDef[] => [
@@ -62,18 +63,26 @@ const columns = (intl: IntlShape): GridColDef[] => [
 export const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
+    const jointKeyQuery = data();
+
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
-                className={classes.root}
-                autoHeight
-                rows={data}
-                columns={columns(intl)}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
-                hideFooterPagination
-            />
+            <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
+                {(keyData) => (
+                    <>
+                        <DataGrid
+                            className={classes.root}
+                            autoHeight
+                            rows={keyData}
+                            columns={columns(intl)}
+                            components={{
+                                Toolbar: FilterToolbar,
+                            }}
+                            hideFooterPagination
+                        />
+                    </>
+                )}
+            </AsyncContent>
         </Box>
     );
 };

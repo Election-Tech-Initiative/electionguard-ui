@@ -1,4 +1,4 @@
-import { TaskStatus } from '@electionguard-ui/api';
+import { TaskStatus } from '@electionguard/api-client';
 import { Button, Chip } from '@material-ui/core';
 import { GridCellParams } from '@material-ui/data-grid';
 import React, { ReactElement } from 'react';

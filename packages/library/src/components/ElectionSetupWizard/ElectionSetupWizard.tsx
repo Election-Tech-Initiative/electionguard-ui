@@ -1,4 +1,4 @@
-import { JointKey, getApiClient } from '@electionguard-ui/api';
+import { AsyncResult, JointKey, getGuardianApiClient } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
@@ -26,24 +26,25 @@ export enum ElectionSetupStep {
 }
 
 export interface ElectionSetupWizardProps {
-    keys: JointKey[];
+    getKeys: () => AsyncResult<JointKey[]>;
 }
 
 /**
  * Wizard to setup the election
  */
-export const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ keys }) => {
+const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ getKeys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
-    const service = getApiClient();
+
+    const service = getGuardianApiClient();
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.Instructions}>
                 <SetupInstructionsStep onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep onNext={next} keys={keys} />
+                <JointKeySelectStep onNext={next} getKeys={getKeys} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
                 <JointKeyRetrievedStep onNext={next} />

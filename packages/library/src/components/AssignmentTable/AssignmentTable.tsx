@@ -1,12 +1,12 @@
-import { User } from '@electionguard-ui/api';
+import { AsyncResult, User } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
 import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
 import * as React from 'react';
-
+import AsyncContent from '../AsyncContent';
 import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {
-    data: User[];
+    data: () => AsyncResult<User[]>;
     onChanged: (selectedIds: string[]) => void;
 }
 
@@ -23,22 +23,30 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
         onChanged(rows.map((rowId: GridRowId) => rowId.toString()));
     };
 
+    const usersQuery = data();
+
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
-                autoHeight
-                rows={data}
-                columns={columns}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
-                onSelectionModelChange={(newSelection) => {
-                    onSelectionChange(newSelection);
-                }}
-                hideFooterPagination
-                selectionModel={selectionModel}
-                checkboxSelection
-            />
+            <AsyncContent query={usersQuery} errorMessage="there was an error">
+                {(userData) => (
+                    <>
+                        <DataGrid
+                            autoHeight
+                            rows={userData}
+                            columns={columns}
+                            components={{
+                                Toolbar: FilterToolbar,
+                            }}
+                            onSelectionModelChange={(newSelection) => {
+                                onSelectionChange(newSelection);
+                            }}
+                            hideFooterPagination
+                            selectionModel={selectionModel}
+                            checkboxSelection
+                        />
+                    </>
+                )}
+            </AsyncContent>
         </Box>
     );
 };

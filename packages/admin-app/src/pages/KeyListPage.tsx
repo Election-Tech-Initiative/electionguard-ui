@@ -1,4 +1,4 @@
-import { getApiClient } from '@electionguard-ui/api';
+import { getApiClient } from '@electionguard/api-client';
 import { JointKeyTable, ListPageLayout } from '@electionguard-ui/library';
 import React from 'react';
 import { useHistory } from 'react-router-dom';

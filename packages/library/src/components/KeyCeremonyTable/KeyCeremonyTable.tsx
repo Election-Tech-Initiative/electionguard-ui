@@ -1,8 +1,9 @@
-import { KeyCeremony } from '@electionguard-ui/api';
+import { AsyncResult, KeyCeremony } from '@electionguard/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
+import AsyncContent from '../AsyncContent';
 
 import { FormattedDateCell } from '../Cells';
 import FilterToolbar from '../FilterToolbar';
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface KeyCeremonyTableProps {
-    data: KeyCeremony[];
+    data: () => AsyncResult<KeyCeremony[]>;
 }
 
 const LinkCell = (): React.ReactElement => <Button color="primary">Join</Button>;
@@ -64,18 +65,25 @@ const columns = (intl: IntlShape): GridColDef[] => [
 export const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
+    const keyCeremonyQuery = data();
     return (
         <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
-                className={classes.root}
-                autoHeight
-                rows={data}
-                columns={columns(intl)}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
-                hideFooterPagination
-            />
+            <AsyncContent query={keyCeremonyQuery} errorMessage="there was an error">
+                {(keyCeremoniesFound) => (
+                    <>
+                        <DataGrid
+                            className={classes.root}
+                            autoHeight
+                            rows={keyCeremoniesFound}
+                            columns={columns(intl)}
+                            components={{
+                                Toolbar: FilterToolbar,
+                            }}
+                            hideFooterPagination
+                        />
+                    </>
+                )}
+            </AsyncContent>
         </Box>
     );
 };
