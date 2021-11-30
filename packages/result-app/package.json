@@ -33,7 +33,7 @@
         "lint": "npm run eslint && npm run prettier",
         "lint:fix": "npm run eslint --fix && npm run prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-        "prettier": "prettier --check {src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}"
+        "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
     },
     "browserslist": {
         "production": [
