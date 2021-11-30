@@ -13,7 +13,7 @@
         "lint:fix": "lerna run lint:fix --parallel",
         "bundle": "lerna run bundle --parallel",
         "clean": "lerna clean --yes",
-        "bootstrap": "npm clean && lerna bootstrap",
+        "bootstrap": "npm run clean && lerna bootstrap",
         "storybook": "lerna run storybook",
         "npm-publish": "lerna run npm-publish",
         "npm-version": "lerna run npm-version-patch"
