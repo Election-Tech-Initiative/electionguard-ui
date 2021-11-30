@@ -18,7 +18,13 @@
         "allowSyntheticDefaultImports": true,
         "outDir": "./dist",
         "rootDir": "./src",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "target": "esnext",
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noEmit": true
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist", ".storybook"]

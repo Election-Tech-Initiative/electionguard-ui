@@ -11,7 +11,7 @@
     "types": "dist/index.d.ts",
     "dependencies": {
         "@babel/core": "^7.13.15",
-        "@electionguard/api-client": "0.2.0",
+        "@electionguard/api-client": "0.1.2",
         "@formatjs/intl": "^1.14.2",
         "@material-ui/core": "^4.11.3",
         "@material-ui/data-grid": "^4.0.0-alpha.29",
@@ -49,12 +49,12 @@
         "microbundle": "^0.13.1"
     },
     "scripts": {
-        "build": "yarn run bundle",
-        "start": "yarn run bundle watch --no-compress",
+        "build": "npm run bundle",
+        "start": "npm run bundle watch --no-compress",
         "test": "react-scripts test --passWithNoTests",
         "bundle": "microbundle --jsx 'React.createElement' --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs --external .*/images/.*",
-        "lint": "yarn eslint && yarn prettier",
-        "lint:fix": "yarn eslint --fix && yarn prettier --write",
+        "lint": "npm run eslint && npm run prettier",
+        "lint:fix": "npm eslint --fix && npm run prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
         "storybook": "start-storybook -p 6006 -s ./public",

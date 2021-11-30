@@ -1,6 +1,6 @@
 {
     "name": "@electionguard/api-client",
-    "version": "0.2.0",
+    "version": "0.1.2",
     "description": "API client for electionguard-api-python",
     "author": "electionguard",
     "license": "MIT",
@@ -13,12 +13,12 @@
         "node": ">=10"
     },
     "scripts": {
-        "build": "yarn run bundle",
-        "start": "yarn run bundle watch --no-compress",
+        "build": "npm run bundle",
+        "start": "npm run bundle watch --no-compress",
         "test": "react-scripts test",
         "bundle": "microbundle --jsx react --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs",
-        "lint": "yarn eslint",
-        "lint:fix": "yarn eslint --fix && yarn prettier --write",
+        "lint": "npm run eslint",
+        "lint:fix": "npm run eslint --fix && npm run prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'",
         "npm-publish": "npm publish --access public",

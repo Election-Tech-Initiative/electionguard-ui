@@ -7,7 +7,7 @@
     "version": "0.1.2",
     "private": true,
     "dependencies": {
-        "@electionguard/api-client": "0.2.0",
+        "@electionguard/api-client": "0.1.2",
         "@electionguard-ui/library": "0.1.2",
         "@material-ui/core": "^4.12.3",
         "@testing-library/jest-dom": "^5.11.4",
@@ -31,8 +31,8 @@
         "start": "PORT=3001 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "lint": "yarn eslint",
-        "lint:fix": "yarn eslint --fix && yarn prettier --write",
+        "lint": "npm run eslint",
+        "lint:fix": "npm run eslint --fix && npm run prettier --write",
         "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier --check '{src,public}/**/*.{js,jsx,ts,tsx,css,html,svg}'"
     },

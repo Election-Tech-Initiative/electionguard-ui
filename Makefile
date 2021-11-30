@@ -1,35 +1,35 @@
 .PHONY: install build start test lint storybook build-storybook docker-dev-app docker-dev-storybook docker-dev-all
 
 install:
-	yarn install
-	yarn bootstrap
+	npm install
+	npm run bootstrap
 
 build:
-	yarn build
+	npm run build
 
 start:
-	yarn start
+	npm run start
 
 start-with-storybook:
-	yarn start-with-storybook
+	npm run start-with-storybook
 
 test:
-	yarn test
+	npm run test
 
 lint:
-	yarn lint
+	npm run lint
 
 storybook:
-	yarn storybook
+	npm run storybook
 
 build-storybook:
-	yarn build-storybook
+	npm run build-storybook
 
 npm-version:
-	yarn npm-version
+	npm run npm-version
 
 npm-publish:
-	yarn npm-publish
+	npm run npm-publish
 
 
 
