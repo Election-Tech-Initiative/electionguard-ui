@@ -46,7 +46,7 @@
         "web-vitals": "^1.0.1"
     },
     "devDependencies": {
-        "microbundle": "^0.13.1"
+        "microbundle": "^0.13.3"
     },
     "scripts": {
         "build": "npm run bundle",
