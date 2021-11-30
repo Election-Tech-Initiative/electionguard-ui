@@ -1,4 +1,6 @@
-.PHONY: install build start test lint storybook build-storybook docker-dev-app docker-dev-storybook docker-dev-all
+.PHONY: all install build start test lint admin-app result-app storybook build-storybook start-with-storybook npm-version npm-publish docker-dev-app docker-dev-storybook docker-dev-all
+
+all: install lint build test
 
 install:
 	npm install
@@ -10,28 +12,38 @@ build:
 start:
 	npm run start
 
-start-with-storybook:
-	npm run start-with-storybook
-
 test:
 	npm run test
 
 lint:
 	npm run lint
 
+
+# Project
+admin-app:
+	npm run admin-app
+
+result-app:
+	npm run result-app
+
+
+# Storybook
 storybook:
 	npm run storybook
 
 build-storybook:
 	npm run build-storybook
 
+start-with-storybook:
+	npm run start-with-storybook
+
+
+# Packaging
 npm-version:
 	npm run npm-version
 
 npm-publish:
 	npm run npm-publish
-
-
 
 
 # Docker

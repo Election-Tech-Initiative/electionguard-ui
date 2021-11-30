@@ -4,7 +4,7 @@
 
 [![Azure_Deploy_Workflow](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml/badge.svg)](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml) [![license](https://img.shields.io/github/license/microsoft/electionguard)](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
 
-This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the compoent library use ReactComponents of this library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
+This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the component library use ReactComponents of this library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
 
 ## 📁 In This Repository
 
@@ -38,6 +38,8 @@ ElectionGuard supports a variety of use cases. The Primary use case is to genera
 
 ## 🚀 Quick Start
 
+### Basics
+
 In the project directory, you can run:
 
 Using [**make**](https://www.gnu.org/software/make/manual/make.html), the entire [GitHub Action workflow][pull request workflow] can be run with one command:
@@ -46,19 +48,23 @@ Using [**make**](https://www.gnu.org/software/make/manual/make.html), the entire
 make
 ```
 
-Installs lerna and does a bootstrap for the projects.
-You might need to enter your admin credentials when this runs.
+#### Install
+
+Installs dependencies and does lerna bootstrap for the projects.
 
 ```
 make install
 ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Lint
+
+Lints all of the packages.
 
 ```
-make test
+make lint
 ```
+
+#### Build
 
 Builds the app for production to the `build` folder for each package.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -72,39 +78,56 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 make build
 ```
 
-Runs linting on all of the packages can be run by executing:
+#### Test
+
+Launches the test runner in the interactive watch mode.
 
 ```
-make lint
+make test
 ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Development
 
-The page will reload if you make edits.\
+#### Applications
+
+Runs the apps in development mode. Open the Admin App at [http://localhost:3001](http://localhost:3001) or the Result App at [http://localhost:3002](http://localhost:3002) to view them in the browser.
+
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ```
 make start
 ```
 
-Runs the app in the storybook mode.\
-Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+Runs only the admin application.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+make admin-app
+```
+
+Runs only the result application.
+
+```
+make result-app
+```
+
+#### Storybook
+
+Runs the app in the storybook mode. Open [http://localhost:6006](http://localhost:6006) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
 
 ```
 make storybook
 ```
 
-A local docker image will be created to run the admin website instead of running it directly like the 'make start' comand above.
+#### Docker
+
+A local docker image will be created to run the admin website instead of running it directly like the 'make start' command above.
 
 ```
 make docker-dev-app
 ```
 
-A local docker image will be created to run the storybook website instead of running it directly like the 'make storybook' comand above.
+A local docker image will be created to run the storybook website instead of running it directly like the 'make storybook' command above.
 
 ```
 make docker-dev-storybook
@@ -124,7 +147,7 @@ Please report any bugs, feature requests, or enhancements using the [GitHub Issu
 
 ### Have Questions?
 
-Electionguard would love for you to ask questions out in the open using GitHub Issues. If you really want to email the ElectionGuard team, reach out at electionguard@microsoft.com.
+ElectionGuard would love for you to ask questions out in the open using GitHub Issues. If you really want to email the ElectionGuard team, reach out at electionguard@microsoft.com.
 
 ## License
 
@@ -137,3 +160,7 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+
+
+<!--Links-->
+[pull request workflow]: https://github.com/microsoft/electionguard-ui/blob/main/.github/workflows/pull_request.yml
