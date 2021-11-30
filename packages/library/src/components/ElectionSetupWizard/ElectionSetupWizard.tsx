@@ -32,7 +32,7 @@ export interface ElectionSetupWizardProps {
 /**
  * Wizard to setup the election
  */
-const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ getKeys }) => {
+export const ElectionSetupWizard: React.FC<ElectionSetupWizardProps> = ({ getKeys }) => {
     const [step, setStep] = useState(ElectionSetupStep.Instructions);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));

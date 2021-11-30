@@ -1,11 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import {
-    JointKeyWizard,
-    useCreateJointKey,
-    useGetUsersWithGuardianRole,
-} from '@electionguard-ui/library';
+import { JointKeyWizard } from '@electionguard-ui/library';
+
+import { useCreateJointKey, useGetUsersWithGuardianRole } from '@electionguard/api-client';
 
 export const KeySetupPage: React.FC = () => {
     const history = useHistory();
