@@ -1,14 +1,15 @@
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { DefaultLayout } from '@electionguard-ui/library';
 import MainRoutes from './routes/MainRoutes';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function App() {
-    return (
+const App: React.FunctionComponent = () => (
+    <DefaultLayout>
         <Router>
             <MainRoutes />
         </Router>
-    );
-}
+    </DefaultLayout>
+);
 
 export default App;

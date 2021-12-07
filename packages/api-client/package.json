@@ -30,10 +30,10 @@
         "react-query": "^3.23.0"
     },
     "devDependencies": {
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.5.0",
+        "@testing-library/jest-dom": "^5.15.1",
+        "@testing-library/react": "^12.1.2",
         "@testing-library/user-event": "^7.2.1",
-        "@types/jest": "^25.1.4",
+        "@types/jest": "^27.0.3",
         "@types/node": "^12.12.38",
         "@types/react": "^16.9.27",
         "@types/react-dom": "^16.9.7",
@@ -41,7 +41,7 @@
         "microbundle": "^0.13.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-scripts": "4.0.3",
+        "react-scripts": "^4.0.3",
         "typescript": "^4.3.5"
     },
     "files": [
