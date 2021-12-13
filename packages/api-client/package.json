@@ -26,7 +26,7 @@
         "npm-version-minor": "npm version minor"
     },
     "peerDependencies": {
-        "react": "^17.0.2",
+        "react": "17.0.2",
         "react-query": "^3.23.0"
     },
     "devDependencies": {
@@ -39,8 +39,8 @@
         "@types/react-dom": "^16.9.7",
         "babel-loader": "8.1.0",
         "microbundle": "^0.13.3",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
         "react-scripts": "^4.0.3",
         "typescript": "^4.3.5"
     },
