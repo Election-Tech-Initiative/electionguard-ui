@@ -22,9 +22,7 @@ import {
  */
 const MainRoutes: React.FC = () => (
     <Routes>
-        <Route path="/">
-            <Navigate to="/menu" />
-        </Route>
+        <Route path="/" element={<Navigate to="/menu" />} />
         <Route path="/menu" element={<MenuPage />} />
 
         <Route path="/election" element={<ElectionListPage />} />

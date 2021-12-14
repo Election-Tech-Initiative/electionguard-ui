@@ -1,7 +1,6 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
-import { useGetJointKeys } from '@electionguard/api-client';
-import { ElectionSetupWizard } from '@electionguard-ui/library';
 
-export const ElectionSetupPage: React.FC = () => <ElectionSetupWizard getKeys={useGetJointKeys} />;
+export const ElectionSetupPage: React.FC = () => <Grid>Election Setup</Grid>;
 
 export default ElectionSetupPage;

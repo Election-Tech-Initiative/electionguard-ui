@@ -49,9 +49,6 @@
         "microbundle": "^0.13.3"
     },
     "scripts": {
-        "build": "npm run bundle",
-        "start": "npm run bundle watch --no-compress",
-        "test": "react-scripts test --passWithNoTests",
         "bundle": "microbundle --jsx React.createElement --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs --external .*/images/.*",
         "lint": "npm run eslint && npm run prettier",
         "lint:fix": "npm eslint --fix && npm run prettier --write",

@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
-import { Language, theme } from '@electionguard-ui/library';
+import { CssBaseline, MuiThemeProvider, createTheme } from '@material-ui/core';
 
 import App from './App';
-import { LanguageContext, defaultLanguage } from './lang';
 import reportWebVitals from './reportWebVitals';
 
 const queryClient = new QueryClient();
@@ -14,18 +12,12 @@ const queryClient = new QueryClient();
 ReactDOM.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <LanguageContext.Provider value={defaultLanguage}>
-                <LanguageContext.Consumer>
-                    {(language: Language) => (
-                        <IntlProvider locale={language.locale} messages={language.messages}>
-                            <MuiThemeProvider theme={theme(language.mui)}>
-                                <CssBaseline />
-                                <App />
-                            </MuiThemeProvider>
-                        </IntlProvider>
-                    )}
-                </LanguageContext.Consumer>
-            </LanguageContext.Provider>
+            <IntlProvider locale="en" messages={{}}>
+                <MuiThemeProvider theme={createTheme()}>
+                    <CssBaseline />
+                    <App />
+                </MuiThemeProvider>
+            </IntlProvider>
         </QueryClientProvider>
     </React.StrictMode>,
     document.getElementById('root')

@@ -8,24 +8,12 @@ import SelectElectionPage from '../pages/SelectElectionPage';
 
 const MainRoutes: React.FC = () => (
     <Routes>
-        <Route path="/">
-            <Navigate to="/menu" />
-        </Route>
-        <Route path="/menu">
-            <SelectElectionPage />
-        </Route>
-        <Route path="/:election">
-            <ElectionPage />
-        </Route>
-        <Route path="/:election/results">
-            <ResultsPage />
-        </Route>
-        <Route path="/:election/records">
-            <RecordsPage />
-        </Route>
-        <Route path="/:election/:ballot">
-            <BallotConfirmationPage />
-        </Route>
+        <Route path="/" element={<Navigate to="/menu" />} />
+        <Route path="/menu" element={<SelectElectionPage />} />
+        <Route path="/:election" element={<ElectionPage />} />
+        <Route path="/:election/results" element={<ResultsPage />} />
+        <Route path="/:election/records" element={<RecordsPage />} />
+        <Route path="/:election/:ballot" element={<BallotConfirmationPage />} />
     </Routes>
 );
 
