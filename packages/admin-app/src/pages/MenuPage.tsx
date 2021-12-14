@@ -9,7 +9,7 @@ import {
     loremIpsum,
 } from '@electionguard-ui/library';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Message, MessageId } from '../lang';
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const MenuPage: React.FC = () => {
     const config = useContext(ConfigContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
     return (
         <Grid container className={classes.root}>
@@ -35,23 +35,23 @@ export const MenuPage: React.FC = () => {
             </Container>
             <MenuOptions prompt={new Message(MessageId.MenuPrompt)}>
                 <TypedMenuOption
-                    onClick={() => history.push('/key-ceremony')}
+                    onClick={() => navigate('/key-ceremony')}
                     type={MenuOptionType.BeginKeyCeremony}
                 />
                 <TypedMenuOption
-                    onClick={() => history.push('/election')}
+                    onClick={() => navigate('/election')}
                     type={MenuOptionType.ManageElections}
                 />
                 <TypedMenuOption
-                    onClick={() => history.push('/election-setup')}
+                    onClick={() => navigate('/election-setup')}
                     type={MenuOptionType.SetupElection}
                 />
                 <TypedMenuOption
-                    onClick={() => history.push('/joint-key')}
+                    onClick={() => navigate('/joint-key')}
                     type={MenuOptionType.ManageJointKeys}
                 />
                 <TypedMenuOption
-                    onClick={() => history.push('/joint-key-setup')}
+                    onClick={() => navigate('/joint-key-setup')}
                     type={MenuOptionType.SetupJointKeys}
                 />
             </MenuOptions>

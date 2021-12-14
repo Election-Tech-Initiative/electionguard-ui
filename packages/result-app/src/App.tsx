@@ -6,9 +6,7 @@ import MainRoutes from './routes/MainRoutes';
 
 const App: React.FunctionComponent = () => (
     <DefaultLayout>
-        <Router>
-            <MainRoutes />
-        </Router>
+        <Router>{MainRoutes}</Router>
     </DefaultLayout>
 );
 

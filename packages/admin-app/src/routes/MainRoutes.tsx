@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
     ElectionListPage,
@@ -21,27 +21,27 @@ import {
  * and able to view the main UI
  */
 const MainRoutes: React.FC = () => (
-    <Switch>
-        <Route path="/" exact>
-            <Redirect to="/menu" />
+    <Routes>
+        <Route path="/">
+            <Navigate to="/menu" />
         </Route>
-        <Route path="/menu" component={MenuPage} />
+        <Route path="/menu" element={<MenuPage />} />
 
-        <Route path="/election" component={ElectionListPage} />
-        <Route path="/election-setup" component={ElectionSetupPage} />
-        <Route path="/election/:election-id/key" component={ElectionKeyPage} />
-        <Route path="/election/:election-id/upload-ballot" component={UploadBallotPage} />
+        <Route path="/election" element={<ElectionListPage />} />
+        <Route path="/election-setup" element={<ElectionSetupPage />} />
+        <Route path="/election/:election-id/key" element={<ElectionKeyPage />} />
+        <Route path="/election/:election-id/upload-ballot" element={<UploadBallotPage />} />
 
-        <Route path="/key" component={KeyListPage} />
-        <Route path="/key-setup" component={KeySetupPage} />
-        <Route path="/key/:key-id/ceremony" component={KeyCeremonyPage} />
+        <Route path="/key" element={<KeyListPage />} />
+        <Route path="/key-setup" element={<KeySetupPage />} />
+        <Route path="/key/:key-id/ceremony" element={<KeyCeremonyPage />} />
 
-        <Route path="/tally" component={TallyListPage} />
-        <Route path="/tally-setup" component={TallySetupPage} />
-        <Route path="/tally/:key-id/ceremony" component={TallyCeremonyPage} />
+        <Route path="/tally" element={<TallyListPage />} />
+        <Route path="/tally-setup" element={<TallySetupPage />} />
+        <Route path="/tally/:key-id/ceremony" element={<TallyCeremonyPage />} />
 
-        <Route path="/manage-users" component={UserManagementPage} />
-    </Switch>
+        <Route path="/manage-users" element={<UserManagementPage />} />
+    </Routes>
 );
 
 export default MainRoutes;
