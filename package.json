@@ -37,5 +37,10 @@
         "prettier": "^2.4.1"
     },
     "version": "0.1.2",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "@formatjs/intl": "^1.17.0",
+        "@material-ui/icons": "^4.11.2",
+        "clsx": "^1.1.1"
+    }
 }

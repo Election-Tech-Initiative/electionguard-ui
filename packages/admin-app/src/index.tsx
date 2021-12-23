@@ -6,13 +6,19 @@ import { CssBaseline, MuiThemeProvider, createTheme } from '@material-ui/core';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Locale, MessageId, setupLanguages } from './lang';
+import { EnumDictionary } from './utils';
+import en from './lang/en.json';
 
 const queryClient = new QueryClient();
+// const languages = setupLanguages({ [Locale.English]: en as EnumDictionary<MessageId, string> });
+// const defaultLanguage = languages.en;
+// const LanguageContext = React.createContext(defaultLanguage);
 
 ReactDOM.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <IntlProvider locale="en" messages={{}}>
+            <IntlProvider locale="en" messages={en}>
                 <MuiThemeProvider theme={createTheme()}>
                     <CssBaseline />
                     <App />

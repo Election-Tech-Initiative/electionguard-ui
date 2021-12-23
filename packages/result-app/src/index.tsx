@@ -6,13 +6,14 @@ import { CssBaseline, MuiThemeProvider, createTheme } from '@material-ui/core';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import en from './lang/en.json';
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <IntlProvider locale="en" messages={{}}>
+            <IntlProvider locale="en" messages={en}>
                 <MuiThemeProvider theme={createTheme()}>
                     <CssBaseline />
                     <App />

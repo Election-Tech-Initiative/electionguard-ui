@@ -1,7 +1,7 @@
 /**
  * @enum {number}
  */
-export const enum TaskStatus {
+export enum TaskStatus {
     Error = -1,
     Incomplete = 0,
     Processing = 1,
