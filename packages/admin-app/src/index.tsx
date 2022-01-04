@@ -6,8 +6,8 @@ import { CssBaseline, MuiThemeProvider, createTheme } from '@material-ui/core';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Locale, MessageId, setupLanguages } from './lang';
-import { EnumDictionary } from './utils';
+// import { Locale, MessageId, setupLanguages } from './lang';
+// import { EnumDictionary } from './utils';
 import en from './lang/en.json';
 
 const queryClient = new QueryClient();

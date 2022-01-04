@@ -1,10 +1,10 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useGetJointKeys } from '@electionguard/api-client';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import ElectionSetupWizard from '../components/ElectionSetupWizard';
-import InternationalText from '../components/InternationalText';
-import { loremIpsum, MessageId } from '../lang';
+// import InternationalText from '../components/InternationalText';
+// import { loremIpsum, MessageId } from '../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
