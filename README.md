@@ -4,7 +4,7 @@
 
 [![Azure_Deploy_Workflow](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml/badge.svg)](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml) [![license](https://img.shields.io/github/license/microsoft/electionguard)](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
 
-This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the component library use ReactComponents of this library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
+This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the component library use ReactComponents. This library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
 
 ## 📁 In This Repository
 
@@ -35,6 +35,13 @@ ElectionGuard supports a variety of use cases. The Primary use case is to genera
 -   [Yarn](https://www.yarnpkg.com) is used as the package manager instead of npm.
 -   [Lerna](https://lerna.js.org) is used to create a monorepo and multiple projects inside of this single github repo. This allows for each small project to be built and deployed separately.
 -   [GNU Make](https://www.gnu.org/software/make/manual/make.html) is used to simplify the commands and GitHub Actions. This approach is recommended to simplify the command line experience. This is built in for MacOS and Linux. For Windows, setup is simpler with [Chocolatey](https://chocolatey.org/install) and installing the provided [make package](https://chocolatey.org/packages/make). The other Windows option is [manually installing make](http://gnuwin32.sourceforge.net/packages/make.htm).
+
+### Windows
+
+This repository works fine in Windows, however it requires linux style line endings for ts and tsx files. The `.gitattributes` file should handle this, but if you need to replace all line endings manually, then in WSL:
+
+-   `sudo apt install dos2unix`
+-   `find packages/*/src -type f -iname '*.ts*' -exec dos2unix -k -s -o {} ';'`
 
 ## 🚀 Quick Start
 
@@ -161,6 +168,6 @@ trademarks or logos is subject to and must follow
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
 
-
 <!--Links-->
+
 [pull request workflow]: https://github.com/microsoft/electionguard-ui/blob/main/.github/workflows/pull_request.yml
