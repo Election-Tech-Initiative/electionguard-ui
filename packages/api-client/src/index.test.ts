@@ -1,4 +1,4 @@
-import { filterByTerm } from './functions';
+import { filterByTerm } from '.';
 
 describe('Filter function', () => {
     test('it should filter by a search term (link)', () => {

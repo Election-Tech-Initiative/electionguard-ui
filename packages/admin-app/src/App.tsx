@@ -1,22 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
-}
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { DefaultLayout } from './layouts';
+
+import MainRoutes from './routes/MainRoutes';
+
+const App: React.FunctionComponent = () => (
+    <Router>
+        <DefaultLayout>
+            <MainRoutes />
+        </DefaultLayout>
+    </Router>
+);
 
 export default App;

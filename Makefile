@@ -3,47 +3,47 @@
 all: install lint build test
 
 install:
-	yarn install
-	yarn bootstrap
+	npm install
+	npm run bootstrap
 
 build:
-	yarn build
+	npm run build
 
 start:
-	yarn start
+	npm run start
 
 test:
-	yarn test
+	npm run test
 
 lint:
-	yarn lint
+	npm run lint
 
 
 # Project
 admin-app:
-	yarn admin-app
+	npm run admin-app
 
 result-app:
-	yarn result-app
+	npm run result-app
 
 
 # Storybook
 storybook:
-	yarn storybook
+	npm run storybook
 
 build-storybook:
-	yarn build-storybook
+	npm run build-storybook
 
 start-with-storybook:
-	yarn start-with-storybook
+	npm run start-with-storybook
 
 
 # Packaging
 npm-version:
-	yarn npm-version
+	npm run npm-version
 
 npm-publish:
-	yarn npm-publish
+	npm run npm-publish
 
 
 # Docker

@@ -1,7 +1,8 @@
 /**
+ * Role
  * @enum {string}
  */
-enum Role {
+export enum Role {
     Observer = 'Observer',
     Guardian = 'Guardian',
     Admin = 'Administrator',

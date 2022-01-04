@@ -1,10 +1,9 @@
-import { Election, ElectionState } from '@electionguard/api-client';
+import { AsyncResult, Election, ElectionState } from '@electionguard/api-client';
 import { Box, Button, Theme, lighten, makeStyles } from '@material-ui/core';
 import { DataGrid, GridCellParams, GridColDef, GridSortDirection } from '@material-ui/data-grid';
 import { GetApp as DownloadIcon } from '@material-ui/icons';
 import * as React from 'react';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
-import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 
 import { EmptyCell, FormattedDateCell, NewCell } from '../Cells';
@@ -108,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) => {
     };
 });
 
-const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
+export const ElectionTable: React.FC<ElectionTableProps> = ({ data }) => {
     const classes = useStyles();
     const intl = useIntl();
     const electionQuery = data('election-1');

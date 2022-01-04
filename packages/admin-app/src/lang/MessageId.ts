@@ -1,3 +1,4 @@
+// TODO Remove after migration to Admin App
 enum MessageId {
     // App
     AppName = 'app.name',

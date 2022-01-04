@@ -1,9 +1,8 @@
-import { KeyCeremony } from '@electionguard/api-client';
+import { AsyncResult, KeyCeremony } from '@electionguard/api-client';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-import { AsyncResult } from '../../data/AsyncResult';
 import AsyncContent from '../AsyncContent';
 
 import { FormattedDateCell } from '../Cells';
@@ -63,7 +62,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
     },
 ];
 
-const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
+export const KeyCeremonyTable: React.FC<KeyCeremonyTableProps> = ({ data }) => {
     const intl = useIntl();
     const classes = useStyles();
     const keyCeremonyQuery = data();

@@ -18,7 +18,7 @@ export interface LoginFormProps {
 /**
  * Form for logging user in
  */
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     const classes = useStyles();
     return (
         <form

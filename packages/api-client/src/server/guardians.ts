@@ -12,10 +12,10 @@ import {
     GuardianPublicKeysResponse,
     PublicKeySetApi,
     BackupVerificationResponse,
+    ElectionPartialKeyBackup,
 } from '../models/guardian';
 import { post, get, put } from '../utils/http';
 import {
-    ElectionPartialKeyBackup,
     ElectionPartialKeyVerification,
     GuardianQueryResponse,
     KeyCeremonyGuardian,

@@ -1,7 +1,8 @@
 /**
+ * Step of a Key Ceremony
  * @enum {number}
  */
-enum KeyCeremonyStep {
+export enum KeyCeremonyStep {
     Instructions = 0,
     MeetGuardians = 1,
     CreateKeyPair = 2,

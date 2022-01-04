@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import delay from '../../utils/delay';
+import { delay } from '../../utils/delay';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
@@ -24,7 +24,7 @@ export interface TallyWizardProps {
 /**
  * Wizard to setup the election
  */
-const TallyWizard: React.FC<TallyWizardProps> = ({ missing }) => {
+export const TallyWizard: React.FC<TallyWizardProps> = ({ missing }) => {
     const [step, setStep] = useState(TallyStep.Instructions);
     const { nextStep } = createEnumStepper(TallyStep);
     const next = () => setStep(nextStep(step));

@@ -1,5 +1,5 @@
 import SVGImage from './SVGImage';
 
-export type { SVGImageProps } from './SVGImage';
+export * from './SVGImage';
 
 export default SVGImage;

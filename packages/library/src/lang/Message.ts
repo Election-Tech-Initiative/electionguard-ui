@@ -2,4 +2,6 @@
 import GenericMessage from './GenericMessage';
 import MessageId from './MessageId';
 
-export default class Message extends GenericMessage<MessageId> {}
+export class Message extends GenericMessage<MessageId> {}
+
+export default Message;

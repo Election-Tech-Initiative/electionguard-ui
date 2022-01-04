@@ -1,7 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import { BaseRequest, BaseResponse } from './base';
 import { ElectionPublicKey, GuardianId, PublicKeySet } from './election';
-import { AssignedGuardian, ElectionPartialKeyChallenge } from './guardian';
+import {
+    AssignedGuardian,
+    ElectionPartialKeyChallenge,
+    ElectionPartialKeyBackup,
+} from './guardian';
 import { TaskStatus } from './taskStatus';
 
 export type ElGamalKeyPair = any;
@@ -13,7 +17,6 @@ export type MESSAGE = string;
 export type AuxiliarySecretKey = string;
 export type EncryptedMessage = string;
 
-export type ElectionPartialKeyBackup = any;
 export type ElectionPartialKeyVerification = any;
 
 /**

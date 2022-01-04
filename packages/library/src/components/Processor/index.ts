@@ -1,5 +1,5 @@
 import Processor from './Processor';
 
-export type { ProcessorProps } from './Processor';
+export * from './Processor';
 
 export default Processor;

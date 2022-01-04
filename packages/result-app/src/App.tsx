@@ -1,14 +1,15 @@
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { DefaultLayout } from './layouts';
 
 import MainRoutes from './routes/MainRoutes';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function App() {
-    return (
-        <Router>
+const App: React.FunctionComponent = () => (
+    <Router>
+        <DefaultLayout>
             <MainRoutes />
-        </Router>
-    );
-}
+        </DefaultLayout>
+    </Router>
+);
 
 export default App;

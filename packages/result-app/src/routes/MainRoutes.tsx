@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import ElectionPage from '../pages/ElectionPage';
 import RecordsPage from '../pages/RecordsPage';
 import ResultsPage from '../pages/ResultsPage';
@@ -7,16 +7,14 @@ import BallotConfirmationPage from '../pages/BallotConfirmationPage';
 import SelectElectionPage from '../pages/SelectElectionPage';
 
 const MainRoutes: React.FC = () => (
-    <Switch>
-        <Route path="/" exact>
-            <Redirect to="/menu" />
-        </Route>
-        <Route path="/menu" component={SelectElectionPage} />
-        <Route path="/:election" component={ElectionPage} />
-        <Route path="/:election/results" component={ResultsPage} />
-        <Route path="/:election/records" component={RecordsPage} />
-        <Route path="/:election/:ballot" component={BallotConfirmationPage} />
-    </Switch>
+    <Routes>
+        <Route path="/" element={<Navigate to="/menu" />} />
+        <Route path="/menu" element={<SelectElectionPage />} />
+        <Route path="/:election" element={<ElectionPage />} />
+        <Route path="/:election/results" element={<ResultsPage />} />
+        <Route path="/:election/records" element={<RecordsPage />} />
+        <Route path="/:election/:ballot" element={<BallotConfirmationPage />} />
+    </Routes>
 );
 
 export default MainRoutes;

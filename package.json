@@ -5,20 +5,20 @@
         "packages/*"
     ],
     "scripts": {
-        "start": "yarn run lerna run start --parallel",
-        "start-with-storybook": "yarn storybook && yarn start",
-        "admin-app": "yarn run lerna run start --scope=@electionguard-ui/admin-app",
-        "result-app": "yarn run lerna run start --scope=@electionguard-ui/result-app",
-        "build": "yarn run lerna run build --stream",
-        "test": "yarn run lerna run test --parallel",
-        "lint": "yarn run lerna run lint --parallel",
-        "lint:fix": "yarn run lerna run lint:fix --parallel",
-        "bundle": "yarn run lerna run bundle --parallel",
-        "clean": "yarn run lerna clean --yes",
-        "bootstrap": "yarn clean && lerna bootstrap",
-        "storybook": "yarn run lerna run storybook",
-        "npm-publish": "yarn run lerna run npm-publish",
-        "npm-version": "yarn run lerna run npm-version-patch"
+        "start": "lerna run start --parallel",
+        "start-with-storybook": "npm storybook && npm run start",
+        "admin-app": "lerna run start --scope=@electionguard-ui/admin-app",
+        "result-app": "lerna run start --scope=@electionguard-ui/result-app",
+        "build": "lerna run build --stream",
+        "test": "lerna run test --parallel",
+        "lint": "lerna run lint --parallel",
+        "lint:fix": "lerna run lint:fix --parallel",
+        "bundle": "lerna run bundle --parallel",
+        "clean": "lerna clean --yes",
+        "bootstrap": "npm run clean && lerna bootstrap",
+        "storybook": "lerna run storybook",
+        "npm-publish": "lerna run npm-publish",
+        "npm-version": "lerna run npm-version-patch"
     },
     "devDependencies": {
         "@prettier/plugin-xml": "^1.1.0",
@@ -31,11 +31,16 @@
         "eslint-plugin-import": "^2.24.2",
         "eslint-plugin-jsx-a11y": "^6.4.1",
         "eslint-plugin-prettier": "^4.0.0",
-        "eslint-plugin-react": "^7.26.0",
+        "eslint-plugin-react": "^7.27.1",
         "eslint-plugin-react-hooks": "^4.2.0",
         "lerna": "^4.0.0",
         "prettier": "^2.4.1"
     },
-    "version": "1.0.0",
-    "license": "MIT"
+    "version": "0.1.2",
+    "license": "MIT",
+    "dependencies": {
+        "@formatjs/intl": "^1.17.0",
+        "@material-ui/icons": "^4.11.2",
+        "clsx": "^1.1.1"
+    }
 }

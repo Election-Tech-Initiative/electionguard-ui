@@ -10,7 +10,7 @@ import {
 } from '../models/keyCeremony';
 import { TaskStatus } from '../models/taskStatus';
 import { getAssignedGuardians } from './guardians';
-import { ElectionPartialKeyBackup, ElectionPartialKeyChallenge } from '../models/guardian';
+import { ElectionPartialKeyChallenge, ElectionPartialKeyBackup } from '../models/guardian';
 import { ElectionPublicKey, GuardianId, PublicKeySet } from '../models/election';
 
 function generateMockElectionJointKey(): ElectionJointKey {

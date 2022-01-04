@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 
-import { useGetUsersWithGuardianRole } from '../../../data/queries';
+import { useGetUsersWithGuardianRole } from '@electionguard/api-client';
 import GuardianAssignmentStep, { GuardianAssignmentStepProps } from './GuardianAssignmentStep';
 
 export default {

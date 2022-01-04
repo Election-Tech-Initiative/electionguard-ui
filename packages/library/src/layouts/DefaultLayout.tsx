@@ -18,7 +18,7 @@ export interface DefaultLayoutProps {
     isLoading?: boolean;
 }
 
-const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoading = false }) => {
+export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoading = false }) => {
     const config = useContext(ConfigContext);
     const classes = useStyles();
     return (
