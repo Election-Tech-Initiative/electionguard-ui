@@ -1,5 +1,5 @@
 import { Box, CircularProgress, makeStyles } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import AppBar from '../components/AppBar';
 import Footer from '../components/Footer';
