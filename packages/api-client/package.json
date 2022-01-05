@@ -15,7 +15,9 @@
     "scripts": {
         "build": "npm run bundle",
         "start": "npm run bundle watch --no-compress",
-        "test": "react-scripts test",
+        "pretest": "move-file tsconfig.json tsconfig.json.bak && move-file tsconfig.test.json tsconfig.json",
+        "test": "react-scripts test --watchAll=false",
+        "posttest": "move-file tsconfig.json tsconfig.test.json && move-file tsconfig.json.bak tsconfig.json",
         "bundle": "microbundle --jsx react --jsxImportSource react --globals react/jsx-runtime=jsx --format modern,cjs",
         "lint": "npm run eslint",
         "lint:fix": "npm run eslint --fix && npm run prettier --write",
@@ -39,6 +41,7 @@
         "@types/react-dom": "^16.9.7",
         "babel-loader": "8.1.0",
         "microbundle": "^0.13.3",
+        "move-file-cli": "^3.0.0",
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-scripts": "^4.0.3",
