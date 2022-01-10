@@ -4,7 +4,7 @@ import MediatorApi from './MediatorApi';
 import MockGuardianApi from './MockGuardianApi';
 import MockMediatorApi from './MockMediatorApi';
 
-export default class ApiClientFactory {
+export class ApiClientFactory {
     private static mediatorClient: ElectionGuardMediatorApiClient;
 
     private static guardianClient: ElectionGuardGuardianApiClient;
