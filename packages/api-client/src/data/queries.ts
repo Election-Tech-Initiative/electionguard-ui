@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import ApiClientFactory from '../api/ApiClientFactory';
+import { ApiClientFactory } from '../api/ApiClientFactory';
 
 import { BaseJointKey, JointKey, User, Election, KeyCeremony } from '../models';
 import { AsyncResult } from './AsyncResult';
