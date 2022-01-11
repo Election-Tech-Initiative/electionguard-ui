@@ -50,9 +50,9 @@ export const findElection = async (
     const data: ElectionQueryRequest = {
         filter,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/find?skip=${skip}&limit=${limit}`;
-    const response = await post<{ resp: ElectionQueryResponse }>(path, data);
-    return response.parsedBody?.resp.elections;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election/find?skip=${skip}&limit=${limit}`;
+    const response = await post<ElectionQueryResponse>(path, data);
+    return response.parsedBody?.elections;
 };
 
 export const openElection = async (election_id: string): Promise<boolean | undefined> => {
