@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { ApiClientFactory, Election } from '@electionguard/api-client';
-import { Grid, Container, makeStyles } from '@material-ui/core';
+import { Grid, Container, makeStyles, TablePagination } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
@@ -9,11 +9,14 @@ import InternationalText from '../components/InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 0.9,
+        flexGrow: 0.85,
     },
     content: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+    },
+    grid: {
+        minHeight: 200,
     },
 }));
 
@@ -23,7 +26,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
         headerName: intl.formatMessage({
             id: 'election_list_page.election_id_header',
         }),
-        width: 200,
+        width: 300,
         headerClassName: 'bold-style--header',
     },
     {
@@ -31,7 +34,7 @@ const columns = (intl: IntlShape): GridColDef[] => [
         headerName: intl.formatMessage({
             id: 'election_list_page.key_name_header',
         }),
-        width: 200,
+        width: 300,
         headerClassName: 'bold-style--header',
     },
 ];
@@ -56,6 +59,7 @@ export const ElectionListPage: React.FC = () => {
     const initialElections: Election[] = [];
     const [elections, setElections] = useState(initialElections);
     const [textResult, setTextResult] = useState('');
+    const [pageSize, setPageSize] = React.useState(10);
     const classes = useStyles();
     const intl = useIntl();
     const getElections = async () => {
@@ -63,7 +67,7 @@ export const ElectionListPage: React.FC = () => {
         try {
             let elections = await service.findElection({}, 0, 100);
             if (elections) {
-                //elections = getFakeElections(elections[0]);
+                elections = getFakeElections(elections[0]);
                 setElections(elections);
             }
         } catch (ex) {
@@ -87,11 +91,12 @@ export const ElectionListPage: React.FC = () => {
                     components={{
                         Toolbar: FilterToolbar,
                     }}
-                    getRowClassName={(params) =>
-                        `election-table--${params.getValue(params.id, 'isNew') ? 'new' : ''}`
-                    }
-                    hideFooter
                     disableSelectionOnClick
+                    className={classes.grid}
+                    pageSize={pageSize}
+                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                    rowsPerPageOptions={[10, 50, 100]}
+                    pagination
                 />
                 {elections ? <div /> : <div>No elections found</div>}
                 <div>{textResult}</div>
