@@ -241,5 +241,6 @@
 
     "election_list_page.title": "Election List",
     "election_list_page.election_id_header": "Election ID",
-    "election_list_page.key_name_header": "Key Name"
+    "election_list_page.key_name_header": "Key Name",
+    "election_list_page.state_header": "State"
 }

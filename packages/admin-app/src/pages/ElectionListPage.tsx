@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { ApiClientFactory, Election } from '@electionguard/api-client';
+import { ApiClientFactory, Election, ElectionState } from '@electionguard/api-client';
 import { Grid, Container, makeStyles, TablePagination } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
@@ -24,28 +24,13 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         minHeight: 200,
     },
+    electionState: {
+        textTransform: 'lowercase',
+    },
 }));
 
-const columns = (intl: IntlShape): GridColDef[] => [
-    {
-        field: 'election_id',
-        headerName: intl.formatMessage({
-            id: 'election_list_page.election_id_header',
-        }),
-        width: 300,
-        headerClassName: 'bold-style--header',
-    },
-    {
-        field: 'key_name',
-        headerName: intl.formatMessage({
-            id: 'election_list_page.key_name_header',
-        }),
-        width: 300,
-        headerClassName: 'bold-style--header',
-    },
-];
-
-const getFakeElections = (election: Election) => {
+const getFakeElections = () => {
+    const state: ElectionState = 'OPEN' as ElectionState;
     return Array(100)
         .fill(undefined)
         .map(
@@ -53,7 +38,7 @@ const getFakeElections = (election: Election) => {
                 ({
                     election_id: 'election_' + i,
                     key_name: 'key_ceremony_' + i,
-                    state: election.state,
+                    state: state,
                     context: undefined,
                     manifest: undefined,
                 } as Election)
@@ -67,12 +52,41 @@ export const ElectionListPage: React.FC = () => {
     const [pageSize, setPageSize] = React.useState(10);
     const classes = useStyles();
     const intl = useIntl();
+
+    const columns = (intl: IntlShape): GridColDef[] => [
+        {
+            field: 'election_id',
+            headerName: intl.formatMessage({
+                id: 'election_list_page.election_id_header',
+            }),
+            width: 300,
+            headerClassName: 'bold-style--header',
+        },
+        {
+            field: 'key_name',
+            headerName: intl.formatMessage({
+                id: 'election_list_page.key_name_header',
+            }),
+            width: 300,
+            headerClassName: 'bold-style--header',
+        },
+        {
+            field: 'state',
+            headerName: intl.formatMessage({
+                id: 'election_list_page.state_header',
+            }),
+            width: 150,
+            headerClassName: 'bold-style--header',
+            cellClassName: classes.electionState,
+        },
+    ];
+
     const getElections = async () => {
         const service = ApiClientFactory.getMediatorApiClient();
         try {
             let elections = await service.findElection({}, 0, 100);
             if (elections) {
-                elections = getFakeElections(elections[0]);
+                elections = getFakeElections();
                 setElections(elections);
             }
         } catch (ex) {
