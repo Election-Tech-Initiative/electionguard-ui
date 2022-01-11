@@ -239,7 +239,7 @@
     "task_status.complete": "Complete",
     "task_status.incomplete": "Incomplete",
 
-    "election_list_page.title": "Elections",
+    "election_list_page.title": "Election List",
     "election_list_page.election_id_header": "Election ID",
     "election_list_page.key_name_header": "Key Name"
 }

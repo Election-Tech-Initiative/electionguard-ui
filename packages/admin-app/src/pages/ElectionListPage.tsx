@@ -9,7 +9,13 @@ import InternationalText from '../components/InternationalText';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 0.85,
+        flexGrow: 0.8,
+    },
+    title: {
+        fontSize: 40,
+        textAlign: 'center',
+        display: 'block',
+        paddingBottom: theme.spacing(4),
     },
     content: {
         paddingTop: theme.spacing(4),
@@ -39,20 +45,19 @@ const columns = (intl: IntlShape): GridColDef[] => [
     },
 ];
 
-const makeElection = (i: number, election: Election) => {
-    return {
-        election_id: 'election_' + i,
-        key_name: 'key_ceremony_' + i,
-        state: election.state,
-        context: undefined,
-        manifest: undefined,
-    };
-};
-
 const getFakeElections = (election: Election) => {
     return Array(100)
         .fill(undefined)
-        .map((a, i) => makeElection(i, election));
+        .map(
+            (a, i) =>
+                ({
+                    election_id: 'election_' + i,
+                    key_name: 'key_ceremony_' + i,
+                    state: election.state,
+                    context: undefined,
+                    manifest: undefined,
+                } as Election)
+        );
 };
 
 export const ElectionListPage: React.FC = () => {
@@ -81,9 +86,7 @@ export const ElectionListPage: React.FC = () => {
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>
-                <h1>
-                    <InternationalText id="election_list_page.title" />
-                </h1>
+                <InternationalText className={classes.title} id="election_list_page.title" />
                 <DataGrid
                     rows={elections}
                     columns={columns(intl)}
