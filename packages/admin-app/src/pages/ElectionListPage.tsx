@@ -1,21 +1,23 @@
 /* eslint-disable */
 import { ApiClientFactory, Election, ElectionState } from '@electionguard/api-client';
-import { Grid, Container, makeStyles, TablePagination } from '@material-ui/core';
+import { Grid, Container, makeStyles, TablePagination, Link } from '@material-ui/core';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';
+import GoHomeButton from '../components/GoHomeButton';
 import InternationalText from '../components/InternationalText';
+import { Message } from '../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 0.8,
+        flexGrow: 0.75,
     },
     title: {
         fontSize: 40,
         textAlign: 'center',
         display: 'block',
-        paddingBottom: theme.spacing(4),
+        paddingBottom: theme.spacing(2),
     },
     content: {
         paddingTop: theme.spacing(4),
@@ -26,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     },
     electionState: {
         textTransform: 'lowercase',
+    },
+    navArea: {
+        paddingBottom: theme.spacing(4),
+        textAlign: 'center',
     },
 }));
 
@@ -101,6 +107,10 @@ export const ElectionListPage: React.FC = () => {
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>
                 <InternationalText className={classes.title} id="election_list_page.title" />
+
+                <div className={classes.navArea}>
+                    <GoHomeButton id="election_list_page.go_home"></GoHomeButton>
+                </div>
                 <DataGrid
                     rows={elections}
                     columns={columns(intl)}
