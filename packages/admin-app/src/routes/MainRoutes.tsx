@@ -14,6 +14,7 @@ import {
     TallyCeremonyPage,
     UploadBallotPage,
     UserManagementPage,
+    LoginPage,
 } from '../pages';
 import routeIds from './RouteIds';
 
@@ -40,6 +41,7 @@ const MainRoutes: React.FC = () => (
         <Route path="/tally/:key-id/ceremony" element={<TallyCeremonyPage />} />
 
         <Route path="/manage-users" element={<UserManagementPage />} />
+        <Route path="/login" element={<LoginPage />} />
     </Routes>
 );
 
