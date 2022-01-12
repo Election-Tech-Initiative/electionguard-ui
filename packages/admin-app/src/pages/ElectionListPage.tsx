@@ -1,6 +1,6 @@
 import { ApiClientFactory, Election, ElectionState } from '@electionguard/api-client';
-import { Grid, Container, makeStyles } from '@material-ui/core';
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { Container, makeStyles } from '@material-ui/core';
+import { DataGrid, GridColDef, GridOverlay } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';
@@ -30,13 +30,12 @@ const useStyles = makeStyles((theme) => ({
     },
     navArea: {
         paddingBottom: theme.spacing(4),
-        textAlign: 'center',
     },
 }));
 
-const getFakeElections = () => {
+const getFakeElections = (count: number) => {
     const state: ElectionState = 'OPEN' as ElectionState;
-    return Array(100)
+    return Array(count)
         .fill(undefined)
         .map(
             (a, i) =>
@@ -86,8 +85,8 @@ export const ElectionListPage: React.FC = () => {
         const service = ApiClientFactory.getMediatorApiClient();
         try {
             const electionResults1 = await service.findElection({}, 0, 100);
-            const electionResults2 = getFakeElections();
-            const useMock = false;
+            const electionResults2 = getFakeElections(100);
+            const useMock = true;
             const electionResults = useMock ? electionResults2 : electionResults1;
             if (electionResults) {
                 setElections(electionResults);
@@ -112,6 +111,11 @@ export const ElectionListPage: React.FC = () => {
                 getRowId={(r) => r.election_id}
                 components={{
                     Toolbar: FilterToolbar,
+                    NoRowsOverlay: () => (
+                        <GridOverlay>
+                            <InternationalText id="election_list_page.no-rows" />
+                        </GridOverlay>
+                    ),
                 }}
                 disableSelectionOnClick
                 className={classes.grid}
@@ -120,7 +124,6 @@ export const ElectionListPage: React.FC = () => {
                 rowsPerPageOptions={[10, 50, 100]}
                 pagination
             />
-            {elections ? <div /> : <div>No elections found</div>}
             <div>{textResult}</div>
         </Container>
     );
