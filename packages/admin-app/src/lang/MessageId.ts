@@ -251,6 +251,14 @@ enum MessageId {
     TaskStatus_Error = 'task_status.error',
     TaskStatus_Complete = 'task_status.complete',
     TaskStatus_Incomplete = 'task_status.incomplete',
+
+    // Elections List Page
+    ElectionListPage_Title = 'election_list_page.title',
+    ElectionListPage_GoHome = 'election_list_page.go_home',
+    ElectionListPage_NoRows = 'election_list_page.no-rows',
+    ElectionListPage_StateHeader = 'election_list_page.state_header',
+    ElectionListPage_KeyNameHeader = 'election_list_page.key_name_header',
+    ElectionListPage_ElectionIdHeader = 'election_list_page.election_id_header',
 }
 
 export default MessageId;
