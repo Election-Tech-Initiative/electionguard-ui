@@ -6,6 +6,7 @@ import { useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';
 import GoHomeButton from '../components/GoHomeButton';
 import InternationalText from '../components/InternationalText';
+import MessageId from '../lang/MessageId';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,21 +61,21 @@ export const ElectionListPage: React.FC = () => {
         {
             field: 'election_id',
             headerName: intl.formatMessage({
-                id: 'election_list_page.election_id_header',
+                id: MessageId.ElectionListPage_ElectionIdHeader,
             }),
             width: 300,
         },
         {
             field: 'key_name',
             headerName: intl.formatMessage({
-                id: 'election_list_page.key_name_header',
+                id: MessageId.ElectionListPage_KeyNameHeader,
             }),
             width: 300,
         },
         {
             field: 'state',
             headerName: intl.formatMessage({
-                id: 'election_list_page.state_header',
+                id: MessageId.ElectionListPage_StateHeader,
             }),
             width: 150,
             cellClassName: classes.electionState,
@@ -100,10 +101,10 @@ export const ElectionListPage: React.FC = () => {
     }, []);
     return (
         <Container maxWidth="md" className={classes.root}>
-            <InternationalText className={classes.title} id="election_list_page.title" />
+            <InternationalText className={classes.title} id={MessageId.ElectionListPage_Title} />
 
             <div className={classes.navArea}>
-                <GoHomeButton id="election_list_page.go_home" />
+                <GoHomeButton id={MessageId.ElectionListPage_GoHome} />
             </div>
             <DataGrid
                 rows={elections}
@@ -113,7 +114,7 @@ export const ElectionListPage: React.FC = () => {
                     Toolbar: FilterToolbar,
                     NoRowsOverlay: () => (
                         <GridOverlay>
-                            <InternationalText id="election_list_page.no-rows" />
+                            <InternationalText id={MessageId.ElectionListPage_NoRows} />
                         </GridOverlay>
                     ),
                 }}
