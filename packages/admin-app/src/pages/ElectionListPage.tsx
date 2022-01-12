@@ -1,10 +1,10 @@
-import { ApiClientFactory, Election, ElectionState } from '@electionguard/api-client';
+import { ApiClientFactory, Election } from '@electionguard/api-client';
 import { Container, makeStyles } from '@material-ui/core';
 import { DataGrid, GridColDef, GridOverlay } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';
-import GoHomeButton from '../components/GoHomeButton';
+import GoHomeButton from '../components/GoHomeButton/GoHomeButton';
 import InternationalText from '../components/InternationalText';
 import MessageId from '../lang/MessageId';
 
@@ -34,21 +34,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const getFakeElections = (count: number) => {
-    const state: ElectionState = 'OPEN' as ElectionState;
-    return Array(count)
-        .fill(undefined)
-        .map(
-            (a, i) =>
-                ({
-                    election_id: `election_${i}`,
-                    key_name: `key_ceremony_${i}`,
-                    state,
-                    context: undefined,
-                    manifest: undefined,
-                } as Election)
-        );
-};
 export const ElectionListPage: React.FC = () => {
     const initialElections: Election[] = [];
     const [elections, setElections] = useState(initialElections);
@@ -85,10 +70,7 @@ export const ElectionListPage: React.FC = () => {
     const getElections = async () => {
         const service = ApiClientFactory.getMediatorApiClient();
         try {
-            const electionResults1 = await service.findElection({}, 0, 100);
-            const electionResults2 = getFakeElections(100);
-            const useMock = true;
-            const electionResults = useMock ? electionResults2 : electionResults1;
+            const electionResults = await service.findElection({}, 0, 100);
             if (electionResults) {
                 setElections(electionResults);
             }

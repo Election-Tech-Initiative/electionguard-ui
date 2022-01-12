@@ -1,5 +1,5 @@
-enum RouteId {
-    Home = '/',
-}
+const routeIds = {
+    home: '/',
+};
 
-export default RouteId;
+export default routeIds;
