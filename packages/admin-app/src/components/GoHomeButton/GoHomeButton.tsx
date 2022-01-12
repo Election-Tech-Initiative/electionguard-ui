@@ -3,6 +3,7 @@ import { ButtonProps, Button } from '@material-ui/core';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { GenericMessage } from '../../lang';
+import RouteIds from '../../routes/RouteIds';
 
 export interface GoHomeButtonProps extends ButtonProps {
     id: string;
@@ -15,7 +16,7 @@ export const GoHomeButton: React.FC<GoHomeButtonProps> = (props) => {
     const { id, defaultMessage, description } = props;
     const message = intl.formatMessage(new GenericMessage<string>(id, defaultMessage, description));
     return (
-        <Button href="/" color="primary" variant="contained" startIcon={<HomeIcon />}>
+        <Button href={RouteIds.Home} color="primary" variant="contained" startIcon={<HomeIcon />}>
             {message}
         </Button>
     );

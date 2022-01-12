@@ -15,6 +15,7 @@ import {
     UploadBallotPage,
     UserManagementPage,
 } from '../pages';
+import RouteIds from './RouteIds';
 
 /**
  * The routes to display when the user is fully authenticated
@@ -22,7 +23,7 @@ import {
  */
 const MainRoutes: React.FC = () => (
     <Routes>
-        <Route path="/" element={<Navigate to="/menu" />} />
+        <Route path={RouteIds.Home} element={<Navigate to="/menu" />} />
         <Route path="/menu" element={<MenuPage />} />
 
         <Route path="/election" element={<ElectionListPage />} />
