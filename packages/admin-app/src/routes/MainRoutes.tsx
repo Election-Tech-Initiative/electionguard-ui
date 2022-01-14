@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
@@ -17,13 +17,14 @@ import {
     LoginPage,
 } from '../pages';
 import routeIds from './RouteIds';
+import useToken from './useToken';
 
 /**
  * The routes to display when the user is fully authenticated
  * and able to view the main UI
  */
 const MainRoutes: React.FC = () => {
-    const [token, setToken] = useState<string>();
+    const { setToken, token } = useToken();
 
     if (!token) {
         return <LoginPage setToken={setToken} />;
