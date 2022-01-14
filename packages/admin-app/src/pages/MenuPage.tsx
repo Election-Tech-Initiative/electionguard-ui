@@ -23,7 +23,7 @@ export const MenuPage: React.FC = () => {
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>
                 <WelcomeHeader />
-                <InternationalText id={MessageId.AppAbout} defaultMessage={loremIpsum} />
+                <InternationalText id={MessageId.AppAbout} />
             </Container>
             <MenuOptions prompt={new Message(MessageId.MenuPrompt)}>
                 <TypedMenuOption

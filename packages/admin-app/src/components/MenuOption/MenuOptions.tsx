@@ -40,8 +40,6 @@ export const MenuOptions: React.FC<MenuOptionsProps> = ({ prompt, children }) =>
                 component="p"
                 className={classes.prompt}
                 id={prompt.id}
-                description="Prompt for a user on menu"
-                defaultMessage={prompt.defaultMessage}
             />
             <Container maxWidth="xs">
                 <Grid container className={classes.options}>
