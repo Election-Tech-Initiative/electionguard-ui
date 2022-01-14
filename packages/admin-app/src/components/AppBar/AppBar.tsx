@@ -1,8 +1,9 @@
 import { Box, Button, AppBar as MaterialAppBar, Toolbar, makeStyles } from '@material-ui/core';
-import React, { SVGProps, useState } from 'react';
+import React, { SVGProps } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { MessageId } from '../../lang';
+import useToken from '../../routes/useToken';
 
 export interface AppBarProps {
     title?: string;
@@ -37,24 +38,23 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent top App Bar with side drawer and optional additional content.
  */
-export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn = false }) => {
-    const [signedIn, setSignIn] = useState(loggedIn);
+export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo }) => {
+    const { setToken } = useToken();
     const classes = useStyles();
+
     return (
         <MaterialAppBar position="static" title={title}>
             <Toolbar className={classes.toolbar}>
                 <Box className={classes.logoContainer}>
                     {Logo && <Logo className={classes.logo} />}
                 </Box>
-                {signedIn && (
-                    <Button color="inherit" onClick={() => setSignIn(!signedIn)}>
-                        <FormattedMessage
-                            id={MessageId.AuthLogout}
-                            description="Sign out of application"
-                            defaultMessage="Sign Out"
-                        />
-                    </Button>
-                )}
+                <Button href="/" color="inherit" onClick={() => setToken(null)}>
+                    <FormattedMessage
+                        id={MessageId.AuthLogout}
+                        description="Sign out of application"
+                        defaultMessage="Sign Out"
+                    />
+                </Button>
             </Toolbar>
         </MaterialAppBar>
     );

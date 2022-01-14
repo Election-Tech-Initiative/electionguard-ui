@@ -5,7 +5,10 @@ import { useState } from 'react';
  * closes tab.  To sacrifice security for convenience replace 'sessionStorage' with  'localStorage' and user
  * will not need to log back in after closing tab.
  */
-export default function useToken(): { setToken: (token: string) => void; token: string | null } {
+export default function useToken(): {
+    setToken: (token: string | null) => void;
+    token: string | null;
+} {
     const getToken = () => {
         const tokenString = sessionStorage.getItem('token');
         // const userToken = JSON.parse(tokenString);
@@ -14,9 +17,13 @@ export default function useToken(): { setToken: (token: string) => void; token: 
     };
     const [token, setToken] = useState(getToken());
 
-    const saveToken = (userToken: string) => {
+    const saveToken = (userToken: string | null) => {
         // JSON.stringify(userToken) ?
-        sessionStorage.setItem('token', userToken);
+        if (userToken) {
+            sessionStorage.setItem('token', userToken);
+        } else {
+            sessionStorage.removeItem('token');
+        }
         setToken(userToken);
     };
 
