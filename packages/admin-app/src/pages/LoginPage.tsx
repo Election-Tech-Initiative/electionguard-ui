@@ -1,4 +1,12 @@
-import { ApiClientFactory } from '@electionguard/api-client';
+/* tslint:disable */
+/* eslint-disable */
+
+import {
+    Body_login_for_access_token_api_v1_auth_login_post,
+    AuthClient,
+    ApiException,
+    UrlGetter,
+} from '@electionguard/api-client';
 import { Button, Container, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
 import React, { useState } from 'react';
@@ -10,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    errorMessage: {
+        color: 'red',
+        marginBottom: theme.spacing(3),
     },
     text: {
         marginBottom: theme.spacing(3),
@@ -29,16 +41,46 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
     const classes = useStyles();
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [result, setResult] = useState<string>();
 
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        const service = ApiClientFactory.getMediatorApiClient();
-        console.log(`logging in with ${username} and ${password}`);
-        setToken('[success token]');
+        const url = UrlGetter.GetUrl();
+        const authClient = new AuthClient(url);
+        const loginParams = new Body_login_for_access_token_api_v1_auth_login_post();
+        loginParams.username = username;
+        loginParams.password = password;
+        loginParams.grant_type = 'password';
+        loginParams.scope = 'admin';
+        loginParams.client_id = 'electionguard-default-client-id';
+        loginParams.client_secret = 'electionguard-default-client-secret';
+        try {
+            debugger;
+            const token = await authClient.login(loginParams);
+            const tokenJson = JSON.stringify(token);
+            setToken(tokenJson);
+        } catch (ex: unknown) {
+            if (typeof ex === 'string') {
+                setResult(ex);
+            } else if (ex instanceof ApiException) {
+                const result = ex.result;
+                console.log(ex);
+                setResult(ex.message);
+            } else {
+                const exAny = ex as any;
+                const detail = exAny.detail[0].msg;
+                if (detail) {
+                    setResult(detail);
+                } else {
+                    setResult('An error occurred');
+                }
+            }
+        }
     };
 
     return (
         <Container maxWidth="xs" className={classes.root}>
+            <div className={classes.errorMessage}>{result}</div>
             <form onSubmit={handleSubmit}>
                 <TextField
                     id="username"
