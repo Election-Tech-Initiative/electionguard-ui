@@ -14,13 +14,13 @@ import {
 import { BaseResponse } from '../models/base';
 
 export const getConstants = async (): Promise<ElectionConstants | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election/constants`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election/constants`;
     const response = await get<{ data: ElectionConstants }>(path);
     return response.parsedBody?.data;
 };
 
 export const getElection = async (election_id: string): Promise<Election[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election?election_id=${election_id}`;
     const response = await get<{ data: ElectionQueryResponse }>(path);
     return response.parsedBody?.data.elections;
 };
@@ -37,7 +37,7 @@ export const putElection = async (
         manifest,
         context,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election`;
     const response = await put<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -50,27 +50,27 @@ export const findElection = async (
     const data: ElectionQueryRequest = {
         filter,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}election/find?skip=${skip}&limit=${limit}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election/find?skip=${skip}&limit=${limit}`;
     const response = await post<ElectionQueryResponse>(path, data);
     return response.parsedBody?.elections;
 };
 
 export const openElection = async (election_id: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/open?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/election/open?election_id=${election_id}`;
 
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
 
 export const closeElection = async (election_id: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/close?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/election/close?election_id=${election_id}`;
 
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
 
 export const publishElection = async (election_id: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/publish?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/election/publish?election_id=${election_id}`;
 
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
@@ -84,7 +84,7 @@ export const makeContextElection = async (
     manifest_hash = '',
     manifest = {}
 ): Promise<CiphertextElectionContext | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}election/context`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/election/context`;
     const data: MakeElectionContextRequest = {
         elgamal_public_key,
         commitment_hash,

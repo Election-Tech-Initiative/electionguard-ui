@@ -37,8 +37,8 @@ make docker-dev
 In the local application environment variables will be used to determine the address for the Guardian and Mediator Services. There is also a variable that the api-client will use to determine if mock data should be used instead. The environment variables are shown below:
 
 ```
-REACT_APP_MEDIATOR_SERVICE=http://localhost:8000/api/v1/
-REACT_APP_GUARDIAN_SERVICE=http://localhost:8001/api/v1/
+REACT_APP_MEDIATOR_SERVICE=http://localhost:8000
+REACT_APP_GUARDIAN_SERVICE=http://localhost:8001
 REACT_APP_MOCK_ENABLED=false
 ```
 

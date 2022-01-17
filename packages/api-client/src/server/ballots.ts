@@ -32,7 +32,7 @@ export const decryptSharesBallot = async (
         guardian: { id, name: '' },
         context,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}ballot/decrypt-shares`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/ballot/decrypt-shares`;
     const response = await post<{ resp: DecryptBallotSharesResponse }>(path, data);
     return response.parsedBody?.resp.shares;
 };
@@ -41,7 +41,7 @@ export const getBallot = async (
     election_id: string,
     ballot_id: string
 ): Promise<CiphertextBallot[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot?election_id=${election_id}&ballot_id=${ballot_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot?election_id=${election_id}&ballot_id=${ballot_id}`;
     const response = await get<{ resp: BallotQueryResponse }>(path);
     return response.parsedBody?.resp.ballots;
 };
@@ -49,7 +49,7 @@ export const getBallot = async (
 export const getBallotInventory = async (
     election_id: string
 ): Promise<BallotInventory | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot?election_id=${election_id}`;
     const response = await get<{ resp: BallotInventoryResponse }>(path);
     return response.parsedBody?.resp.inventory;
 };
@@ -63,7 +63,7 @@ export const findBallots = async (
     const data: BaseQueryRequest = {
         filter: { ballot_id },
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/find?election_id=${election_id}&skip=${skip}&limit=${limit}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/find?election_id=${election_id}&skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: BallotQueryResponse }>(path, data);
     return response.parsedBody?.resp.ballots;
 };
@@ -80,7 +80,7 @@ export const castBallots = async (
         context,
         ballots,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/cast?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/cast?election_id=${election_id}`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -97,7 +97,7 @@ export const spoilBallots = async (
         context,
         ballots,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/spoil?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/spoil?election_id=${election_id}`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -114,7 +114,7 @@ export const submitBallots = async (
         context,
         ballots,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/spoil?election_id=${election_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/spoil?election_id=${election_id}`;
     const response = await put<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -131,7 +131,7 @@ export const validateBallot = async (
         context,
         schema_override,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/validate`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/validate`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -146,7 +146,7 @@ export const decryptBallot = async (
         shares,
         context,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/decrypt`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/decrypt`;
     const response = await post<{ resp: DecryptedBallots }>(path, data);
     return response.parsedBody?.resp;
 };
@@ -161,7 +161,7 @@ export const encryptBallot = async (
         seed_hash,
         ballots,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}ballot/encrypt`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/ballot/encrypt`;
     const response = await post<{ resp: EncryptBallotsResponse }>(path, data);
     return response.parsedBody?.resp.encrypted_ballots;
 };
