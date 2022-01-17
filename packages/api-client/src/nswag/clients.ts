@@ -53,6 +53,13 @@ export class AuthClient {
             result200 = Token.fromJS(resultData200);
             return result200;
             });
+        } else if (status === 401) {
+            return response.text().then((_responseText) => {
+            let result401: any = null;
+            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result401 = ErrorMessage.fromJS(resultData401);
+            return throwException("Unauthorized", status, _responseText, _headers, result401);
+            });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
@@ -4100,7 +4107,7 @@ export interface IEncryptBallotsRequest {
 
 /** Returns error messages to the client. */
 export class ErrorMessage implements IErrorMessage {
-    message!: string;
+    detail!: string;
 
     constructor(data?: IErrorMessage) {
         if (data) {
@@ -4113,7 +4120,7 @@ export class ErrorMessage implements IErrorMessage {
 
     init(_data?: any) {
         if (_data) {
-            this.message = _data["message"];
+            this.detail = _data["detail"];
         }
     }
 
@@ -4126,14 +4133,14 @@ export class ErrorMessage implements IErrorMessage {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["message"] = this.message;
+        data["detail"] = this.detail;
         return data;
     }
 }
 
 /** Returns error messages to the client. */
 export interface IErrorMessage {
-    message: string;
+    detail: string;
 }
 
 /** A set of public auxiliary and election keys. */

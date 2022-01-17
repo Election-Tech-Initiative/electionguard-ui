@@ -6,6 +6,7 @@ import {
     AuthClient,
     ApiException,
     UrlGetter,
+    ErrorMessage,
 } from '@electionguard/api-client';
 import { Button, Container, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
@@ -54,28 +55,22 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
         loginParams.scope = 'admin';
         loginParams.client_id = 'electionguard-default-client-id';
         loginParams.client_secret = 'electionguard-default-client-secret';
-        try {
-            debugger;
-            const token = await authClient.login(loginParams);
-            const tokenJson = JSON.stringify(token);
-            setToken(tokenJson);
-        } catch (ex: unknown) {
-            if (typeof ex === 'string') {
-                setResult(ex);
-            } else if (ex instanceof ApiException) {
-                const result = ex.result;
-                console.log(ex);
-                setResult(ex.message);
-            } else {
-                const exAny = ex as any;
-                const detail = exAny.detail[0].msg;
-                if (detail) {
-                    setResult(detail);
+        await authClient
+            .login(loginParams)
+            .then((token) => {
+                const tokenJson = JSON.stringify(token);
+                setToken(tokenJson);
+            })
+            .catch((ex) => {
+                if (typeof ex === 'string') {
+                    setResult(ex);
+                } else if (ex instanceof ErrorMessage) {
+                    setResult(ex.detail);
                 } else {
+                    console.error(ex);
                     setResult('An error occurred');
                 }
-            }
-        }
+            });
     };
 
     return (
