@@ -1,10 +1,6 @@
-/* tslint:disable */
-/* eslint-disable */
-
 import {
     Body_login_for_access_token_api_v1_auth_login_post,
     AuthClient,
-    ApiException,
     UrlGetter,
     ErrorMessage,
 } from '@electionguard/api-client';
@@ -67,7 +63,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
                 } else if (ex instanceof ErrorMessage) {
                     setResult(ex.detail);
                 } else {
-                    console.error(ex);
                     setResult('An error occurred');
                 }
             });
