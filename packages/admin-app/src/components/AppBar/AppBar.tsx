@@ -3,7 +3,7 @@ import React, { SVGProps } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { MessageId } from '../../lang';
-import useToken from '../../routes/useToken';
+import useToken from '../../useToken';
 
 export interface AppBarProps {
     title?: string;
@@ -38,9 +38,19 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent top App Bar with side drawer and optional additional content.
  */
-export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo }) => {
+export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn }) => {
     const { setToken } = useToken();
     const classes = useStyles();
+
+    const logoutButton = (
+        <Button href="/" color="inherit" onClick={() => setToken(null)}>
+            <FormattedMessage
+                id={MessageId.AuthLogout}
+                description="Sign out of application"
+                defaultMessage="Sign Out"
+            />
+        </Button>
+    );
 
     return (
         <MaterialAppBar position="static" title={title}>
@@ -48,13 +58,7 @@ export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo }) =>
                 <Box className={classes.logoContainer}>
                     {Logo && <Logo className={classes.logo} />}
                 </Box>
-                <Button href="/" color="inherit" onClick={() => setToken(null)}>
-                    <FormattedMessage
-                        id={MessageId.AuthLogout}
-                        description="Sign out of application"
-                        defaultMessage="Sign Out"
-                    />
-                </Button>
+                {loggedIn ? logoutButton : null}
             </Toolbar>
         </MaterialAppBar>
     );
