@@ -19,7 +19,7 @@ import {
     yellow,
 } from '@material-ui/core/colors';
 import { Localization } from '@material-ui/core/locale';
-import { Theme, ThemeOptions, createMuiTheme } from '@material-ui/core/styles';
+import { Theme, ThemeOptions, createTheme } from '@material-ui/core/styles';
 
 const midnightBlue = '#002a84';
 
@@ -55,7 +55,7 @@ export const theme = (localization?: Localization): Theme => {
             },
         },
     };
-    return localization ? createMuiTheme(options, localization) : createMuiTheme(options);
+    return localization ? createTheme(options, localization) : createTheme(options);
 };
 
 export default theme;
