@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import InternationalText from '../components/InternationalText';
 import { MenuOptions, MenuOptionType, TypedMenuOption } from '../components/MenuOption';
 import WelcomeHeader from '../components/WelcomeHeader';
-import { loremIpsum, Message, MessageId } from '../lang';
+import { Message, MessageId } from '../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
