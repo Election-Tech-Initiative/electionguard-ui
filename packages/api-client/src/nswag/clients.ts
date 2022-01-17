@@ -12,12 +12,9 @@ export class AuthClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -25,22 +22,20 @@ export class AuthClient {
      * @return Successful Response
      */
     login(body: Body_login_for_access_token_api_v1_auth_login_post): Promise<Token> {
-        let url_ = this.baseUrl + '/api/v1/auth/login';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/auth/login";
+        url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = Object.keys(body as any)
-            .map((key) => {
-                return encodeURIComponent(key) + '=' + encodeURIComponent((body as any)[key]);
-            })
-            .join('&');
+        const content_ = Object.keys(body as any).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent((body as any)[key]);
+        }).join('&')
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -50,40 +45,31 @@ export class AuthClient {
 
     protected processLogin(response: Response): Promise<Token> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = Token.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Token.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = ErrorMessage.fromJS(resultData404);
+            return throwException("Not Found", status, _responseText, _headers, result404);
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<Token>(<any>null);
@@ -95,32 +81,29 @@ export class UserClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
      * Me
-     * @param body (optional)
+     * @param body (optional) 
      * @return Successful Response
      */
     me(body: Settings | undefined): Promise<UserInfo> {
-        let url_ = this.baseUrl + '/api/v1/user/me';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/user/me";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -130,40 +113,24 @@ export class UserClient {
 
     protected processMe(response: Response): Promise<UserInfo> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = UserInfo.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserInfo.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<UserInfo>(<any>null);
@@ -174,18 +141,18 @@ export class UserClient {
      * @return Successful Response
      */
     create(body: Body_create_user_api_v1_user_create_post): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/user/create';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/user/create";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -195,41 +162,25 @@ export class UserClient {
 
     protected processCreate(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -237,25 +188,26 @@ export class UserClient {
 
     /**
      * Reset Password
-     * @param body (optional)
+     * @param body (optional) 
      * @return Successful Response
      */
     reset_password(username: string, body: Settings | undefined): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/user/reset_password?';
+        let url_ = this.baseUrl + "/api/v1/user/reset_password?";
         if (username === undefined || username === null)
             throw new Error("The parameter 'username' must be defined and cannot be null.");
-        else url_ += 'username=' + encodeURIComponent('' + username) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "username=" + encodeURIComponent("" + username) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -265,41 +217,25 @@ export class UserClient {
 
     protected processReset_password(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -311,12 +247,9 @@ export class V1Client {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -324,20 +257,22 @@ export class V1Client {
      * @return Successful Response
      */
     guardianGet(key_name: string, guardian_id: string): Promise<GuardianQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/guardian?';
+        let url_ = this.baseUrl + "/api/v1/guardian?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
         if (guardian_id === undefined || guardian_id === null)
             throw new Error("The parameter 'guardian_id' must be defined and cannot be null.");
-        else url_ += 'guardian_id=' + encodeURIComponent('' + guardian_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "guardian_id=" + encodeURIComponent("" + guardian_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -347,40 +282,24 @@ export class V1Client {
 
     protected processGuardianGet(response: Response): Promise<GuardianQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = GuardianQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GuardianQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<GuardianQueryResponse>(<any>null);
@@ -391,18 +310,18 @@ export class V1Client {
      * @return Successful Response
      */
     guardianPut(body: KeyCeremonyGuardian): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/guardian';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/guardian";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -410,44 +329,26 @@ export class V1Client {
         });
     }
 
-    protected processGuardianPut(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processGuardianPut(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -458,18 +359,18 @@ export class V1Client {
      * @return Successful Response
      */
     guardianPost(body: KeyCeremonyGuardian): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/guardian';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/guardian";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -477,44 +378,26 @@ export class V1Client {
         });
     }
 
-    protected processGuardianPost(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processGuardianPost(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -525,17 +408,18 @@ export class V1Client {
      * @return Successful Response
      */
     electionGet(election_id: string): Promise<ElectionQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/election?';
+        let url_ = this.baseUrl + "/api/v1/election?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -545,40 +429,24 @@ export class V1Client {
 
     protected processElectionGet(response: Response): Promise<ElectionQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ElectionQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ElectionQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ElectionQueryResponse>(<any>null);
@@ -589,18 +457,18 @@ export class V1Client {
      * @return Successful Response
      */
     electionPut(body: SubmitElectionRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/election';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/election";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -608,44 +476,26 @@ export class V1Client {
         });
     }
 
-    protected processElectionPut(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processElectionPut(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -656,17 +506,18 @@ export class V1Client {
      * @return Successful Response
      */
     manifestGet(manifest_hash: string): Promise<ManifestQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/manifest?';
+        let url_ = this.baseUrl + "/api/v1/manifest?";
         if (manifest_hash === undefined || manifest_hash === null)
             throw new Error("The parameter 'manifest_hash' must be defined and cannot be null.");
-        else url_ += 'manifest_hash=' + encodeURIComponent('' + manifest_hash) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "manifest_hash=" + encodeURIComponent("" + manifest_hash) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -676,40 +527,24 @@ export class V1Client {
 
     protected processManifestGet(response: Response): Promise<ManifestQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ManifestQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ManifestQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ManifestQueryResponse>(<any>null);
@@ -720,18 +555,18 @@ export class V1Client {
      * @return Successful Response
      */
     manifestPut(body: ValidateManifestRequest): Promise<ManifestSubmitResponse> {
-        let url_ = this.baseUrl + '/api/v1/manifest';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/manifest";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -741,40 +576,24 @@ export class V1Client {
 
     protected processManifestPut(response: Response): Promise<ManifestSubmitResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 202) {
             return response.text().then((_responseText) => {
-                let result202: any = null;
-                let resultData202 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result202 = ManifestSubmitResponse.fromJS(resultData202);
-                return result202;
+            let result202: any = null;
+            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result202 = ManifestSubmitResponse.fromJS(resultData202);
+            return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ManifestSubmitResponse>(<any>null);
@@ -785,20 +604,22 @@ export class V1Client {
      * @return Successful Response
      */
     ballot(election_id: string, ballot_id: string): Promise<BallotQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot?';
+        let url_ = this.baseUrl + "/api/v1/ballot?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
         if (ballot_id === undefined || ballot_id === null)
             throw new Error("The parameter 'ballot_id' must be defined and cannot be null.");
-        else url_ += 'ballot_id=' + encodeURIComponent('' + ballot_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "ballot_id=" + encodeURIComponent("" + ballot_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -808,40 +629,24 @@ export class V1Client {
 
     protected processBallot(response: Response): Promise<BallotQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = BallotQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BallotQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<BallotQueryResponse>(<any>null);
@@ -852,20 +657,22 @@ export class V1Client {
      * @return Successful Response
      */
     tallyGet(election_id: string, tally_name: string): Promise<CiphertextTally> {
-        let url_ = this.baseUrl + '/api/v1/tally?';
+        let url_ = this.baseUrl + "/api/v1/tally?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
         if (tally_name === undefined || tally_name === null)
             throw new Error("The parameter 'tally_name' must be defined and cannot be null.");
-        else url_ += 'tally_name=' + encodeURIComponent('' + tally_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "tally_name=" + encodeURIComponent("" + tally_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -875,40 +682,24 @@ export class V1Client {
 
     protected processTallyGet(response: Response): Promise<CiphertextTally> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = CiphertextTally.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CiphertextTally.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<CiphertextTally>(<any>null);
@@ -919,20 +710,22 @@ export class V1Client {
      * @return Successful Response
      */
     tallyPost(election_id: string, tally_name: string): Promise<CiphertextTally> {
-        let url_ = this.baseUrl + '/api/v1/tally?';
+        let url_ = this.baseUrl + "/api/v1/tally?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
         if (tally_name === undefined || tally_name === null)
             throw new Error("The parameter 'tally_name' must be defined and cannot be null.");
-        else url_ += 'tally_name=' + encodeURIComponent('' + tally_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "tally_name=" + encodeURIComponent("" + tally_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -942,40 +735,24 @@ export class V1Client {
 
     protected processTallyPost(response: Response): Promise<CiphertextTally> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = CiphertextTally.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CiphertextTally.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<CiphertextTally>(<any>null);
@@ -986,14 +763,14 @@ export class V1Client {
      * @return Successful Response
      */
     ping(): Promise<string> {
-        let url_ = this.baseUrl + '/api/v1/ping';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/ping";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1003,27 +780,18 @@ export class V1Client {
 
     protected processPing(response: Response): Promise<string> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<string>(<any>null);
@@ -1035,41 +803,38 @@ export class GuardianClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
      * Find Key Ceremony Guardians
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<GuardianQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/guardian/find?';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+    find(skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<GuardianQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/guardian/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1079,40 +844,24 @@ export class GuardianClient {
 
     protected processFind(response: Response): Promise<GuardianQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = GuardianQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GuardianQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<GuardianQueryResponse>(<any>null);
@@ -1123,18 +872,18 @@ export class GuardianClient {
      * @return Successful Response
      */
     announce(body: GuardianAnnounceRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/guardian/announce';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/key/guardian/announce";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1142,44 +891,26 @@ export class GuardianClient {
         });
     }
 
-    protected processAnnounce(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processAnnounce(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1190,18 +921,18 @@ export class GuardianClient {
      * @return Successful Response
      */
     backup(body: GuardianSubmitBackupRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/guardian/backup';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/key/guardian/backup";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1211,40 +942,24 @@ export class GuardianClient {
 
     protected processBackup(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1254,21 +969,19 @@ export class GuardianClient {
      * Verify Backups
      * @return Successful Response
      */
-    verify(
-        body: GuardianSubmitVerificationRequest
-    ): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/guardian/verify';
-        url_ = url_.replace(/[?&]$/, '');
+    verify(body: GuardianSubmitVerificationRequest): Promise<App__api__v1__models__base__BaseResponse> {
+        let url_ = this.baseUrl + "/api/v1/key/guardian/verify";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1278,40 +991,24 @@ export class GuardianClient {
 
     protected processVerify(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1321,21 +1018,19 @@ export class GuardianClient {
      * Challenge Backups
      * @return Successful Response
      */
-    challenge(
-        body: GuardianSubmitChallengeRequest
-    ): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/guardian/challenge';
-        url_ = url_.replace(/[?&]$/, '');
+    challenge(body: GuardianSubmitChallengeRequest): Promise<App__api__v1__models__base__BaseResponse> {
+        let url_ = this.baseUrl + "/api/v1/key/guardian/challenge";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1343,44 +1038,26 @@ export class GuardianClient {
         });
     }
 
-    protected processChallenge(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processChallenge(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1392,12 +1069,9 @@ export class KeyClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -1405,17 +1079,18 @@ export class KeyClient {
      * @return Successful Response
      */
     ceremonyGet(key_name: string): Promise<KeyCeremonyQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1425,40 +1100,24 @@ export class KeyClient {
 
     protected processCeremonyGet(response: Response): Promise<KeyCeremonyQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<KeyCeremonyQueryResponse>(<any>null);
@@ -1469,18 +1128,18 @@ export class KeyClient {
      * @return Successful Response
      */
     ceremonyPut(body: KeyCeremonyCreateRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/key/ceremony";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1488,44 +1147,26 @@ export class KeyClient {
         });
     }
 
-    protected processCeremonyPut(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processCeremonyPut(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1537,12 +1178,9 @@ export class CeremonyClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -1550,17 +1188,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     state(key_name: string): Promise<KeyCeremonyStateResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/state?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/state?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1570,40 +1209,24 @@ export class CeremonyClient {
 
     protected processState(response: Response): Promise<KeyCeremonyStateResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = KeyCeremonyStateResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = KeyCeremonyStateResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<KeyCeremonyStateResponse>(<any>null);
@@ -1611,31 +1234,31 @@ export class CeremonyClient {
 
     /**
      * Find Ceremonies
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<KeyCeremonyQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/find?';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+    find(skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<KeyCeremonyQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1645,40 +1268,24 @@ export class CeremonyClient {
 
     protected processFind(response: Response): Promise<KeyCeremonyQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<KeyCeremonyQueryResponse>(<any>null);
@@ -1689,17 +1296,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     open(key_name: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/open?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/open?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1709,40 +1317,24 @@ export class CeremonyClient {
 
     protected processOpen(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1753,17 +1345,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     close(key_name: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/close?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/close?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1773,40 +1366,24 @@ export class CeremonyClient {
 
     protected processClose(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1817,17 +1394,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     challenge(key_name: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/challenge?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/challenge?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1835,44 +1413,26 @@ export class CeremonyClient {
         });
     }
 
-    protected processChallenge(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processChallenge(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1883,17 +1443,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     cancel(key_name: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/cancel?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/cancel?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1903,40 +1464,24 @@ export class CeremonyClient {
 
     protected processCancel(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -1947,17 +1492,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     joint_key(key_name: string): Promise<ElectionJointKeyResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/joint_key?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/joint_key?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -1967,40 +1513,24 @@ export class CeremonyClient {
 
     protected processJoint_key(response: Response): Promise<ElectionJointKeyResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ElectionJointKeyResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ElectionJointKeyResponse>(<any>null);
@@ -2011,18 +1541,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     combine(body: PublishElectionJointKeyRequest): Promise<ElectionJointKeyResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/combine';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/combine";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2032,40 +1562,24 @@ export class CeremonyClient {
 
     protected processCombine(response: Response): Promise<ElectionJointKeyResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ElectionJointKeyResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ElectionJointKeyResponse>(<any>null);
@@ -2076,17 +1590,18 @@ export class CeremonyClient {
      * @return Successful Response
      */
     publish(key_name: string): Promise<ElectionJointKeyResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/publish?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/publish?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2096,40 +1611,24 @@ export class CeremonyClient {
 
     protected processPublish(response: Response): Promise<ElectionJointKeyResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ElectionJointKeyResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ElectionJointKeyResponse>(<any>null);
@@ -2141,12 +1640,9 @@ export class ChallengeClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2154,17 +1650,18 @@ export class ChallengeClient {
      * @return Successful Response
      */
     verify(key_name: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/key/ceremony/challenge/verify?';
+        let url_ = this.baseUrl + "/api/v1/key/ceremony/challenge/verify?";
         if (key_name === undefined || key_name === null)
             throw new Error("The parameter 'key_name' must be defined and cannot be null.");
-        else url_ += 'key_name=' + encodeURIComponent('' + key_name) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "key_name=" + encodeURIComponent("" + key_name) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2174,40 +1671,24 @@ export class ChallengeClient {
 
     protected processVerify(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -2219,12 +1700,9 @@ export class ElectionClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2232,14 +1710,14 @@ export class ElectionClient {
      * @return Successful Response
      */
     constants(): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/election/constants';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/election/constants";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2249,27 +1727,18 @@ export class ElectionClient {
 
     protected processConstants(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -2277,31 +1746,31 @@ export class ElectionClient {
 
     /**
      * Find Elections
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        skip: number | undefined,
-        limit: number | undefined,
-        body: ElectionQueryRequest
-    ): Promise<ElectionQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/election/find?';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+    find(skip: number | undefined, limit: number | undefined, body: ElectionQueryRequest): Promise<ElectionQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/election/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2311,40 +1780,24 @@ export class ElectionClient {
 
     protected processFind(response: Response): Promise<ElectionQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ElectionQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ElectionQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ElectionQueryResponse>(<any>null);
@@ -2355,17 +1808,18 @@ export class ElectionClient {
      * @return Successful Response
      */
     open(election_id: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/election/open?';
+        let url_ = this.baseUrl + "/api/v1/election/open?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2375,40 +1829,24 @@ export class ElectionClient {
 
     protected processOpen(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -2419,17 +1857,18 @@ export class ElectionClient {
      * @return Successful Response
      */
     close(election_id: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/election/close?';
+        let url_ = this.baseUrl + "/api/v1/election/close?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2439,40 +1878,24 @@ export class ElectionClient {
 
     protected processClose(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -2483,17 +1906,18 @@ export class ElectionClient {
      * @return Successful Response
      */
     publish(election_id: string): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/election/publish?';
+        let url_ = this.baseUrl + "/api/v1/election/publish?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'POST',
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2501,44 +1925,26 @@ export class ElectionClient {
         });
     }
 
-    protected processPublish(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processPublish(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -2549,18 +1955,18 @@ export class ElectionClient {
      * @return Successful Response
      */
     context(body: MakeElectionContextRequest): Promise<MakeElectionContextResponse> {
-        let url_ = this.baseUrl + '/api/v1/election/context';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/election/context";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2570,40 +1976,24 @@ export class ElectionClient {
 
     protected processContext(response: Response): Promise<MakeElectionContextResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = MakeElectionContextResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MakeElectionContextResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<MakeElectionContextResponse>(<any>null);
@@ -2615,41 +2005,38 @@ export class ManifestClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
      * Find Manifests
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<ManifestQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/manifest/find?';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+    find(skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<ManifestQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/manifest/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2659,40 +2046,24 @@ export class ManifestClient {
 
     protected processFind(response: Response): Promise<ManifestQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ManifestQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ManifestQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ManifestQueryResponse>(<any>null);
@@ -2703,18 +2074,18 @@ export class ManifestClient {
      * @return Successful Response
      */
     validate(body: ValidateManifestRequest): Promise<ValidateManifestResponse> {
-        let url_ = this.baseUrl + '/api/v1/manifest/validate';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/manifest/validate";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2724,40 +2095,24 @@ export class ManifestClient {
 
     protected processValidate(response: Response): Promise<ValidateManifestResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = ValidateManifestResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ValidateManifestResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<ValidateManifestResponse>(<any>null);
@@ -2769,12 +2124,9 @@ export class BallotClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -2782,17 +2134,18 @@ export class BallotClient {
      * @return Successful Response
      */
     inventory(election_id: string): Promise<BallotInventoryResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/inventory?';
+        let url_ = this.baseUrl + "/api/v1/ballot/inventory?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2802,40 +2155,24 @@ export class BallotClient {
 
     protected processInventory(response: Response): Promise<BallotInventoryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = BallotInventoryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BallotInventoryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<BallotInventoryResponse>(<any>null);
@@ -2843,35 +2180,35 @@ export class BallotClient {
 
     /**
      * Find Ballots
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        election_id: string,
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<BallotQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/find?';
+    find(election_id: string, skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<BallotQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/ballot/find?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2881,40 +2218,24 @@ export class BallotClient {
 
     protected processFind(response: Response): Promise<BallotQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = BallotQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BallotQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<BallotQueryResponse>(<any>null);
@@ -2922,28 +2243,26 @@ export class BallotClient {
 
     /**
      * Cast Ballots
-     * @param election_id (optional)
+     * @param election_id (optional) 
      * @return Successful Response
      */
-    cast(
-        election_id: string | undefined,
-        body: CastBallotsRequest
-    ): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/cast?';
-        if (election_id === null) throw new Error("The parameter 'election_id' cannot be null.");
+    cast(election_id: string | undefined, body: CastBallotsRequest): Promise<App__api__v1__models__base__BaseResponse> {
+        let url_ = this.baseUrl + "/api/v1/ballot/cast?";
+        if (election_id === null)
+            throw new Error("The parameter 'election_id' cannot be null.");
         else if (election_id !== undefined)
-            url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -2953,40 +2272,24 @@ export class BallotClient {
 
     protected processCast(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 202) {
             return response.text().then((_responseText) => {
-                let result202: any = null;
-                let resultData202 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
-                return result202;
+            let result202: any = null;
+            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -2994,28 +2297,26 @@ export class BallotClient {
 
     /**
      * Spoil Ballots
-     * @param election_id (optional)
+     * @param election_id (optional) 
      * @return Successful Response
      */
-    spoil(
-        election_id: string | undefined,
-        body: SpoilBallotsRequest
-    ): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/spoil?';
-        if (election_id === null) throw new Error("The parameter 'election_id' cannot be null.");
+    spoil(election_id: string | undefined, body: SpoilBallotsRequest): Promise<App__api__v1__models__base__BaseResponse> {
+        let url_ = this.baseUrl + "/api/v1/ballot/spoil?";
+        if (election_id === null)
+            throw new Error("The parameter 'election_id' cannot be null.");
         else if (election_id !== undefined)
-            url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3025,40 +2326,24 @@ export class BallotClient {
 
     protected processSpoil(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 202) {
             return response.text().then((_responseText) => {
-                let result202: any = null;
-                let resultData202 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
-                return result202;
+            let result202: any = null;
+            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -3066,28 +2351,26 @@ export class BallotClient {
 
     /**
      * Submit Ballots
-     * @param election_id (optional)
+     * @param election_id (optional) 
      * @return Successful Response
      */
-    submit(
-        election_id: string | undefined,
-        body: SubmitBallotsRequest
-    ): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/submit?';
-        if (election_id === null) throw new Error("The parameter 'election_id' cannot be null.");
+    submit(election_id: string | undefined, body: SubmitBallotsRequest): Promise<App__api__v1__models__base__BaseResponse> {
+        let url_ = this.baseUrl + "/api/v1/ballot/submit?";
+        if (election_id === null)
+            throw new Error("The parameter 'election_id' cannot be null.");
         else if (election_id !== undefined)
-            url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3097,40 +2380,24 @@ export class BallotClient {
 
     protected processSubmit(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 202) {
             return response.text().then((_responseText) => {
-                let result202: any = null;
-                let resultData202 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
-                return result202;
+            let result202: any = null;
+            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -3141,18 +2408,18 @@ export class BallotClient {
      * @return Successful Response
      */
     validate(body: ValidateBallotRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/ballot/validate';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/ballot/validate";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3160,44 +2427,26 @@ export class BallotClient {
         });
     }
 
-    protected processValidate(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processValidate(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -3208,18 +2457,18 @@ export class BallotClient {
      * @return Successful Response
      */
     decrypt(body: DecryptBallotsWithSharesRequest): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/ballot/decrypt';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/ballot/decrypt";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3229,41 +2478,25 @@ export class BallotClient {
 
     protected processDecrypt(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -3274,18 +2507,18 @@ export class BallotClient {
      * @return Successful Response
      */
     encrypt(body: EncryptBallotsRequest): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/ballot/encrypt';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/ballot/encrypt";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3295,41 +2528,25 @@ export class BallotClient {
 
     protected processEncrypt(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -3341,12 +2558,9 @@ export class TestClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -3354,18 +2568,18 @@ export class TestClient {
      * @return Successful Response
      */
     submit_queue(body: SubmitBallotsRequest): Promise<any> {
-        let url_ = this.baseUrl + '/api/v1/ballot/test/submit_queue';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/ballot/test/submit_queue";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3375,41 +2589,25 @@ export class TestClient {
 
     protected processSubmit_queue(response: Response): Promise<any> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 202) {
             return response.text().then((_responseText) => {
-                let result202: any = null;
-                let resultData202 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result202: any = null;
+            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result202 = resultData202 !== undefined ? resultData202 : <any>null;
-
-                return result202;
+    
+            return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<any>(<any>null);
@@ -3421,45 +2619,42 @@ export class TallyClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
      * Find Ciphertext Tallies
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        election_id: string,
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<CiphertextTallyQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/tally/find?';
+    find(election_id: string, skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<CiphertextTallyQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/tally/find?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3469,40 +2664,24 @@ export class TallyClient {
 
     protected processFind(response: Response): Promise<CiphertextTallyQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = CiphertextTallyQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CiphertextTallyQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<CiphertextTallyQueryResponse>(<any>null);
@@ -3512,28 +2691,27 @@ export class TallyClient {
      * Fetch Decryption Share
      * @return Successful Response
      */
-    decryptGet(
-        election_id: string,
-        tally_name: string,
-        guardian_id: string
-    ): Promise<DecryptionShareResponse> {
-        let url_ = this.baseUrl + '/api/v1/tally/decrypt?';
+    decryptGet(election_id: string, tally_name: string, guardian_id: string): Promise<DecryptionShareResponse> {
+        let url_ = this.baseUrl + "/api/v1/tally/decrypt?";
         if (election_id === undefined || election_id === null)
             throw new Error("The parameter 'election_id' must be defined and cannot be null.");
-        else url_ += 'election_id=' + encodeURIComponent('' + election_id) + '&';
+        else
+            url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
         if (tally_name === undefined || tally_name === null)
             throw new Error("The parameter 'tally_name' must be defined and cannot be null.");
-        else url_ += 'tally_name=' + encodeURIComponent('' + tally_name) + '&';
+        else
+            url_ += "tally_name=" + encodeURIComponent("" + tally_name) + "&";
         if (guardian_id === undefined || guardian_id === null)
             throw new Error("The parameter 'guardian_id' must be defined and cannot be null.");
-        else url_ += 'guardian_id=' + encodeURIComponent('' + guardian_id) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "guardian_id=" + encodeURIComponent("" + guardian_id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3543,40 +2721,24 @@ export class TallyClient {
 
     protected processDecryptGet(response: Response): Promise<DecryptionShareResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = DecryptionShareResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DecryptionShareResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<DecryptionShareResponse>(<any>null);
@@ -3584,27 +2746,26 @@ export class TallyClient {
 
     /**
      * Decrypt Tally
-     * @param restart (optional)
+     * @param restart (optional) 
      * @return Successful Response
      */
-    decryptPost(
-        restart: boolean | undefined,
-        body: DecryptTallyRequest
-    ): Promise<PlaintextTallyQueryResponse> {
-        let url_ = this.baseUrl + '/api/v1/tally/decrypt?';
-        if (restart === null) throw new Error("The parameter 'restart' cannot be null.");
-        else if (restart !== undefined) url_ += 'restart=' + encodeURIComponent('' + restart) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+    decryptPost(restart: boolean | undefined, body: DecryptTallyRequest): Promise<PlaintextTallyQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/tally/decrypt?";
+        if (restart === null)
+            throw new Error("The parameter 'restart' cannot be null.");
+        else if (restart !== undefined)
+            url_ += "restart=" + encodeURIComponent("" + restart) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3614,40 +2775,24 @@ export class TallyClient {
 
     protected processDecryptPost(response: Response): Promise<PlaintextTallyQueryResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = PlaintextTallyQueryResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PlaintextTallyQueryResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<PlaintextTallyQueryResponse>(<any>null);
@@ -3659,12 +2804,9 @@ export class DecryptClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -3672,18 +2814,18 @@ export class DecryptClient {
      * @return Successful Response
      */
     submitShare(body: DecryptionShareRequest): Promise<App__api__v1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1/tally/decrypt/submit-share';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1/tally/decrypt/submit-share";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3691,44 +2833,26 @@ export class DecryptClient {
         });
     }
 
-    protected processSubmitShare(
-        response: Response
-    ): Promise<App__api__v1__models__base__BaseResponse> {
+    protected processSubmitShare(response: Response): Promise<App__api__v1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1__models__base__BaseResponse>(<any>null);
@@ -3736,35 +2860,35 @@ export class DecryptClient {
 
     /**
      * Find Decryption Shares
-     * @param skip (optional)
-     * @param limit (optional)
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    find(
-        tally_name: string,
-        skip: number | undefined,
-        limit: number | undefined,
-        body: BaseQueryRequest
-    ): Promise<DecryptionShareResponse> {
-        let url_ = this.baseUrl + '/api/v1/tally/decrypt/find?';
+    find(tally_name: string, skip: number | undefined, limit: number | undefined, body: BaseQueryRequest): Promise<DecryptionShareResponse> {
+        let url_ = this.baseUrl + "/api/v1/tally/decrypt/find?";
         if (tally_name === undefined || tally_name === null)
             throw new Error("The parameter 'tally_name' must be defined and cannot be null.");
-        else url_ += 'tally_name=' + encodeURIComponent('' + tally_name) + '&';
-        if (skip === null) throw new Error("The parameter 'skip' cannot be null.");
-        else if (skip !== undefined) url_ += 'skip=' + encodeURIComponent('' + skip) + '&';
-        if (limit === null) throw new Error("The parameter 'limit' cannot be null.");
-        else if (limit !== undefined) url_ += 'limit=' + encodeURIComponent('' + limit) + '&';
-        url_ = url_.replace(/[?&]$/, '');
+        else
+            url_ += "tally_name=" + encodeURIComponent("" + tally_name) + "&";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3774,57 +2898,38 @@ export class DecryptClient {
 
     protected processFind(response: Response): Promise<DecryptionShareResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = DecryptionShareResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DecryptionShareResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<DecryptionShareResponse>(<any>null);
     }
 }
 
-export class V11Client {
+export class V1_1Client {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(
-        baseUrl?: string,
-        http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }
-    ) {
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : '';
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -3832,18 +2937,18 @@ export class V11Client {
      * @return Successful Response
      */
     election(body: CreateElectionRequest): Promise<App__api__v1_1__models__base__BaseResponse> {
-        let url_ = this.baseUrl + '/api/v1.1/election';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1_1/election";
+        url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3851,44 +2956,26 @@ export class V11Client {
         });
     }
 
-    protected processElection(
-        response: Response
-    ): Promise<App__api__v1_1__models__base__BaseResponse> {
+    protected processElection(response: Response): Promise<App__api__v1_1__models__base__BaseResponse> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = App__api__v1_1__models__base__BaseResponse.fromJS(resultData200);
-                return result200;
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = App__api__v1_1__models__base__BaseResponse.fromJS(resultData200);
+            return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
-                let result422: any = null;
-                let resultData422 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result422 = HTTPValidationError.fromJS(resultData422);
-                return throwException(
-                    'Validation Error',
-                    status,
-                    _responseText,
-                    _headers,
-                    result422
-                );
+            let result422: any = null;
+            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result422 = HTTPValidationError.fromJS(resultData422);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<App__api__v1_1__models__base__BaseResponse>(<any>null);
@@ -3899,14 +2986,14 @@ export class V11Client {
      * @return Successful Response
      */
     ping(): Promise<string> {
-        let url_ = this.baseUrl + '/api/v1.1/ping';
-        url_ = url_.replace(/[?&]$/, '');
+        let url_ = this.baseUrl + "/api/v1_1/ping";
+        url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
-            method: 'GET',
+            method: "GET",
             headers: {
-                Accept: 'application/json',
-            },
+                "Accept": "application/json"
+            }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
@@ -3916,27 +3003,18 @@ export class V11Client {
 
     protected processPing(response: Response): Promise<string> {
         const status = response.status;
-        let _headers: any = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v: any, k: any) => (_headers[k] = v));
-        }
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-                let result200: any = null;
-                let resultData200 =
-                    _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
-                return result200;
+    
+            return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-                return throwException(
-                    'An unexpected server error occurred.',
-                    status,
-                    _responseText,
-                    _headers
-                );
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<string>(<any>null);
@@ -3945,8 +3023,8 @@ export class V11Client {
 
 /** An enumeration. */
 export enum ApiMode {
-    Guardian = 'guardian',
-    Mediator = 'mediator',
+    Guardian = "guardian",
+    Mediator = "mediator",
 }
 
 /** The Ballot Inventory retains metadata about ballots in an election, including mappings of ballot tracking codes to ballot id's */
@@ -3954,13 +3032,14 @@ export class BallotInventory implements IBallotInventory {
     election_id!: string;
     cast_ballot_count?: number;
     spoiled_ballot_count?: number;
-    cast_ballots?: { [key: string]: string };
-    spoiled_ballots?: { [key: string]: string };
+    cast_ballots?: { [key: string]: string; };
+    spoiled_ballots?: { [key: string]: string; };
 
     constructor(data?: IBallotInventory) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -3971,23 +3050,21 @@ export class BallotInventory implements IBallotInventory {
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.cast_ballot_count =
-                _data['cast_ballot_count'] !== undefined ? _data['cast_ballot_count'] : 0;
-            this.spoiled_ballot_count =
-                _data['spoiled_ballot_count'] !== undefined ? _data['spoiled_ballot_count'] : 0;
-            if (_data['cast_ballots']) {
+            this.election_id = _data["election_id"];
+            this.cast_ballot_count = _data["cast_ballot_count"] !== undefined ? _data["cast_ballot_count"] : 0;
+            this.spoiled_ballot_count = _data["spoiled_ballot_count"] !== undefined ? _data["spoiled_ballot_count"] : 0;
+            if (_data["cast_ballots"]) {
                 this.cast_ballots = {} as any;
-                for (let key in _data['cast_ballots']) {
-                    if (_data['cast_ballots'].hasOwnProperty(key))
-                        (<any>this.cast_ballots)![key] = _data['cast_ballots'][key];
+                for (let key in _data["cast_ballots"]) {
+                    if (_data["cast_ballots"].hasOwnProperty(key))
+                        (<any>this.cast_ballots)![key] = _data["cast_ballots"][key];
                 }
             }
-            if (_data['spoiled_ballots']) {
+            if (_data["spoiled_ballots"]) {
                 this.spoiled_ballots = {} as any;
-                for (let key in _data['spoiled_ballots']) {
-                    if (_data['spoiled_ballots'].hasOwnProperty(key))
-                        (<any>this.spoiled_ballots)![key] = _data['spoiled_ballots'][key];
+                for (let key in _data["spoiled_ballots"]) {
+                    if (_data["spoiled_ballots"].hasOwnProperty(key))
+                        (<any>this.spoiled_ballots)![key] = _data["spoiled_ballots"][key];
                 }
             }
         }
@@ -4002,21 +3079,21 @@ export class BallotInventory implements IBallotInventory {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['cast_ballot_count'] = this.cast_ballot_count;
-        data['spoiled_ballot_count'] = this.spoiled_ballot_count;
+        data["election_id"] = this.election_id;
+        data["cast_ballot_count"] = this.cast_ballot_count;
+        data["spoiled_ballot_count"] = this.spoiled_ballot_count;
         if (this.cast_ballots) {
-            data['cast_ballots'] = {};
+            data["cast_ballots"] = {};
             for (let key in this.cast_ballots) {
                 if (this.cast_ballots.hasOwnProperty(key))
-                    (<any>data['cast_ballots'])[key] = this.cast_ballots[key];
+                    (<any>data["cast_ballots"])[key] = this.cast_ballots[key];
             }
         }
         if (this.spoiled_ballots) {
-            data['spoiled_ballots'] = {};
+            data["spoiled_ballots"] = {};
             for (let key in this.spoiled_ballots) {
                 if (this.spoiled_ballots.hasOwnProperty(key))
-                    (<any>data['spoiled_ballots'])[key] = this.spoiled_ballots[key];
+                    (<any>data["spoiled_ballots"])[key] = this.spoiled_ballots[key];
             }
         }
         return data;
@@ -4028,8 +3105,8 @@ export interface IBallotInventory {
     election_id: string;
     cast_ballot_count?: number;
     spoiled_ballot_count?: number;
-    cast_ballots?: { [key: string]: string };
-    spoiled_ballots?: { [key: string]: string };
+    cast_ballots?: { [key: string]: string; };
+    spoiled_ballots?: { [key: string]: string; };
 }
 
 /** A basic response */
@@ -4041,7 +3118,8 @@ export class BallotInventoryResponse implements IBallotInventoryResponse {
     constructor(data?: IBallotInventoryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4052,14 +3130,9 @@ export class BallotInventoryResponse implements IBallotInventoryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.inventory = _data['inventory']
-                ? BallotInventory.fromJS(_data['inventory'])
-                : new BallotInventory();
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.inventory = _data["inventory"] ? BallotInventory.fromJS(_data["inventory"]) : new BallotInventory();
         }
     }
 
@@ -4072,9 +3145,9 @@ export class BallotInventoryResponse implements IBallotInventoryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['inventory'] = this.inventory ? this.inventory.toJSON() : <any>undefined;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["inventory"] = this.inventory ? this.inventory.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -4096,7 +3169,8 @@ export class BallotQueryResponse implements IBallotQueryResponse {
     constructor(data?: IBallotQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4106,15 +3180,13 @@ export class BallotQueryResponse implements IBallotQueryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.election_id = _data['election_id'];
-            if (Array.isArray(_data['ballots'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.election_id = _data["election_id"];
+            if (Array.isArray(_data["ballots"])) {
                 this.ballots = [] as any;
-                for (let item of _data['ballots']) this.ballots!.push(item);
+                for (let item of _data["ballots"])
+                    this.ballots!.push(item);
             }
         }
     }
@@ -4128,12 +3200,13 @@ export class BallotQueryResponse implements IBallotQueryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['election_id'] = this.election_id;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["election_id"] = this.election_id;
         if (Array.isArray(this.ballots)) {
-            data['ballots'] = [];
-            for (let item of this.ballots) data['ballots'].push(item);
+            data["ballots"] = [];
+            for (let item of this.ballots)
+                data["ballots"].push(item);
         }
         return data;
     }
@@ -4154,14 +3227,15 @@ export class BaseQueryRequest implements IBaseQueryRequest {
     constructor(data?: IBaseQueryRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.filter = _data['filter'];
+            this.filter = _data["filter"];
         }
     }
 
@@ -4174,7 +3248,7 @@ export class BaseQueryRequest implements IBaseQueryRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['filter'] = this.filter;
+        data["filter"] = this.filter;
         return data;
     }
 }
@@ -4184,16 +3258,15 @@ export interface IBaseQueryRequest {
     filter?: any;
 }
 
-export class Body_create_user_api_v1_user_create_post
-    implements IBody_create_user_api_v1_user_create_post
-{
+export class Body_create_user_api_v1_user_create_post implements IBody_create_user_api_v1_user_create_post {
     user_info!: UserInfo;
     settings?: Settings;
 
     constructor(data?: IBody_create_user_api_v1_user_create_post) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4203,10 +3276,8 @@ export class Body_create_user_api_v1_user_create_post
 
     init(_data?: any) {
         if (_data) {
-            this.user_info = _data['user_info']
-                ? UserInfo.fromJS(_data['user_info'])
-                : new UserInfo();
-            this.settings = _data['settings'] ? Settings.fromJS(_data['settings']) : <any>undefined;
+            this.user_info = _data["user_info"] ? UserInfo.fromJS(_data["user_info"]) : new UserInfo();
+            this.settings = _data["settings"] ? Settings.fromJS(_data["settings"]) : <any>undefined;
         }
     }
 
@@ -4219,8 +3290,8 @@ export class Body_create_user_api_v1_user_create_post
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['user_info'] = this.user_info ? this.user_info.toJSON() : <any>undefined;
-        data['settings'] = this.settings ? this.settings.toJSON() : <any>undefined;
+        data["user_info"] = this.user_info ? this.user_info.toJSON() : <any>undefined;
+        data["settings"] = this.settings ? this.settings.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -4230,9 +3301,7 @@ export interface IBody_create_user_api_v1_user_create_post {
     settings?: Settings;
 }
 
-export class Body_login_for_access_token_api_v1_auth_login_post
-    implements IBody_login_for_access_token_api_v1_auth_login_post
-{
+export class Body_login_for_access_token_api_v1_auth_login_post implements IBody_login_for_access_token_api_v1_auth_login_post {
     grant_type?: string;
     username!: string;
     password!: string;
@@ -4243,22 +3312,23 @@ export class Body_login_for_access_token_api_v1_auth_login_post
     constructor(data?: IBody_login_for_access_token_api_v1_auth_login_post) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
-            this.scope = '';
+            this.scope = "";
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.grant_type = _data['grant_type'];
-            this.username = _data['username'];
-            this.password = _data['password'];
-            this.scope = _data['scope'] !== undefined ? _data['scope'] : '';
-            this.client_id = _data['client_id'];
-            this.client_secret = _data['client_secret'];
+            this.grant_type = _data["grant_type"];
+            this.username = _data["username"];
+            this.password = _data["password"];
+            this.scope = _data["scope"] !== undefined ? _data["scope"] : "";
+            this.client_id = _data["client_id"];
+            this.client_secret = _data["client_secret"];
         }
     }
 
@@ -4271,12 +3341,12 @@ export class Body_login_for_access_token_api_v1_auth_login_post
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['grant_type'] = this.grant_type;
-        data['username'] = this.username;
-        data['password'] = this.password;
-        data['scope'] = this.scope;
-        data['client_id'] = this.client_id;
-        data['client_secret'] = this.client_secret;
+        data["grant_type"] = this.grant_type;
+        data["username"] = this.username;
+        data["password"] = this.password;
+        data["scope"] = this.scope;
+        data["client_id"] = this.client_id;
+        data["client_secret"] = this.client_secret;
         return data;
     }
 }
@@ -4300,7 +3370,8 @@ export class CastBallotsRequest implements ICastBallotsRequest {
     constructor(data?: ICastBallotsRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4310,12 +3381,13 @@ export class CastBallotsRequest implements ICastBallotsRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.manifest = _data['manifest'];
-            this.context = _data['context'];
-            if (Array.isArray(_data['ballots'])) {
+            this.election_id = _data["election_id"];
+            this.manifest = _data["manifest"];
+            this.context = _data["context"];
+            if (Array.isArray(_data["ballots"])) {
                 this.ballots = [] as any;
-                for (let item of _data['ballots']) this.ballots!.push(item);
+                for (let item of _data["ballots"])
+                    this.ballots!.push(item);
             }
         }
     }
@@ -4329,12 +3401,13 @@ export class CastBallotsRequest implements ICastBallotsRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['manifest'] = this.manifest;
-        data['context'] = this.context;
+        data["election_id"] = this.election_id;
+        data["manifest"] = this.manifest;
+        data["context"] = this.context;
         if (Array.isArray(this.ballots)) {
-            data['ballots'] = [];
-            for (let item of this.ballots) data['ballots'].push(item);
+            data["ballots"] = [];
+            for (let item of this.ballots)
+                data["ballots"].push(item);
         }
         return data;
     }
@@ -4358,19 +3431,18 @@ export class CiphertextTally implements ICiphertextTally {
     constructor(data?: ICiphertextTally) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.tally_name = _data['tally_name'];
-            this.created = _data['created']
-                ? new Date(_data['created'].toString())
-                : <any>undefined;
-            this.tally = _data['tally'];
+            this.election_id = _data["election_id"];
+            this.tally_name = _data["tally_name"];
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
+            this.tally = _data["tally"];
         }
     }
 
@@ -4383,10 +3455,10 @@ export class CiphertextTally implements ICiphertextTally {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['tally_name'] = this.tally_name;
-        data['created'] = this.created ? this.created.toISOString() : <any>undefined;
-        data['tally'] = this.tally;
+        data["election_id"] = this.election_id;
+        data["tally_name"] = this.tally_name;
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
+        data["tally"] = this.tally;
         return data;
     }
 }
@@ -4410,18 +3482,19 @@ export class CiphertextTallyDecryptionShare implements ICiphertextTallyDecryptio
     constructor(data?: ICiphertextTallyDecryptionShare) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.tally_name = _data['tally_name'];
-            this.guardian_id = _data['guardian_id'];
-            this.tally_share = _data['tally_share'];
-            this.ballot_shares = _data['ballot_shares'];
+            this.election_id = _data["election_id"];
+            this.tally_name = _data["tally_name"];
+            this.guardian_id = _data["guardian_id"];
+            this.tally_share = _data["tally_share"];
+            this.ballot_shares = _data["ballot_shares"];
         }
     }
 
@@ -4434,11 +3507,11 @@ export class CiphertextTallyDecryptionShare implements ICiphertextTallyDecryptio
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['tally_name'] = this.tally_name;
-        data['guardian_id'] = this.guardian_id;
-        data['tally_share'] = this.tally_share;
-        data['ballot_shares'] = this.ballot_shares;
+        data["election_id"] = this.election_id;
+        data["tally_name"] = this.tally_name;
+        data["guardian_id"] = this.guardian_id;
+        data["tally_share"] = this.tally_share;
+        data["ballot_shares"] = this.ballot_shares;
         return data;
     }
 }
@@ -4461,7 +3534,8 @@ export class CiphertextTallyQueryResponse implements ICiphertextTallyQueryRespon
     constructor(data?: ICiphertextTallyQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4471,14 +3545,12 @@ export class CiphertextTallyQueryResponse implements ICiphertextTallyQueryRespon
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['tallies'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["tallies"])) {
                 this.tallies = [] as any;
-                for (let item of _data['tallies']) this.tallies!.push(CiphertextTally.fromJS(item));
+                for (let item of _data["tallies"])
+                    this.tallies!.push(CiphertextTally.fromJS(item));
             }
         }
     }
@@ -4492,11 +3564,12 @@ export class CiphertextTallyQueryResponse implements ICiphertextTallyQueryRespon
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.tallies)) {
-            data['tallies'] = [];
-            for (let item of this.tallies) data['tallies'].push(item.toJSON());
+            data["tallies"] = [];
+            for (let item of this.tallies)
+                data["tallies"].push(item.toJSON());
         }
         return data;
     }
@@ -4516,14 +3589,15 @@ export class CreateElectionRequest implements ICreateElectionRequest {
     constructor(data?: ICreateElectionRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.name = _data['name'];
+            this.name = _data["name"];
         }
     }
 
@@ -4536,7 +3610,7 @@ export class CreateElectionRequest implements ICreateElectionRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['name'] = this.name;
+        data["name"] = this.name;
         return data;
     }
 }
@@ -4549,13 +3623,14 @@ export interface ICreateElectionRequest {
 /** Decrypt the provided ballots with the provided shares */
 export class DecryptBallotsWithSharesRequest implements IDecryptBallotsWithSharesRequest {
     encrypted_ballots!: any[];
-    shares!: { [key: string]: any[] };
+    shares!: { [key: string]: any[]; };
     context?: any;
 
     constructor(data?: IDecryptBallotsWithSharesRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4566,19 +3641,19 @@ export class DecryptBallotsWithSharesRequest implements IDecryptBallotsWithShare
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data['encrypted_ballots'])) {
+            if (Array.isArray(_data["encrypted_ballots"])) {
                 this.encrypted_ballots = [] as any;
-                for (let item of _data['encrypted_ballots']) this.encrypted_ballots!.push(item);
+                for (let item of _data["encrypted_ballots"])
+                    this.encrypted_ballots!.push(item);
             }
-            if (_data['shares']) {
+            if (_data["shares"]) {
                 this.shares = {} as any;
-                for (let key in _data['shares']) {
-                    if (_data['shares'].hasOwnProperty(key))
-                        (<any>this.shares)![key] =
-                            _data['shares'][key] !== undefined ? _data['shares'][key] : [];
+                for (let key in _data["shares"]) {
+                    if (_data["shares"].hasOwnProperty(key))
+                        (<any>this.shares)![key] = _data["shares"][key] !== undefined ? _data["shares"][key] : [];
                 }
             }
-            this.context = _data['context'];
+            this.context = _data["context"];
         }
     }
 
@@ -4592,16 +3667,18 @@ export class DecryptBallotsWithSharesRequest implements IDecryptBallotsWithShare
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (Array.isArray(this.encrypted_ballots)) {
-            data['encrypted_ballots'] = [];
-            for (let item of this.encrypted_ballots) data['encrypted_ballots'].push(item);
+            data["encrypted_ballots"] = [];
+            for (let item of this.encrypted_ballots)
+                data["encrypted_ballots"].push(item);
         }
         if (this.shares) {
-            data['shares'] = {};
+            data["shares"] = {};
             for (let key in this.shares) {
-                if (this.shares.hasOwnProperty(key)) (<any>data['shares'])[key] = this.shares[key];
+                if (this.shares.hasOwnProperty(key))
+                    (<any>data["shares"])[key] = this.shares[key];
             }
         }
-        data['context'] = this.context;
+        data["context"] = this.context;
         return data;
     }
 }
@@ -4609,7 +3686,7 @@ export class DecryptBallotsWithSharesRequest implements IDecryptBallotsWithShare
 /** Decrypt the provided ballots with the provided shares */
 export interface IDecryptBallotsWithSharesRequest {
     encrypted_ballots: any[];
-    shares: { [key: string]: any[] };
+    shares: { [key: string]: any[]; };
     context?: any;
 }
 
@@ -4621,15 +3698,16 @@ export class DecryptTallyRequest implements IDecryptTallyRequest {
     constructor(data?: IDecryptTallyRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.tally_name = _data['tally_name'];
+            this.election_id = _data["election_id"];
+            this.tally_name = _data["tally_name"];
         }
     }
 
@@ -4642,8 +3720,8 @@ export class DecryptTallyRequest implements IDecryptTallyRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['tally_name'] = this.tally_name;
+        data["election_id"] = this.election_id;
+        data["tally_name"] = this.tally_name;
         return data;
     }
 }
@@ -4661,7 +3739,8 @@ export class DecryptionShareRequest implements IDecryptionShareRequest {
     constructor(data?: IDecryptionShareRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4671,9 +3750,7 @@ export class DecryptionShareRequest implements IDecryptionShareRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.share = _data['share']
-                ? CiphertextTallyDecryptionShare.fromJS(_data['share'])
-                : new CiphertextTallyDecryptionShare();
+            this.share = _data["share"] ? CiphertextTallyDecryptionShare.fromJS(_data["share"]) : new CiphertextTallyDecryptionShare();
         }
     }
 
@@ -4686,7 +3763,7 @@ export class DecryptionShareRequest implements IDecryptionShareRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['share'] = this.share ? this.share.toJSON() : <any>undefined;
+        data["share"] = this.share ? this.share.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -4705,7 +3782,8 @@ export class DecryptionShareResponse implements IDecryptionShareResponse {
     constructor(data?: IDecryptionShareResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4716,14 +3794,11 @@ export class DecryptionShareResponse implements IDecryptionShareResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['shares'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["shares"])) {
                 this.shares = [] as any;
-                for (let item of _data['shares'])
+                for (let item of _data["shares"])
                     this.shares!.push(CiphertextTallyDecryptionShare.fromJS(item));
             }
         }
@@ -4738,11 +3813,12 @@ export class DecryptionShareResponse implements IDecryptionShareResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.shares)) {
-            data['shares'] = [];
-            for (let item of this.shares) data['shares'].push(item.toJSON());
+            data["shares"] = [];
+            for (let item of this.shares)
+                data["shares"].push(item.toJSON());
         }
         return data;
     }
@@ -4766,18 +3842,19 @@ export class Election implements IElection {
     constructor(data?: IElection) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.key_name = _data['key_name'];
-            this.state = _data['state'];
-            this.context = _data['context'];
-            this.manifest = _data['manifest'];
+            this.election_id = _data["election_id"];
+            this.key_name = _data["key_name"];
+            this.state = _data["state"];
+            this.context = _data["context"];
+            this.manifest = _data["manifest"];
         }
     }
 
@@ -4790,11 +3867,11 @@ export class Election implements IElection {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['key_name'] = this.key_name;
-        data['state'] = this.state;
-        data['context'] = this.context;
-        data['manifest'] = this.manifest;
+        data["election_id"] = this.election_id;
+        data["key_name"] = this.key_name;
+        data["state"] = this.state;
+        data["context"] = this.context;
+        data["manifest"] = this.manifest;
         return data;
     }
 }
@@ -4818,7 +3895,8 @@ export class ElectionJointKeyResponse implements IElectionJointKeyResponse {
     constructor(data?: IElectionJointKeyResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4828,13 +3906,10 @@ export class ElectionJointKeyResponse implements IElectionJointKeyResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.elgamal_public_key = _data['elgamal_public_key'];
-            this.commitment_hash = _data['commitment_hash'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.elgamal_public_key = _data["elgamal_public_key"];
+            this.commitment_hash = _data["commitment_hash"];
         }
     }
 
@@ -4847,10 +3922,10 @@ export class ElectionJointKeyResponse implements IElectionJointKeyResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['elgamal_public_key'] = this.elgamal_public_key;
-        data['commitment_hash'] = this.commitment_hash;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["elgamal_public_key"] = this.elgamal_public_key;
+        data["commitment_hash"] = this.commitment_hash;
         return data;
     }
 }
@@ -4870,14 +3945,15 @@ export class ElectionQueryRequest implements IElectionQueryRequest {
     constructor(data?: IElectionQueryRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.filter = _data['filter'];
+            this.filter = _data["filter"];
         }
     }
 
@@ -4890,7 +3966,7 @@ export class ElectionQueryRequest implements IElectionQueryRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['filter'] = this.filter;
+        data["filter"] = this.filter;
         return data;
     }
 }
@@ -4909,7 +3985,8 @@ export class ElectionQueryResponse implements IElectionQueryResponse {
     constructor(data?: IElectionQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4919,14 +3996,12 @@ export class ElectionQueryResponse implements IElectionQueryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['elections'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["elections"])) {
                 this.elections = [] as any;
-                for (let item of _data['elections']) this.elections!.push(Election.fromJS(item));
+                for (let item of _data["elections"])
+                    this.elections!.push(Election.fromJS(item));
             }
         }
     }
@@ -4940,11 +4015,12 @@ export class ElectionQueryResponse implements IElectionQueryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.elections)) {
-            data['elections'] = [];
-            for (let item of this.elections) data['elections'].push(item.toJSON());
+            data["elections"] = [];
+            for (let item of this.elections)
+                data["elections"].push(item.toJSON());
         }
         return data;
     }
@@ -4959,10 +4035,10 @@ export interface IElectionQueryResponse {
 
 /** An enumeration. */
 export enum ElectionState {
-    CREATED = 'CREATED',
-    OPEN = 'OPEN',
-    CLOSED = 'CLOSED',
-    PUBLISHED = 'PUBLISHED',
+    CREATED = "CREATED",
+    OPEN = "OPEN",
+    CLOSED = "CLOSED",
+    PUBLISHED = "PUBLISHED",
 }
 
 /** A request to encrypt the enclosed ballots. */
@@ -4974,7 +4050,8 @@ export class EncryptBallotsRequest implements IEncryptBallotsRequest {
     constructor(data?: IEncryptBallotsRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -4984,11 +4061,12 @@ export class EncryptBallotsRequest implements IEncryptBallotsRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.seed_hash = _data['seed_hash'];
-            if (Array.isArray(_data['ballots'])) {
+            this.election_id = _data["election_id"];
+            this.seed_hash = _data["seed_hash"];
+            if (Array.isArray(_data["ballots"])) {
                 this.ballots = [] as any;
-                for (let item of _data['ballots']) this.ballots!.push(item);
+                for (let item of _data["ballots"])
+                    this.ballots!.push(item);
             }
         }
     }
@@ -5002,11 +4080,12 @@ export class EncryptBallotsRequest implements IEncryptBallotsRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['seed_hash'] = this.seed_hash;
+        data["election_id"] = this.election_id;
+        data["seed_hash"] = this.seed_hash;
         if (Array.isArray(this.ballots)) {
-            data['ballots'] = [];
-            for (let item of this.ballots) data['ballots'].push(item);
+            data["ballots"] = [];
+            for (let item of this.ballots)
+                data["ballots"].push(item);
         }
         return data;
     }
@@ -5019,6 +4098,44 @@ export interface IEncryptBallotsRequest {
     ballots: any[];
 }
 
+/** Returns error messages to the client. */
+export class ErrorMessage implements IErrorMessage {
+    message!: string;
+
+    constructor(data?: IErrorMessage) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): ErrorMessage {
+        data = typeof data === 'object' ? data : {};
+        let result = new ErrorMessage();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data;
+    }
+}
+
+/** Returns error messages to the client. */
+export interface IErrorMessage {
+    message: string;
+}
+
 /** A set of public auxiliary and election keys. */
 export class GuardianAnnounceRequest implements IGuardianAnnounceRequest {
     key_name!: string;
@@ -5027,15 +4144,16 @@ export class GuardianAnnounceRequest implements IGuardianAnnounceRequest {
     constructor(data?: IGuardianAnnounceRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.public_keys = _data['public_keys'];
+            this.key_name = _data["key_name"];
+            this.public_keys = _data["public_keys"];
         }
     }
 
@@ -5048,8 +4166,8 @@ export class GuardianAnnounceRequest implements IGuardianAnnounceRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['public_keys'] = this.public_keys;
+        data["key_name"] = this.key_name;
+        data["public_keys"] = this.public_keys;
         return data;
     }
 }
@@ -5069,7 +4187,8 @@ export class GuardianQueryResponse implements IGuardianQueryResponse {
     constructor(data?: IGuardianQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5080,14 +4199,11 @@ export class GuardianQueryResponse implements IGuardianQueryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['guardians'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["guardians"])) {
                 this.guardians = [] as any;
-                for (let item of _data['guardians'])
+                for (let item of _data["guardians"])
                     this.guardians!.push(KeyCeremonyGuardian.fromJS(item));
             }
         }
@@ -5102,11 +4218,12 @@ export class GuardianQueryResponse implements IGuardianQueryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.guardians)) {
-            data['guardians'] = [];
-            for (let item of this.guardians) data['guardians'].push(item.toJSON());
+            data["guardians"] = [];
+            for (let item of this.guardians)
+                data["guardians"].push(item.toJSON());
         }
         return data;
     }
@@ -5128,7 +4245,8 @@ export class GuardianSubmitBackupRequest implements IGuardianSubmitBackupRequest
     constructor(data?: IGuardianSubmitBackupRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5138,11 +4256,12 @@ export class GuardianSubmitBackupRequest implements IGuardianSubmitBackupRequest
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.guardian_id = _data['guardian_id'];
-            if (Array.isArray(_data['backups'])) {
+            this.key_name = _data["key_name"];
+            this.guardian_id = _data["guardian_id"];
+            if (Array.isArray(_data["backups"])) {
                 this.backups = [] as any;
-                for (let item of _data['backups']) this.backups!.push(item);
+                for (let item of _data["backups"])
+                    this.backups!.push(item);
             }
         }
     }
@@ -5156,11 +4275,12 @@ export class GuardianSubmitBackupRequest implements IGuardianSubmitBackupRequest
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['guardian_id'] = this.guardian_id;
+        data["key_name"] = this.key_name;
+        data["guardian_id"] = this.guardian_id;
         if (Array.isArray(this.backups)) {
-            data['backups'] = [];
-            for (let item of this.backups) data['backups'].push(item);
+            data["backups"] = [];
+            for (let item of this.backups)
+                data["backups"].push(item);
         }
         return data;
     }
@@ -5182,7 +4302,8 @@ export class GuardianSubmitChallengeRequest implements IGuardianSubmitChallengeR
     constructor(data?: IGuardianSubmitChallengeRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5192,11 +4313,12 @@ export class GuardianSubmitChallengeRequest implements IGuardianSubmitChallengeR
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.guardian_id = _data['guardian_id'];
-            if (Array.isArray(_data['challenges'])) {
+            this.key_name = _data["key_name"];
+            this.guardian_id = _data["guardian_id"];
+            if (Array.isArray(_data["challenges"])) {
                 this.challenges = [] as any;
-                for (let item of _data['challenges']) this.challenges!.push(item);
+                for (let item of _data["challenges"])
+                    this.challenges!.push(item);
             }
         }
     }
@@ -5210,11 +4332,12 @@ export class GuardianSubmitChallengeRequest implements IGuardianSubmitChallengeR
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['guardian_id'] = this.guardian_id;
+        data["key_name"] = this.key_name;
+        data["guardian_id"] = this.guardian_id;
         if (Array.isArray(this.challenges)) {
-            data['challenges'] = [];
-            for (let item of this.challenges) data['challenges'].push(item);
+            data["challenges"] = [];
+            for (let item of this.challenges)
+                data["challenges"].push(item);
         }
         return data;
     }
@@ -5236,7 +4359,8 @@ export class GuardianSubmitVerificationRequest implements IGuardianSubmitVerific
     constructor(data?: IGuardianSubmitVerificationRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5246,11 +4370,12 @@ export class GuardianSubmitVerificationRequest implements IGuardianSubmitVerific
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.guardian_id = _data['guardian_id'];
-            if (Array.isArray(_data['verifications'])) {
+            this.key_name = _data["key_name"];
+            this.guardian_id = _data["guardian_id"];
+            if (Array.isArray(_data["verifications"])) {
                 this.verifications = [] as any;
-                for (let item of _data['verifications']) this.verifications!.push(item);
+                for (let item of _data["verifications"])
+                    this.verifications!.push(item);
             }
         }
     }
@@ -5264,11 +4389,12 @@ export class GuardianSubmitVerificationRequest implements IGuardianSubmitVerific
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['guardian_id'] = this.guardian_id;
+        data["key_name"] = this.key_name;
+        data["guardian_id"] = this.guardian_id;
         if (Array.isArray(this.verifications)) {
-            data['verifications'] = [];
-            for (let item of this.verifications) data['verifications'].push(item);
+            data["verifications"] = [];
+            for (let item of this.verifications)
+                data["verifications"].push(item);
         }
         return data;
     }
@@ -5287,16 +4413,18 @@ export class HTTPValidationError implements IHTTPValidationError {
     constructor(data?: IHTTPValidationError) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data['detail'])) {
+            if (Array.isArray(_data["detail"])) {
                 this.detail = [] as any;
-                for (let item of _data['detail']) this.detail!.push(ValidationError.fromJS(item));
+                for (let item of _data["detail"])
+                    this.detail!.push(ValidationError.fromJS(item));
             }
         }
     }
@@ -5311,8 +4439,9 @@ export class HTTPValidationError implements IHTTPValidationError {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (Array.isArray(this.detail)) {
-            data['detail'] = [];
-            for (let item of this.detail) data['detail'].push(item.toJSON());
+            data["detail"] = [];
+            for (let item of this.detail)
+                data["detail"].push(item.toJSON());
         }
         return data;
     }
@@ -5329,14 +4458,15 @@ export class KeyCeremony implements IKeyCeremony {
     number_of_guardians!: number;
     quorum!: number;
     guardian_ids!: string[];
-    guardian_status!: { [key: string]: KeyCeremonyGuardianState };
+    guardian_status!: { [key: string]: KeyCeremonyGuardianState; };
     elgamal_public_key?: any;
     commitment_hash?: any;
 
     constructor(data?: IKeyCeremony) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5347,25 +4477,24 @@ export class KeyCeremony implements IKeyCeremony {
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.state = _data['state'];
-            this.number_of_guardians = _data['number_of_guardians'];
-            this.quorum = _data['quorum'];
-            if (Array.isArray(_data['guardian_ids'])) {
+            this.key_name = _data["key_name"];
+            this.state = _data["state"];
+            this.number_of_guardians = _data["number_of_guardians"];
+            this.quorum = _data["quorum"];
+            if (Array.isArray(_data["guardian_ids"])) {
                 this.guardian_ids = [] as any;
-                for (let item of _data['guardian_ids']) this.guardian_ids!.push(item);
+                for (let item of _data["guardian_ids"])
+                    this.guardian_ids!.push(item);
             }
-            if (_data['guardian_status']) {
+            if (_data["guardian_status"]) {
                 this.guardian_status = {} as any;
-                for (let key in _data['guardian_status']) {
-                    if (_data['guardian_status'].hasOwnProperty(key))
-                        (<any>this.guardian_status)![key] = _data['guardian_status'][key]
-                            ? KeyCeremonyGuardianState.fromJS(_data['guardian_status'][key])
-                            : new KeyCeremonyGuardianState();
+                for (let key in _data["guardian_status"]) {
+                    if (_data["guardian_status"].hasOwnProperty(key))
+                        (<any>this.guardian_status)![key] = _data["guardian_status"][key] ? KeyCeremonyGuardianState.fromJS(_data["guardian_status"][key]) : new KeyCeremonyGuardianState();
                 }
             }
-            this.elgamal_public_key = _data['elgamal_public_key'];
-            this.commitment_hash = _data['commitment_hash'];
+            this.elgamal_public_key = _data["elgamal_public_key"];
+            this.commitment_hash = _data["commitment_hash"];
         }
     }
 
@@ -5378,25 +4507,24 @@ export class KeyCeremony implements IKeyCeremony {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['state'] = this.state;
-        data['number_of_guardians'] = this.number_of_guardians;
-        data['quorum'] = this.quorum;
+        data["key_name"] = this.key_name;
+        data["state"] = this.state;
+        data["number_of_guardians"] = this.number_of_guardians;
+        data["quorum"] = this.quorum;
         if (Array.isArray(this.guardian_ids)) {
-            data['guardian_ids'] = [];
-            for (let item of this.guardian_ids) data['guardian_ids'].push(item);
+            data["guardian_ids"] = [];
+            for (let item of this.guardian_ids)
+                data["guardian_ids"].push(item);
         }
         if (this.guardian_status) {
-            data['guardian_status'] = {};
+            data["guardian_status"] = {};
             for (let key in this.guardian_status) {
                 if (this.guardian_status.hasOwnProperty(key))
-                    (<any>data['guardian_status'])[key] = this.guardian_status[key]
-                        ? this.guardian_status[key].toJSON()
-                        : <any>undefined;
+                    (<any>data["guardian_status"])[key] = this.guardian_status[key] ? this.guardian_status[key].toJSON() : <any>undefined;
             }
         }
-        data['elgamal_public_key'] = this.elgamal_public_key;
-        data['commitment_hash'] = this.commitment_hash;
+        data["elgamal_public_key"] = this.elgamal_public_key;
+        data["commitment_hash"] = this.commitment_hash;
         return data;
     }
 }
@@ -5408,7 +4536,7 @@ export interface IKeyCeremony {
     number_of_guardians: number;
     quorum: number;
     guardian_ids: string[];
-    guardian_status: { [key: string]: KeyCeremonyGuardianState };
+    guardian_status: { [key: string]: KeyCeremonyGuardianState; };
     elgamal_public_key?: any;
     commitment_hash?: any;
 }
@@ -5423,7 +4551,8 @@ export class KeyCeremonyCreateRequest implements IKeyCeremonyCreateRequest {
     constructor(data?: IKeyCeremonyCreateRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5433,12 +4562,13 @@ export class KeyCeremonyCreateRequest implements IKeyCeremonyCreateRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.number_of_guardians = _data['number_of_guardians'];
-            this.quorum = _data['quorum'];
-            if (Array.isArray(_data['guardian_ids'])) {
+            this.key_name = _data["key_name"];
+            this.number_of_guardians = _data["number_of_guardians"];
+            this.quorum = _data["quorum"];
+            if (Array.isArray(_data["guardian_ids"])) {
                 this.guardian_ids = [] as any;
-                for (let item of _data['guardian_ids']) this.guardian_ids!.push(item);
+                for (let item of _data["guardian_ids"])
+                    this.guardian_ids!.push(item);
             }
         }
     }
@@ -5452,12 +4582,13 @@ export class KeyCeremonyCreateRequest implements IKeyCeremonyCreateRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['number_of_guardians'] = this.number_of_guardians;
-        data['quorum'] = this.quorum;
+        data["key_name"] = this.key_name;
+        data["number_of_guardians"] = this.number_of_guardians;
+        data["quorum"] = this.quorum;
         if (Array.isArray(this.guardian_ids)) {
-            data['guardian_ids'] = [];
-            for (let item of this.guardian_ids) data['guardian_ids'].push(item);
+            data["guardian_ids"] = [];
+            for (let item of this.guardian_ids)
+                data["guardian_ids"].push(item);
         }
         return data;
     }
@@ -5487,31 +4618,35 @@ export class KeyCeremonyGuardian implements IKeyCeremonyGuardian {
     constructor(data?: IKeyCeremonyGuardian) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.guardian_id = _data['guardian_id'];
-            this.name = _data['name'];
-            this.sequence_order = _data['sequence_order'];
-            this.number_of_guardians = _data['number_of_guardians'];
-            this.quorum = _data['quorum'];
-            this.public_keys = _data['public_keys'];
-            if (Array.isArray(_data['backups'])) {
+            this.key_name = _data["key_name"];
+            this.guardian_id = _data["guardian_id"];
+            this.name = _data["name"];
+            this.sequence_order = _data["sequence_order"];
+            this.number_of_guardians = _data["number_of_guardians"];
+            this.quorum = _data["quorum"];
+            this.public_keys = _data["public_keys"];
+            if (Array.isArray(_data["backups"])) {
                 this.backups = [] as any;
-                for (let item of _data['backups']) this.backups!.push(item);
+                for (let item of _data["backups"])
+                    this.backups!.push(item);
             }
-            if (Array.isArray(_data['verifications'])) {
+            if (Array.isArray(_data["verifications"])) {
                 this.verifications = [] as any;
-                for (let item of _data['verifications']) this.verifications!.push(item);
+                for (let item of _data["verifications"])
+                    this.verifications!.push(item);
             }
-            if (Array.isArray(_data['challenges'])) {
+            if (Array.isArray(_data["challenges"])) {
                 this.challenges = [] as any;
-                for (let item of _data['challenges']) this.challenges!.push(item);
+                for (let item of _data["challenges"])
+                    this.challenges!.push(item);
             }
         }
     }
@@ -5525,24 +4660,27 @@ export class KeyCeremonyGuardian implements IKeyCeremonyGuardian {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['guardian_id'] = this.guardian_id;
-        data['name'] = this.name;
-        data['sequence_order'] = this.sequence_order;
-        data['number_of_guardians'] = this.number_of_guardians;
-        data['quorum'] = this.quorum;
-        data['public_keys'] = this.public_keys;
+        data["key_name"] = this.key_name;
+        data["guardian_id"] = this.guardian_id;
+        data["name"] = this.name;
+        data["sequence_order"] = this.sequence_order;
+        data["number_of_guardians"] = this.number_of_guardians;
+        data["quorum"] = this.quorum;
+        data["public_keys"] = this.public_keys;
         if (Array.isArray(this.backups)) {
-            data['backups'] = [];
-            for (let item of this.backups) data['backups'].push(item);
+            data["backups"] = [];
+            for (let item of this.backups)
+                data["backups"].push(item);
         }
         if (Array.isArray(this.verifications)) {
-            data['verifications'] = [];
-            for (let item of this.verifications) data['verifications'].push(item);
+            data["verifications"] = [];
+            for (let item of this.verifications)
+                data["verifications"].push(item);
         }
         if (Array.isArray(this.challenges)) {
-            data['challenges'] = [];
-            for (let item of this.challenges) data['challenges'].push(item);
+            data["challenges"] = [];
+            for (let item of this.challenges)
+                data["challenges"].push(item);
         }
         return data;
     }
@@ -5571,7 +4709,8 @@ export class KeyCeremonyGuardianState implements IKeyCeremonyGuardianState {
     constructor(data?: IKeyCeremonyGuardianState) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5583,18 +4722,9 @@ export class KeyCeremonyGuardianState implements IKeyCeremonyGuardianState {
 
     init(_data?: any) {
         if (_data) {
-            this.public_key_shared =
-                _data['public_key_shared'] !== undefined
-                    ? _data['public_key_shared']
-                    : KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_shared =
-                _data['backups_shared'] !== undefined
-                    ? _data['backups_shared']
-                    : KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_verified =
-                _data['backups_verified'] !== undefined
-                    ? _data['backups_verified']
-                    : KeyCeremonyGuardianStatus.INCOMPLETE;
+            this.public_key_shared = _data["public_key_shared"] !== undefined ? _data["public_key_shared"] : KeyCeremonyGuardianStatus.INCOMPLETE;
+            this.backups_shared = _data["backups_shared"] !== undefined ? _data["backups_shared"] : KeyCeremonyGuardianStatus.INCOMPLETE;
+            this.backups_verified = _data["backups_verified"] !== undefined ? _data["backups_verified"] : KeyCeremonyGuardianStatus.INCOMPLETE;
         }
     }
 
@@ -5607,9 +4737,9 @@ export class KeyCeremonyGuardianState implements IKeyCeremonyGuardianState {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['public_key_shared'] = this.public_key_shared;
-        data['backups_shared'] = this.backups_shared;
-        data['backups_verified'] = this.backups_verified;
+        data["public_key_shared"] = this.public_key_shared;
+        data["backups_shared"] = this.backups_shared;
+        data["backups_verified"] = this.backups_verified;
         return data;
     }
 }
@@ -5623,9 +4753,9 @@ export interface IKeyCeremonyGuardianState {
 
 /** Enumeration expressing the status of a guardian's operations. */
 export enum KeyCeremonyGuardianStatus {
-    INCOMPLETE = 'INCOMPLETE',
-    ERROR = 'ERROR',
-    COMPLETE = 'COMPLETE',
+    INCOMPLETE = "INCOMPLETE",
+    ERROR = "ERROR",
+    COMPLETE = "COMPLETE",
 }
 
 /** Returns a collection of Key Ceremonies. */
@@ -5637,7 +4767,8 @@ export class KeyCeremonyQueryResponse implements IKeyCeremonyQueryResponse {
     constructor(data?: IKeyCeremonyQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5648,14 +4779,11 @@ export class KeyCeremonyQueryResponse implements IKeyCeremonyQueryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['key_ceremonies'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["key_ceremonies"])) {
                 this.key_ceremonies = [] as any;
-                for (let item of _data['key_ceremonies'])
+                for (let item of _data["key_ceremonies"])
                     this.key_ceremonies!.push(KeyCeremony.fromJS(item));
             }
         }
@@ -5670,11 +4798,12 @@ export class KeyCeremonyQueryResponse implements IKeyCeremonyQueryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.key_ceremonies)) {
-            data['key_ceremonies'] = [];
-            for (let item of this.key_ceremonies) data['key_ceremonies'].push(item.toJSON());
+            data["key_ceremonies"] = [];
+            for (let item of this.key_ceremonies)
+                data["key_ceremonies"].push(item.toJSON());
         }
         return data;
     }
@@ -5689,23 +4818,24 @@ export interface IKeyCeremonyQueryResponse {
 
 /** Enumeration expressing the state of the key caremony. */
 export enum KeyCeremonyState {
-    CREATED = 'CREATED',
-    OPEN = 'OPEN',
-    CLOSED = 'CLOSED',
-    CHALLENGED = 'CHALLENGED',
-    CANCELLED = 'CANCELLED',
+    CREATED = "CREATED",
+    OPEN = "OPEN",
+    CLOSED = "CLOSED",
+    CHALLENGED = "CHALLENGED",
+    CANCELLED = "CANCELLED",
 }
 
 /** Returns a subset of KeyCeremony data that describes only the state. */
 export class KeyCeremonyStateResponse implements IKeyCeremonyStateResponse {
     key_name!: string;
     state!: KeyCeremonyState;
-    guardian_status!: { [key: string]: KeyCeremonyGuardianState };
+    guardian_status!: { [key: string]: KeyCeremonyGuardianState; };
 
     constructor(data?: IKeyCeremonyStateResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5715,15 +4845,13 @@ export class KeyCeremonyStateResponse implements IKeyCeremonyStateResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            this.state = _data['state'];
-            if (_data['guardian_status']) {
+            this.key_name = _data["key_name"];
+            this.state = _data["state"];
+            if (_data["guardian_status"]) {
                 this.guardian_status = {} as any;
-                for (let key in _data['guardian_status']) {
-                    if (_data['guardian_status'].hasOwnProperty(key))
-                        (<any>this.guardian_status)![key] = _data['guardian_status'][key]
-                            ? KeyCeremonyGuardianState.fromJS(_data['guardian_status'][key])
-                            : new KeyCeremonyGuardianState();
+                for (let key in _data["guardian_status"]) {
+                    if (_data["guardian_status"].hasOwnProperty(key))
+                        (<any>this.guardian_status)![key] = _data["guardian_status"][key] ? KeyCeremonyGuardianState.fromJS(_data["guardian_status"][key]) : new KeyCeremonyGuardianState();
                 }
             }
         }
@@ -5738,15 +4866,13 @@ export class KeyCeremonyStateResponse implements IKeyCeremonyStateResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
-        data['state'] = this.state;
+        data["key_name"] = this.key_name;
+        data["state"] = this.state;
         if (this.guardian_status) {
-            data['guardian_status'] = {};
+            data["guardian_status"] = {};
             for (let key in this.guardian_status) {
                 if (this.guardian_status.hasOwnProperty(key))
-                    (<any>data['guardian_status'])[key] = this.guardian_status[key]
-                        ? this.guardian_status[key].toJSON()
-                        : <any>undefined;
+                    (<any>data["guardian_status"])[key] = this.guardian_status[key] ? this.guardian_status[key].toJSON() : <any>undefined;
             }
         }
         return data;
@@ -5757,7 +4883,7 @@ export class KeyCeremonyStateResponse implements IKeyCeremonyStateResponse {
 export interface IKeyCeremonyStateResponse {
     key_name: string;
     state: KeyCeremonyState;
-    guardian_status: { [key: string]: KeyCeremonyGuardianState };
+    guardian_status: { [key: string]: KeyCeremonyGuardianState; };
 }
 
 /** A request to build an Election Context for a given election. */
@@ -5772,19 +4898,20 @@ export class MakeElectionContextRequest implements IMakeElectionContextRequest {
     constructor(data?: IMakeElectionContextRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.elgamal_public_key = _data['elgamal_public_key'];
-            this.commitment_hash = _data['commitment_hash'];
-            this.number_of_guardians = _data['number_of_guardians'];
-            this.quorum = _data['quorum'];
-            this.manifest_hash = _data['manifest_hash'];
-            this.manifest = _data['manifest'];
+            this.elgamal_public_key = _data["elgamal_public_key"];
+            this.commitment_hash = _data["commitment_hash"];
+            this.number_of_guardians = _data["number_of_guardians"];
+            this.quorum = _data["quorum"];
+            this.manifest_hash = _data["manifest_hash"];
+            this.manifest = _data["manifest"];
         }
     }
 
@@ -5797,12 +4924,12 @@ export class MakeElectionContextRequest implements IMakeElectionContextRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['elgamal_public_key'] = this.elgamal_public_key;
-        data['commitment_hash'] = this.commitment_hash;
-        data['number_of_guardians'] = this.number_of_guardians;
-        data['quorum'] = this.quorum;
-        data['manifest_hash'] = this.manifest_hash;
-        data['manifest'] = this.manifest;
+        data["elgamal_public_key"] = this.elgamal_public_key;
+        data["commitment_hash"] = this.commitment_hash;
+        data["number_of_guardians"] = this.number_of_guardians;
+        data["quorum"] = this.quorum;
+        data["manifest_hash"] = this.manifest_hash;
+        data["manifest"] = this.manifest;
         return data;
     }
 }
@@ -5826,7 +4953,8 @@ export class MakeElectionContextResponse implements IMakeElectionContextResponse
     constructor(data?: IMakeElectionContextResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5836,12 +4964,9 @@ export class MakeElectionContextResponse implements IMakeElectionContextResponse
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.context = _data['context'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.context = _data["context"];
         }
     }
 
@@ -5854,9 +4979,9 @@ export class MakeElectionContextResponse implements IMakeElectionContextResponse
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['context'] = this.context;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["context"] = this.context;
         return data;
     }
 }
@@ -5876,15 +5001,16 @@ export class Manifest implements IManifest {
     constructor(data?: IManifest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.manifest_hash = _data['manifest_hash'];
-            this.manifest = _data['manifest'];
+            this.manifest_hash = _data["manifest_hash"];
+            this.manifest = _data["manifest"];
         }
     }
 
@@ -5897,8 +5023,8 @@ export class Manifest implements IManifest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['manifest_hash'] = this.manifest_hash;
-        data['manifest'] = this.manifest;
+        data["manifest_hash"] = this.manifest_hash;
+        data["manifest"] = this.manifest;
         return data;
     }
 }
@@ -5918,7 +5044,8 @@ export class ManifestQueryResponse implements IManifestQueryResponse {
     constructor(data?: IManifestQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5929,14 +5056,12 @@ export class ManifestQueryResponse implements IManifestQueryResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['manifests'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["manifests"])) {
                 this.manifests = [] as any;
-                for (let item of _data['manifests']) this.manifests!.push(Manifest.fromJS(item));
+                for (let item of _data["manifests"])
+                    this.manifests!.push(Manifest.fromJS(item));
             }
         }
     }
@@ -5950,11 +5075,12 @@ export class ManifestQueryResponse implements IManifestQueryResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.manifests)) {
-            data['manifests'] = [];
-            for (let item of this.manifests) data['manifests'].push(item.toJSON());
+            data["manifests"] = [];
+            for (let item of this.manifests)
+                data["manifests"].push(item.toJSON());
         }
         return data;
     }
@@ -5976,7 +5102,8 @@ export class ManifestSubmitResponse implements IManifestSubmitResponse {
     constructor(data?: IManifestSubmitResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -5986,12 +5113,9 @@ export class ManifestSubmitResponse implements IManifestSubmitResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.manifest_hash = _data['manifest_hash'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.manifest_hash = _data["manifest_hash"];
         }
     }
 
@@ -6004,9 +5128,9 @@ export class ManifestSubmitResponse implements IManifestSubmitResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['manifest_hash'] = this.manifest_hash;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["manifest_hash"] = this.manifest_hash;
         return data;
     }
 }
@@ -6029,20 +5153,19 @@ export class PlaintextTally implements IPlaintextTally {
     constructor(data?: IPlaintextTally) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.tally_name = _data['tally_name'];
-            this.created = _data['created']
-                ? new Date(_data['created'].toString())
-                : <any>undefined;
-            this.state = _data['state'];
-            this.tally = _data['tally'];
+            this.election_id = _data["election_id"];
+            this.tally_name = _data["tally_name"];
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
+            this.state = _data["state"];
+            this.tally = _data["tally"];
         }
     }
 
@@ -6055,11 +5178,11 @@ export class PlaintextTally implements IPlaintextTally {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['tally_name'] = this.tally_name;
-        data['created'] = this.created ? this.created.toISOString() : <any>undefined;
-        data['state'] = this.state;
-        data['tally'] = this.tally;
+        data["election_id"] = this.election_id;
+        data["tally_name"] = this.tally_name;
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
+        data["state"] = this.state;
+        data["tally"] = this.tally;
         return data;
     }
 }
@@ -6082,7 +5205,8 @@ export class PlaintextTallyQueryResponse implements IPlaintextTallyQueryResponse
     constructor(data?: IPlaintextTallyQueryResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6092,14 +5216,12 @@ export class PlaintextTallyQueryResponse implements IPlaintextTallyQueryResponse
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            if (Array.isArray(_data['tallies'])) {
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            if (Array.isArray(_data["tallies"])) {
                 this.tallies = [] as any;
-                for (let item of _data['tallies']) this.tallies!.push(PlaintextTally.fromJS(item));
+                for (let item of _data["tallies"])
+                    this.tallies!.push(PlaintextTally.fromJS(item));
             }
         }
     }
@@ -6113,11 +5235,12 @@ export class PlaintextTallyQueryResponse implements IPlaintextTallyQueryResponse
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         if (Array.isArray(this.tallies)) {
-            data['tallies'] = [];
-            for (let item of this.tallies) data['tallies'].push(item.toJSON());
+            data["tallies"] = [];
+            for (let item of this.tallies)
+                data["tallies"].push(item.toJSON());
         }
         return data;
     }
@@ -6132,10 +5255,10 @@ export interface IPlaintextTallyQueryResponse {
 
 /** An enumeration. */
 export enum PlaintextTallyState {
-    CREATED = 'CREATED',
-    PROCESSING = 'PROCESSING',
-    ERROR = 'ERROR',
-    COMPLETE = 'COMPLETE',
+    CREATED = "CREATED",
+    PROCESSING = "PROCESSING",
+    ERROR = "ERROR",
+    COMPLETE = "COMPLETE",
 }
 
 /** Request to publish the election joint key. */
@@ -6146,7 +5269,8 @@ export class PublishElectionJointKeyRequest implements IPublishElectionJointKeyR
     constructor(data?: IPublishElectionJointKeyRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6156,10 +5280,10 @@ export class PublishElectionJointKeyRequest implements IPublishElectionJointKeyR
 
     init(_data?: any) {
         if (_data) {
-            this.key_name = _data['key_name'];
-            if (Array.isArray(_data['election_public_keys'])) {
+            this.key_name = _data["key_name"];
+            if (Array.isArray(_data["election_public_keys"])) {
                 this.election_public_keys = [] as any;
-                for (let item of _data['election_public_keys'])
+                for (let item of _data["election_public_keys"])
                     this.election_public_keys!.push(item);
             }
         }
@@ -6174,10 +5298,11 @@ export class PublishElectionJointKeyRequest implements IPublishElectionJointKeyR
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['key_name'] = this.key_name;
+        data["key_name"] = this.key_name;
         if (Array.isArray(this.election_public_keys)) {
-            data['election_public_keys'] = [];
-            for (let item of this.election_public_keys) data['election_public_keys'].push(item);
+            data["election_public_keys"] = [];
+            for (let item of this.election_public_keys)
+                data["election_public_keys"].push(item);
         }
         return data;
     }
@@ -6191,8 +5316,8 @@ export interface IPublishElectionJointKeyRequest {
 
 /** An enumeration. */
 export enum QueueMode {
-    Local = 'local',
-    Remote = 'remote',
+    Local = "local",
+    Remote = "remote",
 }
 
 /** Base class for settings, allowing values to be overridden by environment variables. This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design. */
@@ -6215,74 +5340,47 @@ export class Settings implements ISettings {
     constructor(data?: ISettings) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
             this.aPI_MODE = ApiMode.Mediator;
             this.qUEUE_MODE = QueueMode.Local;
             this.sTORAGE_MODE = StorageMode.Local_storage;
-            this.aPI_V1_STR = '/api/v1';
-            this.aPI_V1_1_STR = '/api/v1.1';
-            this.pROJECT_NAME = 'electionguard-api-python';
-            this.mONGODB_URI = 'mongodb://root:example@localhost:27017';
-            this.mESSAGEQUEUE_URI = 'amqp://guest:guest@localhost:5672';
-            this.aUTH_ALGORITHM = 'HS256';
-            this.aUTH_SECRET_KEY =
-                '09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7';
+            this.aPI_V1_STR = "/api/v1";
+            this.aPI_V1_1_STR = "/api/v1_1";
+            this.pROJECT_NAME = "electionguard-api-python";
+            this.mONGODB_URI = "mongodb://root:example@localhost:27017";
+            this.mESSAGEQUEUE_URI = "amqp://guest:guest@localhost:5672";
+            this.aUTH_ALGORITHM = "HS256";
+            this.aUTH_SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
             this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES = 30;
-            this.dEFAULT_ADMIN_USERNAME = 'default';
-            this.dEFAULT_ADMIN_PASSWORD = 'Elect1onGu4rd!';
+            this.dEFAULT_ADMIN_USERNAME = "default";
+            this.dEFAULT_ADMIN_PASSWORD = "<this is a default value and should be changed>";
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.aPI_MODE = _data['API_MODE'] !== undefined ? _data['API_MODE'] : ApiMode.Mediator;
-            this.qUEUE_MODE =
-                _data['QUEUE_MODE'] !== undefined ? _data['QUEUE_MODE'] : QueueMode.Local;
-            this.sTORAGE_MODE =
-                _data['STORAGE_MODE'] !== undefined
-                    ? _data['STORAGE_MODE']
-                    : StorageMode.Local_storage;
-            this.aPI_V1_STR = _data['API_V1_STR'] !== undefined ? _data['API_V1_STR'] : '/api/v1';
-            this.aPI_V1_1_STR =
-                _data['API_V1_1_STR'] !== undefined ? _data['API_V1_1_STR'] : '/api/v1.1';
-            if (Array.isArray(_data['BACKEND_CORS_ORIGINS'])) {
+            this.aPI_MODE = _data["API_MODE"] !== undefined ? _data["API_MODE"] : ApiMode.Mediator;
+            this.qUEUE_MODE = _data["QUEUE_MODE"] !== undefined ? _data["QUEUE_MODE"] : QueueMode.Local;
+            this.sTORAGE_MODE = _data["STORAGE_MODE"] !== undefined ? _data["STORAGE_MODE"] : StorageMode.Local_storage;
+            this.aPI_V1_STR = _data["API_V1_STR"] !== undefined ? _data["API_V1_STR"] : "/api/v1";
+            this.aPI_V1_1_STR = _data["API_V1_1_STR"] !== undefined ? _data["API_V1_1_STR"] : "/api/v1_1";
+            if (Array.isArray(_data["BACKEND_CORS_ORIGINS"])) {
                 this.bACKEND_CORS_ORIGINS = [] as any;
-                for (let item of _data['BACKEND_CORS_ORIGINS'])
+                for (let item of _data["BACKEND_CORS_ORIGINS"])
                     this.bACKEND_CORS_ORIGINS!.push(item);
             }
-            this.pROJECT_NAME =
-                _data['PROJECT_NAME'] !== undefined
-                    ? _data['PROJECT_NAME']
-                    : 'electionguard-api-python';
-            this.mONGODB_URI =
-                _data['MONGODB_URI'] !== undefined
-                    ? _data['MONGODB_URI']
-                    : 'mongodb://root:example@localhost:27017';
-            this.mESSAGEQUEUE_URI =
-                _data['MESSAGEQUEUE_URI'] !== undefined
-                    ? _data['MESSAGEQUEUE_URI']
-                    : 'amqp://guest:guest@localhost:5672';
-            this.aUTH_ALGORITHM =
-                _data['AUTH_ALGORITHM'] !== undefined ? _data['AUTH_ALGORITHM'] : 'HS256';
-            this.aUTH_SECRET_KEY =
-                _data['AUTH_SECRET_KEY'] !== undefined
-                    ? _data['AUTH_SECRET_KEY']
-                    : '09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7';
-            this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES =
-                _data['AUTH_ACCESS_TOKEN_EXPIRE_MINUTES'] !== undefined
-                    ? _data['AUTH_ACCESS_TOKEN_EXPIRE_MINUTES']
-                    : 30;
-            this.dEFAULT_ADMIN_USERNAME =
-                _data['DEFAULT_ADMIN_USERNAME'] !== undefined
-                    ? _data['DEFAULT_ADMIN_USERNAME']
-                    : 'default';
-            this.dEFAULT_ADMIN_PASSWORD =
-                _data['DEFAULT_ADMIN_PASSWORD'] !== undefined
-                    ? _data['DEFAULT_ADMIN_PASSWORD']
-                    : 'Elect1onGu4rd!';
+            this.pROJECT_NAME = _data["PROJECT_NAME"] !== undefined ? _data["PROJECT_NAME"] : "electionguard-api-python";
+            this.mONGODB_URI = _data["MONGODB_URI"] !== undefined ? _data["MONGODB_URI"] : "mongodb://root:example@localhost:27017";
+            this.mESSAGEQUEUE_URI = _data["MESSAGEQUEUE_URI"] !== undefined ? _data["MESSAGEQUEUE_URI"] : "amqp://guest:guest@localhost:5672";
+            this.aUTH_ALGORITHM = _data["AUTH_ALGORITHM"] !== undefined ? _data["AUTH_ALGORITHM"] : "HS256";
+            this.aUTH_SECRET_KEY = _data["AUTH_SECRET_KEY"] !== undefined ? _data["AUTH_SECRET_KEY"] : "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
+            this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES = _data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] !== undefined ? _data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] : 30;
+            this.dEFAULT_ADMIN_USERNAME = _data["DEFAULT_ADMIN_USERNAME"] !== undefined ? _data["DEFAULT_ADMIN_USERNAME"] : "default";
+            this.dEFAULT_ADMIN_PASSWORD = _data["DEFAULT_ADMIN_PASSWORD"] !== undefined ? _data["DEFAULT_ADMIN_PASSWORD"] : "<this is a default value and should be changed>";
         }
     }
 
@@ -6295,23 +5393,24 @@ export class Settings implements ISettings {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['API_MODE'] = this.aPI_MODE;
-        data['QUEUE_MODE'] = this.qUEUE_MODE;
-        data['STORAGE_MODE'] = this.sTORAGE_MODE;
-        data['API_V1_STR'] = this.aPI_V1_STR;
-        data['API_V1_1_STR'] = this.aPI_V1_1_STR;
+        data["API_MODE"] = this.aPI_MODE;
+        data["QUEUE_MODE"] = this.qUEUE_MODE;
+        data["STORAGE_MODE"] = this.sTORAGE_MODE;
+        data["API_V1_STR"] = this.aPI_V1_STR;
+        data["API_V1_1_STR"] = this.aPI_V1_1_STR;
         if (Array.isArray(this.bACKEND_CORS_ORIGINS)) {
-            data['BACKEND_CORS_ORIGINS'] = [];
-            for (let item of this.bACKEND_CORS_ORIGINS) data['BACKEND_CORS_ORIGINS'].push(item);
+            data["BACKEND_CORS_ORIGINS"] = [];
+            for (let item of this.bACKEND_CORS_ORIGINS)
+                data["BACKEND_CORS_ORIGINS"].push(item);
         }
-        data['PROJECT_NAME'] = this.pROJECT_NAME;
-        data['MONGODB_URI'] = this.mONGODB_URI;
-        data['MESSAGEQUEUE_URI'] = this.mESSAGEQUEUE_URI;
-        data['AUTH_ALGORITHM'] = this.aUTH_ALGORITHM;
-        data['AUTH_SECRET_KEY'] = this.aUTH_SECRET_KEY;
-        data['AUTH_ACCESS_TOKEN_EXPIRE_MINUTES'] = this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES;
-        data['DEFAULT_ADMIN_USERNAME'] = this.dEFAULT_ADMIN_USERNAME;
-        data['DEFAULT_ADMIN_PASSWORD'] = this.dEFAULT_ADMIN_PASSWORD;
+        data["PROJECT_NAME"] = this.pROJECT_NAME;
+        data["MONGODB_URI"] = this.mONGODB_URI;
+        data["MESSAGEQUEUE_URI"] = this.mESSAGEQUEUE_URI;
+        data["AUTH_ALGORITHM"] = this.aUTH_ALGORITHM;
+        data["AUTH_SECRET_KEY"] = this.aUTH_SECRET_KEY;
+        data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] = this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES;
+        data["DEFAULT_ADMIN_USERNAME"] = this.dEFAULT_ADMIN_USERNAME;
+        data["DEFAULT_ADMIN_PASSWORD"] = this.dEFAULT_ADMIN_PASSWORD;
         return data;
     }
 }
@@ -6344,7 +5443,8 @@ export class SpoilBallotsRequest implements ISpoilBallotsRequest {
     constructor(data?: ISpoilBallotsRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6354,12 +5454,13 @@ export class SpoilBallotsRequest implements ISpoilBallotsRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.manifest = _data['manifest'];
-            this.context = _data['context'];
-            if (Array.isArray(_data['ballots'])) {
+            this.election_id = _data["election_id"];
+            this.manifest = _data["manifest"];
+            this.context = _data["context"];
+            if (Array.isArray(_data["ballots"])) {
                 this.ballots = [] as any;
-                for (let item of _data['ballots']) this.ballots!.push(item);
+                for (let item of _data["ballots"])
+                    this.ballots!.push(item);
             }
         }
     }
@@ -6373,12 +5474,13 @@ export class SpoilBallotsRequest implements ISpoilBallotsRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['manifest'] = this.manifest;
-        data['context'] = this.context;
+        data["election_id"] = this.election_id;
+        data["manifest"] = this.manifest;
+        data["context"] = this.context;
         if (Array.isArray(this.ballots)) {
-            data['ballots'] = [];
-            for (let item of this.ballots) data['ballots'].push(item);
+            data["ballots"] = [];
+            for (let item of this.ballots)
+                data["ballots"].push(item);
         }
         return data;
     }
@@ -6394,8 +5496,8 @@ export interface ISpoilBallotsRequest {
 
 /** An enumeration. */
 export enum StorageMode {
-    Local_storage = 'local_storage',
-    Mongo = 'mongo',
+    Local_storage = "local_storage",
+    Mongo = "mongo",
 }
 
 /** Submit a ballot against a specific election. */
@@ -6408,7 +5510,8 @@ export class SubmitBallotsRequest implements ISubmitBallotsRequest {
     constructor(data?: ISubmitBallotsRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6418,12 +5521,13 @@ export class SubmitBallotsRequest implements ISubmitBallotsRequest {
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.manifest = _data['manifest'];
-            this.context = _data['context'];
-            if (Array.isArray(_data['ballots'])) {
+            this.election_id = _data["election_id"];
+            this.manifest = _data["manifest"];
+            this.context = _data["context"];
+            if (Array.isArray(_data["ballots"])) {
                 this.ballots = [] as any;
-                for (let item of _data['ballots']) this.ballots!.push(item);
+                for (let item of _data["ballots"])
+                    this.ballots!.push(item);
             }
         }
     }
@@ -6437,12 +5541,13 @@ export class SubmitBallotsRequest implements ISubmitBallotsRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['manifest'] = this.manifest;
-        data['context'] = this.context;
+        data["election_id"] = this.election_id;
+        data["manifest"] = this.manifest;
+        data["context"] = this.context;
         if (Array.isArray(this.ballots)) {
-            data['ballots'] = [];
-            for (let item of this.ballots) data['ballots'].push(item);
+            data["ballots"] = [];
+            for (let item of this.ballots)
+                data["ballots"].push(item);
         }
         return data;
     }
@@ -6466,17 +5571,18 @@ export class SubmitElectionRequest implements ISubmitElectionRequest {
     constructor(data?: ISubmitElectionRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.election_id = _data['election_id'];
-            this.key_name = _data['key_name'];
-            this.context = _data['context'];
-            this.manifest = _data['manifest'];
+            this.election_id = _data["election_id"];
+            this.key_name = _data["key_name"];
+            this.context = _data["context"];
+            this.manifest = _data["manifest"];
         }
     }
 
@@ -6489,10 +5595,10 @@ export class SubmitElectionRequest implements ISubmitElectionRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['election_id'] = this.election_id;
-        data['key_name'] = this.key_name;
-        data['context'] = this.context;
-        data['manifest'] = this.manifest;
+        data["election_id"] = this.election_id;
+        data["key_name"] = this.key_name;
+        data["context"] = this.context;
+        data["manifest"] = this.manifest;
         return data;
     }
 }
@@ -6513,15 +5619,16 @@ export class Token implements IToken {
     constructor(data?: IToken) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.access_token = _data['access_token'];
-            this.token_type = _data['token_type'];
+            this.access_token = _data["access_token"];
+            this.token_type = _data["token_type"];
         }
     }
 
@@ -6534,8 +5641,8 @@ export class Token implements IToken {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['access_token'] = this.access_token;
-        data['token_type'] = this.token_type;
+        data["access_token"] = this.access_token;
+        data["token_type"] = this.token_type;
         return data;
     }
 }
@@ -6556,20 +5663,22 @@ export class UserInfo implements IUserInfo {
     constructor(data?: IUserInfo) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.username = _data['username'];
-            if (Array.isArray(_data['scopes'])) {
+            this.username = _data["username"];
+            if (Array.isArray(_data["scopes"])) {
                 this.scopes = [] as any;
-                for (let item of _data['scopes']) this.scopes!.push(item);
+                for (let item of _data["scopes"])
+                    this.scopes!.push(item);
             }
-            this.email = _data['email'];
-            this.disabled = _data['disabled'];
+            this.email = _data["email"];
+            this.disabled = _data["disabled"];
         }
     }
 
@@ -6582,13 +5691,14 @@ export class UserInfo implements IUserInfo {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['username'] = this.username;
+        data["username"] = this.username;
         if (Array.isArray(this.scopes)) {
-            data['scopes'] = [];
-            for (let item of this.scopes) data['scopes'].push(item);
+            data["scopes"] = [];
+            for (let item of this.scopes)
+                data["scopes"].push(item);
         }
-        data['email'] = this.email;
-        data['disabled'] = this.disabled;
+        data["email"] = this.email;
+        data["disabled"] = this.disabled;
         return data;
     }
 }
@@ -6603,10 +5713,10 @@ export interface IUserInfo {
 
 /** An enumeration. */
 export enum UserScope {
-    Admin = 'admin',
-    Auditor = 'auditor',
-    Guardian = 'guardian',
-    Voter = 'voter',
+    Admin = "admin",
+    Auditor = "auditor",
+    Guardian = "guardian",
+    Voter = "voter",
 }
 
 /** Submit a ballot against a specific election description and contest to determine if it is accepted. */
@@ -6619,17 +5729,18 @@ export class ValidateBallotRequest implements IValidateBallotRequest {
     constructor(data?: IValidateBallotRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.schema_override = _data['schema_override'];
-            this.ballot = _data['ballot'];
-            this.manifest = _data['manifest'];
-            this.context = _data['context'];
+            this.schema_override = _data["schema_override"];
+            this.ballot = _data["ballot"];
+            this.manifest = _data["manifest"];
+            this.context = _data["context"];
         }
     }
 
@@ -6642,10 +5753,10 @@ export class ValidateBallotRequest implements IValidateBallotRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['schema_override'] = this.schema_override;
-        data['ballot'] = this.ballot;
-        data['manifest'] = this.manifest;
-        data['context'] = this.context;
+        data["schema_override"] = this.schema_override;
+        data["ballot"] = this.ballot;
+        data["manifest"] = this.manifest;
+        data["context"] = this.context;
         return data;
     }
 }
@@ -6666,15 +5777,16 @@ export class ValidateManifestRequest implements IValidateManifestRequest {
     constructor(data?: IValidateManifestRequest) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
     }
 
     init(_data?: any) {
         if (_data) {
-            this.schema_override = _data['schema_override'];
-            this.manifest = _data['manifest'];
+            this.schema_override = _data["schema_override"];
+            this.manifest = _data["manifest"];
         }
     }
 
@@ -6687,8 +5799,8 @@ export class ValidateManifestRequest implements IValidateManifestRequest {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['schema_override'] = this.schema_override;
-        data['manifest'] = this.manifest;
+        data["schema_override"] = this.schema_override;
+        data["manifest"] = this.manifest;
         return data;
     }
 }
@@ -6709,7 +5821,8 @@ export class ValidateManifestResponse implements IValidateManifestResponse {
     constructor(data?: IValidateManifestResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6719,13 +5832,10 @@ export class ValidateManifestResponse implements IValidateManifestResponse {
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
-            this.details = _data['details'];
-            this.manifest_hash = _data['manifest_hash'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
+            this.details = _data["details"];
+            this.manifest_hash = _data["manifest_hash"];
         }
     }
 
@@ -6738,10 +5848,10 @@ export class ValidateManifestResponse implements IValidateManifestResponse {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
-        data['details'] = this.details;
-        data['manifest_hash'] = this.manifest_hash;
+        data["status"] = this.status;
+        data["message"] = this.message;
+        data["details"] = this.details;
+        data["manifest_hash"] = this.manifest_hash;
         return data;
     }
 }
@@ -6762,7 +5872,8 @@ export class ValidationError implements IValidationError {
     constructor(data?: IValidationError) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6772,12 +5883,13 @@ export class ValidationError implements IValidationError {
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data['loc'])) {
+            if (Array.isArray(_data["loc"])) {
                 this.loc = [] as any;
-                for (let item of _data['loc']) this.loc!.push(item);
+                for (let item of _data["loc"])
+                    this.loc!.push(item);
             }
-            this.msg = _data['msg'];
-            this.type = _data['type'];
+            this.msg = _data["msg"];
+            this.type = _data["type"];
         }
     }
 
@@ -6791,11 +5903,12 @@ export class ValidationError implements IValidationError {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (Array.isArray(this.loc)) {
-            data['loc'] = [];
-            for (let item of this.loc) data['loc'].push(item);
+            data["loc"] = [];
+            for (let item of this.loc)
+                data["loc"].push(item);
         }
-        data['msg'] = this.msg;
-        data['type'] = this.type;
+        data["msg"] = this.msg;
+        data["type"] = this.type;
         return data;
     }
 }
@@ -6807,16 +5920,15 @@ export interface IValidationError {
 }
 
 /** A basic response */
-export class App__api__v1_1__models__base__BaseResponse
-    implements IApp__api__v1_1__models__base__BaseResponse
-{
+export class App__api__v1_1__models__base__BaseResponse implements IApp__api__v1_1__models__base__BaseResponse {
     status?: App__api__v1_1__models__base__ResponseStatus;
     message?: string;
 
     constructor(data?: IApp__api__v1_1__models__base__BaseResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6826,11 +5938,8 @@ export class App__api__v1_1__models__base__BaseResponse
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1_1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1_1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
         }
     }
 
@@ -6843,8 +5952,8 @@ export class App__api__v1_1__models__base__BaseResponse
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         return data;
     }
 }
@@ -6857,21 +5966,20 @@ export interface IApp__api__v1_1__models__base__BaseResponse {
 
 /** An enumeration. */
 export enum App__api__v1_1__models__base__ResponseStatus {
-    Fail = 'fail',
-    Success = 'success',
+    Fail = "fail",
+    Success = "success",
 }
 
 /** A basic response */
-export class App__api__v1__models__base__BaseResponse
-    implements IApp__api__v1__models__base__BaseResponse
-{
+export class App__api__v1__models__base__BaseResponse implements IApp__api__v1__models__base__BaseResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
 
     constructor(data?: IApp__api__v1__models__base__BaseResponse) {
         if (data) {
             for (var property in data) {
-                if (data.hasOwnProperty(property)) (<any>this)[property] = (<any>data)[property];
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
             }
         }
         if (!data) {
@@ -6881,11 +5989,8 @@ export class App__api__v1__models__base__BaseResponse
 
     init(_data?: any) {
         if (_data) {
-            this.status =
-                _data['status'] !== undefined
-                    ? _data['status']
-                    : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data['message'];
+            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
+            this.message = _data["message"];
         }
     }
 
@@ -6898,8 +6003,8 @@ export class App__api__v1__models__base__BaseResponse
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data['status'] = this.status;
-        data['message'] = this.message;
+        data["status"] = this.status;
+        data["message"] = this.message;
         return data;
     }
 }
@@ -6912,24 +6017,18 @@ export interface IApp__api__v1__models__base__BaseResponse {
 
 /** An enumeration. */
 export enum App__api__v1__models__base__ResponseStatus {
-    Fail = 'fail',
-    Success = 'success',
+    Fail = "fail",
+    Success = "success",
 }
 
 export class ApiException extends Error {
     message: string;
     status: number;
     response: string;
-    headers: { [key: string]: any };
+    headers: { [key: string]: any; };
     result: any;
 
-    constructor(
-        message: string,
-        status: number,
-        response: string,
-        headers: { [key: string]: any },
-        result: any
-    ) {
+    constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
 
         this.message = message;
@@ -6946,13 +6045,9 @@ export class ApiException extends Error {
     }
 }
 
-function throwException(
-    message: string,
-    status: number,
-    response: string,
-    headers: { [key: string]: any },
-    result?: any
-): any {
-    if (result !== null && result !== undefined) throw result;
-    else throw new ApiException(message, status, response, headers, null);
+function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
+    if (result !== null && result !== undefined)
+        throw result;
+    else
+        throw new ApiException(message, status, response, headers, null);
 }
