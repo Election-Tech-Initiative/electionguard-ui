@@ -1,13 +1,13 @@
 import { Box, Button, AppBar as MaterialAppBar, Toolbar, makeStyles } from '@material-ui/core';
-import React, { SVGProps } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { MessageId } from '../../lang';
 import useToken from '../../useToken';
+import { ReactComponent as ElectionGuardLogo } from '../../images/electionguard-logo.svg';
 
 export interface AppBarProps {
     title?: string;
-    Logo?: React.ComponentType<SVGProps<SVGSVGElement>>;
     loggedIn?: boolean;
 }
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent top App Bar with side drawer and optional additional content.
  */
-export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn }) => {
+export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, loggedIn }) => {
     const { setToken } = useToken();
     const classes = useStyles();
 
@@ -56,7 +56,7 @@ export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, logg
         <MaterialAppBar position="static" title={title}>
             <Toolbar className={classes.toolbar}>
                 <Box className={classes.logoContainer}>
-                    {Logo && <Logo className={classes.logo} />}
+                    <ElectionGuardLogo className={classes.logo} />
                 </Box>
                 {loggedIn ? logoutButton : null}
             </Toolbar>
