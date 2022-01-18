@@ -2,8 +2,8 @@ import {
     Body_login_for_access_token_api_v1_auth_login_post,
     ErrorMessage,
     ClientFactory,
+    Token,
 } from '@electionguard/api-client';
-import { Token } from '@electionguard/api-client/dist/nswag/clients';
 import { Button, Container, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
 import React, { useState } from 'react';
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface LoginPageProps {
-    setToken: (token: string) => void;
+    setToken: (token: Token) => void;
 }
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -58,8 +58,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
         await authClient
             .login(loginParams)
             .then((token: Token) => {
-                const tokenJson = JSON.stringify(token);
-                setToken(tokenJson);
+                setToken(token);
             })
             .catch((ex: unknown) => {
                 if (typeof ex === 'string') {

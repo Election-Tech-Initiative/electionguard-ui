@@ -43,7 +43,7 @@ export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, loggedIn }
     const classes = useStyles();
 
     const logoutButton = (
-        <Button href="/" color="inherit" onClick={() => setToken(null)}>
+        <Button href="/" color="inherit" onClick={() => setToken(undefined)}>
             <FormattedMessage
                 id={MessageId.AuthLogout}
                 description="Sign out of application"
