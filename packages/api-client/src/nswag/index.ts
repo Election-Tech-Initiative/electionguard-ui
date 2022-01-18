@@ -5,4 +5,4 @@ export {
     ErrorMessage,
 } from './clients';
 
-export { UrlGetter } from './UrlGetter';
+export { ClientFactory } from './ClientFactory';

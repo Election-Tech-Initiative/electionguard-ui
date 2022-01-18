@@ -1,9 +1,9 @@
 import {
     Body_login_for_access_token_api_v1_auth_login_post,
-    AuthClient,
-    UrlGetter,
     ErrorMessage,
+    ClientFactory,
 } from '@electionguard/api-client';
+import { Token } from '@electionguard/api-client/dist/nswag/clients';
 import { Button, Container, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import { AccountCircle, Lock } from '@material-ui/icons';
 import React, { useState } from 'react';
@@ -45,8 +45,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        const url = UrlGetter.GetUrl();
-        const authClient = new AuthClient(url);
+        const authClient = ClientFactory.GetAuthClient();
         const loginParams = {
             username,
             password,
@@ -58,11 +57,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
 
         await authClient
             .login(loginParams)
-            .then((token) => {
+            .then((token: Token) => {
                 const tokenJson = JSON.stringify(token);
                 setToken(tokenJson);
             })
-            .catch((ex) => {
+            .catch((ex: unknown) => {
                 if (typeof ex === 'string') {
                     setResult(ex);
                 } else if (isErrorMessage(ex)) {
