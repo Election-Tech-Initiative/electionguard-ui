@@ -1,4 +1,11 @@
-import { AsyncResult, JointKey } from '@electionguard/api-client';
+/* tslint:disable */
+/* eslint-disable */
+import {
+    ClientFactory,
+    JointKey,
+    KeyCeremony,
+    KeyCeremonyQueryResponse,
+} from '@electionguard/api-client';
 import {
     Box,
     Button,
@@ -11,9 +18,10 @@ import {
     makeStyles,
 } from '@material-ui/core';
 import { SaveAlt as SaveIcon } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
+// todo: Remove useGetJointKeys - import { useGetJointKeys } from '@electionguard/api-client';
 
 import { Message, MessageId, loremIpsum } from '../../../lang';
 import AsyncContent from '../../AsyncContent';
@@ -31,13 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 export interface JointKeySelectStepProps {
     onNext?: () => void;
-    getKeys: () => AsyncResult<JointKey[]>;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, getKeys }) => {
+const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
     const [jointKey, setJointKey] = useState<JointKey>();
     let keys: JointKey[] = [];
 
@@ -47,10 +54,30 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, getKeys
             setJointKey(selectedKey);
         }
     };
-    const keyQuery = getKeys();
+
+    const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
+
+    const ceremonyClient = ClientFactory.GetCeremonyClient();
+
+    const getKeyCeremonies = async () => {
+        await ceremonyClient
+            .find(0, 100, { filter: {} })
+            .then((response: KeyCeremonyQueryResponse) => {
+                setKeyCeremonies(response.key_ceremonies);
+            })
+            .catch((ex: any) => {
+                console.error(ex);
+            });
+    };
+
     const queryClient = new QueryClient();
 
     const classes = useStyles();
+
+    useEffect(() => {
+        getKeyCeremonies();
+    }, []);
+
     return (
         <Container maxWidth="md">
             <QueryClientProvider client={queryClient}>
@@ -71,35 +98,26 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, getKeys
                         />
                     </Typography>
                     <Box display="flex" flexDirection="column" alignItems="start">
-                        <AsyncContent query={keyQuery} errorMessage="there was an error">
-                            {(keysFound) => {
-                                keys = keysFound;
-                                return (
-                                    <>
-                                        <FormControl className={classes.control}>
-                                            <InputLabel id="joint-key-select-label">
-                                                <FormattedMessage
-                                                    id={MessageId.ElectionSetupJointKeySelectPrompt}
-                                                    defaultMessage="Select Key for Election"
-                                                />
-                                            </InputLabel>
-                                            <Select
-                                                labelId="joint-key-select-label"
-                                                id="joint-key-select"
-                                                value={jointKey?.id}
-                                                onChange={onKeySelect}
-                                            >
-                                                {keysFound.map((key) => (
-                                                    <MenuItem key={key.id} value={key.id}>
-                                                        {key.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </>
-                                );
-                            }}
-                        </AsyncContent>
+                        <FormControl className={classes.control}>
+                            <InputLabel id="joint-key-select-label">
+                                <FormattedMessage
+                                    id={MessageId.ElectionSetupJointKeySelectPrompt}
+                                    defaultMessage="Select Key for Election"
+                                />
+                            </InputLabel>
+                            <Select
+                                labelId="joint-key-select-label"
+                                id="joint-key-select"
+                                value={jointKey?.id}
+                                onChange={onKeySelect}
+                            >
+                                {keyCeremonies.map((key) => (
+                                    <MenuItem key={key.key_name} value={key.key_name}>
+                                        {key.key_name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
                         <Button
                             disabled={jointKey === undefined}

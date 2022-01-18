@@ -4,6 +4,9 @@ export {
     ApiException,
     ErrorMessage,
     Token,
+    CeremonyClient,
+    KeyCeremony,
+    KeyCeremonyQueryResponse,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';
