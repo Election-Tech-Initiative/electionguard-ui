@@ -49,29 +49,25 @@ export class AuthClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = Token.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <Token>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = ErrorMessage.fromJS(resultData401);
+            result401 = _responseText === "" ? null : <ErrorMessage>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Unauthorized", status, _responseText, _headers, result401);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = ErrorMessage.fromJS(resultData404);
+            result404 = _responseText === "" ? null : <ErrorMessage>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Not Found", status, _responseText, _headers, result404);
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -124,15 +120,13 @@ export class UserClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UserInfo.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <UserInfo>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -173,16 +167,13 @@ export class UserClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -228,16 +219,13 @@ export class UserClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -293,15 +281,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GuardianQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <GuardianQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -342,15 +328,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -391,15 +375,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -440,15 +422,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ElectionQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ElectionQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -489,15 +469,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -538,15 +516,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ManifestQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ManifestQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -587,15 +563,13 @@ export class V1Client {
         if (status === 202) {
             return response.text().then((_responseText) => {
             let result202: any = null;
-            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result202 = ManifestSubmitResponse.fromJS(resultData202);
+            result202 = _responseText === "" ? null : <ManifestSubmitResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -640,15 +614,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BallotQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <BallotQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -693,15 +665,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CiphertextTally.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <CiphertextTally>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -746,15 +716,13 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CiphertextTally.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <CiphertextTally>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -791,9 +759,7 @@ export class V1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -855,15 +821,13 @@ export class GuardianClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GuardianQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <GuardianQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -904,15 +868,13 @@ export class GuardianClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -953,15 +915,13 @@ export class GuardianClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1002,15 +962,13 @@ export class GuardianClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1051,15 +1009,13 @@ export class GuardianClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1111,15 +1067,13 @@ export class KeyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <KeyCeremonyQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1160,15 +1114,13 @@ export class KeyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1220,15 +1172,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = KeyCeremonyStateResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <KeyCeremonyStateResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1279,15 +1229,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = KeyCeremonyQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <KeyCeremonyQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1328,15 +1276,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1377,15 +1323,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1426,15 +1370,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1475,15 +1417,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1524,15 +1464,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ElectionJointKeyResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1573,15 +1511,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ElectionJointKeyResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1622,15 +1558,13 @@ export class CeremonyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ElectionJointKeyResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ElectionJointKeyResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1682,15 +1616,13 @@ export class ChallengeClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1738,9 +1670,7 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -1791,15 +1721,13 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ElectionQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ElectionQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1840,15 +1768,13 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1889,15 +1815,13 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1938,15 +1862,13 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1987,15 +1909,13 @@ export class ElectionClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = MakeElectionContextResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <MakeElectionContextResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2057,15 +1977,13 @@ export class ManifestClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ManifestQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ManifestQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2106,15 +2024,13 @@ export class ManifestClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ValidateManifestResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <ValidateManifestResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2166,15 +2082,13 @@ export class BallotClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BallotInventoryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <BallotInventoryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2229,15 +2143,13 @@ export class BallotClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BallotQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <BallotQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2283,15 +2195,13 @@ export class BallotClient {
         if (status === 202) {
             return response.text().then((_responseText) => {
             let result202: any = null;
-            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            result202 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2337,15 +2247,13 @@ export class BallotClient {
         if (status === 202) {
             return response.text().then((_responseText) => {
             let result202: any = null;
-            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            result202 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2391,15 +2299,13 @@ export class BallotClient {
         if (status === 202) {
             return response.text().then((_responseText) => {
             let result202: any = null;
-            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result202 = App__api__v1__models__base__BaseResponse.fromJS(resultData202);
+            result202 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2440,15 +2346,13 @@ export class BallotClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2489,16 +2393,13 @@ export class BallotClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2539,16 +2440,13 @@ export class BallotClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2600,16 +2498,13 @@ export class TestClient {
         if (status === 202) {
             return response.text().then((_responseText) => {
             let result202: any = null;
-            let resultData202 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result202 = resultData202 !== undefined ? resultData202 : <any>null;
-    
+            result202 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
             return result202;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2675,15 +2570,13 @@ export class TallyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CiphertextTallyQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <CiphertextTallyQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2732,15 +2625,13 @@ export class TallyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DecryptionShareResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <DecryptionShareResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2786,15 +2677,13 @@ export class TallyClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PlaintextTallyQueryResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <PlaintextTallyQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2846,15 +2735,13 @@ export class DecryptClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2909,15 +2796,13 @@ export class DecryptClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DecryptionShareResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <DecryptionShareResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -2969,15 +2854,13 @@ export class V1_1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = App__api__v1_1__models__base__BaseResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : <App__api__v1_1__models__base__BaseResponse>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status === 422) {
             return response.text().then((_responseText) => {
             let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = HTTPValidationError.fromJS(resultData422);
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
             return throwException("Validation Error", status, _responseText, _headers, result422);
             });
         } else if (status !== 200 && status !== 204) {
@@ -3014,9 +2897,7 @@ export class V1_1Client {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+            result200 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -3035,80 +2916,7 @@ export enum ApiMode {
 }
 
 /** The Ballot Inventory retains metadata about ballots in an election, including mappings of ballot tracking codes to ballot id's */
-export class BallotInventory implements IBallotInventory {
-    election_id!: string;
-    cast_ballot_count?: number;
-    spoiled_ballot_count?: number;
-    cast_ballots?: { [key: string]: string; };
-    spoiled_ballots?: { [key: string]: string; };
-
-    constructor(data?: IBallotInventory) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.cast_ballot_count = 0;
-            this.spoiled_ballot_count = 0;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.cast_ballot_count = _data["cast_ballot_count"] !== undefined ? _data["cast_ballot_count"] : 0;
-            this.spoiled_ballot_count = _data["spoiled_ballot_count"] !== undefined ? _data["spoiled_ballot_count"] : 0;
-            if (_data["cast_ballots"]) {
-                this.cast_ballots = {} as any;
-                for (let key in _data["cast_ballots"]) {
-                    if (_data["cast_ballots"].hasOwnProperty(key))
-                        (<any>this.cast_ballots)![key] = _data["cast_ballots"][key];
-                }
-            }
-            if (_data["spoiled_ballots"]) {
-                this.spoiled_ballots = {} as any;
-                for (let key in _data["spoiled_ballots"]) {
-                    if (_data["spoiled_ballots"].hasOwnProperty(key))
-                        (<any>this.spoiled_ballots)![key] = _data["spoiled_ballots"][key];
-                }
-            }
-        }
-    }
-
-    static fromJS(data: any): BallotInventory {
-        data = typeof data === 'object' ? data : {};
-        let result = new BallotInventory();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["cast_ballot_count"] = this.cast_ballot_count;
-        data["spoiled_ballot_count"] = this.spoiled_ballot_count;
-        if (this.cast_ballots) {
-            data["cast_ballots"] = {};
-            for (let key in this.cast_ballots) {
-                if (this.cast_ballots.hasOwnProperty(key))
-                    (<any>data["cast_ballots"])[key] = this.cast_ballots[key];
-            }
-        }
-        if (this.spoiled_ballots) {
-            data["spoiled_ballots"] = {};
-            for (let key in this.spoiled_ballots) {
-                if (this.spoiled_ballots.hasOwnProperty(key))
-                    (<any>data["spoiled_ballots"])[key] = this.spoiled_ballots[key];
-            }
-        }
-        return data;
-    }
-}
-
-/** The Ballot Inventory retains metadata about ballots in an election, including mappings of ballot tracking codes to ballot id's */
-export interface IBallotInventory {
+export interface BallotInventory {
     election_id: string;
     cast_ballot_count?: number;
     spoiled_ballot_count?: number;
@@ -3117,110 +2925,14 @@ export interface IBallotInventory {
 }
 
 /** A basic response */
-export class BallotInventoryResponse implements IBallotInventoryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    inventory!: BallotInventory;
-
-    constructor(data?: IBallotInventoryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-            this.inventory = new BallotInventory();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.inventory = _data["inventory"] ? BallotInventory.fromJS(_data["inventory"]) : new BallotInventory();
-        }
-    }
-
-    static fromJS(data: any): BallotInventoryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new BallotInventoryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["inventory"] = this.inventory ? this.inventory.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IBallotInventoryResponse {
+export interface BallotInventoryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     inventory: BallotInventory;
 }
 
 /** A basic response */
-export class BallotQueryResponse implements IBallotQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    election_id!: string;
-    ballots?: any[];
-
-    constructor(data?: IBallotQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.election_id = _data["election_id"];
-            if (Array.isArray(_data["ballots"])) {
-                this.ballots = [] as any;
-                for (let item of _data["ballots"])
-                    this.ballots!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): BallotQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new BallotQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["election_id"] = this.election_id;
-        if (Array.isArray(this.ballots)) {
-            data["ballots"] = [];
-            for (let item of this.ballots)
-                data["ballots"].push(item);
-        }
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IBallotQueryResponse {
+export interface BallotQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     election_id: string;
@@ -3228,137 +2940,16 @@ export interface IBallotQueryResponse {
 }
 
 /** Find something */
-export class BaseQueryRequest implements IBaseQueryRequest {
-    filter?: any;
-
-    constructor(data?: IBaseQueryRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.filter = _data["filter"];
-        }
-    }
-
-    static fromJS(data: any): BaseQueryRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new BaseQueryRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["filter"] = this.filter;
-        return data;
-    }
-}
-
-/** Find something */
-export interface IBaseQueryRequest {
+export interface BaseQueryRequest {
     filter?: any;
 }
 
-export class Body_create_user_api_v1_user_create_post implements IBody_create_user_api_v1_user_create_post {
-    user_info!: UserInfo;
-    settings?: Settings;
-
-    constructor(data?: IBody_create_user_api_v1_user_create_post) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.user_info = new UserInfo();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.user_info = _data["user_info"] ? UserInfo.fromJS(_data["user_info"]) : new UserInfo();
-            this.settings = _data["settings"] ? Settings.fromJS(_data["settings"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): Body_create_user_api_v1_user_create_post {
-        data = typeof data === 'object' ? data : {};
-        let result = new Body_create_user_api_v1_user_create_post();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["user_info"] = this.user_info ? this.user_info.toJSON() : <any>undefined;
-        data["settings"] = this.settings ? this.settings.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IBody_create_user_api_v1_user_create_post {
+export interface Body_create_user_api_v1_user_create_post {
     user_info: UserInfo;
     settings?: Settings;
 }
 
-export class Body_login_for_access_token_api_v1_auth_login_post implements IBody_login_for_access_token_api_v1_auth_login_post {
-    grant_type?: string;
-    username!: string;
-    password!: string;
-    scope?: string;
-    client_id?: string;
-    client_secret?: string;
-
-    constructor(data?: IBody_login_for_access_token_api_v1_auth_login_post) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.scope = "";
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.grant_type = _data["grant_type"];
-            this.username = _data["username"];
-            this.password = _data["password"];
-            this.scope = _data["scope"] !== undefined ? _data["scope"] : "";
-            this.client_id = _data["client_id"];
-            this.client_secret = _data["client_secret"];
-        }
-    }
-
-    static fromJS(data: any): Body_login_for_access_token_api_v1_auth_login_post {
-        data = typeof data === 'object' ? data : {};
-        let result = new Body_login_for_access_token_api_v1_auth_login_post();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["grant_type"] = this.grant_type;
-        data["username"] = this.username;
-        data["password"] = this.password;
-        data["scope"] = this.scope;
-        data["client_id"] = this.client_id;
-        data["client_secret"] = this.client_secret;
-        return data;
-    }
-}
-
-export interface IBody_login_for_access_token_api_v1_auth_login_post {
+export interface Body_login_for_access_token_api_v1_auth_login_post {
     grant_type?: string;
     username: string;
     password: string;
@@ -3368,60 +2959,7 @@ export interface IBody_login_for_access_token_api_v1_auth_login_post {
 }
 
 /** Cast the enclosed ballots. */
-export class CastBallotsRequest implements ICastBallotsRequest {
-    election_id?: string;
-    manifest?: any;
-    context?: any;
-    ballots!: any[];
-
-    constructor(data?: ICastBallotsRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.ballots = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.manifest = _data["manifest"];
-            this.context = _data["context"];
-            if (Array.isArray(_data["ballots"])) {
-                this.ballots = [] as any;
-                for (let item of _data["ballots"])
-                    this.ballots!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): CastBallotsRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new CastBallotsRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["manifest"] = this.manifest;
-        data["context"] = this.context;
-        if (Array.isArray(this.ballots)) {
-            data["ballots"] = [];
-            for (let item of this.ballots)
-                data["ballots"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Cast the enclosed ballots. */
-export interface ICastBallotsRequest {
+export interface CastBallotsRequest {
     election_id?: string;
     manifest?: any;
     context?: any;
@@ -3429,49 +2967,7 @@ export interface ICastBallotsRequest {
 }
 
 /** A Tally for a specific election. */
-export class CiphertextTally implements ICiphertextTally {
-    election_id!: string;
-    tally_name!: string;
-    created!: Date;
-    tally?: any;
-
-    constructor(data?: ICiphertextTally) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.tally_name = _data["tally_name"];
-            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
-            this.tally = _data["tally"];
-        }
-    }
-
-    static fromJS(data: any): CiphertextTally {
-        data = typeof data === 'object' ? data : {};
-        let result = new CiphertextTally();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["tally_name"] = this.tally_name;
-        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
-        data["tally"] = this.tally;
-        return data;
-    }
-}
-
-/** A Tally for a specific election. */
-export interface ICiphertextTally {
+export interface CiphertextTally {
     election_id: string;
     tally_name: string;
     created: Date;
@@ -3479,52 +2975,7 @@ export interface ICiphertextTally {
 }
 
 /** A DecryptionShare provided by a guardian for a specific tally. Optionally can include ballot_shares for challenge ballots. */
-export class CiphertextTallyDecryptionShare implements ICiphertextTallyDecryptionShare {
-    election_id!: string;
-    tally_name!: string;
-    guardian_id!: string;
-    tally_share?: any;
-    ballot_shares?: any;
-
-    constructor(data?: ICiphertextTallyDecryptionShare) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.tally_name = _data["tally_name"];
-            this.guardian_id = _data["guardian_id"];
-            this.tally_share = _data["tally_share"];
-            this.ballot_shares = _data["ballot_shares"];
-        }
-    }
-
-    static fromJS(data: any): CiphertextTallyDecryptionShare {
-        data = typeof data === 'object' ? data : {};
-        let result = new CiphertextTallyDecryptionShare();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["tally_name"] = this.tally_name;
-        data["guardian_id"] = this.guardian_id;
-        data["tally_share"] = this.tally_share;
-        data["ballot_shares"] = this.ballot_shares;
-        return data;
-    }
-}
-
-/** A DecryptionShare provided by a guardian for a specific tally. Optionally can include ballot_shares for challenge ballots. */
-export interface ICiphertextTallyDecryptionShare {
+export interface CiphertextTallyDecryptionShare {
     election_id: string;
     tally_name: string;
     guardian_id: string;
@@ -3533,358 +2984,44 @@ export interface ICiphertextTallyDecryptionShare {
 }
 
 /** A collection of Ciphertext Tallies. */
-export class CiphertextTallyQueryResponse implements ICiphertextTallyQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    tallies?: CiphertextTally[];
-
-    constructor(data?: ICiphertextTallyQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["tallies"])) {
-                this.tallies = [] as any;
-                for (let item of _data["tallies"])
-                    this.tallies!.push(CiphertextTally.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): CiphertextTallyQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new CiphertextTallyQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.tallies)) {
-            data["tallies"] = [];
-            for (let item of this.tallies)
-                data["tallies"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** A collection of Ciphertext Tallies. */
-export interface ICiphertextTallyQueryResponse {
+export interface CiphertextTallyQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     tallies?: CiphertextTally[];
 }
 
 /** Create an election. */
-export class CreateElectionRequest implements ICreateElectionRequest {
-    name!: string;
-
-    constructor(data?: ICreateElectionRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"];
-        }
-    }
-
-    static fromJS(data: any): CreateElectionRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateElectionRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name;
-        return data;
-    }
-}
-
-/** Create an election. */
-export interface ICreateElectionRequest {
+export interface CreateElectionRequest {
     name: string;
 }
 
 /** Decrypt the provided ballots with the provided shares */
-export class DecryptBallotsWithSharesRequest implements IDecryptBallotsWithSharesRequest {
-    encrypted_ballots!: any[];
-    shares!: { [key: string]: any[]; };
-    context?: any;
-
-    constructor(data?: IDecryptBallotsWithSharesRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.encrypted_ballots = [];
-            this.shares = {};
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["encrypted_ballots"])) {
-                this.encrypted_ballots = [] as any;
-                for (let item of _data["encrypted_ballots"])
-                    this.encrypted_ballots!.push(item);
-            }
-            if (_data["shares"]) {
-                this.shares = {} as any;
-                for (let key in _data["shares"]) {
-                    if (_data["shares"].hasOwnProperty(key))
-                        (<any>this.shares)![key] = _data["shares"][key] !== undefined ? _data["shares"][key] : [];
-                }
-            }
-            this.context = _data["context"];
-        }
-    }
-
-    static fromJS(data: any): DecryptBallotsWithSharesRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new DecryptBallotsWithSharesRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.encrypted_ballots)) {
-            data["encrypted_ballots"] = [];
-            for (let item of this.encrypted_ballots)
-                data["encrypted_ballots"].push(item);
-        }
-        if (this.shares) {
-            data["shares"] = {};
-            for (let key in this.shares) {
-                if (this.shares.hasOwnProperty(key))
-                    (<any>data["shares"])[key] = this.shares[key];
-            }
-        }
-        data["context"] = this.context;
-        return data;
-    }
-}
-
-/** Decrypt the provided ballots with the provided shares */
-export interface IDecryptBallotsWithSharesRequest {
+export interface DecryptBallotsWithSharesRequest {
     encrypted_ballots: any[];
     shares: { [key: string]: any[]; };
     context?: any;
 }
 
 /** A request to decrypt a specific tally.  Can optionally include the tally to decrypt. */
-export class DecryptTallyRequest implements IDecryptTallyRequest {
-    election_id!: string;
-    tally_name!: string;
-
-    constructor(data?: IDecryptTallyRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.tally_name = _data["tally_name"];
-        }
-    }
-
-    static fromJS(data: any): DecryptTallyRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new DecryptTallyRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["tally_name"] = this.tally_name;
-        return data;
-    }
-}
-
-/** A request to decrypt a specific tally.  Can optionally include the tally to decrypt. */
-export interface IDecryptTallyRequest {
+export interface DecryptTallyRequest {
     election_id: string;
     tally_name: string;
 }
 
 /** A request to submit a decryption share. */
-export class DecryptionShareRequest implements IDecryptionShareRequest {
-    share!: CiphertextTallyDecryptionShare;
-
-    constructor(data?: IDecryptionShareRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.share = new CiphertextTallyDecryptionShare();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.share = _data["share"] ? CiphertextTallyDecryptionShare.fromJS(_data["share"]) : new CiphertextTallyDecryptionShare();
-        }
-    }
-
-    static fromJS(data: any): DecryptionShareRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new DecryptionShareRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["share"] = this.share ? this.share.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-/** A request to submit a decryption share. */
-export interface IDecryptionShareRequest {
+export interface DecryptionShareRequest {
     share: CiphertextTallyDecryptionShare;
 }
 
 /** A response that includes a collection of decryption shares. */
-export class DecryptionShareResponse implements IDecryptionShareResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    shares!: CiphertextTallyDecryptionShare[];
-
-    constructor(data?: IDecryptionShareResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-            this.shares = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["shares"])) {
-                this.shares = [] as any;
-                for (let item of _data["shares"])
-                    this.shares!.push(CiphertextTallyDecryptionShare.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): DecryptionShareResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new DecryptionShareResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.shares)) {
-            data["shares"] = [];
-            for (let item of this.shares)
-                data["shares"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** A response that includes a collection of decryption shares. */
-export interface IDecryptionShareResponse {
+export interface DecryptionShareResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     shares: CiphertextTallyDecryptionShare[];
 }
 
 /** An election object. */
-export class Election implements IElection {
-    election_id!: string;
-    key_name!: string;
-    state!: ElectionState;
-    context?: any;
-    manifest?: any;
-
-    constructor(data?: IElection) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.key_name = _data["key_name"];
-            this.state = _data["state"];
-            this.context = _data["context"];
-            this.manifest = _data["manifest"];
-        }
-    }
-
-    static fromJS(data: any): Election {
-        data = typeof data === 'object' ? data : {};
-        let result = new Election();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["key_name"] = this.key_name;
-        data["state"] = this.state;
-        data["context"] = this.context;
-        data["manifest"] = this.manifest;
-        return data;
-    }
-}
-
-/** An election object. */
-export interface IElection {
+export interface Election {
     election_id: string;
     key_name: string;
     state: ElectionState;
@@ -3893,52 +3030,7 @@ export interface IElection {
 }
 
 /** Response object containing the Election Joint Key. */
-export class ElectionJointKeyResponse implements IElectionJointKeyResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    elgamal_public_key?: any;
-    commitment_hash?: any;
-
-    constructor(data?: IElectionJointKeyResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.elgamal_public_key = _data["elgamal_public_key"];
-            this.commitment_hash = _data["commitment_hash"];
-        }
-    }
-
-    static fromJS(data: any): ElectionJointKeyResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new ElectionJointKeyResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["elgamal_public_key"] = this.elgamal_public_key;
-        data["commitment_hash"] = this.commitment_hash;
-        return data;
-    }
-}
-
-/** Response object containing the Election Joint Key. */
-export interface IElectionJointKeyResponse {
+export interface ElectionJointKeyResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     elgamal_public_key?: any;
@@ -3946,95 +3038,12 @@ export interface IElectionJointKeyResponse {
 }
 
 /** A request for elections using the specified filter. */
-export class ElectionQueryRequest implements IElectionQueryRequest {
-    filter?: any;
-
-    constructor(data?: IElectionQueryRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.filter = _data["filter"];
-        }
-    }
-
-    static fromJS(data: any): ElectionQueryRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new ElectionQueryRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["filter"] = this.filter;
-        return data;
-    }
-}
-
-/** A request for elections using the specified filter. */
-export interface IElectionQueryRequest {
+export interface ElectionQueryRequest {
     filter?: any;
 }
 
 /** A collection of elections. */
-export class ElectionQueryResponse implements IElectionQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    elections?: Election[];
-
-    constructor(data?: IElectionQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["elections"])) {
-                this.elections = [] as any;
-                for (let item of _data["elections"])
-                    this.elections!.push(Election.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): ElectionQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new ElectionQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.elections)) {
-            data["elections"] = [];
-            for (let item of this.elections)
-                data["elections"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** A collection of elections. */
-export interface IElectionQueryResponse {
+export interface ElectionQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     elections?: Election[];
@@ -4049,495 +3058,57 @@ export enum ElectionState {
 }
 
 /** A request to encrypt the enclosed ballots. */
-export class EncryptBallotsRequest implements IEncryptBallotsRequest {
-    election_id!: string;
-    seed_hash!: string;
-    ballots!: any[];
-
-    constructor(data?: IEncryptBallotsRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.ballots = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.seed_hash = _data["seed_hash"];
-            if (Array.isArray(_data["ballots"])) {
-                this.ballots = [] as any;
-                for (let item of _data["ballots"])
-                    this.ballots!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): EncryptBallotsRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new EncryptBallotsRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["seed_hash"] = this.seed_hash;
-        if (Array.isArray(this.ballots)) {
-            data["ballots"] = [];
-            for (let item of this.ballots)
-                data["ballots"].push(item);
-        }
-        return data;
-    }
-}
-
-/** A request to encrypt the enclosed ballots. */
-export interface IEncryptBallotsRequest {
+export interface EncryptBallotsRequest {
     election_id: string;
     seed_hash: string;
     ballots: any[];
 }
 
 /** Returns error messages to the client. */
-export class ErrorMessage implements IErrorMessage {
-    detail!: string;
-
-    constructor(data?: IErrorMessage) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.detail = _data["detail"];
-        }
-    }
-
-    static fromJS(data: any): ErrorMessage {
-        data = typeof data === 'object' ? data : {};
-        let result = new ErrorMessage();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["detail"] = this.detail;
-        return data;
-    }
-}
-
-/** Returns error messages to the client. */
-export interface IErrorMessage {
+export interface ErrorMessage {
     detail: string;
 }
 
 /** A set of public auxiliary and election keys. */
-export class GuardianAnnounceRequest implements IGuardianAnnounceRequest {
-    key_name!: string;
-    public_keys?: any;
-
-    constructor(data?: IGuardianAnnounceRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.public_keys = _data["public_keys"];
-        }
-    }
-
-    static fromJS(data: any): GuardianAnnounceRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new GuardianAnnounceRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["public_keys"] = this.public_keys;
-        return data;
-    }
-}
-
-/** A set of public auxiliary and election keys. */
-export interface IGuardianAnnounceRequest {
+export interface GuardianAnnounceRequest {
     key_name: string;
     public_keys?: any;
 }
 
 /** Returns a collection of KeyCeremonyGuardians. */
-export class GuardianQueryResponse implements IGuardianQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    guardians!: KeyCeremonyGuardian[];
-
-    constructor(data?: IGuardianQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-            this.guardians = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["guardians"])) {
-                this.guardians = [] as any;
-                for (let item of _data["guardians"])
-                    this.guardians!.push(KeyCeremonyGuardian.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): GuardianQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new GuardianQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.guardians)) {
-            data["guardians"] = [];
-            for (let item of this.guardians)
-                data["guardians"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** Returns a collection of KeyCeremonyGuardians. */
-export interface IGuardianQueryResponse {
+export interface GuardianQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     guardians: KeyCeremonyGuardian[];
 }
 
 /** Submit a collection of backups for a guardian. */
-export class GuardianSubmitBackupRequest implements IGuardianSubmitBackupRequest {
-    key_name!: string;
-    guardian_id!: string;
-    backups!: any[];
-
-    constructor(data?: IGuardianSubmitBackupRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.backups = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.guardian_id = _data["guardian_id"];
-            if (Array.isArray(_data["backups"])) {
-                this.backups = [] as any;
-                for (let item of _data["backups"])
-                    this.backups!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): GuardianSubmitBackupRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new GuardianSubmitBackupRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["guardian_id"] = this.guardian_id;
-        if (Array.isArray(this.backups)) {
-            data["backups"] = [];
-            for (let item of this.backups)
-                data["backups"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Submit a collection of backups for a guardian. */
-export interface IGuardianSubmitBackupRequest {
+export interface GuardianSubmitBackupRequest {
     key_name: string;
     guardian_id: string;
     backups: any[];
 }
 
 /** Submit a collection of challenges for a guardian. */
-export class GuardianSubmitChallengeRequest implements IGuardianSubmitChallengeRequest {
-    key_name!: string;
-    guardian_id!: string;
-    challenges!: any[];
-
-    constructor(data?: IGuardianSubmitChallengeRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.challenges = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.guardian_id = _data["guardian_id"];
-            if (Array.isArray(_data["challenges"])) {
-                this.challenges = [] as any;
-                for (let item of _data["challenges"])
-                    this.challenges!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): GuardianSubmitChallengeRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new GuardianSubmitChallengeRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["guardian_id"] = this.guardian_id;
-        if (Array.isArray(this.challenges)) {
-            data["challenges"] = [];
-            for (let item of this.challenges)
-                data["challenges"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Submit a collection of challenges for a guardian. */
-export interface IGuardianSubmitChallengeRequest {
+export interface GuardianSubmitChallengeRequest {
     key_name: string;
     guardian_id: string;
     challenges: any[];
 }
 
 /** Submit a collection of verifications for a guardian. */
-export class GuardianSubmitVerificationRequest implements IGuardianSubmitVerificationRequest {
-    key_name!: string;
-    guardian_id!: string;
-    verifications!: any[];
-
-    constructor(data?: IGuardianSubmitVerificationRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.verifications = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.guardian_id = _data["guardian_id"];
-            if (Array.isArray(_data["verifications"])) {
-                this.verifications = [] as any;
-                for (let item of _data["verifications"])
-                    this.verifications!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): GuardianSubmitVerificationRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new GuardianSubmitVerificationRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["guardian_id"] = this.guardian_id;
-        if (Array.isArray(this.verifications)) {
-            data["verifications"] = [];
-            for (let item of this.verifications)
-                data["verifications"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Submit a collection of verifications for a guardian. */
-export interface IGuardianSubmitVerificationRequest {
+export interface GuardianSubmitVerificationRequest {
     key_name: string;
     guardian_id: string;
     verifications: any[];
 }
 
-export class HTTPValidationError implements IHTTPValidationError {
-    detail?: ValidationError[];
-
-    constructor(data?: IHTTPValidationError) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["detail"])) {
-                this.detail = [] as any;
-                for (let item of _data["detail"])
-                    this.detail!.push(ValidationError.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): HTTPValidationError {
-        data = typeof data === 'object' ? data : {};
-        let result = new HTTPValidationError();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.detail)) {
-            data["detail"] = [];
-            for (let item of this.detail)
-                data["detail"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IHTTPValidationError {
+export interface HTTPValidationError {
     detail?: ValidationError[];
 }
 
 /** The Key Ceremony is a record of the state of a key ceremony. */
-export class KeyCeremony implements IKeyCeremony {
-    key_name!: string;
-    state!: KeyCeremonyState;
-    number_of_guardians!: number;
-    quorum!: number;
-    guardian_ids!: string[];
-    guardian_status!: { [key: string]: KeyCeremonyGuardianState; };
-    elgamal_public_key?: any;
-    commitment_hash?: any;
-
-    constructor(data?: IKeyCeremony) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.guardian_ids = [];
-            this.guardian_status = {};
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.state = _data["state"];
-            this.number_of_guardians = _data["number_of_guardians"];
-            this.quorum = _data["quorum"];
-            if (Array.isArray(_data["guardian_ids"])) {
-                this.guardian_ids = [] as any;
-                for (let item of _data["guardian_ids"])
-                    this.guardian_ids!.push(item);
-            }
-            if (_data["guardian_status"]) {
-                this.guardian_status = {} as any;
-                for (let key in _data["guardian_status"]) {
-                    if (_data["guardian_status"].hasOwnProperty(key))
-                        (<any>this.guardian_status)![key] = _data["guardian_status"][key] ? KeyCeremonyGuardianState.fromJS(_data["guardian_status"][key]) : new KeyCeremonyGuardianState();
-                }
-            }
-            this.elgamal_public_key = _data["elgamal_public_key"];
-            this.commitment_hash = _data["commitment_hash"];
-        }
-    }
-
-    static fromJS(data: any): KeyCeremony {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremony();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["state"] = this.state;
-        data["number_of_guardians"] = this.number_of_guardians;
-        data["quorum"] = this.quorum;
-        if (Array.isArray(this.guardian_ids)) {
-            data["guardian_ids"] = [];
-            for (let item of this.guardian_ids)
-                data["guardian_ids"].push(item);
-        }
-        if (this.guardian_status) {
-            data["guardian_status"] = {};
-            for (let key in this.guardian_status) {
-                if (this.guardian_status.hasOwnProperty(key))
-                    (<any>data["guardian_status"])[key] = this.guardian_status[key] ? this.guardian_status[key].toJSON() : <any>undefined;
-            }
-        }
-        data["elgamal_public_key"] = this.elgamal_public_key;
-        data["commitment_hash"] = this.commitment_hash;
-        return data;
-    }
-}
-
-/** The Key Ceremony is a record of the state of a key ceremony. */
-export interface IKeyCeremony {
+export interface KeyCeremony {
     key_name: string;
     state: KeyCeremonyState;
     number_of_guardians: number;
@@ -4549,60 +3120,7 @@ export interface IKeyCeremony {
 }
 
 /** Request to create a new key ceremony. */
-export class KeyCeremonyCreateRequest implements IKeyCeremonyCreateRequest {
-    key_name!: string;
-    number_of_guardians!: number;
-    quorum!: number;
-    guardian_ids!: string[];
-
-    constructor(data?: IKeyCeremonyCreateRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.guardian_ids = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.number_of_guardians = _data["number_of_guardians"];
-            this.quorum = _data["quorum"];
-            if (Array.isArray(_data["guardian_ids"])) {
-                this.guardian_ids = [] as any;
-                for (let item of _data["guardian_ids"])
-                    this.guardian_ids!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): KeyCeremonyCreateRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremonyCreateRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["number_of_guardians"] = this.number_of_guardians;
-        data["quorum"] = this.quorum;
-        if (Array.isArray(this.guardian_ids)) {
-            data["guardian_ids"] = [];
-            for (let item of this.guardian_ids)
-                data["guardian_ids"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Request to create a new key ceremony. */
-export interface IKeyCeremonyCreateRequest {
+export interface KeyCeremonyCreateRequest {
     key_name: string;
     number_of_guardians: number;
     quorum: number;
@@ -4610,91 +3128,7 @@ export interface IKeyCeremonyCreateRequest {
 }
 
 /** A record of the public data exchanged between guardians. */
-export class KeyCeremonyGuardian implements IKeyCeremonyGuardian {
-    key_name!: string;
-    guardian_id!: string;
-    name!: string;
-    sequence_order!: number;
-    number_of_guardians!: number;
-    quorum!: number;
-    public_keys?: any;
-    backups?: any[];
-    verifications?: any[];
-    challenges?: any[];
-
-    constructor(data?: IKeyCeremonyGuardian) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.guardian_id = _data["guardian_id"];
-            this.name = _data["name"];
-            this.sequence_order = _data["sequence_order"];
-            this.number_of_guardians = _data["number_of_guardians"];
-            this.quorum = _data["quorum"];
-            this.public_keys = _data["public_keys"];
-            if (Array.isArray(_data["backups"])) {
-                this.backups = [] as any;
-                for (let item of _data["backups"])
-                    this.backups!.push(item);
-            }
-            if (Array.isArray(_data["verifications"])) {
-                this.verifications = [] as any;
-                for (let item of _data["verifications"])
-                    this.verifications!.push(item);
-            }
-            if (Array.isArray(_data["challenges"])) {
-                this.challenges = [] as any;
-                for (let item of _data["challenges"])
-                    this.challenges!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): KeyCeremonyGuardian {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremonyGuardian();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["guardian_id"] = this.guardian_id;
-        data["name"] = this.name;
-        data["sequence_order"] = this.sequence_order;
-        data["number_of_guardians"] = this.number_of_guardians;
-        data["quorum"] = this.quorum;
-        data["public_keys"] = this.public_keys;
-        if (Array.isArray(this.backups)) {
-            data["backups"] = [];
-            for (let item of this.backups)
-                data["backups"].push(item);
-        }
-        if (Array.isArray(this.verifications)) {
-            data["verifications"] = [];
-            for (let item of this.verifications)
-                data["verifications"].push(item);
-        }
-        if (Array.isArray(this.challenges)) {
-            data["challenges"] = [];
-            for (let item of this.challenges)
-                data["challenges"].push(item);
-        }
-        return data;
-    }
-}
-
-/** A record of the public data exchanged between guardians. */
-export interface IKeyCeremonyGuardian {
+export interface KeyCeremonyGuardian {
     key_name: string;
     guardian_id: string;
     name: string;
@@ -4708,51 +3142,7 @@ export interface IKeyCeremonyGuardian {
 }
 
 /** Describes the operations each guardian must fulfill to complete a key ceremony. */
-export class KeyCeremonyGuardianState implements IKeyCeremonyGuardianState {
-    public_key_shared?: KeyCeremonyGuardianStatus;
-    backups_shared?: KeyCeremonyGuardianStatus;
-    backups_verified?: KeyCeremonyGuardianStatus;
-
-    constructor(data?: IKeyCeremonyGuardianState) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.public_key_shared = KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_shared = KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_verified = KeyCeremonyGuardianStatus.INCOMPLETE;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.public_key_shared = _data["public_key_shared"] !== undefined ? _data["public_key_shared"] : KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_shared = _data["backups_shared"] !== undefined ? _data["backups_shared"] : KeyCeremonyGuardianStatus.INCOMPLETE;
-            this.backups_verified = _data["backups_verified"] !== undefined ? _data["backups_verified"] : KeyCeremonyGuardianStatus.INCOMPLETE;
-        }
-    }
-
-    static fromJS(data: any): KeyCeremonyGuardianState {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremonyGuardianState();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["public_key_shared"] = this.public_key_shared;
-        data["backups_shared"] = this.backups_shared;
-        data["backups_verified"] = this.backups_verified;
-        return data;
-    }
-}
-
-/** Describes the operations each guardian must fulfill to complete a key ceremony. */
-export interface IKeyCeremonyGuardianState {
+export interface KeyCeremonyGuardianState {
     public_key_shared?: KeyCeremonyGuardianStatus;
     backups_shared?: KeyCeremonyGuardianStatus;
     backups_verified?: KeyCeremonyGuardianStatus;
@@ -4766,58 +3156,7 @@ export enum KeyCeremonyGuardianStatus {
 }
 
 /** Returns a collection of Key Ceremonies. */
-export class KeyCeremonyQueryResponse implements IKeyCeremonyQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    key_ceremonies!: KeyCeremony[];
-
-    constructor(data?: IKeyCeremonyQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-            this.key_ceremonies = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["key_ceremonies"])) {
-                this.key_ceremonies = [] as any;
-                for (let item of _data["key_ceremonies"])
-                    this.key_ceremonies!.push(KeyCeremony.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): KeyCeremonyQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremonyQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.key_ceremonies)) {
-            data["key_ceremonies"] = [];
-            for (let item of this.key_ceremonies)
-                data["key_ceremonies"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** Returns a collection of Key Ceremonies. */
-export interface IKeyCeremonyQueryResponse {
+export interface KeyCeremonyQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     key_ceremonies: KeyCeremony[];
@@ -4833,116 +3172,14 @@ export enum KeyCeremonyState {
 }
 
 /** Returns a subset of KeyCeremony data that describes only the state. */
-export class KeyCeremonyStateResponse implements IKeyCeremonyStateResponse {
-    key_name!: string;
-    state!: KeyCeremonyState;
-    guardian_status!: { [key: string]: KeyCeremonyGuardianState; };
-
-    constructor(data?: IKeyCeremonyStateResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.guardian_status = {};
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            this.state = _data["state"];
-            if (_data["guardian_status"]) {
-                this.guardian_status = {} as any;
-                for (let key in _data["guardian_status"]) {
-                    if (_data["guardian_status"].hasOwnProperty(key))
-                        (<any>this.guardian_status)![key] = _data["guardian_status"][key] ? KeyCeremonyGuardianState.fromJS(_data["guardian_status"][key]) : new KeyCeremonyGuardianState();
-                }
-            }
-        }
-    }
-
-    static fromJS(data: any): KeyCeremonyStateResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyCeremonyStateResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        data["state"] = this.state;
-        if (this.guardian_status) {
-            data["guardian_status"] = {};
-            for (let key in this.guardian_status) {
-                if (this.guardian_status.hasOwnProperty(key))
-                    (<any>data["guardian_status"])[key] = this.guardian_status[key] ? this.guardian_status[key].toJSON() : <any>undefined;
-            }
-        }
-        return data;
-    }
-}
-
-/** Returns a subset of KeyCeremony data that describes only the state. */
-export interface IKeyCeremonyStateResponse {
+export interface KeyCeremonyStateResponse {
     key_name: string;
     state: KeyCeremonyState;
     guardian_status: { [key: string]: KeyCeremonyGuardianState; };
 }
 
 /** A request to build an Election Context for a given election. */
-export class MakeElectionContextRequest implements IMakeElectionContextRequest {
-    elgamal_public_key!: string;
-    commitment_hash!: string;
-    number_of_guardians!: number;
-    quorum!: number;
-    manifest_hash?: string;
-    manifest?: any;
-
-    constructor(data?: IMakeElectionContextRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.elgamal_public_key = _data["elgamal_public_key"];
-            this.commitment_hash = _data["commitment_hash"];
-            this.number_of_guardians = _data["number_of_guardians"];
-            this.quorum = _data["quorum"];
-            this.manifest_hash = _data["manifest_hash"];
-            this.manifest = _data["manifest"];
-        }
-    }
-
-    static fromJS(data: any): MakeElectionContextRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new MakeElectionContextRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["elgamal_public_key"] = this.elgamal_public_key;
-        data["commitment_hash"] = this.commitment_hash;
-        data["number_of_guardians"] = this.number_of_guardians;
-        data["quorum"] = this.quorum;
-        data["manifest_hash"] = this.manifest_hash;
-        data["manifest"] = this.manifest;
-        return data;
-    }
-}
-
-/** A request to build an Election Context for a given election. */
-export interface IMakeElectionContextRequest {
+export interface MakeElectionContextRequest {
     elgamal_public_key: string;
     commitment_hash: string;
     number_of_guardians: number;
@@ -4952,250 +3189,34 @@ export interface IMakeElectionContextRequest {
 }
 
 /** A Ciphertext Election Context. */
-export class MakeElectionContextResponse implements IMakeElectionContextResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    context?: any;
-
-    constructor(data?: IMakeElectionContextResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.context = _data["context"];
-        }
-    }
-
-    static fromJS(data: any): MakeElectionContextResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new MakeElectionContextResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["context"] = this.context;
-        return data;
-    }
-}
-
-/** A Ciphertext Election Context. */
-export interface IMakeElectionContextResponse {
+export interface MakeElectionContextResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     context?: any;
 }
 
 /** A basic model object */
-export class Manifest implements IManifest {
-    manifest_hash?: any;
-    manifest?: any;
-
-    constructor(data?: IManifest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.manifest_hash = _data["manifest_hash"];
-            this.manifest = _data["manifest"];
-        }
-    }
-
-    static fromJS(data: any): Manifest {
-        data = typeof data === 'object' ? data : {};
-        let result = new Manifest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["manifest_hash"] = this.manifest_hash;
-        data["manifest"] = this.manifest;
-        return data;
-    }
-}
-
-/** A basic model object */
-export interface IManifest {
+export interface Manifest {
     manifest_hash?: any;
     manifest?: any;
 }
 
 /** A basic response */
-export class ManifestQueryResponse implements IManifestQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    manifests!: Manifest[];
-
-    constructor(data?: IManifestQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-            this.manifests = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["manifests"])) {
-                this.manifests = [] as any;
-                for (let item of _data["manifests"])
-                    this.manifests!.push(Manifest.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): ManifestQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new ManifestQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.manifests)) {
-            data["manifests"] = [];
-            for (let item of this.manifests)
-                data["manifests"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IManifestQueryResponse {
+export interface ManifestQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     manifests: Manifest[];
 }
 
 /** A basic response */
-export class ManifestSubmitResponse implements IManifestSubmitResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    manifest_hash?: any;
-
-    constructor(data?: IManifestSubmitResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.manifest_hash = _data["manifest_hash"];
-        }
-    }
-
-    static fromJS(data: any): ManifestSubmitResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new ManifestSubmitResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["manifest_hash"] = this.manifest_hash;
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IManifestSubmitResponse {
+export interface ManifestSubmitResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     manifest_hash?: any;
 }
 
 /** A plaintext tally for a specific election. */
-export class PlaintextTally implements IPlaintextTally {
-    election_id!: string;
-    tally_name!: string;
-    created!: Date;
-    state!: PlaintextTallyState;
-    tally?: any;
-
-    constructor(data?: IPlaintextTally) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.tally_name = _data["tally_name"];
-            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
-            this.state = _data["state"];
-            this.tally = _data["tally"];
-        }
-    }
-
-    static fromJS(data: any): PlaintextTally {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlaintextTally();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["tally_name"] = this.tally_name;
-        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
-        data["state"] = this.state;
-        data["tally"] = this.tally;
-        return data;
-    }
-}
-
-/** A plaintext tally for a specific election. */
-export interface IPlaintextTally {
+export interface PlaintextTally {
     election_id: string;
     tally_name: string;
     created: Date;
@@ -5204,57 +3225,7 @@ export interface IPlaintextTally {
 }
 
 /** A collection of Plaintext Tallies. */
-export class PlaintextTallyQueryResponse implements IPlaintextTallyQueryResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    tallies?: PlaintextTally[];
-
-    constructor(data?: IPlaintextTallyQueryResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            if (Array.isArray(_data["tallies"])) {
-                this.tallies = [] as any;
-                for (let item of _data["tallies"])
-                    this.tallies!.push(PlaintextTally.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PlaintextTallyQueryResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlaintextTallyQueryResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        if (Array.isArray(this.tallies)) {
-            data["tallies"] = [];
-            for (let item of this.tallies)
-                data["tallies"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-/** A collection of Plaintext Tallies. */
-export interface IPlaintextTallyQueryResponse {
+export interface PlaintextTallyQueryResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     tallies?: PlaintextTally[];
@@ -5269,54 +3240,7 @@ export enum PlaintextTallyState {
 }
 
 /** Request to publish the election joint key. */
-export class PublishElectionJointKeyRequest implements IPublishElectionJointKeyRequest {
-    key_name!: string;
-    election_public_keys!: any[];
-
-    constructor(data?: IPublishElectionJointKeyRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.election_public_keys = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.key_name = _data["key_name"];
-            if (Array.isArray(_data["election_public_keys"])) {
-                this.election_public_keys = [] as any;
-                for (let item of _data["election_public_keys"])
-                    this.election_public_keys!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): PublishElectionJointKeyRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new PublishElectionJointKeyRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["key_name"] = this.key_name;
-        if (Array.isArray(this.election_public_keys)) {
-            data["election_public_keys"] = [];
-            for (let item of this.election_public_keys)
-                data["election_public_keys"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Request to publish the election joint key. */
-export interface IPublishElectionJointKeyRequest {
+export interface PublishElectionJointKeyRequest {
     key_name: string;
     election_public_keys: any[];
 }
@@ -5328,173 +3252,25 @@ export enum QueueMode {
 }
 
 /** Base class for settings, allowing values to be overridden by environment variables. This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design. */
-export class Settings implements ISettings {
-    aPI_MODE?: ApiMode;
-    qUEUE_MODE?: QueueMode;
-    sTORAGE_MODE?: StorageMode;
-    aPI_V1_STR?: string;
-    aPI_V1_1_STR?: string;
-    bACKEND_CORS_ORIGINS?: string[];
-    pROJECT_NAME?: string;
-    mONGODB_URI?: string;
-    mESSAGEQUEUE_URI?: string;
-    aUTH_ALGORITHM?: string;
-    aUTH_SECRET_KEY?: string;
-    aUTH_ACCESS_TOKEN_EXPIRE_MINUTES?: number;
-    dEFAULT_ADMIN_USERNAME?: string;
-    dEFAULT_ADMIN_PASSWORD?: string;
-
-    constructor(data?: ISettings) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.aPI_MODE = ApiMode.Mediator;
-            this.qUEUE_MODE = QueueMode.Local;
-            this.sTORAGE_MODE = StorageMode.Local_storage;
-            this.aPI_V1_STR = "/api/v1";
-            this.aPI_V1_1_STR = "/api/v1_1";
-            this.pROJECT_NAME = "electionguard-api-python";
-            this.mONGODB_URI = "mongodb://root:example@localhost:27017";
-            this.mESSAGEQUEUE_URI = "amqp://guest:guest@localhost:5672";
-            this.aUTH_ALGORITHM = "HS256";
-            this.aUTH_SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
-            this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES = 30;
-            this.dEFAULT_ADMIN_USERNAME = "default";
-            this.dEFAULT_ADMIN_PASSWORD = "<this is a default value and should be changed>";
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.aPI_MODE = _data["API_MODE"] !== undefined ? _data["API_MODE"] : ApiMode.Mediator;
-            this.qUEUE_MODE = _data["QUEUE_MODE"] !== undefined ? _data["QUEUE_MODE"] : QueueMode.Local;
-            this.sTORAGE_MODE = _data["STORAGE_MODE"] !== undefined ? _data["STORAGE_MODE"] : StorageMode.Local_storage;
-            this.aPI_V1_STR = _data["API_V1_STR"] !== undefined ? _data["API_V1_STR"] : "/api/v1";
-            this.aPI_V1_1_STR = _data["API_V1_1_STR"] !== undefined ? _data["API_V1_1_STR"] : "/api/v1_1";
-            if (Array.isArray(_data["BACKEND_CORS_ORIGINS"])) {
-                this.bACKEND_CORS_ORIGINS = [] as any;
-                for (let item of _data["BACKEND_CORS_ORIGINS"])
-                    this.bACKEND_CORS_ORIGINS!.push(item);
-            }
-            this.pROJECT_NAME = _data["PROJECT_NAME"] !== undefined ? _data["PROJECT_NAME"] : "electionguard-api-python";
-            this.mONGODB_URI = _data["MONGODB_URI"] !== undefined ? _data["MONGODB_URI"] : "mongodb://root:example@localhost:27017";
-            this.mESSAGEQUEUE_URI = _data["MESSAGEQUEUE_URI"] !== undefined ? _data["MESSAGEQUEUE_URI"] : "amqp://guest:guest@localhost:5672";
-            this.aUTH_ALGORITHM = _data["AUTH_ALGORITHM"] !== undefined ? _data["AUTH_ALGORITHM"] : "HS256";
-            this.aUTH_SECRET_KEY = _data["AUTH_SECRET_KEY"] !== undefined ? _data["AUTH_SECRET_KEY"] : "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
-            this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES = _data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] !== undefined ? _data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] : 30;
-            this.dEFAULT_ADMIN_USERNAME = _data["DEFAULT_ADMIN_USERNAME"] !== undefined ? _data["DEFAULT_ADMIN_USERNAME"] : "default";
-            this.dEFAULT_ADMIN_PASSWORD = _data["DEFAULT_ADMIN_PASSWORD"] !== undefined ? _data["DEFAULT_ADMIN_PASSWORD"] : "<this is a default value and should be changed>";
-        }
-    }
-
-    static fromJS(data: any): Settings {
-        data = typeof data === 'object' ? data : {};
-        let result = new Settings();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["API_MODE"] = this.aPI_MODE;
-        data["QUEUE_MODE"] = this.qUEUE_MODE;
-        data["STORAGE_MODE"] = this.sTORAGE_MODE;
-        data["API_V1_STR"] = this.aPI_V1_STR;
-        data["API_V1_1_STR"] = this.aPI_V1_1_STR;
-        if (Array.isArray(this.bACKEND_CORS_ORIGINS)) {
-            data["BACKEND_CORS_ORIGINS"] = [];
-            for (let item of this.bACKEND_CORS_ORIGINS)
-                data["BACKEND_CORS_ORIGINS"].push(item);
-        }
-        data["PROJECT_NAME"] = this.pROJECT_NAME;
-        data["MONGODB_URI"] = this.mONGODB_URI;
-        data["MESSAGEQUEUE_URI"] = this.mESSAGEQUEUE_URI;
-        data["AUTH_ALGORITHM"] = this.aUTH_ALGORITHM;
-        data["AUTH_SECRET_KEY"] = this.aUTH_SECRET_KEY;
-        data["AUTH_ACCESS_TOKEN_EXPIRE_MINUTES"] = this.aUTH_ACCESS_TOKEN_EXPIRE_MINUTES;
-        data["DEFAULT_ADMIN_USERNAME"] = this.dEFAULT_ADMIN_USERNAME;
-        data["DEFAULT_ADMIN_PASSWORD"] = this.dEFAULT_ADMIN_PASSWORD;
-        return data;
-    }
-}
-
-/** Base class for settings, allowing values to be overridden by environment variables. This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design. */
-export interface ISettings {
-    aPI_MODE?: ApiMode;
-    qUEUE_MODE?: QueueMode;
-    sTORAGE_MODE?: StorageMode;
-    aPI_V1_STR?: string;
-    aPI_V1_1_STR?: string;
-    bACKEND_CORS_ORIGINS?: string[];
-    pROJECT_NAME?: string;
-    mONGODB_URI?: string;
-    mESSAGEQUEUE_URI?: string;
-    aUTH_ALGORITHM?: string;
-    aUTH_SECRET_KEY?: string;
-    aUTH_ACCESS_TOKEN_EXPIRE_MINUTES?: number;
-    dEFAULT_ADMIN_USERNAME?: string;
-    dEFAULT_ADMIN_PASSWORD?: string;
+export interface Settings {
+    API_MODE?: ApiMode;
+    QUEUE_MODE?: QueueMode;
+    STORAGE_MODE?: StorageMode;
+    API_V1_STR?: string;
+    API_V1_1_STR?: string;
+    BACKEND_CORS_ORIGINS?: string[];
+    PROJECT_NAME?: string;
+    MONGODB_URI?: string;
+    MESSAGEQUEUE_URI?: string;
+    AUTH_ALGORITHM?: string;
+    AUTH_SECRET_KEY?: string;
+    AUTH_ACCESS_TOKEN_EXPIRE_MINUTES?: number;
+    DEFAULT_ADMIN_USERNAME?: string;
+    DEFAULT_ADMIN_PASSWORD?: string;
 }
 
 /** Spoil the enclosed ballots. */
-export class SpoilBallotsRequest implements ISpoilBallotsRequest {
-    election_id?: string;
-    manifest?: any;
-    context?: any;
-    ballots!: any[];
-
-    constructor(data?: ISpoilBallotsRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.ballots = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.manifest = _data["manifest"];
-            this.context = _data["context"];
-            if (Array.isArray(_data["ballots"])) {
-                this.ballots = [] as any;
-                for (let item of _data["ballots"])
-                    this.ballots!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): SpoilBallotsRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new SpoilBallotsRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["manifest"] = this.manifest;
-        data["context"] = this.context;
-        if (Array.isArray(this.ballots)) {
-            data["ballots"] = [];
-            for (let item of this.ballots)
-                data["ballots"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Spoil the enclosed ballots. */
-export interface ISpoilBallotsRequest {
+export interface SpoilBallotsRequest {
     election_id?: string;
     manifest?: any;
     context?: any;
@@ -5508,60 +3284,7 @@ export enum StorageMode {
 }
 
 /** Submit a ballot against a specific election. */
-export class SubmitBallotsRequest implements ISubmitBallotsRequest {
-    election_id?: string;
-    manifest?: any;
-    context?: any;
-    ballots!: any[];
-
-    constructor(data?: ISubmitBallotsRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.ballots = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.manifest = _data["manifest"];
-            this.context = _data["context"];
-            if (Array.isArray(_data["ballots"])) {
-                this.ballots = [] as any;
-                for (let item of _data["ballots"])
-                    this.ballots!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): SubmitBallotsRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new SubmitBallotsRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["manifest"] = this.manifest;
-        data["context"] = this.context;
-        if (Array.isArray(this.ballots)) {
-            data["ballots"] = [];
-            for (let item of this.ballots)
-                data["ballots"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Submit a ballot against a specific election. */
-export interface ISubmitBallotsRequest {
+export interface SubmitBallotsRequest {
     election_id?: string;
     manifest?: any;
     context?: any;
@@ -5569,49 +3292,7 @@ export interface ISubmitBallotsRequest {
 }
 
 /** Submit an election. */
-export class SubmitElectionRequest implements ISubmitElectionRequest {
-    election_id!: string;
-    key_name!: string;
-    context?: any;
-    manifest?: any;
-
-    constructor(data?: ISubmitElectionRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.election_id = _data["election_id"];
-            this.key_name = _data["key_name"];
-            this.context = _data["context"];
-            this.manifest = _data["manifest"];
-        }
-    }
-
-    static fromJS(data: any): SubmitElectionRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new SubmitElectionRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["election_id"] = this.election_id;
-        data["key_name"] = this.key_name;
-        data["context"] = this.context;
-        data["manifest"] = this.manifest;
-        return data;
-    }
-}
-
-/** Submit an election. */
-export interface ISubmitElectionRequest {
+export interface SubmitElectionRequest {
     election_id: string;
     key_name: string;
     context?: any;
@@ -5619,99 +3300,13 @@ export interface ISubmitElectionRequest {
 }
 
 /** An access token and its type. */
-export class Token implements IToken {
-    access_token!: string;
-    token_type!: string;
-
-    constructor(data?: IToken) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.access_token = _data["access_token"];
-            this.token_type = _data["token_type"];
-        }
-    }
-
-    static fromJS(data: any): Token {
-        data = typeof data === 'object' ? data : {};
-        let result = new Token();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["access_token"] = this.access_token;
-        data["token_type"] = this.token_type;
-        return data;
-    }
-}
-
-/** An access token and its type. */
-export interface IToken {
+export interface Token {
     access_token: string;
     token_type: string;
 }
 
 /** A specific user in the system */
-export class UserInfo implements IUserInfo {
-    username!: string;
-    scopes?: UserScope[];
-    email?: string;
-    disabled?: boolean;
-
-    constructor(data?: IUserInfo) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.username = _data["username"];
-            if (Array.isArray(_data["scopes"])) {
-                this.scopes = [] as any;
-                for (let item of _data["scopes"])
-                    this.scopes!.push(item);
-            }
-            this.email = _data["email"];
-            this.disabled = _data["disabled"];
-        }
-    }
-
-    static fromJS(data: any): UserInfo {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserInfo();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["username"] = this.username;
-        if (Array.isArray(this.scopes)) {
-            data["scopes"] = [];
-            for (let item of this.scopes)
-                data["scopes"].push(item);
-        }
-        data["email"] = this.email;
-        data["disabled"] = this.disabled;
-        return data;
-    }
-}
-
-/** A specific user in the system */
-export interface IUserInfo {
+export interface UserInfo {
     username: string;
     scopes?: UserScope[];
     email?: string;
@@ -5727,49 +3322,7 @@ export enum UserScope {
 }
 
 /** Submit a ballot against a specific election description and contest to determine if it is accepted. */
-export class ValidateBallotRequest implements IValidateBallotRequest {
-    schema_override?: any;
-    ballot?: any;
-    manifest?: any;
-    context?: any;
-
-    constructor(data?: IValidateBallotRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.schema_override = _data["schema_override"];
-            this.ballot = _data["ballot"];
-            this.manifest = _data["manifest"];
-            this.context = _data["context"];
-        }
-    }
-
-    static fromJS(data: any): ValidateBallotRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidateBallotRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["schema_override"] = this.schema_override;
-        data["ballot"] = this.ballot;
-        data["manifest"] = this.manifest;
-        data["context"] = this.context;
-        return data;
-    }
-}
-
-/** Submit a ballot against a specific election description and contest to determine if it is accepted. */
-export interface IValidateBallotRequest {
+export interface ValidateBallotRequest {
     schema_override?: any;
     ballot?: any;
     manifest?: any;
@@ -5777,196 +3330,27 @@ export interface IValidateBallotRequest {
 }
 
 /** A request to validate an Election Description. */
-export class ValidateManifestRequest implements IValidateManifestRequest {
-    schema_override?: any;
-    manifest?: any;
-
-    constructor(data?: IValidateManifestRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.schema_override = _data["schema_override"];
-            this.manifest = _data["manifest"];
-        }
-    }
-
-    static fromJS(data: any): ValidateManifestRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidateManifestRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["schema_override"] = this.schema_override;
-        data["manifest"] = this.manifest;
-        return data;
-    }
-}
-
-/** A request to validate an Election Description. */
-export interface IValidateManifestRequest {
+export interface ValidateManifestRequest {
     schema_override?: any;
     manifest?: any;
 }
 
 /** Response for validating models */
-export class ValidateManifestResponse implements IValidateManifestResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-    details?: string;
-    manifest_hash?: string;
-
-    constructor(data?: IValidateManifestResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-            this.details = _data["details"];
-            this.manifest_hash = _data["manifest_hash"];
-        }
-    }
-
-    static fromJS(data: any): ValidateManifestResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidateManifestResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        data["details"] = this.details;
-        data["manifest_hash"] = this.manifest_hash;
-        return data;
-    }
-}
-
-/** Response for validating models */
-export interface IValidateManifestResponse {
+export interface ValidateManifestResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
     details?: string;
     manifest_hash?: string;
 }
 
-export class ValidationError implements IValidationError {
-    loc!: string[];
-    msg!: string;
-    type!: string;
-
-    constructor(data?: IValidationError) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.loc = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["loc"])) {
-                this.loc = [] as any;
-                for (let item of _data["loc"])
-                    this.loc!.push(item);
-            }
-            this.msg = _data["msg"];
-            this.type = _data["type"];
-        }
-    }
-
-    static fromJS(data: any): ValidationError {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidationError();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.loc)) {
-            data["loc"] = [];
-            for (let item of this.loc)
-                data["loc"].push(item);
-        }
-        data["msg"] = this.msg;
-        data["type"] = this.type;
-        return data;
-    }
-}
-
-export interface IValidationError {
+export interface ValidationError {
     loc: string[];
     msg: string;
     type: string;
 }
 
 /** A basic response */
-export class App__api__v1_1__models__base__BaseResponse implements IApp__api__v1_1__models__base__BaseResponse {
-    status?: App__api__v1_1__models__base__ResponseStatus;
-    message?: string;
-
-    constructor(data?: IApp__api__v1_1__models__base__BaseResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1_1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1_1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-        }
-    }
-
-    static fromJS(data: any): App__api__v1_1__models__base__BaseResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new App__api__v1_1__models__base__BaseResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IApp__api__v1_1__models__base__BaseResponse {
+export interface App__api__v1_1__models__base__BaseResponse {
     status?: App__api__v1_1__models__base__ResponseStatus;
     message?: string;
 }
@@ -5978,46 +3362,7 @@ export enum App__api__v1_1__models__base__ResponseStatus {
 }
 
 /** A basic response */
-export class App__api__v1__models__base__BaseResponse implements IApp__api__v1__models__base__BaseResponse {
-    status?: App__api__v1__models__base__ResponseStatus;
-    message?: string;
-
-    constructor(data?: IApp__api__v1__models__base__BaseResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.status = App__api__v1__models__base__ResponseStatus.Success;
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : App__api__v1__models__base__ResponseStatus.Success;
-            this.message = _data["message"];
-        }
-    }
-
-    static fromJS(data: any): App__api__v1__models__base__BaseResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new App__api__v1__models__base__BaseResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status;
-        data["message"] = this.message;
-        return data;
-    }
-}
-
-/** A basic response */
-export interface IApp__api__v1__models__base__BaseResponse {
+export interface App__api__v1__models__base__BaseResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
 }

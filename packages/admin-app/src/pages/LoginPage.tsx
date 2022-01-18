@@ -34,6 +34,9 @@ export interface LoginPageProps {
     setToken: (token: string) => void;
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+const isErrorMessage = (object: any): object is ErrorMessage => 'detail' in object;
+
 export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
     const classes = useStyles();
     const [username, setUserName] = useState('');
@@ -44,13 +47,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
         e.preventDefault();
         const url = UrlGetter.GetUrl();
         const authClient = new AuthClient(url);
-        const loginParams = new Body_login_for_access_token_api_v1_auth_login_post();
-        loginParams.username = username;
-        loginParams.password = password;
-        loginParams.grant_type = 'password';
-        loginParams.scope = 'admin';
-        loginParams.client_id = 'electionguard-default-client-id';
-        loginParams.client_secret = 'electionguard-default-client-secret';
+        const loginParams = {
+            username,
+            password,
+            grant_type: 'password',
+            scope: 'admin',
+            client_id: 'electionguard-default-client-id',
+            client_secret: 'electionguard-default-client-secret',
+        } as Body_login_for_access_token_api_v1_auth_login_post;
+
         await authClient
             .login(loginParams)
             .then((token) => {
@@ -60,7 +65,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
             .catch((ex) => {
                 if (typeof ex === 'string') {
                     setResult(ex);
-                } else if (ex instanceof ErrorMessage) {
+                } else if (isErrorMessage(ex)) {
                     setResult(ex.detail);
                 } else {
                     setResult('An error occurred');

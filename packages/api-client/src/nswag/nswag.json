@@ -42,7 +42,7 @@
             "operationGenerationMode": "MultipleClientsFromPathSegments",
             "markOptionalProperties": true,
             "generateCloneMethod": false,
-            "typeStyle": "Class",
+            "typeStyle": "Interface",
             "enumStyle": "Enum",
             "useLeafType": false,
             "classTypes": [],
