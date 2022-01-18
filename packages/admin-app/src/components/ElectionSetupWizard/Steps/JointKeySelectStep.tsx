@@ -44,17 +44,17 @@ export interface JointKeySelectStepProps {
  * Joint Key Select Step for Election Setup
  */
 const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
-    const [jointKey, setJointKey] = useState<JointKey>();
-    let keys: JointKey[] = [];
+    const [keyCeremony, setKeyCeremony] = useState<KeyCeremony>();
+    const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
 
     const onKeySelect = (event: React.ChangeEvent<{ value: unknown }>) => {
-        const selectedKey = keys.find((k) => k.id === (event.target.value as string));
+        const selectedKey = keyCeremonies.find(
+            (k) => k.key_name === (event.target.value as string)
+        );
         if (selectedKey) {
-            setJointKey(selectedKey);
+            setKeyCeremony(selectedKey);
         }
     };
-
-    const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
 
     const ceremonyClient = ClientFactory.GetCeremonyClient();
 
@@ -107,7 +107,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                             <Select
                                 labelId="joint-key-select-label"
                                 id="joint-key-select"
-                                value={jointKey?.id}
+                                value={keyCeremony?.key_name}
                                 onChange={onKeySelect}
                             >
                                 {keyCeremonies.map((key) => (
@@ -119,7 +119,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                         </FormControl>
 
                         <Button
-                            disabled={jointKey === undefined}
+                            disabled={keyCeremony === undefined}
                             className={classes.spaced}
                             variant="contained"
                             color="secondary"
