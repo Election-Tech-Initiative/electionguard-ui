@@ -24,7 +24,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 // todo: Remove useGetJointKeys - import { useGetJointKeys } from '@electionguard/api-client';
 
 import { Message, MessageId, loremIpsum } from '../../../lang';
-import AsyncContent from '../../AsyncContent';
 import IconHeader from '../../IconHeader';
 
 const useStyles = makeStyles((theme) => ({

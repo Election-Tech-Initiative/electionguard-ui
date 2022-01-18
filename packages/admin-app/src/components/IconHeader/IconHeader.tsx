@@ -34,7 +34,6 @@ export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
                 component="h1"
                 id={title.id}
                 description="Heading of header for section"
-                defaultMessage={title.defaultMessage}
             />
         </Box>
     );

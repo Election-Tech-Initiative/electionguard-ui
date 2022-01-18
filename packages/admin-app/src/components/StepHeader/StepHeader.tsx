@@ -33,7 +33,6 @@ export const StepHeader: React.FC<StepHeaderProps> = ({
     title,
     description,
     buttonText,
-    disabledButtonText,
     onClick,
     loading,
     disabled,
@@ -43,12 +42,7 @@ export const StepHeader: React.FC<StepHeaderProps> = ({
     return (
         <Container className={classes.root}>
             <IconHeader Icon={Icon} title={title} />
-            <InternationalText
-                className={classes.spaced}
-                component="p"
-                id={description.id}
-                defaultMessage={description.defaultMessage}
-            />
+            <InternationalText className={classes.spaced} component="p" id={description.id} />
             <Box width="100%" display="flex" justifyContent="center">
                 <FormattedButton
                     className={classes.spaced}
@@ -58,7 +52,6 @@ export const StepHeader: React.FC<StepHeaderProps> = ({
                     disabled={disabled}
                     loading={loading}
                     text={buttonText}
-                    disabledText={disabledButtonText}
                 />
             </Box>
         </Container>
