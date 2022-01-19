@@ -1,5 +1,6 @@
-import { Button, Container, Grid, makeStyles } from '@material-ui/core';
-import { Home } from '@material-ui/icons';
+import { Button, Container, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Home } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 

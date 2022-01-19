@@ -17,9 +17,9 @@ import {
     red,
     teal,
     yellow,
-} from '@material-ui/core/colors';
-import { Localization } from '@material-ui/core/locale';
-import { Theme, ThemeOptions, createTheme } from '@material-ui/core/styles';
+} from '@mui/material/colors';
+import { Localization } from '@mui/material/locale';
+import { Theme, DeprecatedThemeOptions, createTheme, adaptV4Theme } from '@mui/material/styles';
 
 const midnightBlue = '#002a84';
 
@@ -46,8 +46,8 @@ const colorSet: string[] = [
 
 export const getColor = (index: number): string => colorSet[index % colorSet.length];
 
-export const theme = (localization?: Localization): Theme => {
-    const options: ThemeOptions = {
+export const theme = (): Theme => {
+    const options: DeprecatedThemeOptions = {
         palette: {
             primary: teal,
             secondary: {
@@ -55,7 +55,7 @@ export const theme = (localization?: Localization): Theme => {
             },
         },
     };
-    return localization ? createTheme(options, localization) : createTheme(options);
+    return createTheme(adaptV4Theme(options));
 };
 
 export default theme;

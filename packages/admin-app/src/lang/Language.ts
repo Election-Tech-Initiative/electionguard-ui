@@ -1,4 +1,4 @@
-import { enUS, Localization } from '@material-ui/core/locale';
+import { enUS, Localization } from '@mui/material/locale';
 
 import { EnumDictionary } from '../utils/EnumDictionary';
 

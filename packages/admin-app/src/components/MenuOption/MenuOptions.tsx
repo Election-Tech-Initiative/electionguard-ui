@@ -1,4 +1,5 @@
-import { Box, Container, Grid, lighten, makeStyles } from '@material-ui/core';
+import { Box, Container, Grid, lighten } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import { Message } from '../../lang';

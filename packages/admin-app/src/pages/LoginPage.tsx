@@ -4,8 +4,9 @@ import {
     ClientFactory,
     Token,
 } from '@electionguard/api-client';
-import { Button, Container, InputAdornment, makeStyles, TextField } from '@material-ui/core';
-import { AccountCircle, Lock } from '@material-ui/icons';
+import { Button, Container, InputAdornment, TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { AccountCircle, Lock } from '@mui/icons-material';
 import React, { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({

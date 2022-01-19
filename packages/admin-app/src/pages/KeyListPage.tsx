@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import React from 'react';
 
 export const KeyListPage: React.FC = () => <Grid>Key List Page</Grid>;

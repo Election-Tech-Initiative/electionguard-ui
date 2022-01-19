@@ -1,5 +1,5 @@
 import { AsyncResult, BaseJointKey, User } from '@electionguard/api-client';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 import { createEnumStepper } from '../../utils/EnumStepper';

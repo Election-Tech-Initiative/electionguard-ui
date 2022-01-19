@@ -1,5 +1,6 @@
 import { AsyncResult, AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
-import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, Container, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { CssBaseline, MuiThemeProvider, createTheme } from '@material-ui/core';
+import { CssBaseline, ThemeProvider, Theme, StyledEngineProvider, createTheme } from '@mui/material';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -19,10 +19,12 @@ ReactDOM.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <IntlProvider locale="en" messages={en}>
-                <MuiThemeProvider theme={createTheme()}>
-                    <CssBaseline />
-                    <App />
-                </MuiThemeProvider>
+                <StyledEngineProvider injectFirst>
+                    <ThemeProvider theme={createTheme()}>
+                        <CssBaseline />
+                        <App />
+                    </ThemeProvider>
+                </StyledEngineProvider>
             </IntlProvider>
         </QueryClientProvider>
     </React.StrictMode>,

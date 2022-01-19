@@ -1,4 +1,12 @@
-import { Box, Button, CircularProgress, Container, Snackbar, makeStyles } from '@material-ui/core';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Snackbar,
+    makeStyles,
+    SnackbarCloseReason,
+} from '@material-ui/core';
 import { PublishOutlined } from '@material-ui/icons';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
@@ -46,7 +54,11 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
+    const handleClose2 = (_event: React.SyntheticEvent) => {
+        setError(false);
+    };
+
+    const handleClose = (_event: unknown, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -115,7 +127,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
                 </div>
             </Container>
             <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
-                <Alert severity="error" onClose={handleClose}>
+                <Alert severity="error" onClose={handleClose2}>
                     <FormattedMessage
                         id={MessageId.ElectionSetupUploadManifestError}
                         defaultMessage="Manifest upload failed"

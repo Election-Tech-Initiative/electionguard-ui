@@ -1,5 +1,6 @@
 import { useCreateJointKey, useGetUsersWithGuardianRole } from '@electionguard/api-client';
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import JointKeyWizard from '../components/JointKeyWizard';
 

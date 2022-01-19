@@ -1,6 +1,14 @@
-import { Box, Button, CircularProgress, Container, Snackbar, makeStyles } from '@material-ui/core';
-import { PublishOutlined } from '@material-ui/icons';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Snackbar,
+    SnackbarCloseReason,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { PublishOutlined } from '@mui/icons-material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -46,7 +54,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handleClose = (_event?: React.SyntheticEvent, reason?: string) => {
+    const handleClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {
             return;
         }

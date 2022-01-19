@@ -9,11 +9,12 @@ import {
     InputLabel,
     MenuItem,
     Select,
+    SelectChangeEvent,
     Typography,
-    makeStyles,
-} from '@material-ui/core';
-import { SaveAlt as SaveIcon } from '@material-ui/icons';
-import React, { useEffect, useState } from 'react';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { SaveAlt as SaveIcon } from '@mui/icons-material';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // todo: Remove useGetJointKeys - import { useGetJointKeys } from '@electionguard/api-client';
@@ -42,7 +43,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
     const [keyCeremony, setKeyCeremony] = useState<KeyCeremony>();
     const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
 
-    const onKeySelect = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const onKeySelect = (event: SelectChangeEvent) => {
         const selectedKey = keyCeremonies.find(
             (k) => k.key_name === (event.target.value as string)
         );

@@ -1,4 +1,5 @@
-import { ButtonBase, Card, CardContent, SvgIconProps, makeStyles } from '@material-ui/core';
+import { ButtonBase, Card, CardContent, SvgIconProps } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import { Message } from '../../lang';

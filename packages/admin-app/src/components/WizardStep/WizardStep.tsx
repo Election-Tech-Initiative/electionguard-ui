@@ -1,4 +1,4 @@
-import { Box, Slide } from '@material-ui/core';
+import { Box, Slide } from '@mui/material';
 import React from 'react';
 
 export interface WizardStepProps {
