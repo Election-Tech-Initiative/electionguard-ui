@@ -2,7 +2,7 @@ import KeyCeremonyStep from '../models/KeyCeremonyStep';
 import {
     KeyCeremonyGuardianApi,
     // KeyCeremonyStatus,
-    KeyCeremony,
+    KeyCeremonyDeprecated,
     KeyCeremonyState,
     ElectionJointKey,
     ElectionPartialKeyVerification,
@@ -55,8 +55,9 @@ export const setKeyCeremonyGuardianToStep = (
 export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
-export const getKeyCeremonies = async (_key_name: string): Promise<KeyCeremony[] | undefined> =>
-    undefined;
+export const getKeyCeremonies = async (
+    _key_name: string
+): Promise<KeyCeremonyDeprecated[] | undefined> => undefined;
 
 export const putKeyCeremony = async (
     _key_name: string,
@@ -73,7 +74,7 @@ export const findKeyCeremonies = async (
     _skip: number,
     _limit: number,
     _ballot_id: string
-): Promise<KeyCeremony[] | undefined> => [
+): Promise<KeyCeremonyDeprecated[] | undefined> => [
     {
         key_name: 'key-ceremony-1',
         state: KeyCeremonyState.CREATED,

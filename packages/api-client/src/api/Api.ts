@@ -2,7 +2,7 @@ import { BaseJointKey, JointKey } from '../models/jointKey';
 import { ManifestPreview, Manifest } from '../models/manifestPreview';
 import {
     ElectionPartialKeyVerification,
-    KeyCeremony,
+    KeyCeremonyDeprecated,
     ElectionJointKey,
     ElementModQ,
     KeyCeremonyGuardian,
@@ -114,7 +114,7 @@ export interface ElectionGuardMediatorApiClient {
         manifest: string
     ): Promise<CiphertextElectionContext | undefined>;
 
-    getKeyCeremonies(key_name: string): Promise<KeyCeremony[] | undefined>;
+    getKeyCeremonies(key_name: string): Promise<KeyCeremonyDeprecated[] | undefined>;
 
     putKeyCeremony(
         key_name: string,
@@ -129,7 +129,7 @@ export interface ElectionGuardMediatorApiClient {
         skip: number,
         limit: number,
         _ballot_id: string
-    ): Promise<KeyCeremony[] | undefined>;
+    ): Promise<KeyCeremonyDeprecated[] | undefined>;
 
     openKeyCeremony(key_name: string): Promise<boolean | undefined>;
 

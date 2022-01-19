@@ -1,11 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {
-    ClientFactory,
-    JointKey,
-    KeyCeremony,
-    KeyCeremonyQueryResponse,
-} from '@electionguard/api-client';
+import { ClientFactory, KeyCeremony, KeyCeremonyQueryResponse } from '@electionguard/api-client';
 import {
     Box,
     Button,
@@ -61,7 +56,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
     const getKeyCeremonies = async () => {
         await ceremonyClient
             .find(0, 100, { filter: {} })
-            .then((response: KeyCeremonyQueryResponse) => {
+            .then((response) => {
                 setKeyCeremonies(response.key_ceremonies);
             })
             .catch((ex: any) => {
@@ -107,7 +102,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                             <Select
                                 labelId="joint-key-select-label"
                                 id="joint-key-select"
-                                value={keyCeremony?.key_name}
+                                value={keyCeremony ? keyCeremony.key_name : ''}
                                 onChange={onKeySelect}
                             >
                                 {keyCeremonies.map((key) => (
