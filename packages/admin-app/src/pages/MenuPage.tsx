@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import InternationalText from '../components/InternationalText';
 import { MenuOptions, MenuOptionType, TypedMenuOption } from '../components/MenuOption';
 import WelcomeHeader from '../components/WelcomeHeader';
-import { loremIpsum, Message, MessageId } from '../lang';
+import { Message, MessageId } from '../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +23,7 @@ export const MenuPage: React.FC = () => {
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>
                 <WelcomeHeader />
-                <InternationalText id={MessageId.AppAbout} defaultMessage={loremIpsum} />
+                <InternationalText id={MessageId.AppAbout} />
             </Container>
             <MenuOptions prompt={new Message(MessageId.MenuPrompt)}>
                 <TypedMenuOption

@@ -10,7 +10,7 @@ export const postJointKey = async (data: BaseJointKey): Promise<boolean | undefi
         guardian_ids: data.guardians.map((g) => g.id),
     };
 
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony`;
     const response = await put<{ resp: BaseResponse }>(path, submitData);
     return response.parsedBody?.resp.is_success();
 };

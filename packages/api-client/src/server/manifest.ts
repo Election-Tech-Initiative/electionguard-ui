@@ -11,7 +11,7 @@ import {
 import { get, post, put } from '../utils/http';
 
 export const getManifest = async (manifest_hash: string): Promise<Manifest[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}manifest?manifest_hash=${manifest_hash}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/manifest?manifest_hash=${manifest_hash}`;
     const response = await get<{ resp: ManifestQueryResponse }>(path);
     return response.parsedBody?.resp.manifests;
 };
@@ -21,7 +21,7 @@ export const putManifest = async (manifest: ElectionManifest): Promise<ElementMo
         manifest,
         schema_override: undefined,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}manifest`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/manifest`;
     const response = await put<{ resp: ManifestSubmitResponse }>(path, data);
     return response.parsedBody?.resp.manifest_hash;
 };
@@ -34,7 +34,7 @@ export const findManifest = async (
     const data: BaseQueryRequest = {
         filter: { manifest_id },
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}manifest/find?skip=${skip}&limit=${limit}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/manifest/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: ManifestQueryResponse }>(path, data);
     return response.parsedBody?.resp.manifests;
 };
@@ -44,7 +44,7 @@ export const validateManifest = async (manifest: ElectionManifest): Promise<stri
         manifest,
         schema_override: undefined,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}manifest/validate`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/manifest/validate`;
     const response = await post<{ resp: ValidateManifestResponse }>(path, data);
     return response.parsedBody?.resp.manifest_hash;
 };

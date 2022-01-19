@@ -53,7 +53,6 @@ export const MenuOption: React.FC<MenuOptionProps> = ({ title, Icon, disabled, o
                         className={classes.title}
                         color="textSecondary"
                         id={title.id}
-                        defaultMessage={title.defaultMessage}
                     />
                 </CardContent>
             </ButtonBase>

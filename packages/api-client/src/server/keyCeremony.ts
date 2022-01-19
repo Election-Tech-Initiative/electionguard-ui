@@ -61,7 +61,7 @@ export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremon
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
 export const getKeyCeremonies = async (key_name: string): Promise<KeyCeremony[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony?key_name=${key_name}`;
     const response = await get<{ resp: KeyCeremonyQueryResponse }>(path);
     return response.parsedBody?.resp.key_ceremonies;
 };
@@ -79,7 +79,7 @@ export const putKeyCeremony = async (
         guardian_ids,
     };
 
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony`;
     const response = await put<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -87,7 +87,7 @@ export const putKeyCeremony = async (
 export const getKeyCeremonyState = async (
     key_name: string
 ): Promise<KeyCeremonyState | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/state?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/state?key_name=${key_name}`;
     const response = await get<{ resp: KeyCeremonyStateResponse }>(path);
     return response.parsedBody?.resp.state;
 };
@@ -100,25 +100,25 @@ export const findKeyCeremonies = async (
     const data: BaseQueryRequest = {
         filter: { ballot_id },
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/find?skip=${skip}&limit=${limit}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: KeyCeremonyQueryResponse }>(path, data);
     return response.parsedBody?.resp.key_ceremonies;
 };
 
 export const openKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/open?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/open?key_name=${key_name}`;
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
 
 export const closeKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/close?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/close?key_name=${key_name}`;
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
 
 export const challengeKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/challenge?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/challenge?key_name=${key_name}`;
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
@@ -126,13 +126,13 @@ export const challengeKeyCeremony = async (key_name: string): Promise<boolean | 
 export const challengeVerifyKeyCeremony = async (
     key_name: string
 ): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/challenge/verify?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/challenge/verify?key_name=${key_name}`;
     const response = await get<{ resp: BaseResponse }>(path);
     return response.parsedBody?.resp.is_success();
 };
 
 export const cancelKeyCeremony = async (key_name: string): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/cancel?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/cancel?key_name=${key_name}`;
     const response = await post<{ resp: BaseResponse }>(path, {});
     return response.parsedBody?.resp.is_success();
 };
@@ -140,7 +140,7 @@ export const cancelKeyCeremony = async (key_name: string): Promise<boolean | und
 export const getJointKeyKeyCeremony = async (
     key_name: string
 ): Promise<ElectionJointKey | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/joint_key?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/joint_key?key_name=${key_name}`;
     const response = await get<{ resp: ElectionJointKeyResponse }>(path);
     return response.parsedBody?.resp.elgamal_public_key;
 };
@@ -154,7 +154,7 @@ export const combineKeyCeremony = async (
         election_public_keys,
     };
 
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/combine`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/combine`;
     const response = await post<{ resp: ElectionJointKeyResponse }>(path, data);
     return response.parsedBody?.resp.elgamal_public_key;
 };
@@ -162,7 +162,7 @@ export const combineKeyCeremony = async (
 export const publishKeyCeremony = async (
     key_name: string
 ): Promise<ElectionJointKey | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/publish?key_name=${key_name}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/publish?key_name=${key_name}`;
     const response = await post<{ resp: ElectionJointKeyResponse }>(path, {});
     return response.parsedBody?.resp.elgamal_public_key;
 };
@@ -175,7 +175,7 @@ export const announceGuardianKeyCeremony = async (
         key_name,
         public_keys,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/announce`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/guardian/announce`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -190,7 +190,7 @@ export const backupGuardianKeyCeremony = async (
         guardian_id,
         backups,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/backup`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/guardian/backup`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -205,7 +205,7 @@ export const verifyGuardianKeyCeremony = async (
         guardian_id,
         verifications,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/verify`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/guardian/verify`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -220,7 +220,7 @@ export const challengeGuardianKeyCeremony = async (
         guardian_id,
         challenges,
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/guardian/challenge`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/guardian/challenge`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };

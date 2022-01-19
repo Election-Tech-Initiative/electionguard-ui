@@ -4,7 +4,7 @@ import { post } from '../utils/http';
 export const getUsersWithGuardianRole = async (): Promise<User[]> => {
     const users: User[] = [];
     const data = {};
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/find?skip=0&limit=100`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/find?skip=0&limit=100`;
 
     const response = await post<{
         status: string;

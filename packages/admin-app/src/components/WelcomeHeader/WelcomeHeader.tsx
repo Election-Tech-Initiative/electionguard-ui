@@ -49,7 +49,6 @@ export const WelcomeHeader: React.FC<WelcomeHeaderProps> = ({ Logo }) => {
                     className={classes.welcomeText}
                     id={MessageId.AppGreeting}
                     description="Greeting to welcome the user to the app"
-                    defaultMessage="Welcome to"
                 />
             </Grid>
             {Logo && (

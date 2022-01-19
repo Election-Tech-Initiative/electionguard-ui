@@ -39,13 +39,13 @@ export const postGuardian = async (
         name,
         key_name,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian`;
     const response = await post<{ resp: GuardianPublicKeysResponse }>(path, data);
     return response.parsedBody?.resp.public_keys;
 };
 
 export const getGuardian = async (guardian_id: string): Promise<Guardian | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian?guardian_id=${guardian_id}`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian?guardian_id=${guardian_id}`;
     const response = await get<{ guardian: Guardian }>(path);
     return response.parsedBody?.guardian;
 };
@@ -53,14 +53,14 @@ export const getGuardian = async (guardian_id: string): Promise<Guardian | undef
 export const getGuardianPublicKeys = async (
     guardian_id: string
 ): Promise<PublicKeySetApi[] | undefined> => {
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/public-keys?guardian_id=${guardian_id}`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/public-keys?guardian_id=${guardian_id}`;
     const response = await get<{ resp: GuardianPublicKeysResponse }>(path);
     return response.parsedBody?.resp.public_keys;
 };
 
 export const findGuardians = async (): Promise<Guardian[] | undefined> => {
     const data = {};
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/find?skip=0&limit=100`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/find?skip=0&limit=100`;
 
     const response = await post<{ resp: ApiGuardianQueryResponse }>(path, data);
     return response.parsedBody?.resp.guardians;
@@ -78,7 +78,7 @@ export const backupGuardian = async (
         public_keys,
         override_rsa,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/backup`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/backup`;
     const response = await post<{ resp: GuardianBackupResponse }>(path, data);
     return response.parsedBody?.resp.backups;
 };
@@ -93,7 +93,7 @@ export const backupVerificationGuardian = async (
         backup,
         override_rsa,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/backup/verify`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/backup/verify`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -106,7 +106,7 @@ export const backupChallengeGuardian = async (
         guardian_id,
         backup,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/challenge`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/challenge`;
     const response = await post<{ resp: BackupChallengeResponse }>(path, data);
     return response.parsedBody?.resp.challenge;
 };
@@ -119,7 +119,7 @@ export const verifyChallengeGuardian = async (
         verifier_id,
         challenge,
     };
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}guardian/challenge/verify`;
+    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/challenge/verify`;
     const response = await post<{ resp: BackupVerificationResponse }>(path, data);
     return response.parsedBody?.resp.verification;
 };
@@ -128,19 +128,19 @@ export const getGuardians = async (
     key_name: string,
     guardian_id: string
 ): Promise<KeyCeremonyGuardian[] | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}guardian?key_name=${key_name}&guardian_id=${guardian_id}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/guardian?key_name=${key_name}&guardian_id=${guardian_id}`;
     const response = await get<{ resp: GuardianQueryResponse }>(path);
     return response.parsedBody?.resp.guardians;
 };
 
 export const putGuardians = async (data: KeyCeremonyGuardian): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}guardian`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/guardian`;
     const response = await put<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
 
 export const postGuardians = async (data: KeyCeremonyGuardian): Promise<boolean | undefined> => {
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}guardian`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/guardian`;
     const response = await post<{ resp: BaseResponse }>(path, data);
     return response.parsedBody?.resp.is_success();
 };
@@ -153,7 +153,7 @@ export const findKeyGuardians = async (
     const data: BaseQueryRequest = {
         filter: { guardian_id },
     };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}guardian/find?skip=${skip}&limit=${limit}`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/guardian/find?skip=${skip}&limit=${limit}`;
     const response = await post<{ resp: GuardianQueryResponse }>(path, data);
     return response.parsedBody?.resp.guardians;
 };

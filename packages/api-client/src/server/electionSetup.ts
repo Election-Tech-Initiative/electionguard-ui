@@ -7,7 +7,7 @@ export { getManifestPreview } from '../mocks/electionSetup';
 export const getJointKeys = async (): Promise<JointKey[]> => {
     const keys: JointKey[] = [];
     const data = { filter: { state: 'CREATED' } };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}key/ceremony/find?skip=0&limit=100`;
+    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/find?skip=0&limit=100`;
 
     const response = await post<{
         status: string;

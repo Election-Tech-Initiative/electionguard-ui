@@ -21,7 +21,7 @@ import routeIds from './RouteIds';
  * The routes to display when the user is fully authenticated
  * and able to view the main UI
  */
-const MainRoutes: React.FC = () => (
+const AuthenticatedRoutes: React.FC = () => (
     <Routes>
         <Route path={routeIds.home} element={<Navigate to="/menu" />} />
         <Route path="/menu" element={<MenuPage />} />
@@ -43,4 +43,4 @@ const MainRoutes: React.FC = () => (
     </Routes>
 );
 
-export default MainRoutes;
+export default AuthenticatedRoutes;

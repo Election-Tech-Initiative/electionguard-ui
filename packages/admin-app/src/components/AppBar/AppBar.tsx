@@ -1,12 +1,13 @@
 import { Box, Button, AppBar as MaterialAppBar, Toolbar, makeStyles } from '@material-ui/core';
-import React, { SVGProps, useState } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { MessageId } from '../../lang';
+import useToken from '../../useToken';
+import { ReactComponent as ElectionGuardLogo } from '../../images/electionguard-logo.svg';
 
 export interface AppBarProps {
     title?: string;
-    Logo?: React.ComponentType<SVGProps<SVGSVGElement>>;
     loggedIn?: boolean;
 }
 
@@ -37,24 +38,27 @@ const useStyles = makeStyles((theme) => ({
 /**
  * A persistent top App Bar with side drawer and optional additional content.
  */
-export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, Logo, loggedIn = false }) => {
-    const [signedIn, setSignIn] = useState(loggedIn);
+export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, loggedIn }) => {
+    const { setToken } = useToken();
     const classes = useStyles();
+
+    const logoutButton = (
+        <Button href="/" color="inherit" onClick={() => setToken(undefined)}>
+            <FormattedMessage
+                id={MessageId.AuthLogout}
+                description="Sign out of application"
+                defaultMessage="Sign Out"
+            />
+        </Button>
+    );
+
     return (
         <MaterialAppBar position="static" title={title}>
             <Toolbar className={classes.toolbar}>
                 <Box className={classes.logoContainer}>
-                    {Logo && <Logo className={classes.logo} />}
+                    <ElectionGuardLogo className={classes.logo} />
                 </Box>
-                {signedIn && (
-                    <Button color="inherit" onClick={() => setSignIn(!signedIn)}>
-                        <FormattedMessage
-                            id={MessageId.AuthLogout}
-                            description="Sign out of application"
-                            defaultMessage="Sign Out"
-                        />
-                    </Button>
-                )}
+                {loggedIn ? logoutButton : null}
             </Toolbar>
         </MaterialAppBar>
     );
