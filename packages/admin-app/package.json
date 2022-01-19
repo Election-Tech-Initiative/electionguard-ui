@@ -7,6 +7,7 @@
     "version": "0.1.2",
     "private": true,
     "dependencies": {
+        "@electionguard/api-client": "0.1.2",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
         "@formatjs/intl": "^1.14.2",

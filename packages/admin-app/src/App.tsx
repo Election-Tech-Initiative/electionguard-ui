@@ -9,12 +9,10 @@ import AuthenticatedRoutes from './routes/AuthenticatedRoutes';
 import UnauthenticatedLayout from './layouts/UnauthenticatedLayout';
 import theme from './theme';
 
-
 declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface DefaultTheme extends Theme {}
 }
-
 
 const App: React.FunctionComponent = () => {
     const { setToken, token } = useToken();
