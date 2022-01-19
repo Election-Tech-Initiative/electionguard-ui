@@ -14,7 +14,7 @@ export interface DefaultLayoutProps {
     isLoading?: boolean;
 }
 
-export const AuthenticatedLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
+export const UnauthenticatedLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
     const classes = useStyles();
     return (
         <Box className={classes.root} height="100vh" display="flex" flexDirection="column">
@@ -27,4 +27,4 @@ export const AuthenticatedLayout: React.FC<DefaultLayoutProps> = ({ children }) 
     );
 };
 
-export default AuthenticatedLayout;
+export default UnauthenticatedLayout;
