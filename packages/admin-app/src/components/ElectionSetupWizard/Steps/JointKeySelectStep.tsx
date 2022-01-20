@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 500,
         marginBottom: theme.spacing(4),
     },
+    inputLabel: {
+        backgroundColor: 'white',
+    },
 }));
 
 export interface JointKeySelectStepProps {
@@ -94,7 +97,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                     </Typography>
                     <Box display="flex" flexDirection="column" alignItems="start">
                         <FormControl className={classes.control}>
-                            <InputLabel id="joint-key-select-label">
+                            <InputLabel id="joint-key-select-label" className={classes.inputLabel}>
                                 <FormattedMessage
                                     id={MessageId.ElectionSetupJointKeySelectPrompt}
                                     defaultMessage="Select Key for Election"
@@ -103,6 +106,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                             <Select
                                 labelId="joint-key-select-label"
                                 id="joint-key-select"
+                                label="Hi there"
                                 value={keyCeremony ? keyCeremony.key_name : ''}
                                 onChange={onKeySelect}
                             >
