@@ -33,7 +33,7 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children, isLoadin
                         <CircularProgress size={100} />
                     </Box>
                 ) : (
-                    { children }
+                    children
                 )}
             </Box>
             <Footer />
