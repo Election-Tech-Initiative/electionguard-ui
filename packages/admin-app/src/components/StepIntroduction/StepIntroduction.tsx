@@ -1,4 +1,5 @@
-import { Container, makeStyles } from '@material-ui/core';
+import { Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import { Message } from '../../lang';
@@ -38,22 +39,15 @@ export const StepIntroduction: React.FC<StepIntroductionProps> = ({
                 component="h2"
                 id={heading.id}
                 description={heading.description}
-                defaultMessage={heading.defaultMessage}
             />
             <InternationalText
                 className={classes.spaced}
                 id={description.id}
                 description={description.description}
-                defaultMessage={description.defaultMessage}
             />
             <OrderedList>
                 {steps.map((step) => (
-                    <InternationalText
-                        key={step.id}
-                        id={step.id}
-                        description={step.description}
-                        defaultMessage={step.defaultMessage}
-                    />
+                    <InternationalText key={step.id} id={step.id} description={step.description} />
                 ))}
             </OrderedList>
         </Container>

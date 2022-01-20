@@ -1,4 +1,5 @@
-import { Box, CircularProgress, makeStyles } from '@material-ui/core';
+import { Box, CircularProgress } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import AppBar from '../components/AppBar';
@@ -36,7 +37,7 @@ export const AuthenticatedLayout: React.FC<DefaultLayoutProps> = ({
                         <CircularProgress size={100} />
                     </Box>
                 ) : (
-                    <>{children}</>
+                    children
                 )}
             </Box>
             <Footer />

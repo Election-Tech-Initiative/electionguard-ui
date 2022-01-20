@@ -106,7 +106,7 @@ export class KeyCeremonyGuardianState {
  * @class KeyCEremony
  * The Key Ceremony is a record of the state of a key ceremony.
  */
-export class KeyCeremony {
+export class KeyCeremonyDeprecated {
     key_name = '';
 
     state: KeyCeremonyState = KeyCeremonyState.CREATED;
@@ -131,8 +131,8 @@ export class KeyCeremony {
  * @class KeyCeremonyQueryResponse Returns a collection of Key Ceremonies.
  * @extends BaseResponse
  */
-export class KeyCeremonyQueryResponse extends BaseResponse {
-    key_ceremonies: KeyCeremony[] = [];
+export class KeyCeremonyQueryResponseDeprecated extends BaseResponse {
+    key_ceremonies: KeyCeremonyDeprecated[] = [];
 }
 
 /**

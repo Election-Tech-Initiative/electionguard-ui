@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Typography, TypographyProps, useTheme } from '@material-ui/core';
+import { Box, Typography, TypographyProps, useTheme } from '@mui/material';
 import React from 'react';
 import { useIntl } from 'react-intl';
 

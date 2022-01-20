@@ -1,15 +1,6 @@
 import { ManifestPreview } from '@electionguard/api-client';
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Table,
-    TableBody,
-    TableCell,
-    TableRow,
-    makeStyles,
-} from '@material-ui/core';
+import { Box, Button, Container, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 

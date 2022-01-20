@@ -1,4 +1,5 @@
-import { Box, makeStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import AppBar from '../components/AppBar';
@@ -20,7 +21,7 @@ export const UnauthenticatedLayout: React.FC<DefaultLayoutProps> = ({ children }
         <Box className={classes.root} height="100vh" display="flex" flexDirection="column">
             <AppBar title="Admin App" />
             <Box display="flex" flexDirection="column" flexGrow={1}>
-                <>{children}</>
+                {children}
             </Box>
             <Footer />
         </Box>

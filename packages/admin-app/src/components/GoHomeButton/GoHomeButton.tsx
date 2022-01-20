@@ -1,5 +1,5 @@
-import HomeIcon from '@material-ui/icons/Home';
-import { ButtonProps, Button } from '@material-ui/core';
+import HomeIcon from '@mui/icons-material/Home';
+import { ButtonProps, Button } from '@mui/material';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { GenericMessage } from '../../lang';

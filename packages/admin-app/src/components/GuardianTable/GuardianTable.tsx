@@ -1,6 +1,7 @@
 import { AssignedGuardian } from '@electionguard/api-client';
-import { Box, makeStyles } from '@material-ui/core';
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 
 import { GuardianIconCell } from '../Cells';

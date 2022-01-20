@@ -1,6 +1,7 @@
 import { AsyncResult, JointKey } from '@electionguard/api-client';
-import { Box, makeStyles } from '@material-ui/core';
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
@@ -69,18 +70,16 @@ export const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
         <Box display="flex" minHeight="500px" height="100%" width="100%">
             <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
                 {(keyData) => (
-                    <>
-                        <DataGrid
-                            className={classes.root}
-                            autoHeight
-                            rows={keyData}
-                            columns={columns(intl)}
-                            components={{
-                                Toolbar: FilterToolbar,
-                            }}
-                            hideFooterPagination
-                        />
-                    </>
+                    <DataGrid
+                        className={classes.root}
+                        autoHeight
+                        rows={keyData}
+                        columns={columns(intl)}
+                        components={{
+                            Toolbar: FilterToolbar,
+                        }}
+                        hideFooterPagination
+                    />
                 )}
             </AsyncContent>
         </Box>

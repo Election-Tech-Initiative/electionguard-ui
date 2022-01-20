@@ -1,11 +1,5 @@
-import {
-    Box,
-    Button,
-    ButtonProps,
-    CircularProgress,
-    SvgIconProps,
-    makeStyles,
-} from '@material-ui/core';
+import { Box, Button, ButtonProps, CircularProgress, SvgIconProps } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -88,7 +82,7 @@ export const FormattedButton: React.FC<FormattedButtonProps> = (props) => {
                     <CircularProgress
                         size={24}
                         variant="indeterminate"
-                        color={buttonProps.color !== 'default' ? buttonProps.color : 'primary'}
+                        color={buttonProps.color !== 'inherit' ? buttonProps.color : 'primary'}
                         className={classes.progress}
                     />
                 )}

@@ -1,4 +1,5 @@
 {
+    "root": true,
     "env": {
         "browser": true,
         "es2021": true
@@ -26,7 +27,14 @@
         "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
-        "import/no-named-as-default": "off"
+        "import/no-named-as-default": "off",
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ]
     },
     "overrides": [
         {

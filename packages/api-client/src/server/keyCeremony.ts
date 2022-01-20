@@ -1,8 +1,8 @@
 import KeyCeremonyStep from '../models/KeyCeremonyStep';
 import {
     KeyCeremonyGuardianApi,
-    KeyCeremonyQueryResponse,
-    KeyCeremony,
+    KeyCeremonyQueryResponseDeprecated,
+    KeyCeremonyDeprecated,
     KeyCeremonyCreateRequest,
     KeyCeremonyStateResponse,
     KeyCeremonyState,
@@ -60,9 +60,11 @@ export const setKeyCeremonyGuardianToStep = (
 export const getKeyCeremonyGuardiansByStep = (step: KeyCeremonyStep): KeyCeremonyGuardianApi[] =>
     getKeyCeremonyGuardians().map((guardian) => setKeyCeremonyGuardianToStep(guardian, step));
 
-export const getKeyCeremonies = async (key_name: string): Promise<KeyCeremony[] | undefined> => {
+export const getKeyCeremonies = async (
+    key_name: string
+): Promise<KeyCeremonyDeprecated[] | undefined> => {
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony?key_name=${key_name}`;
-    const response = await get<{ resp: KeyCeremonyQueryResponse }>(path);
+    const response = await get<{ resp: KeyCeremonyQueryResponseDeprecated }>(path);
     return response.parsedBody?.resp.key_ceremonies;
 };
 
@@ -96,12 +98,12 @@ export const findKeyCeremonies = async (
     skip: number,
     limit: number,
     ballot_id: string
-): Promise<KeyCeremony[] | undefined> => {
+): Promise<KeyCeremonyDeprecated[] | undefined> => {
     const data: BaseQueryRequest = {
         filter: { ballot_id },
     };
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/key/ceremony/find?skip=${skip}&limit=${limit}`;
-    const response = await post<{ resp: KeyCeremonyQueryResponse }>(path, data);
+    const response = await post<{ resp: KeyCeremonyQueryResponseDeprecated }>(path, data);
     return response.parsedBody?.resp.key_ceremonies;
 };
 

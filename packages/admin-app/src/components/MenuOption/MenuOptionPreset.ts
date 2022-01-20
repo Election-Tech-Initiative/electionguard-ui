@@ -1,4 +1,4 @@
-import { SvgIconProps } from '@material-ui/core';
+import { SvgIconProps } from '@mui/material';
 import {
     AccountCircleOutlined,
     AddCircleOutlineOutlined,
@@ -7,7 +7,7 @@ import {
     PublishOutlined,
     QuestionAnswer,
     VpnKeyOutlined,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import { Message, MessageId, OverloadMessageId } from '../../lang';
 import { MenuOptionType } from './MenuOptionType';

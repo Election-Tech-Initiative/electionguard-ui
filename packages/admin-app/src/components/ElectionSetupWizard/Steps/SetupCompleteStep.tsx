@@ -1,5 +1,6 @@
-import { Box, Button, Container, makeStyles } from '@material-ui/core';
-import { CheckCircleOutlineOutlined } from '@material-ui/icons';
+import { Box, Button, Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { CheckCircleOutlineOutlined } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 

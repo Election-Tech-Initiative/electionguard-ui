@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { ApiClientFactory } from '../api/ApiClientFactory';
 
-import { BaseJointKey, JointKey, User, Election, KeyCeremony } from '../models';
+import { BaseJointKey, JointKey, User, Election, KeyCeremonyDeprecated } from '../models';
 import { AsyncResult } from './AsyncResult';
 import { QUERY_NAMES } from './query_names';
 
@@ -25,7 +25,7 @@ export function useGetElection(election_id: string): AsyncResult<Election[]> {
     return useQuery(QUERY_NAMES.ELECTIONS, () => service.getElection(election_id));
 }
 
-export function useGetKeyCeremonies(): AsyncResult<KeyCeremony[]> {
+export function useGetKeyCeremonies(): AsyncResult<KeyCeremonyDeprecated[]> {
     const service = ApiClientFactory.getMediatorApiClient();
     return useQuery(QUERY_NAMES.KEY_CEREMONIES, () => service.getKeyCeremonies(''));
 }

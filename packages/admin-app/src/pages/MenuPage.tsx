@@ -1,4 +1,5 @@
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import InternationalText from '../components/InternationalText';

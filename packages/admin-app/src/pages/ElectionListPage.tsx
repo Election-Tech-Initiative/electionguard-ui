@@ -1,6 +1,7 @@
 import { ApiClientFactory, Election } from '@electionguard/api-client';
-import { Container, makeStyles } from '@material-ui/core';
-import { DataGrid, GridColDef, GridOverlay } from '@material-ui/data-grid';
+import { Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { DataGrid, GridColDef, GridOverlay } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';
@@ -81,6 +82,13 @@ export const ElectionListPage: React.FC = () => {
     useEffect(() => {
         getElections();
     }, []);
+
+    const noRowsOverlay = (
+        <GridOverlay>
+            <InternationalText id={MessageId.ElectionListPage_NoRows} />
+        </GridOverlay>
+    );
+
     return (
         <Container maxWidth="md" className={classes.root}>
             <InternationalText className={classes.title} id={MessageId.ElectionListPage_Title} />
@@ -94,11 +102,7 @@ export const ElectionListPage: React.FC = () => {
                 getRowId={(r) => r.election_id}
                 components={{
                     Toolbar: FilterToolbar,
-                    NoRowsOverlay: () => (
-                        <GridOverlay>
-                            <InternationalText id={MessageId.ElectionListPage_NoRows} />
-                        </GridOverlay>
-                    ),
+                    NoRowsOverlay: () => noRowsOverlay,
                 }}
                 disableSelectionOnClick
                 className={classes.grid}

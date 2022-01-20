@@ -1,9 +1,9 @@
 import { TaskStatus } from '@electionguard/api-client';
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 import {
     CheckCircleOutlined as CompleteIcon,
     CancelOutlined as ErrorIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import React from 'react';
 
 import { Message, MessageId } from '../../lang';
