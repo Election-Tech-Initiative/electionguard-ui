@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { IntlProvider } from 'react-intl';
-import { createTheme, CssBaseline, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, StyledEngineProvider } from '@mui/material';
 import App from './App';
 import en from './lang/en.json';
 

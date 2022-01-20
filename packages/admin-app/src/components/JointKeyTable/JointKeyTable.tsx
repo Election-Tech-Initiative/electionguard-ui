@@ -70,18 +70,16 @@ export const JointKeyTable: React.FC<JointKeyTableProps> = ({ data }) => {
         <Box display="flex" minHeight="500px" height="100%" width="100%">
             <AsyncContent query={jointKeyQuery} errorMessage="there was an error">
                 {(keyData) => (
-                    <>
-                        <DataGrid
-                            className={classes.root}
-                            autoHeight
-                            rows={keyData}
-                            columns={columns(intl)}
-                            components={{
-                                Toolbar: FilterToolbar,
-                            }}
-                            hideFooterPagination
-                        />
-                    </>
+                    <DataGrid
+                        className={classes.root}
+                        autoHeight
+                        rows={keyData}
+                        columns={columns(intl)}
+                        components={{
+                            Toolbar: FilterToolbar,
+                        }}
+                        hideFooterPagination
+                    />
                 )}
             </AsyncContent>
         </Box>
