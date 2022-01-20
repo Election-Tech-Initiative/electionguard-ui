@@ -1,4 +1,5 @@
 import {
+    Alert,
     Box,
     Button,
     CircularProgress,
@@ -15,10 +16,10 @@ import { FormattedMessage } from 'react-intl';
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
-function Alert(props: AlertProps) {
+export const alert = (props: AlertProps) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+    <MuiAlert elevation={6} variant="filled" {...props} />
+);
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -21,7 +21,7 @@ export const UnauthenticatedLayout: React.FC<DefaultLayoutProps> = ({ children }
         <Box className={classes.root} height="100vh" display="flex" flexDirection="column">
             <AppBar title="Admin App" />
             <Box display="flex" flexDirection="column" flexGrow={1}>
-                <>{children}</>
+                {children}
             </Box>
             <Footer />
         </Box>

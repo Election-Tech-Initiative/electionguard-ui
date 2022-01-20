@@ -18,7 +18,6 @@ import {
     teal,
     yellow,
 } from '@mui/material/colors';
-import { Localization } from '@mui/material/locale';
 import { Theme, DeprecatedThemeOptions, createTheme, adaptV4Theme } from '@mui/material/styles';
 
 const midnightBlue = '#002a84';
