@@ -1,7 +1,7 @@
 import { ApiClientFactory, Election } from '@electionguard/api-client';
 import { Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { DataGrid, GridColDef, GridOverlay } from '@material-ui/data-grid';
+import { DataGrid, GridColDef, GridRowId, GridOverlay } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import FilterToolbar from '../components/FilterToolbar';

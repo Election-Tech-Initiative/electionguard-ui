@@ -1,6 +1,6 @@
 import { TaskStatus } from '@electionguard/api-client';
 import { Button, Chip } from '@mui/material';
-import { GridCellParams } from '@material-ui/data-grid';
+import { GridCellParams } from '@mui/x-data-grid';
 import React, { ReactElement } from 'react';
 import { IntlShape } from 'react-intl';
 

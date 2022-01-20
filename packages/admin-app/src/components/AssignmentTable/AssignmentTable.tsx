@@ -1,6 +1,6 @@
 import { AsyncResult, User } from '@electionguard/api-client';
 import { Box } from '@material-ui/core';
-import { DataGrid, GridColDef, GridRowId } from '@material-ui/data-grid';
+import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import * as React from 'react';
 import AsyncContent from '../AsyncContent';
 import FilterToolbar from '../FilterToolbar';
