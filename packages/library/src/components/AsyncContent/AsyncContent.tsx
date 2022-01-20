@@ -12,6 +12,7 @@ export interface AsyncContentProps<T> {
     query: AsyncResult<T>;
 }
 
+// eslint-disable-next-line react/function-component-definition
 export function AsyncContent<T>({
     children,
     errorMessage = 'Something went wrong!',
@@ -20,20 +21,12 @@ export function AsyncContent<T>({
     const { data, isLoading, isError } = query;
 
     if (isLoading) {
-        return (
-            <>
-                <p>Loading</p>
-            </>
-        );
+        return <p>Loading</p>;
     }
     if (isError || data === undefined) {
-        return (
-            <>
-                <p>Error {errorMessage}</p>
-            </>
-        );
+        return <p>Error {errorMessage}</p>;
     }
-    return <>{children(data)}</>;
+    return children(data);
 }
 
 export default AsyncContent;

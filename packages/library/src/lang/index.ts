@@ -1,5 +1,4 @@
 export * from './GenericMessage';
-export * from './Language';
 
 export { default as Locale } from './Locale';
 export * from './loremIpsum';
