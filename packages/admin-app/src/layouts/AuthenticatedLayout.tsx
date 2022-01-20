@@ -37,7 +37,7 @@ export const AuthenticatedLayout: React.FC<DefaultLayoutProps> = ({
                         <CircularProgress size={100} />
                     </Box>
                 ) : (
-                    { children }
+                    children
                 )}
             </Box>
             <Footer />
