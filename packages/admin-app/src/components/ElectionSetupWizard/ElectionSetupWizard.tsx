@@ -11,11 +11,11 @@ import {
     ManifestPreviewStep,
     ManifestUploadStep,
     SetupCompleteStep,
-    SetupInstructionsStep,
+    BasicInfoStep,
 } from './Steps';
 
 export enum ElectionSetupStep {
-    Instructions = 0,
+    BasicInfo = 0,
     JointKeySelect = 1,
     JointKeyRetrieved = 2,
     ManifestMenu = 3,
@@ -29,15 +29,15 @@ export enum ElectionSetupStep {
  * Wizard to setup the election
  */
 export const ElectionSetupWizard: React.FC = () => {
-    const [step, setStep] = useState(ElectionSetupStep.Instructions);
+    const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep } = createEnumStepper(ElectionSetupStep);
     const next = () => setStep(nextStep(step));
 
     const service = ApiClientFactory.getGuardianApiClient();
     return (
         <Box height="100%">
-            <WizardStep active={step === ElectionSetupStep.Instructions}>
-                <SetupInstructionsStep onNext={next} />
+            <WizardStep active={step === ElectionSetupStep.BasicInfo}>
+                <BasicInfoStep onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
                 <JointKeySelectStep onNext={next} />

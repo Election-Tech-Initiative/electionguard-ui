@@ -12,7 +12,7 @@ export interface SetupInstructionsStepProps {
 /**
  * Setup Instructions Step for Election Setup
  */
-const SetupInstructionsStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => (
+const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => (
     <Container maxWidth="md">
         <StepHeader
             title={new Message(MessageId.ElectionSetupIntroductionTitle)}
@@ -33,4 +33,4 @@ const SetupInstructionsStep: React.FC<SetupInstructionsStepProps> = ({ onNext })
     </Container>
 );
 
-export default SetupInstructionsStep;
+export default BasicInfoStep;
