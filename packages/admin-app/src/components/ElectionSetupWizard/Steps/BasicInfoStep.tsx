@@ -1,36 +1,45 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import { Message, MessageId } from '../../../lang';
-import StepHeader from '../../StepHeader';
-import StepIntroduction from '../../StepIntroduction';
+import FormattedButton from '../../FormattedButton';
+import IconHeader from '../../IconHeader';
 
 export interface SetupInstructionsStepProps {
     onNext?: () => void;
 }
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        padding: 0,
+    },
+    spaced: {
+        marginBottom: theme.spacing(2),
+    },
+}));
+
 /**
  * Setup Instructions Step for Election Setup
  */
-const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => (
-    <Container maxWidth="md">
-        <StepHeader
-            title={new Message(MessageId.ElectionSetupIntroductionTitle)}
-            description={new Message(MessageId.ElectionSetupIntroductionDescription)}
-            buttonText={new Message(MessageId.ElectionSetupIntroductionNext)}
-            onClick={onNext}
-        />
-        <StepIntroduction
-            heading={new Message(MessageId.ElectionSetupIntroductionStepsHeading)}
-            description={new Message(MessageId.ElectionSetupIntroductionStepsInstructions)}
-            steps={[
-                new Message(MessageId.ElectionSetupIntroductionStep1),
-                new Message(MessageId.ElectionSetupIntroductionStep2),
-                new Message(MessageId.ElectionSetupIntroductionStep3),
-                new Message(MessageId.ElectionSetupIntroductionStep4),
-            ]}
-        />
-    </Container>
-);
+const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
+    const classes = useStyles();
+    return (
+        <Container maxWidth="md">
+            <Container className={classes.root}>
+                <IconHeader title={new Message(MessageId.ElectionSetupIntroductionTitle)} />
+                <Box width="100%" display="flex" justifyContent="center">
+                    <FormattedButton
+                        className={classes.spaced}
+                        variant="contained"
+                        color="secondary"
+                        onClick={onNext}
+                        text={new Message(MessageId.ElectionSetupIntroductionNext)}
+                    />
+                </Box>
+            </Container>
+        </Container>
+    );
+};
 
 export default BasicInfoStep;

@@ -57,14 +57,7 @@ enum MessageId {
     ElectionSetupSetupCompleteNext = 'election_setup.setup_complete.next',
 
     ElectionSetupIntroductionTitle = 'election_setup.introduction.title',
-    ElectionSetupIntroductionDescription = 'election_setup.introduction.description',
     ElectionSetupIntroductionNext = 'election_setup.introduction.next',
-    ElectionSetupIntroductionStepsHeading = 'election_setup.introduction.steps_heading',
-    ElectionSetupIntroductionStepsInstructions = 'election_setup.introduction.steps_instruction',
-    ElectionSetupIntroductionStep1 = 'election_setup.introduction.step1',
-    ElectionSetupIntroductionStep2 = 'election_setup.introduction.step2',
-    ElectionSetupIntroductionStep3 = 'election_setup.introduction.step3',
-    ElectionSetupIntroductionStep4 = 'election_setup.introduction.step4',
 
     ElectionSetupUploadManifestTitle = 'election_setup.upload_manifest.title',
     ElectionSetupUploadManifestUpload = 'election_setup.upload_manifest.upload',
