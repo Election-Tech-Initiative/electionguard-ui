@@ -36,10 +36,9 @@ enum MessageId {
     ElectionSetupJointKeyRetrievedDescription = 'election_setup.joint_key_retrieved.description',
     ElectionSetupJointKeyRetreivedNext = 'election_setup.joint_key_retrieved.next',
 
-    ElectionSetupJointKeySelectTitle = 'election_setup.joint_key_select.title',
-    ElectionSetupJointKeySelectDescription = 'election_setup.joint_key_select.description',
-    ElectionSetupJointKeySelectPrompt = 'election_setup.joint_key_select.prompt',
-    ElectionSetupJointKeySelectNext = 'election_setup.joint_key_select.next',
+    ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
+    ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
+    ElectionSetup_JointKeySelect_Next = 'election_setup.joint_key_select.next',
 
     ElectionSetupManifestPreviewTitle = 'election_setup.manifest_preview.title',
     ElectionSetupManifestPreviewPropertyName = 'election_setup.manifest_preview.property.name',
