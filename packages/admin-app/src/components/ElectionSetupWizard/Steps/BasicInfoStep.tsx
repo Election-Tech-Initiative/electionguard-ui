@@ -1,15 +1,16 @@
 import { Box, Container, IconButton, TextField, Tooltip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import React from 'react';
+import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 
 import { useIntl } from 'react-intl';
-import { Message, MessageId } from '../../../lang';
+import { SubmitElectionRequest } from '@electionguard/api-client';
 import FormattedButton from '../../FormattedButton';
 import IconHeader from '../../IconHeader';
+import { Message, MessageId } from '../../../lang';
 
 export interface SetupInstructionsStepProps {
-    onNext?: () => void;
+    onNext?: (submitElectionRequest: SubmitElectionRequest) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -30,16 +31,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
- * Setup Instructions Step for Election Setup
+ * Basic Information Retrieval for Election Setup
  */
 const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
+    const [electionId, setElectionId] = useState('');
     const classes = useStyles();
     const intl = useIntl();
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
+        const submitElectionRequest = {
+            election_id: electionId,
+        } as SubmitElectionRequest;
         if (onNext) {
-            onNext();
+            onNext(submitElectionRequest);
         }
     };
 
@@ -52,6 +57,7 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
                     label="Election ID"
                     variant="standard"
                     className={classes.text}
+                    onChange={(e) => setElectionId(e.target.value)}
                     InputProps={{
                         endAdornment: (
                             <Tooltip

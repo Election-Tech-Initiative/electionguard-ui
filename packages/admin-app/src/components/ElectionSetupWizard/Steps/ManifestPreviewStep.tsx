@@ -1,4 +1,4 @@
-import { ManifestPreview } from '@electionguard/api-client';
+import { ManifestPreview, SubmitElectionRequest } from '@electionguard/api-client';
 import { Box, Button, Container, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
@@ -8,7 +8,8 @@ import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 export interface ManifestPreviewStepProps {
-    onNext: () => void;
+    onNext: (submitElectionRequest: SubmitElectionRequest) => void;
+    submitElectionRequest: SubmitElectionRequest;
     backToMenu: () => void;
     preview: ManifestPreview;
 }
@@ -33,8 +34,13 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
     onNext,
     backToMenu,
     preview,
+    submitElectionRequest,
 }) => {
     const classes = useStyles();
+    const onButtonClick = () => {
+        onNext(submitElectionRequest);
+    };
+
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="md">
@@ -134,7 +140,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={onNext}
+                        onClick={onButtonClick}
                         className={classes.button}
                     >
                         <FormattedMessage

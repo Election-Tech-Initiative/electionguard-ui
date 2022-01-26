@@ -1,6 +1,8 @@
-import { ApiClientFactory } from '@electionguard/api-client';
+import { ApiClientFactory, SubmitElectionRequest } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
@@ -29,9 +31,15 @@ export enum ElectionSetupStep {
  * Wizard to setup the election
  */
 export const ElectionSetupWizard: React.FC = () => {
+    const [submitElectionRequest, setSubmitElectionRequest] = useState({} as SubmitElectionRequest);
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
-    const { nextStep } = createEnumStepper(ElectionSetupStep);
-    const next = () => setStep(nextStep(step));
+    const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
+    const navigate = useNavigate();
+    const next = (newSubmitElectionRequest: SubmitElectionRequest) => {
+        setSubmitElectionRequest(newSubmitElectionRequest);
+        const nextStep = getNextStep(step);
+        setStep(nextStep);
+    };
 
     const service = ApiClientFactory.getGuardianApiClient();
     return (
@@ -40,10 +48,13 @@ export const ElectionSetupWizard: React.FC = () => {
                 <BasicInfoStep onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep onNext={next} />
+                <JointKeySelectStep submitElectionRequest={submitElectionRequest} onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyRetrievedStep onNext={next} />
+                <JointKeyRetrievedStep
+                    submitElectionRequest={submitElectionRequest}
+                    onNext={next}
+                />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep
@@ -60,11 +71,12 @@ export const ElectionSetupWizard: React.FC = () => {
                 <ManifestPreviewStep
                     onNext={next}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
+                    submitElectionRequest={submitElectionRequest}
                     preview={service.getManifestPreview()}
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={next} />
+                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
             </WizardStep>
         </Box>
     );

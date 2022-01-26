@@ -1,6 +1,4 @@
-/* tslint:disable */
-/* eslint-disable */
-import { ClientFactory, KeyCeremony, KeyCeremonyQueryResponse } from '@electionguard/api-client';
+import { ClientFactory, KeyCeremony, SubmitElectionRequest } from '@electionguard/api-client';
 import {
     Box,
     Button,
@@ -14,7 +12,7 @@ import {
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { SaveAlt as SaveIcon } from '@mui/icons-material';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // todo: Remove useGetJointKeys - import { useGetJointKeys } from '@electionguard/api-client';
@@ -36,13 +34,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeySelectStepProps {
-    onNext?: () => void;
+    submitElectionRequest: SubmitElectionRequest;
+    onNext: (submitElectionRequest: SubmitElectionRequest) => void;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
+const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({
+    onNext,
+    submitElectionRequest,
+}) => {
     const [keyCeremony, setKeyCeremony] = useState<KeyCeremony>();
     const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
 
@@ -58,14 +60,9 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
     const ceremonyClient = ClientFactory.GetCeremonyClient();
 
     const getKeyCeremonies = async () => {
-        await ceremonyClient
-            .find(0, 100, { filter: {} })
-            .then((response) => {
-                setKeyCeremonies(response.key_ceremonies);
-            })
-            .catch((ex: any) => {
-                console.error(ex);
-            });
+        await ceremonyClient.find(0, 100, { filter: {} }).then((response) => {
+            setKeyCeremonies(response.key_ceremonies);
+        });
     };
 
     const queryClient = new QueryClient();
@@ -74,7 +71,15 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
 
     useEffect(() => {
         getKeyCeremonies();
-    }, []);
+    });
+
+    const onNextClick = () => {
+        const newSubmitElectionRequest = {
+            ...submitElectionRequest,
+            key_name: keyCeremony?.key_name,
+        } as SubmitElectionRequest;
+        onNext(newSubmitElectionRequest);
+    };
 
     return (
         <Container maxWidth="md">
@@ -123,7 +128,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext }) => {
                             className={classes.spaced}
                             variant="contained"
                             color="secondary"
-                            onClick={onNext}
+                            onClick={onNextClick}
                         >
                             <FormattedMessage
                                 id={MessageId.ElectionSetupJointKeySelectNext}

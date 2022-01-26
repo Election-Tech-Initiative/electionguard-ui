@@ -4,9 +4,10 @@ import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Message, MessageId, loremIpsum } from '../../../lang';
+import { SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,14 +27,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyRetrievedStepProps {
-    onNext?: () => void;
+    onNext: (newSubmitElectionRequest: SubmitElectionRequest) => void;
+    submitElectionRequest: SubmitElectionRequest;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext }) => {
+const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({
+    onNext,
+    submitElectionRequest,
+}) => {
     const classes = useStyles();
+
+    const onButtonClick = () => {
+        onNext(submitElectionRequest);
+    };
+
     return (
         <Box
             display="flex"
@@ -70,7 +80,7 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         className={classes.spaced}
                         variant="contained"
                         color="secondary"
-                        onClick={onNext}
+                        onClick={onButtonClick}
                     >
                         <FormattedMessage
                             id={MessageId.ElectionSetupJointKeyRetreivedNext}
