@@ -53,8 +53,9 @@
     "election_setup.setup_complete.title": "Congratulations, the election is ready.",
     "election_setup.setup_complete.next": "Return to Election List",
 
-    "election_setup.introduction.title": "Welcome to the Election Setup",
-    "election_setup.introduction.next": "Continue",
+    "election_setup.basic_info.title": "Election Setup: Basic Info",
+    "election_setup.basic_info.next": "Continue",
+    "election_setup.basic_info.election_id_tooltip": "A unique identifier for an election.",
 
     "election_list.title": "Election List",
     "election_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",

@@ -56,8 +56,9 @@ enum MessageId {
     ElectionSetupSetupCompleteTitle = 'election_setup.setup_complete.title',
     ElectionSetupSetupCompleteNext = 'election_setup.setup_complete.next',
 
-    ElectionSetupIntroductionTitle = 'election_setup.introduction.title',
-    ElectionSetupIntroductionNext = 'election_setup.introduction.next',
+    ElectionSetup_BasicInfo_Title = 'election_setup.basic_info.title',
+    ElectionSetup_BasicInfo_Next = 'election_setup.basic_info.next',
+    ElectionSetup_BasicInfo_ElectionIdTooltip = 'election_setup.basic_info.election_id_tooltip',
 
     ElectionSetupUploadManifestTitle = 'election_setup.upload_manifest.title',
     ElectionSetupUploadManifestUpload = 'election_setup.upload_manifest.upload',
