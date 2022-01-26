@@ -4,9 +4,10 @@ import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
-import { Message, MessageId } from '../../../lang';
+import { Message, MessageId, loremIpsum } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,18 +26,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export interface JointKeyRetrievedStepProps {
-    onNext: () => void;
+export interface JointKeyUploadStepProps {
+    onNext: (newSubmitElectionRequest: SubmitElectionRequest) => void;
+    submitElectionRequest: SubmitElectionRequest;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext }) => {
+const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({
+    onNext,
+    submitElectionRequest,
+}) => {
     const classes = useStyles();
 
     const onButtonClick = () => {
-        onNext();
+        onNext(submitElectionRequest);
     };
 
     return (
@@ -63,10 +68,12 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         variant="h5"
                         component="h2"
                         id={MessageId.ElectionSetupJointKeyRetrievedCTA}
+                        defaultMessage="Create a new election with retrieved key"
                     />
                     <InternationalText
                         className={classes.spaced}
                         id={MessageId.ElectionSetupJointKeyRetrievedDescription}
+                        defaultMessage={loremIpsum}
                     />
 
                     <Button
@@ -75,7 +82,10 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         color="secondary"
                         onClick={onButtonClick}
                     >
-                        <FormattedMessage id={MessageId.ElectionSetupJointKeyRetreivedNext} />
+                        <FormattedMessage
+                            id={MessageId.ElectionSetupJointKeyRetreivedNext}
+                            defaultMessage="Continue"
+                        />
                     </Button>
                 </Box>
             </Container>
@@ -83,4 +93,4 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
     );
 };
 
-export default JointKeyRetrievedStep;
+export default JointKeyUploadStep;

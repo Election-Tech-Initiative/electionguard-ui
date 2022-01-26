@@ -4,8 +4,8 @@ export type { SetupInstructionsStepProps } from './BasicInfoStep';
 export { default as JointKeySelectStep } from './JointKeySelectStep';
 export type { JointKeySelectStepProps } from './JointKeySelectStep';
 
-export { default as JointKeyRetrievedStep } from './JointKeyRetrievedStep';
-export type { JointKeyRetrievedStepProps } from './JointKeyRetrievedStep';
+export { default as JointKeyUploadStep } from './JointKeyUploadStep';
+export type { JointKeyUploadStepProps as JointKeyRetrievedStepProps } from './JointKeyUploadStep';
 
 export { default as ManifestMenuStep } from './ManifestMenuStep';
 export type { ManifestMenuStepProps } from './ManifestMenuStep';
