@@ -47,20 +47,6 @@ export class ElectionQueryResponse extends BaseResponse {
 export class ElectionQueryRequest extends BaseQueryRequest {}
 
 /**
- * @class SubmitElectionRequest request data to submit a new election to the server
- * @extends BaseRequest
- */
-export class SubmitElectionRequest extends BaseRequest {
-    election_id = '';
-
-    key_name = '';
-
-    context: CiphertextElectionContext;
-
-    manifest: ElectionManifest;
-}
-
-/**
  * @class MakeElectionContextRequest request to build an Election Context for a given election.
  * @extends BaseRequest
  */

@@ -1,11 +1,9 @@
 /* eslint-disable max-classes-per-file */
-import { get, post, put } from '../utils/http';
+import { get, post } from '../utils/http';
 import {
     ElectionConstants,
     Election,
     ElectionQueryResponse,
-    SubmitElectionRequest,
-    ElectionManifest,
     CiphertextElectionContext,
     MakeElectionContextRequest,
     MakeElectionContextResponse,
@@ -23,23 +21,6 @@ export const getElection = async (election_id: string): Promise<Election[] | und
     const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election?election_id=${election_id}`;
     const response = await get<{ data: ElectionQueryResponse }>(path);
     return response.parsedBody?.data.elections;
-};
-
-export const putElection = async (
-    election_id: string,
-    key_name: string,
-    manifest: ElectionManifest,
-    context: CiphertextElectionContext
-): Promise<boolean | undefined> => {
-    const data: SubmitElectionRequest = {
-        election_id,
-        key_name,
-        manifest,
-        context,
-    };
-    const path = `${process.env.REACT_APP_MEDIATOR_SERVICE}/api/v1/election`;
-    const response = await put<{ resp: BaseResponse }>(path, data);
-    return response.parsedBody?.resp.is_success();
 };
 
 export const findElection = async (

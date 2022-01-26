@@ -17,7 +17,6 @@ import {
     makeContextElection,
     openElection,
     publishElection,
-    putElection,
 } from '../mocks/elections';
 import {
     announceGuardianKeyCeremony,
@@ -75,8 +74,6 @@ export default class MockMediatorApi implements ElectionGuardMediatorApiClient {
     getConstants = getConstants;
 
     getElection = getElection;
-
-    putElection = putElection;
 
     findElection = findElection;
 

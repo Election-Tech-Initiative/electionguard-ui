@@ -2,7 +2,6 @@
 import {
     ElectionConstants,
     Election,
-    ElectionManifest,
     CiphertextElectionContext,
     ElectionState,
 } from '../models/election';
@@ -42,13 +41,6 @@ export const getElection = async (election_id: string): Promise<Election[] | und
         context: generateMockContext(),
     },
 ];
-
-export const putElection = async (
-    _election_id: string,
-    _key_name: string,
-    _manifest: ElectionManifest,
-    _context: CiphertextElectionContext
-): Promise<boolean | undefined> => true;
 
 export const findElection = async (
     _filter: any,

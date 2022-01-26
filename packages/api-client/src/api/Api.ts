@@ -90,13 +90,6 @@ export interface ElectionGuardMediatorApiClient {
 
     getElection(election_id: string): Promise<Election[] | undefined>;
 
-    putElection(
-        election_id: string,
-        key_name: string,
-        manifest: ElectionManifest,
-        context: CiphertextElectionContext
-    ): Promise<boolean | undefined>;
-
     findElection(filter: any, skip: number, limit: number): Promise<Election[] | undefined>;
 
     openElection(election_id: string): Promise<boolean | undefined>;
