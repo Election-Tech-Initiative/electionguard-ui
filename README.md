@@ -4,7 +4,7 @@
 
 [![Azure_Deploy_Workflow](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml/badge.svg)](https://github.com/microsoft/electionguard-ui/actions/workflows/azure_deploy.yml) [![license](https://img.shields.io/github/license/microsoft/electionguard)](https://github.com/microsoft/electionguard-ui/blob/main/LICENSE)
 
-This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites and the component library use ReactComponents. This library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
+This repository is a "reference implementation" of ElectionGuard UI written using Typescript and Lerna. This is a Monorepo using Lerna which has multiple packages. These packages can be compiled and released separately. The websites use React components. This library can also be used to construct frontend implementations that need to talk to the [ElectionGuard server API](https://github.com/microsoft/electionguard-api-python).
 
 ## 📁 In This Repository
 
@@ -13,7 +13,6 @@ This repository is a "reference implementation" of ElectionGuard UI written usin
 | [`packages`](packages)                       | Monorepo packages for this project    |
 | [`package/admin-app`](/packages/admin-app)   | sample UI for an admin website        |
 | [`packages/api-client`](packages/api-client) | library for connecting to api backend |
-| [`packages/library`](packages/library)       | library for sample UI components      |
 | [`packages/result-app`](packages/result-app) | sample UI for election result website |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md)         | Guidelines for contributing           |
 | [`README.md`](README.md)                     | This README file                      |
