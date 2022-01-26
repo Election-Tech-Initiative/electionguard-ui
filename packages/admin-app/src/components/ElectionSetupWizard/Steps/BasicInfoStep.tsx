@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
     },
     text: {
-        width: 300,
         marginBottom: theme.spacing(4),
     },
 }));
@@ -51,37 +50,40 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
     return (
         <Container maxWidth="md" className={classes.root}>
             <IconHeader title={new Message(MessageId.ElectionSetup_BasicInfo_Title)} />
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    id="election_id"
-                    label="Election ID"
-                    variant="standard"
-                    className={classes.text}
-                    onChange={(e) => setElectionId(e.target.value)}
-                    InputProps={{
-                        endAdornment: (
-                            <Tooltip
-                                title={intl.formatMessage({
-                                    id: MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip,
-                                })}
-                            >
-                                <IconButton>
-                                    <InfoIcon />
-                                </IconButton>
-                            </Tooltip>
-                        ),
-                    }}
-                />
-                <Box display="flex" justifyContent="center">
-                    <FormattedButton
-                        type="submit"
-                        className={classes.button}
-                        variant="contained"
-                        color="secondary"
-                        text={new Message(MessageId.ElectionSetup_BasicInfo_Next)}
+            <Container maxWidth="xs">
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        id="election_id"
+                        label="Election ID"
+                        variant="standard"
+                        fullWidth
+                        className={classes.text}
+                        onChange={(e) => setElectionId(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <Tooltip
+                                    title={intl.formatMessage({
+                                        id: MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip,
+                                    })}
+                                >
+                                    <IconButton>
+                                        <InfoIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            ),
+                        }}
                     />
-                </Box>
-            </form>
+                    <Box display="flex" justifyContent="center">
+                        <FormattedButton
+                            type="submit"
+                            className={classes.button}
+                            variant="contained"
+                            color="secondary"
+                            text={new Message(MessageId.ElectionSetup_BasicInfo_Next)}
+                        />
+                    </Box>
+                </form>
+            </Container>
         </Container>
     );
 };
