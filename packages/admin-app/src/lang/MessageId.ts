@@ -31,10 +31,8 @@ enum MessageId {
     ElectionSetupManifestMenuAbout = 'election_setup.manifest_menu.about',
     ElectionSetupManifestMenuPrompt = 'election_setup.manifest_menu.prompt',
 
-    ElectionSetupJointKeyRetrievedTitle = 'election_setup.joint_key_retrieved.title',
-    ElectionSetupJointKeyRetrievedCTA = 'election_setup.joint_key_retrieved.cta',
-    ElectionSetupJointKeyRetrievedDescription = 'election_setup.joint_key_retrieved.description',
-    ElectionSetupJointKeyRetreivedNext = 'election_setup.joint_key_retrieved.next',
+    ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
+    ElectionSetup_JointKeyUpload_Next = 'election_setup.joint_key_upload.next',
 
     ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
     ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',

@@ -6,8 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
-import InternationalText from '../../InternationalText';
-import { Message, MessageId, loremIpsum } from '../../../lang';
+import { Message, MessageId } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -56,36 +55,20 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({
                 <IconHeader
                     title={
                         new Message(
-                            MessageId.ElectionSetupJointKeyRetrievedTitle,
+                            MessageId.ElectionSetup_JointKeyUpload_Title,
                             'Joint Key Retrieved'
                         )
                     }
                     Icon={KeyIcon}
                 />
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <InternationalText
-                        className={classes.spaced}
-                        variant="h5"
-                        component="h2"
-                        id={MessageId.ElectionSetupJointKeyRetrievedCTA}
-                        defaultMessage="Create a new election with retrieved key"
-                    />
-                    <InternationalText
-                        className={classes.spaced}
-                        id={MessageId.ElectionSetupJointKeyRetrievedDescription}
-                        defaultMessage={loremIpsum}
-                    />
-
                     <Button
                         className={classes.spaced}
                         variant="contained"
                         color="secondary"
                         onClick={onButtonClick}
                     >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupJointKeyRetreivedNext}
-                            defaultMessage="Continue"
-                        />
+                        <FormattedMessage id={MessageId.ElectionSetup_JointKeyUpload_Next} />
                     </Button>
                 </Box>
             </Container>
