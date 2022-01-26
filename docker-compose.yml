@@ -25,14 +25,3 @@ services:
         # https://github.com/facebook/create-react-app/issues/8688
         stdin_open: true
         command: 'serve -l 3002 packages/result-app/build'
-
-    storybook:
-        build:
-            dockerfile: ./Dockerfile
-            context: .
-        ports:
-            - 6006:6006
-        volumes:
-            - '.:/app'
-            - '/app/node_modules'
-        command: 'serve -l 6006 packages/library/storybook-static'

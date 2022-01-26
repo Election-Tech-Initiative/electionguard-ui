@@ -5,7 +5,6 @@
     "eslint.workingDirectories": [
         { "directory": "packages/admin-app", "changeProcessCWD": true },
         { "directory": "packages/api-client", "changeProcessCWD": true },
-        { "directory": "packages/library", "changeProcessCWD": true },
         { "directory": "packages/result-app", "changeProcessCWD": true }
     ]
 }
