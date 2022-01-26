@@ -79,6 +79,7 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
                             className={classes.button}
                             variant="contained"
                             color="secondary"
+                            disabled={electionId === ''}
                             text={new Message(MessageId.ElectionSetup_BasicInfo_Next)}
                         />
                     </Box>
