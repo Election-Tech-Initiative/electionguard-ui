@@ -11,7 +11,7 @@ import { Message, MessageId } from '../../../lang';
 
 export interface SetupInstructionsStepProps {
     onNext: () => void;
-    onDataChanged: (submitElectionRequest: SubmitElectionRequest) => void;
+    onChanged: (submitElectionRequest: SubmitElectionRequest) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Basic Information Retrieval for Election Setup
  */
-const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext, onDataChanged }) => {
+const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
+    onNext,
+    onChanged: onDataChanged,
+}) => {
     const [electionId, setElectionId] = useState('');
     const classes = useStyles();
     const intl = useIntl();
@@ -74,7 +77,7 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext, onDataCha
                             type="submit"
                             variant="contained"
                             color="secondary"
-                            disabled={electionId === ''}
+                            disabled={!electionId}
                             text={new Message(MessageId.ElectionSetup_BasicInfo_Next)}
                         />
                     </Box>

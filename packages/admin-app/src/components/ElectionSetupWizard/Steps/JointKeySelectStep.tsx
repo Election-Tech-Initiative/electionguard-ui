@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme) => ({
 
 export interface JointKeySelectStepProps {
     onNext: () => void;
-    onDataChanged: (submitElectionRequest: SubmitElectionRequest) => void;
+    onChanged: (submitElectionRequest: SubmitElectionRequest) => void;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onDataChanged }) => {
+const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChanged }) => {
     const [keyCeremony, setKeyCeremony] = useState<KeyCeremony>();
     const [keyCeremonies, setKeyCeremonies] = useState<KeyCeremony[]>([]);
 
@@ -74,7 +74,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onDataC
         const submitElectionRequest = {
             key_name: keyCeremony?.key_name,
         } as SubmitElectionRequest;
-        onDataChanged(submitElectionRequest);
+        onChanged(submitElectionRequest);
         onNext();
     };
 
