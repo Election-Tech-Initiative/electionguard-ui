@@ -35,7 +35,7 @@ export const ElectionSetupWizard: React.FC = () => {
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
-    const next = () => {
+    const moveToNextStep = () => {
         const nextStep = getNextStep(step);
         setStep(nextStep);
     };
@@ -56,13 +56,13 @@ export const ElectionSetupWizard: React.FC = () => {
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.BasicInfo}>
-                <BasicInfoStep onNext={next} onDataChanged={dataChanged} />
+                <BasicInfoStep onNext={moveToNextStep} onDataChanged={dataChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep onNext={next} onDataChanged={dataChanged} />
+                <JointKeySelectStep onNext={moveToNextStep} onDataChanged={dataChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyRetrievedStep onNext={next} />
+                <JointKeyRetrievedStep onNext={moveToNextStep} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep
@@ -77,7 +77,7 @@ export const ElectionSetupWizard: React.FC = () => {
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                 <ManifestPreviewStep
-                    onNext={next}
+                    onNext={moveToNextStep}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
                     preview={service.getManifestPreview()}
                 />
