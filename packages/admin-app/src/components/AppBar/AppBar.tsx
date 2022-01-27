@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { MessageId } from '../../lang';
 import useToken from '../../useToken';
 import { ReactComponent as ElectionGuardLogo } from '../../images/electionguard-logo.svg';
+import routeIds from '../../routes/RouteIds';
 
 export interface AppBarProps {
     title?: string;
@@ -44,7 +45,7 @@ export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, loggedIn }
     const classes = useStyles();
 
     const logoutButton = (
-        <Button href="/" color="inherit" onClick={() => setToken(undefined)}>
+        <Button href={routeIds.home} color="inherit" onClick={() => setToken(undefined)}>
             <FormattedMessage
                 id={MessageId.AuthLogout}
                 description="Sign out of application"
@@ -57,7 +58,9 @@ export const AppBar: React.FunctionComponent<AppBarProps> = ({ title, loggedIn }
         <MaterialAppBar position="static" title={title}>
             <Toolbar className={classes.toolbar}>
                 <Box className={classes.logoContainer}>
-                    <ElectionGuardLogo className={classes.logo} />
+                    <a href={routeIds.home}>
+                        <ElectionGuardLogo className={classes.logo} />
+                    </a>
                 </Box>
                 {loggedIn ? logoutButton : null}
             </Toolbar>
