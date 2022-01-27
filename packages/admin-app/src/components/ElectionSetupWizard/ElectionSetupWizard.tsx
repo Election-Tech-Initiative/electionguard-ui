@@ -35,7 +35,7 @@ export const ElectionSetupWizard: React.FC = () => {
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
-    const handleNext = () => {
+    const next = () => {
         const nextStep = getNextStep(step);
         setStep(nextStep);
     };
