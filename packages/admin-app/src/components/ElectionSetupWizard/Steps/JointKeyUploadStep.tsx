@@ -26,21 +26,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyUploadStepProps {
-    onNext: (newSubmitElectionRequest: SubmitElectionRequest) => void;
-    submitElectionRequest: SubmitElectionRequest;
+    onNext: () => void;
+    onChanged: (newSubmitElectionRequest: SubmitElectionRequest) => void;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({
-    onNext,
-    submitElectionRequest,
-}) => {
+const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext }) => {
     const classes = useStyles();
 
     const onButtonClick = () => {
-        onNext(submitElectionRequest);
+        onNext();
     };
 
     return (

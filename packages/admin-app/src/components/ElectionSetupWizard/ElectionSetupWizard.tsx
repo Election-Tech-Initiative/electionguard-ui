@@ -62,7 +62,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 <JointKeySelectStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyUploadStep onNext={handleNext} />
+                <JointKeyUploadStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep
