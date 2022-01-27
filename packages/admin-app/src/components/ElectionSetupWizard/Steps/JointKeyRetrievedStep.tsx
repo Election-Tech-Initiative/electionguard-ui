@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
-import { Message, MessageId, loremIpsum } from '../../../lang';
+import { Message, MessageId } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,12 +63,10 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         variant="h5"
                         component="h2"
                         id={MessageId.ElectionSetupJointKeyRetrievedCTA}
-                        defaultMessage="Create a new election with retrieved key"
                     />
                     <InternationalText
                         className={classes.spaced}
                         id={MessageId.ElectionSetupJointKeyRetrievedDescription}
-                        defaultMessage={loremIpsum}
                     />
 
                     <Button
@@ -77,10 +75,7 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         color="secondary"
                         onClick={onButtonClick}
                     >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupJointKeyRetreivedNext}
-                            defaultMessage="Continue"
-                        />
+                        <FormattedMessage id={MessageId.ElectionSetupJointKeyRetreivedNext} />
                     </Button>
                 </Box>
             </Container>
