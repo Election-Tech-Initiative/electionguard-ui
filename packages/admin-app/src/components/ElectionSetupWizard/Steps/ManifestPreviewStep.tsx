@@ -1,4 +1,4 @@
-import { ManifestPreview, SubmitElectionRequest } from '@electionguard/api-client';
+import { ManifestPreview } from '@electionguard/api-client';
 import { Box, Button, Container, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
@@ -8,8 +8,7 @@ import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 export interface ManifestPreviewStepProps {
-    onNext: (submitElectionRequest: SubmitElectionRequest) => void;
-    submitElectionRequest: SubmitElectionRequest;
+    onNext: () => void;
     backToMenu: () => void;
     preview: ManifestPreview;
 }
@@ -34,11 +33,10 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
     onNext,
     backToMenu,
     preview,
-    submitElectionRequest,
 }) => {
     const classes = useStyles();
     const onButtonClick = () => {
-        onNext(submitElectionRequest);
+        onNext();
     };
 
     return (

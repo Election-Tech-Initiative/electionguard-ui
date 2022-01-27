@@ -35,26 +35,29 @@ export const ElectionSetupWizard: React.FC = () => {
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
-    const next = (newSubmitElectionRequest: SubmitElectionRequest) => {
-        setSubmitElectionRequest(newSubmitElectionRequest);
+    const next = () => {
         const nextStep = getNextStep(step);
         setStep(nextStep);
+    };
+    const dataChanged = (stepSubmitElectionRequest: SubmitElectionRequest) => {
+        const newSubmitElectionRequest = {
+            ...submitElectionRequest,
+            ...stepSubmitElectionRequest,
+        };
+        setSubmitElectionRequest(newSubmitElectionRequest);
     };
 
     const service = ApiClientFactory.getGuardianApiClient();
     return (
         <Box height="100%">
             <WizardStep active={step === ElectionSetupStep.BasicInfo}>
-                <BasicInfoStep onNext={next} />
+                <BasicInfoStep onNext={next} onDataChanged={dataChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep submitElectionRequest={submitElectionRequest} onNext={next} />
+                <JointKeySelectStep onNext={next} onDataChanged={dataChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyRetrievedStep
-                    submitElectionRequest={submitElectionRequest}
-                    onNext={next}
-                />
+                <JointKeyRetrievedStep onNext={next} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep
@@ -71,7 +74,6 @@ export const ElectionSetupWizard: React.FC = () => {
                 <ManifestPreviewStep
                     onNext={next}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
-                    submitElectionRequest={submitElectionRequest}
                     preview={service.getManifestPreview()}
                 />
             </WizardStep>

@@ -10,7 +10,8 @@ import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
 
 export interface SetupInstructionsStepProps {
-    onNext?: (submitElectionRequest: SubmitElectionRequest) => void;
+    onNext: () => void;
+    onDataChanged: (submitElectionRequest: SubmitElectionRequest) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Basic Information Retrieval for Election Setup
  */
-const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
+const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext, onDataChanged }) => {
     const [electionId, setElectionId] = useState('');
     const classes = useStyles();
     const intl = useIntl();
@@ -38,9 +39,8 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
         const submitElectionRequest = {
             election_id: electionId,
         } as SubmitElectionRequest;
-        if (onNext) {
-            onNext(submitElectionRequest);
-        }
+        onDataChanged(submitElectionRequest);
+        onNext();
     };
 
     return (

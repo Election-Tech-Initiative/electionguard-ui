@@ -4,7 +4,6 @@ import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
 import { Message, MessageId, loremIpsum } from '../../../lang';
@@ -27,21 +26,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyRetrievedStepProps {
-    onNext: (newSubmitElectionRequest: SubmitElectionRequest) => void;
-    submitElectionRequest: SubmitElectionRequest;
+    onNext: () => void;
 }
 
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({
-    onNext,
-    submitElectionRequest,
-}) => {
+const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext }) => {
     const classes = useStyles();
 
     const onButtonClick = () => {
-        onNext(submitElectionRequest);
+        onNext();
     };
 
     return (
