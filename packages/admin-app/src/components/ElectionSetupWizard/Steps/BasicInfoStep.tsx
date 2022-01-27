@@ -15,14 +15,10 @@ export interface SetupInstructionsStepProps {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: 0,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    button: {
-        marginTop: theme.spacing(2),
     },
     text: {
         marginBottom: theme.spacing(4),
@@ -76,7 +72,6 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({ onNext }) => {
                     <Box display="flex" justifyContent="center">
                         <FormattedButton
                             type="submit"
-                            className={classes.button}
                             variant="contained"
                             color="secondary"
                             disabled={electionId === ''}
