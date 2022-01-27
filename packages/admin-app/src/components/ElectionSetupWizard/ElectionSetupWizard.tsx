@@ -47,6 +47,11 @@ export const ElectionSetupWizard: React.FC = () => {
         setSubmitElectionRequest(newSubmitElectionRequest);
     };
 
+    const handleSubmit = () => {
+        // todo: submit data to API
+        navigate(routeIds.home);
+    };
+
     const service = ApiClientFactory.getGuardianApiClient();
     return (
         <Box height="100%">
@@ -78,7 +83,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
+                <SetupCompleteStep onComplete={handleSubmit} />
             </WizardStep>
         </Box>
     );
