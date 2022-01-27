@@ -6,9 +6,7 @@
     ],
     "scripts": {
         "start": "lerna run start --parallel",
-        "start-with-storybook": "npm storybook && npm run start",
         "admin-app": "lerna run start --scope=@electionguard-ui/admin-app",
-        "result-app": "lerna run start --scope=@electionguard-ui/result-app",
         "build": "lerna run build --stream",
         "test": "lerna run test --parallel",
         "lint": "lerna run lint --parallel",
@@ -16,7 +14,6 @@
         "bundle": "lerna run bundle --parallel",
         "clean": "lerna clean --yes",
         "bootstrap": "npm run clean && lerna bootstrap",
-        "storybook": "lerna run storybook",
         "npm-publish": "lerna run npm-publish",
         "npm-version": "lerna run npm-version-patch"
     },

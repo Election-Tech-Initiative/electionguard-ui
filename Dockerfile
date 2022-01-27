@@ -13,7 +13,6 @@ RUN lerna bootstrap
 
 
 RUN lerna run build
-RUN lerna run build-storybook
 RUN yarn global add serve
 
 EXPOSE 4500

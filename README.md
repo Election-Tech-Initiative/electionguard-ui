@@ -13,7 +13,6 @@ This repository is a "reference implementation" of ElectionGuard UI written usin
 | [`packages`](packages)                       | Monorepo packages for this project    |
 | [`package/admin-app`](/packages/admin-app)   | sample UI for an admin website        |
 | [`packages/api-client`](packages/api-client) | library for connecting to api backend |
-| [`packages/result-app`](packages/result-app) | sample UI for election result website |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md)         | Guidelines for contributing           |
 | [`README.md`](README.md)                     | This README file                      |
 | [`LICENSE`](LICENSE)                         | The license for ElectionGuard-Python. |
@@ -26,7 +25,7 @@ Learn More in the [ElectionGuard Repository](https://github.com/microsoft/electi
 
 ## 🦸 How Can I use ElectionGuard?
 
-ElectionGuard supports a variety of use cases. The Primary use case is to generate verifiable end-to-end (E2E) encrypted elections. The Electionguard process can also be used for other use cases such as privacy enhanced risk-limiting audits (RLAs).
+ElectionGuard supports a variety of use cases. The Primary use case is to generate verifiable end-to-end (E2E) encrypted elections. The ElectionGuard process can also be used for other use cases such as privacy enhanced risk-limiting audits (RLAs).
 
 ## 💻 Requirements
 
@@ -96,7 +95,7 @@ make test
 
 #### Applications
 
-Runs the apps in development mode. Open the Admin App at [http://localhost:3001](http://localhost:3001) or the Result App at [http://localhost:3002](http://localhost:3002) to view them in the browser.
+Runs the apps in development mode. Open the Admin App at [http://localhost:3001](http://localhost:3001) to view in the browser.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
@@ -111,32 +110,12 @@ Runs only the admin application.
 make admin-app
 ```
 
-Runs only the result application.
-
-```
-make result-app
-```
-
-#### Storybook
-
-Runs the app in the storybook mode. Open [http://localhost:6006](http://localhost:6006) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
-
-```
-make storybook
-```
-
 #### Docker
 
 A local docker image will be created to run the admin website instead of running it directly like the 'make start' command above.
 
 ```
 make docker-dev-app
-```
-
-A local docker image will be created to run the storybook website instead of running it directly like the 'make storybook' command above.
-
-```
-make docker-dev-storybook
 ```
 
 ## Contributing

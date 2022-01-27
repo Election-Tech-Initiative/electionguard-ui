@@ -2,7 +2,6 @@
 
 # build
 build
-storybook-static
 tsconfig.tsbuildinfo
 
 # dependencies
