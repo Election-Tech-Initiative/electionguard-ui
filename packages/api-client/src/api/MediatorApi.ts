@@ -17,7 +17,6 @@ import {
     makeContextElection,
     openElection,
     publishElection,
-    putElection,
 } from '../server/elections';
 import {
     announceGuardianKeyCeremony,
@@ -75,8 +74,6 @@ export default class MediatorApi implements ElectionGuardMediatorApiClient {
     getConstants = getConstants;
 
     getElection = getElection;
-
-    putElection = putElection;
 
     findElection = findElection;
 

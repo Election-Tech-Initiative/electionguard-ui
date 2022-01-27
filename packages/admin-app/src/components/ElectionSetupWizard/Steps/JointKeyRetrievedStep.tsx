@@ -4,9 +4,9 @@ import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Message, MessageId, loremIpsum } from '../../../lang';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
+import { Message, MessageId } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface JointKeyRetrievedStepProps {
-    onNext?: () => void;
+    onNext: () => void;
 }
 
 /**
@@ -34,6 +34,11 @@ export interface JointKeyRetrievedStepProps {
  */
 const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext }) => {
     const classes = useStyles();
+
+    const onButtonClick = () => {
+        onNext();
+    };
+
     return (
         <Box
             display="flex"
@@ -58,24 +63,19 @@ const JointKeyRetrievedStep: React.FC<JointKeyRetrievedStepProps> = ({ onNext })
                         variant="h5"
                         component="h2"
                         id={MessageId.ElectionSetupJointKeyRetrievedCTA}
-                        defaultMessage="Create a new election with retrieved key"
                     />
                     <InternationalText
                         className={classes.spaced}
                         id={MessageId.ElectionSetupJointKeyRetrievedDescription}
-                        defaultMessage={loremIpsum}
                     />
 
                     <Button
                         className={classes.spaced}
                         variant="contained"
                         color="secondary"
-                        onClick={onNext}
+                        onClick={onButtonClick}
                     >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupJointKeyRetreivedNext}
-                            defaultMessage="Continue"
-                        />
+                        <FormattedMessage id={MessageId.ElectionSetupJointKeyRetreivedNext} />
                     </Button>
                 </Box>
             </Container>

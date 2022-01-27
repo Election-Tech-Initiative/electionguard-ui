@@ -35,6 +35,10 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
     preview,
 }) => {
     const classes = useStyles();
+    const onButtonClick = () => {
+        onNext();
+    };
+
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="md">
@@ -134,7 +138,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={onNext}
+                        onClick={onButtonClick}
                         className={classes.button}
                     >
                         <FormattedMessage

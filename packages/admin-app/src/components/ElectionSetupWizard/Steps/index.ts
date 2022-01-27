@@ -1,5 +1,5 @@
-export { default as SetupInstructionsStep } from './SetupInstructionsStep';
-export type { SetupInstructionsStepProps } from './SetupInstructionsStep';
+export { default as BasicInfoStep } from './BasicInfoStep';
+export type { SetupInstructionsStepProps } from './BasicInfoStep';
 
 export { default as JointKeySelectStep } from './JointKeySelectStep';
 export type { JointKeySelectStepProps } from './JointKeySelectStep';

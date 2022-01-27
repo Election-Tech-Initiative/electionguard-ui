@@ -1,6 +1,8 @@
-import { ApiClientFactory } from '@electionguard/api-client';
+import { ApiClientFactory, SubmitElectionRequest } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
@@ -11,11 +13,11 @@ import {
     ManifestPreviewStep,
     ManifestUploadStep,
     SetupCompleteStep,
-    SetupInstructionsStep,
+    BasicInfoStep,
 } from './Steps';
 
 export enum ElectionSetupStep {
-    Instructions = 0,
+    BasicInfo = 0,
     JointKeySelect = 1,
     JointKeyRetrieved = 2,
     ManifestMenu = 3,
@@ -29,21 +31,38 @@ export enum ElectionSetupStep {
  * Wizard to setup the election
  */
 export const ElectionSetupWizard: React.FC = () => {
-    const [step, setStep] = useState(ElectionSetupStep.Instructions);
-    const { nextStep } = createEnumStepper(ElectionSetupStep);
-    const next = () => setStep(nextStep(step));
+    const [request, setRequest] = useState({} as SubmitElectionRequest);
+    const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
+    const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
+    const navigate = useNavigate();
+    const handleNext = () => {
+        const nextStep = getNextStep(step);
+        setStep(nextStep);
+    };
+    const handleChanged = (requestFromStep: SubmitElectionRequest) => {
+        const newRequest = {
+            ...request,
+            ...requestFromStep,
+        };
+        setRequest(newRequest);
+    };
+
+    const handleSubmit = () => {
+        // todo: submit data to API
+        navigate(routeIds.home);
+    };
 
     const service = ApiClientFactory.getGuardianApiClient();
     return (
         <Box height="100%">
-            <WizardStep active={step === ElectionSetupStep.Instructions}>
-                <SetupInstructionsStep onNext={next} />
+            <WizardStep active={step === ElectionSetupStep.BasicInfo}>
+                <BasicInfoStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeySelect}>
-                <JointKeySelectStep onNext={next} />
+                <JointKeySelectStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyRetrievedStep onNext={next} />
+                <JointKeyRetrievedStep onNext={handleNext} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep
@@ -58,13 +77,13 @@ export const ElectionSetupWizard: React.FC = () => {
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                 <ManifestPreviewStep
-                    onNext={next}
+                    onNext={handleNext}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
                     preview={service.getManifestPreview()}
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={next} />
+                <SetupCompleteStep onComplete={handleSubmit} />
             </WizardStep>
         </Box>
     );
