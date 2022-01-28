@@ -4,7 +4,7 @@ import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { SubmitElectionRequest } from '@electionguard/api-client';
+import { CiphertextElectionContext, SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
 
@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: -12,
         marginLeft: -12,
     },
+    error: {
+        color: 'red',
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 export interface JointKeyUploadStepProps {
@@ -46,30 +50,41 @@ export interface JointKeyUploadStepProps {
  */
 const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChanged }) => {
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<string>();
     const classes = useStyles();
-
-    const onButtonClick = () => {
-        onNext();
-    };
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files?.length) {
+            setUploading(true);
             const file = e.target.files[0];
             const text = await file.text();
-            const keys = JSON.parse(text);
-            const request = {
-                context: {
+            try {
+                const keys = JSON.parse(text);
+                const context = {
                     commitment_hash: keys.commitment_hash,
                     crypto_base_hash: keys.crypto_base_hash,
                     crypto_extended_base_hash: keys.crypto_extended_base_hash,
                     elgamal_public_key: keys.elgamal_public_key,
-                },
-            } as SubmitElectionRequest;
-            onChanged(request);
-            onNext();
+                } as CiphertextElectionContext;
+                const fileValid =
+                    context.commitment_hash &&
+                    context.crypto_base_hash &&
+                    context.crypto_extended_base_hash &&
+                    context.elgamal_public_key;
+                if (!fileValid) {
+                    throw new Error();
+                }
+                onChanged({ context } as SubmitElectionRequest);
+                onNext();
+            } catch (ex) {
+                setError(
+                    "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony."
+                );
+            } finally {
+                setUploading(false);
+            }
         } else {
-            setError(true);
+            setError('No file found.  Please try again.');
         }
     };
 
@@ -86,6 +101,8 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                     title={new Message(MessageId.ElectionSetup_JointKeyUpload_Title)}
                     Icon={KeyIcon}
                 />
+
+                <div className={classes.error}>{error}</div>
 
                 <div className={classes.wrapper}>
                     <Button
@@ -114,17 +131,6 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                         />
                     )}
                 </div>
-
-                <Box display="flex" flexDirection="column" alignItems="center">
-                    <Button
-                        className={classes.spaced}
-                        variant="contained"
-                        color="secondary"
-                        onClick={onButtonClick}
-                    >
-                        <FormattedMessage id={MessageId.ElectionSetup_JointKeyUpload_Next} />
-                    </Button>
-                </Box>
             </Container>
         </Box>
     );
