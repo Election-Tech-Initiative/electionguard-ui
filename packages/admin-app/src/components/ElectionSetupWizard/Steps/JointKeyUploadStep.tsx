@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Container } from '@mui/material';
+import { Button, CircularProgress, Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React, { useState } from 'react';
