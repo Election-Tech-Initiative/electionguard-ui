@@ -21,9 +21,6 @@
     "login_form.password": "Password",
     "login_form.submit": "Submit",
 
-    "election_setup.manifest_menu.title": "Add Election Manifest",
-    "election_setup.manifest_menu.prompt": "Select what you would like to do:",
-
     "election_setup.joint_key_upload.title": "Upload Joint Key",
     "election_setup.joint_key_upload.no_file": "No file found.  Please try again.",
     "election_setup.joint_key_upload.invalid_file": "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony.",

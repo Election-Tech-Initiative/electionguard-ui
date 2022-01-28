@@ -27,10 +27,6 @@ enum MessageId {
     LoginFormSubmit = 'login_form.submit',
 
     // Election Setup
-    ElectionSetupManifestMenuTitle = 'election_setup.manifest_menu.title',
-    ElectionSetupManifestMenuAbout = 'election_setup.manifest_menu.about',
-    ElectionSetupManifestMenuPrompt = 'election_setup.manifest_menu.prompt',
-
     ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
     ElectionSetup_JointKeyUpload_NoFile = 'election_setup.joint_key_upload.no_file',
     ElectionSetup_JointKeyUpload_InvalidFile = 'election_setup.joint_key_upload.invalid_file',

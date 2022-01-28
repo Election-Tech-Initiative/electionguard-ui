@@ -9,7 +9,6 @@ import WizardStep from '../WizardStep';
 import {
     JointKeyUploadStep,
     JointKeySelectStep,
-    ManifestMenuStep,
     ManifestPreviewStep,
     ManifestUploadStep,
     SetupCompleteStep,
@@ -20,11 +19,10 @@ export enum ElectionSetupStep {
     BasicInfo = 0,
     JointKeySelect = 1,
     JointKeyRetrieved = 2,
-    ManifestMenu = 3,
-    ManifestUpload = 4,
-    ManifestBuild = 5,
-    ManifestPreview = 6,
-    SetupComplete = 7,
+    ManifestUpload = 3,
+    ManifestBuild = 4,
+    ManifestPreview = 5,
+    SetupComplete = 6,
 }
 
 /**
@@ -64,11 +62,6 @@ export const ElectionSetupWizard: React.FC = () => {
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
                 <JointKeyUploadStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
-            <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
-                <ManifestMenuStep
-                    onUploadManifest={() => setStep(ElectionSetupStep.ManifestUpload)}
-                />
-            </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestUpload}>
                 <ManifestUploadStep
                     onNext={() => setStep(ElectionSetupStep.ManifestPreview)}
@@ -78,7 +71,7 @@ export const ElectionSetupWizard: React.FC = () => {
             <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                 <ManifestPreviewStep
                     onNext={handleNext}
-                    backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
+                    backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
                     preview={service.getManifestPreview()}
                 />
             </WizardStep>

@@ -102,10 +102,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
                         variant="contained"
                         component="label"
                     >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupUploadManifestUpload}
-                            defaultMessage="Select Files to Upload"
-                        />
+                        <FormattedMessage id={MessageId.ElectionSetupUploadManifestUpload} />
                         <input
                             id="manifest-upload"
                             accept="application/JSON"
