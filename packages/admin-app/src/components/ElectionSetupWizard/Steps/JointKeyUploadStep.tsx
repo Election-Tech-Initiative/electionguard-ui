@@ -44,7 +44,7 @@ export interface JointKeyUploadStepProps {
 /**
  * Joint Key Select Step for Election Setup
  */
-const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext }) => {
+const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChanged }) => {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
     const classes = useStyles();
@@ -55,10 +55,19 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext }) => {
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files?.length) {
-            console.log('zi');
             const file = e.target.files[0];
             const text = await file.text();
-            console.log(text);
+            const keys = JSON.parse(text);
+            const request = {
+                context: {
+                    commitment_hash: keys.commitment_hash,
+                    crypto_base_hash: keys.crypto_base_hash,
+                    crypto_extended_base_hash: keys.crypto_extended_base_hash,
+                    elgamal_public_key: keys.elgamal_public_key,
+                },
+            } as SubmitElectionRequest;
+            onChanged(request);
+            onNext();
         } else {
             setError(true);
         }
