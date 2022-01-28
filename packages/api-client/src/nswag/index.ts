@@ -8,7 +8,6 @@ export {
     KeyCeremony,
     KeyCeremonyQueryResponse,
     SubmitElectionRequest,
-    CiphertextElectionContext,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';

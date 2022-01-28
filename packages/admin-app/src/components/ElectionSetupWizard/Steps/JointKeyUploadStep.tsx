@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { CiphertextElectionContext, SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
@@ -52,6 +52,14 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string>();
     const classes = useStyles();
+    const intl = useIntl();
+
+    const setIntlError = (id: string) => {
+        const message = intl.formatMessage({
+            id,
+        });
+        setError(message);
+    };
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files?.length) {
@@ -77,14 +85,12 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                 onChanged({ context } as SubmitElectionRequest);
                 onNext();
             } catch (ex) {
-                setError(
-                    "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony."
-                );
+                setIntlError(MessageId.ElectionSetup_JointKeyUpload_InvalidFile);
             } finally {
                 setUploading(false);
             }
         } else {
-            setError('No file found.  Please try again.');
+            setIntlError(MessageId.ElectionSetup_JointKeyUpload_NoFile);
         }
     };
 

@@ -32,7 +32,8 @@ enum MessageId {
     ElectionSetupManifestMenuPrompt = 'election_setup.manifest_menu.prompt',
 
     ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
-    ElectionSetup_JointKeyUpload_Next = 'election_setup.joint_key_upload.next',
+    ElectionSetup_JointKeyUpload_NoFile = 'election_setup.joint_key_upload.no_file',
+    ElectionSetup_JointKeyUpload_InvalidFile = 'election_setup.joint_key_upload.invalid_file',
 
     ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
     ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
