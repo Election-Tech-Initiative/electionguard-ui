@@ -9,14 +9,6 @@ import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        height: '100%',
-    },
-    wrapper: {
-        margin: theme.spacing(1),
-        position: 'relative',
-    },
     content: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -24,15 +16,8 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    spaced: {
+    button: {
         marginBottom: theme.spacing(2),
-    },
-    buttonProgress: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: -12,
-        marginLeft: -12,
     },
     error: {
         color: 'red',
@@ -95,50 +80,35 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
     };
 
     return (
-        <Box
-            display="flex"
-            flexDirection="column"
-            justifyItems="center"
-            alignItems="center"
-            className={classes.root}
-        >
-            <Container maxWidth="md" className={classes.content}>
-                <IconHeader
-                    title={new Message(MessageId.ElectionSetup_JointKeyUpload_Title)}
-                    Icon={KeyIcon}
+        <Container maxWidth="md" className={classes.content}>
+            <IconHeader
+                title={new Message(MessageId.ElectionSetup_JointKeyUpload_Title)}
+                Icon={KeyIcon}
+            />
+
+            <div className={classes.error}>{error}</div>
+
+            <Button
+                disabled={uploading}
+                color="secondary"
+                variant="contained"
+                component="label"
+                className={classes.button}
+            >
+                <FormattedMessage
+                    id={MessageId.ElectionSetupUploadManifestUpload}
+                    defaultMessage="Select Files to Upload"
                 />
-
-                <div className={classes.error}>{error}</div>
-
-                <div className={classes.wrapper}>
-                    <Button
-                        disabled={uploading}
-                        color="secondary"
-                        variant="contained"
-                        component="label"
-                    >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupUploadManifestUpload}
-                            defaultMessage="Select Files to Upload"
-                        />
-                        <input
-                            id="manifest-upload"
-                            accept="application/JSON"
-                            type="file"
-                            hidden
-                            onChange={(e) => onFileUpload(e)}
-                        />
-                    </Button>
-                    {uploading && (
-                        <CircularProgress
-                            size={24}
-                            variant="indeterminate"
-                            className={classes.buttonProgress}
-                        />
-                    )}
-                </div>
-            </Container>
-        </Box>
+                <input
+                    id="manifest-upload"
+                    accept="application/JSON"
+                    type="file"
+                    hidden
+                    onChange={(e) => onFileUpload(e)}
+                />
+            </Button>
+            {uploading && <CircularProgress size={24} variant="indeterminate" />}
+        </Container>
     );
 };
 
