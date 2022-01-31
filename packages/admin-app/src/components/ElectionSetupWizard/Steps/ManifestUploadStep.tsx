@@ -11,7 +11,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import { PublishOutlined } from '@mui/icons-material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ValidateManifestRequest } from '@electionguard/api-client';
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
@@ -54,6 +54,14 @@ export interface ManifestUploadStepProps {
 const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploadManifest }) => {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string>();
+    const intl = useIntl();
+
+    const setIntlError = (id: string) => {
+        const message = intl.formatMessage({
+            id,
+        });
+        setError(message);
+    };
 
     const handleClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {
@@ -70,6 +78,9 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
             try {
                 const text = await file.text();
                 const json = JSON.parse(text);
+                if (!json.manifest) {
+                    throw new Error();
+                }
                 const manifestRequest = {
                     manifest: json.manifest,
                 } as ValidateManifestRequest;
@@ -77,12 +88,12 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                 setUploading(false);
                 onNext();
             } catch (ex) {
-                setError("That manifest file didn't look quite right, please try again.");
+                setIntlError(MessageId.ElectionSetup_UploadManifest_InvalidFile);
             } finally {
                 setUploading(false);
             }
         } else {
-            setError('No file found, please try again');
+            setIntlError(MessageId.ElectionSetup_UploadManifest_NoFile);
         }
     };
 
@@ -99,7 +110,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                 <IconHeader
                     title={
                         new Message(
-                            MessageId.ElectionSetupUploadManifestTitle,
+                            MessageId.ElectionSetup_UploadManifest_Title,
                             'Upload Election Manifest'
                         )
                     }
@@ -112,7 +123,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                         variant="contained"
                         component="label"
                     >
-                        <FormattedMessage id={MessageId.ElectionSetupUploadManifestUpload} />
+                        <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Upload} />
                         <input
                             id="manifest-upload"
                             accept="application/JSON"
@@ -132,7 +143,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
             </Container>
             <Snackbar open={!!error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert severity="error" onClose={handleClose}>
-                    <FormattedMessage id={MessageId.ElectionSetupUploadManifestError} />
+                    <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Error} />
                 </Alert>
             </Snackbar>
         </Box>

@@ -24,6 +24,7 @@
     "election_setup.joint_key_upload.title": "Upload Joint Key",
     "election_setup.joint_key_upload.no_file": "No file found.  Please try again.",
     "election_setup.joint_key_upload.invalid_file": "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony.",
+    "election_setup.joint_key_upload.select_files": "Select Files to Upload",
 
     "election_setup.joint_key_select.title": "Select Guardian Key",
     "election_setup.joint_key_select.prompt": "Guardian Key",
@@ -44,6 +45,8 @@
     "election_setup.upload_manifest.title": "Upload Election Manifest",
     "election_setup.upload_manifest.upload": "Select Files to Upload",
     "election_setup.upload_manifest.error": "Manifest upload failed",
+    "election_setup.upload_manifest.invalid_file": "Manifest upload failed",
+    "election_setup.upload_manifest.no_file": "Manifest upload failed",
 
     "election_setup.setup_complete.title": "Congratulations, the election is ready.",
     "election_setup.setup_complete.next": "Return to Election List",

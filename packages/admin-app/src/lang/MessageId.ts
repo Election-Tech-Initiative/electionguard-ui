@@ -30,6 +30,7 @@ enum MessageId {
     ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
     ElectionSetup_JointKeyUpload_NoFile = 'election_setup.joint_key_upload.no_file',
     ElectionSetup_JointKeyUpload_InvalidFile = 'election_setup.joint_key_upload.invalid_file',
+    ElectionSetup_JointKeyUpload_SelectFiles = 'election_setup.joint_key_upload.select_files',
 
     ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
     ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
@@ -54,9 +55,11 @@ enum MessageId {
     ElectionSetup_BasicInfo_Next = 'election_setup.basic_info.next',
     ElectionSetup_BasicInfo_ElectionIdTooltip = 'election_setup.basic_info.election_id_tooltip',
 
-    ElectionSetupUploadManifestTitle = 'election_setup.upload_manifest.title',
-    ElectionSetupUploadManifestUpload = 'election_setup.upload_manifest.upload',
-    ElectionSetupUploadManifestError = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_Title = 'election_setup.upload_manifest.title',
+    ElectionSetup_UploadManifest_Upload = 'election_setup.upload_manifest.upload',
+    ElectionSetup_UploadManifest_Error = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_InvalidFile = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_NoFile = 'election_setup.upload_manifest.error',
 
     // Election List
     ElectionListTitle = 'election_list.title',
