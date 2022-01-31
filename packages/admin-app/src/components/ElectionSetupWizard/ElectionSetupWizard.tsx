@@ -1,4 +1,9 @@
-import { ApiClientFactory, SubmitElectionRequest } from '@electionguard/api-client';
+import {
+    ApiClientFactory,
+    ClientFactory,
+    SubmitElectionRequest,
+    ValidateManifestRequest,
+} from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -30,10 +35,12 @@ export enum ElectionSetupStep {
  */
 export const ElectionSetupWizard: React.FC = () => {
     const [request, setRequest] = useState({} as SubmitElectionRequest);
+    const [manifest, setManifest] = useState<ValidateManifestRequest>();
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
     const handleNext = () => {
+        console.log('handleNext', step);
         const nextStep = getNextStep(step);
         setStep(nextStep);
     };
@@ -42,10 +49,16 @@ export const ElectionSetupWizard: React.FC = () => {
             ...request,
             ...requestFromStep,
         };
+        console.log('handleChanged newRequest: ', newRequest);
         setRequest(newRequest);
     };
-
-    const handleSubmit = () => {
+    const handleUploadManifest = (manifestJson: ValidateManifestRequest) => {
+        console.log('handleUploadManifest', manifestJson);
+        setManifest(manifestJson);
+    };
+    const handleSubmit = async () => {
+        const v1Client = ClientFactory.GetV1Client();
+        // await v1Client.manifestPut(manifest);
         // todo: submit data to API
         navigate(routeIds.home);
     };
@@ -63,10 +76,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 <JointKeyUploadStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestUpload}>
-                <ManifestUploadStep
-                    onNext={() => setStep(ElectionSetupStep.ManifestPreview)}
-                    uploadManifest={async () => true}
-                />
+                <ManifestUploadStep onNext={handleNext} onUploadManifest={handleUploadManifest} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                 <ManifestPreviewStep

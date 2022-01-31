@@ -12,7 +12,7 @@ import { PublishOutlined } from '@mui/icons-material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import { ValidateManifestRequest } from '@electionguard/api-client';
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
@@ -48,31 +48,41 @@ const useStyles = makeStyles((theme) => ({
 
 export interface ManifestUploadStepProps {
     onNext: () => void;
-    uploadManifest: (manifestFile: File) => Promise<boolean>;
+    onUploadManifest: (manifestRequest: ValidateManifestRequest) => void;
 }
 
-const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadManifest }) => {
+const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploadManifest }) => {
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<string>();
 
     const handleClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {
             return;
         }
 
-        setError(false);
+        setError(undefined);
     };
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files !== null) {
             const file = e.target.files[0];
             setUploading(true);
-            const success = await uploadManifest(file);
-            setUploading(false);
-            setError(!success);
-            if (success) onNext();
+            try {
+                const text = await file.text();
+                const json = JSON.parse(text);
+                const manifestRequest = {
+                    manifest: json,
+                } as ValidateManifestRequest;
+                onUploadManifest(manifestRequest);
+                setUploading(false);
+                onNext();
+            } catch (ex) {
+                setError("That manifest file didn't look quite right, please try again.");
+            } finally {
+                setUploading(false);
+            }
         } else {
-            setError(true);
+            setError('No file found, please try again');
         }
     };
 
@@ -120,12 +130,9 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, uploadM
                     )}
                 </div>
             </Container>
-            <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={!!error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert severity="error" onClose={handleClose}>
-                    <FormattedMessage
-                        id={MessageId.ElectionSetupUploadManifestError}
-                        defaultMessage="Manifest upload failed"
-                    />
+                    <FormattedMessage id={MessageId.ElectionSetupUploadManifestError} />
                 </Alert>
             </Snackbar>
         </Box>

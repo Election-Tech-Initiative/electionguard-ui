@@ -1,4 +1,4 @@
-import { AuthClient, CeremonyClient } from './clients';
+import { AuthClient, CeremonyClient, V1Client } from './clients';
 
 export class ClientFactory {
     private static GetUrl(): string {
@@ -13,5 +13,10 @@ export class ClientFactory {
     public static GetCeremonyClient(): CeremonyClient {
         const url = this.GetUrl();
         return new CeremonyClient(url);
+    }
+
+    public static GetV1Client(): V1Client {
+        const url = this.GetUrl();
+        return new V1Client(url);
     }
 }
