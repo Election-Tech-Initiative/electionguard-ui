@@ -10,13 +10,12 @@ export const getManifestPreview = (
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 2);
     return {
+        id: 'montgomery-county-election',
         name: 'Montgomery County Election',
         numberOfContests: 5,
         numberOfStyles: 3,
         startDate: new Date(),
         endDate,
-        fileHash: '1234lasdf98j3124klajksdflajsdfio',
-        fileName: 'manifest.json',
     };
 };
 

@@ -39,7 +39,6 @@ export const ElectionSetupWizard: React.FC = () => {
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
     const handleNext = () => {
-        console.log('handleNext', step);
         const nextStep = getNextStep(step);
         setStep(nextStep);
     };
@@ -48,11 +47,9 @@ export const ElectionSetupWizard: React.FC = () => {
             ...request,
             ...requestFromStep,
         };
-        console.log('handleChanged newRequest: ', newRequest);
         setRequest(newRequest);
     };
     const handleUploadManifest = (manifestJson: ValidateManifestRequest) => {
-        console.log('handleUploadManifest', manifestJson);
         setManifest(manifestJson);
     };
     const handleSubmit = async () => {
