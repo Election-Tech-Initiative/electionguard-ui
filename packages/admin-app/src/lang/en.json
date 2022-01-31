@@ -41,6 +41,7 @@
     "election_setup.manifest_preview.caption": "Preview of Manifest",
     "election_setup.manifest_preview.next": "Submit",
     "election_setup.manifest_preview.back_to_menu": "Cancel",
+    "election_setup.manifest_preview.submit_error": "An error occurred while attempting to save the election",
 
     "election_setup.upload_manifest.title": "Upload Election Manifest",
     "election_setup.upload_manifest.upload": "Select Files to Upload",

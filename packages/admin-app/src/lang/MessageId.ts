@@ -47,6 +47,7 @@ enum MessageId {
     ElectionSetup_ManifestPreview_Caption = 'election_setup.manifest_preview.caption',
     ElectionSetup_ManifestPreview_Next = 'election_setup.manifest_preview.next',
     ElectionSetup_ManifestPreview_BackToMenu = 'election_setup.manifest_preview.back_to_menu',
+    ElectionSetup_ManifestPreview_SubmitError = 'election_setup.manifest_preview.submit_error',
 
     ElectionSetupSetupCompleteTitle = 'election_setup.setup_complete.title',
     ElectionSetupSetupCompleteNext = 'election_setup.setup_complete.next',
