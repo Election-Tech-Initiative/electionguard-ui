@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 import { JointKey } from '../models/jointKey';
 import { getAssignedGuardians } from './guardians';
 import { post } from '../utils/http';
@@ -23,7 +21,7 @@ export const getManifestPreview = (
     manifest: ValidateManifestRequest,
     request: SubmitElectionRequest
 ): ManifestPreview => {
-    const manifestData = manifest.manifest?.manifest;
+    const manifestData = manifest.manifest;
     if (!manifestData) return {} as ManifestPreview;
     const numberOfContests = manifestData.contests?.length;
     const numberOfStyles = manifestData.ballot_styles?.length;

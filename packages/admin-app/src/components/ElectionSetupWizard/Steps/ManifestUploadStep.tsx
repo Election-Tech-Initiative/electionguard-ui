@@ -71,7 +71,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                 const text = await file.text();
                 const json = JSON.parse(text);
                 const manifestRequest = {
-                    manifest: json,
+                    manifest: json.manifest,
                 } as ValidateManifestRequest;
                 onUploadManifest(manifestRequest);
                 setUploading(false);

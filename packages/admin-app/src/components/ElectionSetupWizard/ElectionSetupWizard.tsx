@@ -57,9 +57,9 @@ export const ElectionSetupWizard: React.FC = () => {
     };
     const handleSubmit = async () => {
         const v1Client = ClientFactory.GetV1Client();
-        // await v1Client.manifestPut(manifest);
+        await v1Client.manifestPut(manifest);
         // todo: submit data to API
-        navigate(routeIds.home);
+        setStep(ElectionSetupStep.SetupComplete);
     };
 
     const service = ApiClientFactory.getGuardianApiClient();
@@ -79,13 +79,13 @@ export const ElectionSetupWizard: React.FC = () => {
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                 <ManifestPreviewStep
-                    onNext={handleNext}
+                    onNext={handleSubmit}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
                     preview={service.getManifestPreview(manifest, request)}
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={handleSubmit} />
+                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
             </WizardStep>
         </Box>
     );
