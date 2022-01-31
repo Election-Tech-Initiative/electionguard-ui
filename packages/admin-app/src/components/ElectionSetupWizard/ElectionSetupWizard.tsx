@@ -55,7 +55,7 @@ export const ElectionSetupWizard: React.FC = () => {
     const handleSubmit = async () => {
         const v1Client = ClientFactory.GetV1Client();
         await v1Client.manifestPut(manifest);
-        // todo: submit data to API
+        await v1Client.electionPut(request);
         setStep(ElectionSetupStep.SetupComplete);
     };
 
@@ -77,8 +77,8 @@ export const ElectionSetupWizard: React.FC = () => {
             {step === ElectionSetupStep.ManifestPreview && (
                 <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                     <ManifestPreviewStep
-                        onNext={handleSubmit}
-                        backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
+                        onSubmit={handleSubmit}
+                        onCancel={() => setStep(ElectionSetupStep.ManifestUpload)}
                         preview={service.getManifestPreview(manifest, request)}
                     />
                 </WizardStep>
