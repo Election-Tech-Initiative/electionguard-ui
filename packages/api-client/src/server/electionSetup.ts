@@ -25,14 +25,17 @@ export const getManifestPreview = (
 ): ManifestPreview => {
     const manifestData = manifest.manifest?.manifest;
     if (!manifestData) return {} as ManifestPreview;
+    const numberOfContests = manifestData.contests?.length;
+    const numberOfStyles = manifestData.ballot_styles?.length;
+    const startDate = new Date(manifestData.start_date);
     const endDate = new Date(manifestData.end_date);
     const electionName = getElectionName(manifestData);
     return {
-        id: request.key_name,
+        id: request.election_id,
         name: electionName,
-        numberOfContests: 5,
-        numberOfStyles: 3,
-        startDate: new Date(),
+        numberOfContests,
+        numberOfStyles,
+        startDate,
         endDate,
     };
 };
