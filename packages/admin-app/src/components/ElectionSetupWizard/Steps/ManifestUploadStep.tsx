@@ -1,6 +1,5 @@
 import {
     Alert,
-    Box,
     Button,
     CircularProgress,
     Container,
@@ -22,10 +21,6 @@ export const alert = (props: AlertProps) => (
 );
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        height: '100%',
-    },
     content: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -33,16 +28,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    wrapper: {
-        margin: theme.spacing(1),
-        position: 'relative',
-    },
-    buttonProgress: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: -12,
-        marginLeft: -12,
+    error: {
+        color: 'red',
+        marginBottom: theme.spacing(2),
     },
 }));
 
@@ -100,53 +88,33 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
     const classes = useStyles();
 
     return (
-        <Box
-            flexDirection="column"
-            alignContent="center"
-            justifyContent="center"
-            className={classes.root}
-        >
-            <Container maxWidth="md" className={classes.content}>
-                <IconHeader
-                    title={
-                        new Message(
-                            MessageId.ElectionSetup_UploadManifest_Title,
-                            'Upload Election Manifest'
-                        )
-                    }
-                    Icon={PublishOutlined}
+        <Container maxWidth="md" className={classes.content}>
+            <IconHeader
+                title={new Message(MessageId.ElectionSetup_UploadManifest_Title)}
+                Icon={PublishOutlined}
+            />
+
+            <div className={classes.error}>{error}</div>
+
+            <Button disabled={uploading} color="secondary" variant="contained" component="label">
+                <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Upload} />
+                <input
+                    id="manifest-upload"
+                    accept="application/JSON"
+                    type="file"
+                    hidden
+                    onChange={(e) => onFileUpload(e)}
                 />
-                <div className={classes.wrapper}>
-                    <Button
-                        disabled={uploading}
-                        color="secondary"
-                        variant="contained"
-                        component="label"
-                    >
-                        <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Upload} />
-                        <input
-                            id="manifest-upload"
-                            accept="application/JSON"
-                            type="file"
-                            hidden
-                            onChange={(e) => onFileUpload(e)}
-                        />
-                    </Button>
-                    {uploading && (
-                        <CircularProgress
-                            size={24}
-                            variant="indeterminate"
-                            className={classes.buttonProgress}
-                        />
-                    )}
-                </div>
-            </Container>
+            </Button>
+
+            {uploading && <CircularProgress size={24} variant="indeterminate" />}
+
             <Snackbar open={!!error} autoHideDuration={6000} onClose={handleClose}>
                 <Alert severity="error" onClose={handleClose}>
                     <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Error} />
                 </Alert>
             </Snackbar>
-        </Box>
+        </Container>
     );
 };
 
