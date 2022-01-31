@@ -25,9 +25,8 @@ export enum ElectionSetupStep {
     JointKeySelect = 1,
     JointKeyRetrieved = 2,
     ManifestUpload = 3,
-    ManifestBuild = 4,
-    ManifestPreview = 5,
-    SetupComplete = 6,
+    ManifestPreview = 4,
+    SetupComplete = 5,
 }
 
 /**
@@ -35,7 +34,7 @@ export enum ElectionSetupStep {
  */
 export const ElectionSetupWizard: React.FC = () => {
     const [request, setRequest] = useState({} as SubmitElectionRequest);
-    const [manifest, setManifest] = useState<ValidateManifestRequest>();
+    const [manifest, setManifest] = useState({} as ValidateManifestRequest);
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
@@ -82,7 +81,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 <ManifestPreviewStep
                     onNext={handleNext}
                     backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
-                    preview={service.getManifestPreview()}
+                    preview={service.getManifestPreview(manifest, request)}
                 />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>

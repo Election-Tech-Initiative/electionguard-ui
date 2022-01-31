@@ -1,8 +1,12 @@
 import { JointKey } from '../models/jointKey';
 import { ManifestPreview } from '../models/manifestPreview';
+import { SubmitElectionRequest, ValidateManifestRequest } from '../nswag/clients';
 import { getAssignedGuardians } from './guardians';
 
-export const getManifestPreview = (): ManifestPreview => {
+export const getManifestPreview = (
+    _manifest: ValidateManifestRequest,
+    _request: SubmitElectionRequest
+): ManifestPreview => {
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 2);
     return {
