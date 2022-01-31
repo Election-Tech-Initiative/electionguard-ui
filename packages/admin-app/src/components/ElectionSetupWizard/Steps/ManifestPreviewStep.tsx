@@ -43,20 +43,18 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
         <Grid container className={classes.root}>
             <Container maxWidth="md">
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <IconHeader
-                        title={
-                            new Message(
-                                MessageId.ElectionSetupManifestPreviewTitle,
-                                'Election Manifest Uploaded'
-                            )
-                        }
-                    />
+                    <IconHeader title={new Message(MessageId.ElectionSetupManifestPreviewTitle)} />
                     <Table aria-label="caption table" className={classes.spaced}>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage id={MessageId.ElectionSetupManifestPreviewId} />
+                            </TableCell>
+                            <TableCell>{preview.id}</TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
                                     id={MessageId.ElectionSetupManifestPreviewPropertyName}
-                                    defaultMessage="Name"
                                 />
                             </TableCell>
                             <TableCell>{preview.name}</TableCell>
@@ -67,7 +65,6 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                                     id={
                                         MessageId.ElectionSetupManifestPreviewPropertyNumberOfContests
                                     }
-                                    defaultMessage="Number of Contests"
                                 />
                             </TableCell>
                             <TableCell>{preview.numberOfContests}</TableCell>
@@ -78,7 +75,6 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                                     id={
                                         MessageId.ElectionSetupManifestPreviewPropertyNumberOfStyles
                                     }
-                                    defaultMessage="Number of Ballot Styles"
                                 />
                             </TableCell>
                             <TableCell>{preview.numberOfStyles}</TableCell>
@@ -87,7 +83,6 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                             <TableCell className={classes.property}>
                                 <FormattedMessage
                                     id={MessageId.ElectionSetupManifestPreviewPropertyStartDate}
-                                    defaultMessage="Start Date"
                                 />
                             </TableCell>
                             <TableCell>
@@ -99,31 +94,12 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                             <TableCell className={classes.property}>
                                 <FormattedMessage
                                     id={MessageId.ElectionSetupManifestPreviewPropertyEndDate}
-                                    defaultMessage="End Date"
                                 />
                             </TableCell>
                             <TableCell>
                                 {preview.endDate.toLocaleDateString()}{' '}
                                 {preview.endDate.toLocaleTimeString()}
                             </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className={classes.property}>
-                                <FormattedMessage
-                                    id={MessageId.ElectionSetupManifestPreviewPropertyFileHash}
-                                    defaultMessage="File Hash"
-                                />
-                            </TableCell>
-                            <TableCell>{preview.fileHash}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className={classes.property}>
-                                <FormattedMessage
-                                    id={MessageId.ElectionSetupManifestPreviewPropertyFileName}
-                                    defaultMessage="File Name"
-                                />
-                            </TableCell>
-                            <TableCell>{preview.fileName}</TableCell>
                         </TableRow>
                         <caption>
                             <FormattedMessage

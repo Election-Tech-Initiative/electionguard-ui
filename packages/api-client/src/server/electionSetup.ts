@@ -1,23 +1,39 @@
+/* tslint:disable */
+/* eslint-disable */
 import { JointKey } from '../models/jointKey';
 import { getAssignedGuardians } from './guardians';
 import { post } from '../utils/http';
 import { ManifestPreview } from '../models';
 import { SubmitElectionRequest, ValidateManifestRequest } from '../nswag/clients';
 
+// todo: figure out how to retrieve the current language
+const getLanguage = (): string => 'en';
+
+const getElectionName = (manifest: any): string => {
+    const language = getLanguage();
+    const textList: Array<any> = manifest.name?.text;
+    if (textList) {
+        const languageText = textList.find((i: any) => i.language === language);
+        return languageText.value;
+    }
+    return '';
+};
+
 export const getManifestPreview = (
-    _manifest: ValidateManifestRequest,
-    _request: SubmitElectionRequest
+    manifest: ValidateManifestRequest,
+    request: SubmitElectionRequest
 ): ManifestPreview => {
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 2);
+    const manifestData = manifest.manifest?.manifest;
+    if (!manifestData) return {} as ManifestPreview;
+    const endDate = new Date(manifestData.end_date);
+    const electionName = getElectionName(manifestData);
     return {
-        name: 'Montgomery County Election!!',
+        id: request.key_name,
+        name: electionName,
         numberOfContests: 5,
         numberOfStyles: 3,
         startDate: new Date(),
         endDate,
-        fileHash: '1234lasdf98j3124klajksdflajsdfio',
-        fileName: 'manifest.json',
     };
 };
 
