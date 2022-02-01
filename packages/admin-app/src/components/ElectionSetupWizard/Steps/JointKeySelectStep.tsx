@@ -59,21 +59,20 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChang
         }
     };
 
-    const ceremonyClient = ClientFactory.GetCeremonyClient();
-
-    const getKeyCeremonies = async () => {
+    const findKeyCeremonies = async () => {
+        const ceremonyClient = ClientFactory.GetCeremonyClient();
         await ceremonyClient.find(0, 100, { filter: {} }).then((response) => {
             setKeyCeremonies(response.key_ceremonies);
         });
     };
 
+    useEffect(() => {
+        findKeyCeremonies();
+    }, []);
+
     const queryClient = new QueryClient();
 
     const classes = useStyles();
-
-    useEffect(() => {
-        getKeyCeremonies();
-    });
 
     const onNextClick = () => {
         const submitElectionRequest = {
