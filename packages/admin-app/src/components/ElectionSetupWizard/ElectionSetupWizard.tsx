@@ -43,9 +43,13 @@ export const ElectionSetupWizard: React.FC = () => {
         setStep(nextStep);
     };
     const handleChanged = (requestFromStep: SubmitElectionRequest) => {
-        const newRequest = {
+        const newRequest: SubmitElectionRequest = {
             ...request,
             ...requestFromStep,
+            context: {
+                ...request.context,
+                ...requestFromStep.context,
+            },
         };
         setRequest(newRequest);
     };

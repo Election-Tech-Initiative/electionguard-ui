@@ -77,6 +77,10 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChang
     const onNextClick = () => {
         const submitElectionRequest = {
             key_name: keyCeremony?.key_name,
+            context: {
+                quorum: keyCeremony?.quorum,
+                number_of_guardians: keyCeremony?.number_of_guardians,
+            },
         } as SubmitElectionRequest;
         onChanged(submitElectionRequest);
         onNext();
