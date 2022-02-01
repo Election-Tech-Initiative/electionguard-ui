@@ -52,16 +52,19 @@ export const ElectionSetupWizard: React.FC = () => {
     const handleUploadManifest = (manifestJson: ValidateManifestRequest) => {
         setManifest(manifestJson);
     };
-    const handleSubmit = async () => {
-        const v1Client = ClientFactory.GetV1Client();
-        const manifestCreationResult = await v1Client.manifestPut(manifest);
 
-        const manifestHash = manifestCreationResult.manifest_hash;
+    const setManifestHash = (manifestHash: string) => {
         const requestWithManifestHash = {
             ...request,
             context: { ...request.context, manifest_hash: manifestHash },
         };
         setRequest(requestWithManifestHash);
+    };
+
+    const handleSubmit = async () => {
+        const v1Client = ClientFactory.GetV1Client();
+        const manifestCreationResult = await v1Client.manifestPut(manifest);
+        setManifestHash(manifestCreationResult.manifest_hash);
         await v1Client.electionPut(request);
         setStep(ElectionSetupStep.SetupComplete);
     };
