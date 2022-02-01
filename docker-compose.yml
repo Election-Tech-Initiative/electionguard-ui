@@ -12,16 +12,3 @@ services:
         # https://github.com/facebook/create-react-app/issues/8688
         stdin_open: true
         command: 'serve -l 3001 packages/admin-app/build'
-
-    result-app:
-        build:
-            dockerfile: ./Dockerfile
-            context: .
-        ports:
-            - 3002:3002
-        volumes:
-            - '.:/app'
-            - '/app/node_modules'
-        # https://github.com/facebook/create-react-app/issues/8688
-        stdin_open: true
-        command: 'serve -l 3002 packages/result-app/build'

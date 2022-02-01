@@ -4,7 +4,6 @@
     "javascript.format.enable": false,
     "eslint.workingDirectories": [
         { "directory": "packages/admin-app", "changeProcessCWD": true },
-        { "directory": "packages/api-client", "changeProcessCWD": true },
-        { "directory": "packages/result-app", "changeProcessCWD": true }
+        { "directory": "packages/api-client", "changeProcessCWD": true }
     ]
 }
