@@ -24,15 +24,13 @@
     "election_setup.manifest_menu.title": "Add Election Manifest",
     "election_setup.manifest_menu.prompt": "Select what you would like to do:",
 
-    "election_setup.joint_key_retrieved.title": "Joint Key Retrieved",
-    "election_setup.joint_key_retrieved.cta": "Create a new election with retrieved key",
-    "election_setup.joint_key_retrieved.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
-    "election_setup.joint_key_retrieved.next": "Continue",
+    "election_setup.joint_key_upload.title": "Upload Joint Key",
+    "election_setup.joint_key_upload.no_file": "No file found.  Please try again.",
+    "election_setup.joint_key_upload.invalid_file": "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony.",
 
-    "election_setup.joint_key_select.title": "Pull Guardian Keys",
-    "election_setup.joint_key_select.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
-    "election_setup.joint_key_select.prompt": "Select Key for Election",
-    "election_setup.joint_key_select.next": "Pull keys for selected election",
+    "election_setup.joint_key_select.title": "Select Guardian Key",
+    "election_setup.joint_key_select.prompt": "Guardian Key",
+    "election_setup.joint_key_select.next": "Next Step",
 
     "election_setup.manifest_preview.title": "Election Manifest Uploaded",
     "election_setup.manifest_preview.property.name": "Name",

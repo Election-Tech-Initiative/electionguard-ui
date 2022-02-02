@@ -7,7 +7,7 @@ import routeIds from '../../routes/RouteIds';
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
 import {
-    JointKeyRetrievedStep,
+    JointKeyUploadStep,
     JointKeySelectStep,
     ManifestMenuStep,
     ManifestPreviewStep,
@@ -62,7 +62,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 <JointKeySelectStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
-                <JointKeyRetrievedStep onNext={handleNext} />
+                <JointKeyUploadStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
                 <ManifestMenuStep

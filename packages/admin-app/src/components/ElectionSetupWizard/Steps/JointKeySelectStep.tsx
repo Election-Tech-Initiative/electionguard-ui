@@ -8,7 +8,6 @@ import {
     MenuItem,
     Select,
     SelectChangeEvent,
-    Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { SaveAlt as SaveIcon } from '@mui/icons-material';
@@ -17,10 +16,16 @@ import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 // todo: Remove useGetJointKeys - import { useGetJointKeys } from '@electionguard/api-client';
 
-import { Message, MessageId, loremIpsum } from '../../../lang';
+import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     spaced: {
         marginBottom: theme.spacing(2),
     },
@@ -79,36 +84,24 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChang
     };
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" className={classes.root}>
             <QueryClientProvider client={queryClient}>
                 <Box display="flex" flexDirection="column">
                     <IconHeader
-                        title={
-                            new Message(
-                                MessageId.ElectionSetupJointKeySelectTitle,
-                                'Pull Guardian Keys'
-                            )
-                        }
+                        title={new Message(MessageId.ElectionSetup_JointKeySelect_Title)}
                         Icon={SaveIcon}
                     />
-                    <Typography className={classes.spaced}>
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupJointKeySelectDescription}
-                            defaultMessage={loremIpsum}
-                        />
-                    </Typography>
                     <Box display="flex" flexDirection="column" alignItems="start">
                         <FormControl className={classes.control}>
                             <InputLabel id="joint-key-select-label" className={classes.inputLabel}>
                                 <FormattedMessage
-                                    id={MessageId.ElectionSetupJointKeySelectPrompt}
+                                    id={MessageId.ElectionSetup_JointKeySelect_Prompt}
                                     defaultMessage="Select Key for Election"
                                 />
                             </InputLabel>
                             <Select
                                 labelId="joint-key-select-label"
                                 id="joint-key-select"
-                                label="Hi there"
                                 value={keyCeremony ? keyCeremony.key_name : ''}
                                 onChange={onKeySelect}
                             >
@@ -127,10 +120,7 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChang
                             color="secondary"
                             onClick={onNextClick}
                         >
-                            <FormattedMessage
-                                id={MessageId.ElectionSetupJointKeySelectNext}
-                                defaultMessage="Pull keys for selected election"
-                            />
+                            <FormattedMessage id={MessageId.ElectionSetup_JointKeySelect_Next} />
                         </Button>
                     </Box>
                 </Box>

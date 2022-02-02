@@ -31,15 +31,13 @@ enum MessageId {
     ElectionSetupManifestMenuAbout = 'election_setup.manifest_menu.about',
     ElectionSetupManifestMenuPrompt = 'election_setup.manifest_menu.prompt',
 
-    ElectionSetupJointKeyRetrievedTitle = 'election_setup.joint_key_retrieved.title',
-    ElectionSetupJointKeyRetrievedCTA = 'election_setup.joint_key_retrieved.cta',
-    ElectionSetupJointKeyRetrievedDescription = 'election_setup.joint_key_retrieved.description',
-    ElectionSetupJointKeyRetreivedNext = 'election_setup.joint_key_retrieved.next',
+    ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
+    ElectionSetup_JointKeyUpload_NoFile = 'election_setup.joint_key_upload.no_file',
+    ElectionSetup_JointKeyUpload_InvalidFile = 'election_setup.joint_key_upload.invalid_file',
 
-    ElectionSetupJointKeySelectTitle = 'election_setup.joint_key_select.title',
-    ElectionSetupJointKeySelectDescription = 'election_setup.joint_key_select.description',
-    ElectionSetupJointKeySelectPrompt = 'election_setup.joint_key_select.prompt',
-    ElectionSetupJointKeySelectNext = 'election_setup.joint_key_select.next',
+    ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
+    ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
+    ElectionSetup_JointKeySelect_Next = 'election_setup.joint_key_select.next',
 
     ElectionSetupManifestPreviewTitle = 'election_setup.manifest_preview.title',
     ElectionSetupManifestPreviewPropertyName = 'election_setup.manifest_preview.property.name',

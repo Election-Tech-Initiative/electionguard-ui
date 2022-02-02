@@ -5,6 +5,7 @@ import InfoIcon from '@mui/icons-material/Info';
 
 import { useIntl } from 'react-intl';
 import { SubmitElectionRequest } from '@electionguard/api-client';
+import { Foundation as FoundationIcon } from '@mui/icons-material';
 import FormattedButton from '../../FormattedButton';
 import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
@@ -48,7 +49,10 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <IconHeader title={new Message(MessageId.ElectionSetup_BasicInfo_Title)} />
+            <IconHeader
+                title={new Message(MessageId.ElectionSetup_BasicInfo_Title)}
+                Icon={FoundationIcon}
+            />
             <Container maxWidth="xs">
                 <form onSubmit={handleSubmit}>
                     <TextField

@@ -2962,8 +2962,19 @@ export interface Body_login_for_access_token_api_v1_auth_login_post {
 export interface CastBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContext;
     ballots: any[];
+}
+
+/** The meta-data required for an election including keys, manifest, number of guardians, and quorum */
+export interface CiphertextElectionContext {
+    number_of_guardians: number;
+    quorum: number;
+    elgamal_public_key: string;
+    commitment_hash: string;
+    manifest_hash: string;
+    crypto_base_hash: string;
+    crypto_extended_base_hash: string;
 }
 
 /** A Tally for a specific election. */
@@ -2999,7 +3010,7 @@ export interface CreateElectionRequest {
 export interface DecryptBallotsWithSharesRequest {
     encrypted_ballots: any[];
     shares: { [key: string]: any[]; };
-    context?: any;
+    context: CiphertextElectionContext;
 }
 
 /** A request to decrypt a specific tally.  Can optionally include the tally to decrypt. */
@@ -3025,7 +3036,7 @@ export interface Election {
     election_id: string;
     key_name: string;
     state: ElectionState;
-    context?: any;
+    context: CiphertextElectionContext;
     manifest?: any;
 }
 
@@ -3192,7 +3203,7 @@ export interface MakeElectionContextRequest {
 export interface MakeElectionContextResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
-    context?: any;
+    context: CiphertextElectionContext;
 }
 
 /** A basic model object */
@@ -3273,7 +3284,7 @@ export interface Settings {
 export interface SpoilBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContext;
     ballots: any[];
 }
 
@@ -3287,7 +3298,7 @@ export enum StorageMode {
 export interface SubmitBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContext;
     ballots: any[];
 }
 
@@ -3295,7 +3306,7 @@ export interface SubmitBallotsRequest {
 export interface SubmitElectionRequest {
     election_id: string;
     key_name: string;
-    context?: any;
+    context: CiphertextElectionContext;
     manifest?: any;
 }
 
@@ -3326,7 +3337,7 @@ export interface ValidateBallotRequest {
     schema_override?: any;
     ballot?: any;
     manifest?: any;
-    context?: any;
+    context: CiphertextElectionContext;
 }
 
 /** A request to validate an Election Description. */
