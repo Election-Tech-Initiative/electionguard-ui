@@ -74,13 +74,15 @@ export const ElectionSetupWizard: React.FC = () => {
             <WizardStep active={step === ElectionSetupStep.ManifestUpload}>
                 <ManifestUploadStep onNext={handleNext} onUploadManifest={handleUploadManifest} />
             </WizardStep>
-            <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
-                <ManifestPreviewStep
-                    onNext={handleSubmit}
-                    backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
-                    preview={service.getManifestPreview(manifest, request)}
-                />
-            </WizardStep>
+            {step === ElectionSetupStep.ManifestPreview && (
+                <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
+                    <ManifestPreviewStep
+                        onNext={handleSubmit}
+                        backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
+                        preview={service.getManifestPreview(manifest, request)}
+                    />
+                </WizardStep>
+            )}
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
                 <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
             </WizardStep>

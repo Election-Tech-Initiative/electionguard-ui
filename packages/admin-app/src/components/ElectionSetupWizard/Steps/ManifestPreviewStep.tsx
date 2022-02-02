@@ -47,7 +47,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                     <Table aria-label="caption table" className={classes.spaced}>
                         <TableRow>
                             <TableCell className={classes.property}>
-                                <FormattedMessage id={MessageId.ElectionSetupManifestPreviewId} />
+                                <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Id} />
                             </TableCell>
                             <TableCell>{preview.id}</TableCell>
                         </TableRow>

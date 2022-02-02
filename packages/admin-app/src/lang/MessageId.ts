@@ -36,7 +36,7 @@ enum MessageId {
     ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
     ElectionSetup_JointKeySelect_Next = 'election_setup.joint_key_select.next',
 
-    ElectionSetupManifestPreviewId = 'election_setup.manifest_preview.property.id',
+    ElectionSetup_ManifestPreview_Id = 'election_setup.manifest_preview.property.id',
     ElectionSetupManifestPreviewTitle = 'election_setup.manifest_preview.title',
     ElectionSetupManifestPreviewPropertyName = 'election_setup.manifest_preview.property.name',
     ElectionSetupManifestPreviewPropertyNumberOfContests = 'election_setup.manifest_preview.property.number_of_contests',
