@@ -86,7 +86,7 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                 Icon={KeyIcon}
             />
 
-            <div className={classes.error}>{error}</div>
+            {error && <div className={classes.error}>{error}</div>}
 
             <Button
                 disabled={uploading}
