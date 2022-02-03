@@ -78,67 +78,64 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
             <Box display="flex" flexDirection="column" alignItems="center">
                 <IconHeader title={new Message(MessageId.ElectionSetup_ManifestPreview_Title)} />
                 <Table aria-label="caption table" className={classes.spaced}>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Id} />
-                        </TableCell>
-                        <TableCell>{preview.id}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage
-                                id={MessageId.ElectionSetup_ManifestPreview_PropertyName}
-                            />
-                        </TableCell>
-                        <TableCell>{preview.name}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage
-                                id={
-                                    MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfContests
-                                }
-                            />
-                        </TableCell>
-                        <TableCell>{preview.numberOfContests}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage
-                                id={MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfStyles}
-                            />
-                        </TableCell>
-                        <TableCell>{preview.numberOfStyles}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage
-                                id={MessageId.ElectionSetup_ManifestPreview_PropertyStartDate}
-                            />
-                        </TableCell>
-                        <TableCell>
-                            {preview.startDate.toLocaleDateString()}{' '}
-                            {preview.startDate.toLocaleTimeString()}
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={classes.property}>
-                            <FormattedMessage
-                                id={MessageId.ElectionSetup_ManifestPreview_PropertyEndDate}
-                            />
-                        </TableCell>
-                        <TableCell>
-                            {preview.endDate.toLocaleDateString()}{' '}
-                            {preview.endDate.toLocaleTimeString()}
-                        </TableCell>
-                    </TableRow>
-                    <caption>
-                        <FormattedMessage
-                            id={MessageId.ElectionSetup_ManifestPreview_Caption}
-                            defaultMessage="Preview of Manifest"
-                        />
-                    </caption>
-                    <TableBody />
+                    <TableBody>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Id} />
+                            </TableCell>
+                            <TableCell>{preview.id}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyName}
+                                />
+                            </TableCell>
+                            <TableCell>{preview.name}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage
+                                    id={
+                                        MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfContests
+                                    }
+                                />
+                            </TableCell>
+                            <TableCell>{preview.numberOfContests}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage
+                                    id={
+                                        MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfStyles
+                                    }
+                                />
+                            </TableCell>
+                            <TableCell>{preview.numberOfStyles}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyStartDate}
+                                />
+                            </TableCell>
+                            <TableCell>
+                                {preview.startDate.toLocaleDateString()}{' '}
+                                {preview.startDate.toLocaleTimeString()}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className={classes.property}>
+                                <FormattedMessage
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyEndDate}
+                                />
+                            </TableCell>
+                            <TableCell>
+                                {preview.endDate.toLocaleDateString()}{' '}
+                                {preview.endDate.toLocaleTimeString()}
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
                 </Table>
             </Box>
             {error && <div className={classes.error}>{error}</div>}
@@ -146,6 +143,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                 <Button
                     variant="contained"
                     color="secondary"
+                    disabled={loading}
                     onClick={onButtonClick}
                     className={classes.button}
                 >
@@ -158,7 +156,12 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         />
                     )}
                 </Button>
-                <Button color="primary" onClick={onCancel} className={classes.button}>
+                <Button
+                    color="primary"
+                    onClick={onCancel}
+                    className={classes.button}
+                    disabled={loading}
+                >
                     <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_BackToMenu} />
                 </Button>
             </Box>

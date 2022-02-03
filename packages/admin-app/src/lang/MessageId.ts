@@ -44,7 +44,6 @@ enum MessageId {
     ElectionSetup_ManifestPreview_PropertyStartDate = 'election_setup.manifest_preview.property.start_date',
     ElectionSetup_ManifestPreview_PropertyEndDate = 'election_setup.manifest_preview.property.end_date',
     ElectionSetup_ManifestPreview_PropertyFileName = 'election_setup.manifest_preview.property.file_name',
-    ElectionSetup_ManifestPreview_Caption = 'election_setup.manifest_preview.caption',
     ElectionSetup_ManifestPreview_Next = 'election_setup.manifest_preview.next',
     ElectionSetup_ManifestPreview_BackToMenu = 'election_setup.manifest_preview.back_to_menu',
     ElectionSetup_ManifestPreview_SubmitError = 'election_setup.manifest_preview.submit_error',

@@ -38,7 +38,6 @@
     "election_setup.manifest_preview.property.start_date": "Start Date",
     "election_setup.manifest_preview.property.end_date": "End Date",
     "election_setup.manifest_preview.property.file_name": "File Name",
-    "election_setup.manifest_preview.caption": "Preview of Manifest",
     "election_setup.manifest_preview.next": "Submit",
     "election_setup.manifest_preview.back_to_menu": "Cancel",
     "election_setup.manifest_preview.submit_error": "An error occurred while attempting to save the election",

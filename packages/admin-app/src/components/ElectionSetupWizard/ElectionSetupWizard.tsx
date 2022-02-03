@@ -99,7 +99,7 @@ export const ElectionSetupWizard: React.FC = () => {
                 </WizardStep>
             )}
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
+                <SetupCompleteStep onComplete={() => navigate(routeIds.electionList)} />
             </WizardStep>
         </Box>
     );

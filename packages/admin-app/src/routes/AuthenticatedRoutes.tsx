@@ -26,7 +26,7 @@ const AuthenticatedRoutes: React.FC = () => (
         <Route path={routeIds.home} element={<Navigate to="/menu" />} />
         <Route path="/menu" element={<MenuPage />} />
 
-        <Route path="/election" element={<ElectionListPage />} />
+        <Route path={routeIds.electionList} element={<ElectionListPage />} />
         <Route path="/election-setup" element={<ElectionSetupPage />} />
         <Route path="/election/:election-id/key" element={<ElectionKeyPage />} />
         <Route path="/election/:election-id/upload-ballot" element={<UploadBallotPage />} />
