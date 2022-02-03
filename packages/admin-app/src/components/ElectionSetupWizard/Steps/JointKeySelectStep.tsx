@@ -1,4 +1,4 @@
-import { ClientFactory, KeyCeremony, SubmitElectionRequest } from '@electionguard/api-client';
+import { KeyCeremony, SubmitElectionRequest } from '@electionguard/api-client';
 import {
     Box,
     Button,
@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
+import { useCeremonyClient } from '../../../hooks/useClient';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,15 +60,16 @@ const JointKeySelectStep: React.FC<JointKeySelectStepProps> = ({ onNext, onChang
         }
     };
 
-    const findKeyCeremonies = async () => {
-        const ceremonyClient = ClientFactory.GetCeremonyClient();
-        await ceremonyClient.find(0, 100, { filter: {} }).then((response) => {
-            setKeyCeremonies(response.key_ceremonies);
-        });
-    };
-
+    const ceremonyClient = useCeremonyClient();
     useEffect(() => {
+        const findKeyCeremonies = async () => {
+            await ceremonyClient.find(0, 100, { filter: {} }).then((response) => {
+                setKeyCeremonies(response.key_ceremonies);
+            });
+        };
+
         findKeyCeremonies();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const queryClient = new QueryClient();

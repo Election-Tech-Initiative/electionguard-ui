@@ -1,12 +1,12 @@
 import {
     ApiClientFactory,
-    ClientFactory,
     SubmitElectionRequest,
     ValidateManifestRequest,
 } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useV1Client } from '../../hooks/useClient';
 import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
@@ -66,8 +66,8 @@ export const ElectionSetupWizard: React.FC = () => {
         return requestWithManifestHash;
     };
 
+    const v1Client = useV1Client();
     const handleSubmit = async () => {
-        const v1Client = ClientFactory.GetV1Client();
         const manifestCreationResult = await v1Client.manifestPut(manifest);
         const requestWithManifestHash = setManifestHash(manifestCreationResult.manifest_hash);
         await v1Client.electionPut(requestWithManifestHash);

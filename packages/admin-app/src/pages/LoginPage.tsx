@@ -1,13 +1,13 @@
 import {
     Body_login_for_access_token_api_v1_auth_login_post,
     ErrorMessage,
-    ClientFactory,
     Token,
 } from '@electionguard/api-client';
 import { Button, Container, InputAdornment, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { AccountCircle, Lock } from '@mui/icons-material';
 import React, { useState } from 'react';
+import { useAuthClient } from '../hooks/useClient';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,9 +44,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
     const [password, setPassword] = useState('');
     const [result, setResult] = useState<string>();
 
+    const authClient = useAuthClient();
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        const authClient = ClientFactory.GetAuthClient();
         const loginParams = {
             username,
             password,
