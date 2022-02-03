@@ -7,9 +7,6 @@ export type { JointKeySelectStepProps } from './JointKeySelectStep';
 export { default as JointKeyUploadStep } from './JointKeyUploadStep';
 export type { JointKeyUploadStepProps as JointKeyRetrievedStepProps } from './JointKeyUploadStep';
 
-export { default as ManifestMenuStep } from './ManifestMenuStep';
-export type { ManifestMenuStepProps } from './ManifestMenuStep';
-
 export { default as ManifestUploadStep } from './ManifestUploadStep';
 export type { ManifestUploadStepProps } from './ManifestUploadStep';
 

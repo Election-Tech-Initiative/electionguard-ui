@@ -1,18 +1,21 @@
 import { JointKey } from '../models/jointKey';
 import { ManifestPreview } from '../models/manifestPreview';
+import { SubmitElectionRequest, ValidateManifestRequest } from '../nswag/clients';
 import { getAssignedGuardians } from './guardians';
 
-export const getManifestPreview = (): ManifestPreview => {
+export const getManifestPreview = (
+    _manifest: ValidateManifestRequest,
+    _request: SubmitElectionRequest
+): ManifestPreview => {
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 2);
     return {
+        id: 'montgomery-county-election',
         name: 'Montgomery County Election',
         numberOfContests: 5,
         numberOfStyles: 3,
         startDate: new Date(),
         endDate,
-        fileHash: '1234lasdf98j3124klajksdflajsdfio',
-        fileName: 'manifest.json',
     };
 };
 

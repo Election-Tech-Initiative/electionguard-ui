@@ -1,8 +1,42 @@
 import { JointKey } from '../models/jointKey';
 import { getAssignedGuardians } from './guardians';
 import { post } from '../utils/http';
+import { ManifestPreview } from '../models';
+import { SubmitElectionRequest, ValidateManifestRequest } from '../nswag/clients';
 
-export { getManifestPreview } from '../mocks/electionSetup';
+// todo: figure out how to retrieve the current language
+const getLanguage = (): string => 'en';
+
+const getElectionName = (manifest: any): string => {
+    const language = getLanguage();
+    const textList: Array<any> = manifest.name?.text;
+    if (textList) {
+        const languageText = textList.find((i: any) => i.language === language);
+        return languageText.value;
+    }
+    return '';
+};
+
+export const getManifestPreview = (
+    manifest: ValidateManifestRequest,
+    request: SubmitElectionRequest
+): ManifestPreview => {
+    const manifestData = manifest.manifest;
+    if (!manifestData) return {} as ManifestPreview;
+    const numberOfContests = manifestData.contests?.length;
+    const numberOfStyles = manifestData.ballot_styles?.length;
+    const startDate = new Date(manifestData.start_date);
+    const endDate = new Date(manifestData.end_date);
+    const electionName = getElectionName(manifestData);
+    return {
+        id: request.election_id,
+        name: electionName,
+        numberOfContests,
+        numberOfStyles,
+        startDate,
+        endDate,
+    };
+};
 
 export const getJointKeys = async (): Promise<JointKey[]> => {
     const keys: JointKey[] = [];

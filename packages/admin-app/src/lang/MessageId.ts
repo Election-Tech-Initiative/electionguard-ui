@@ -27,25 +27,22 @@ enum MessageId {
     LoginFormSubmit = 'login_form.submit',
 
     // Election Setup
-    ElectionSetupManifestMenuTitle = 'election_setup.manifest_menu.title',
-    ElectionSetupManifestMenuAbout = 'election_setup.manifest_menu.about',
-    ElectionSetupManifestMenuPrompt = 'election_setup.manifest_menu.prompt',
-
     ElectionSetup_JointKeyUpload_Title = 'election_setup.joint_key_upload.title',
     ElectionSetup_JointKeyUpload_NoFile = 'election_setup.joint_key_upload.no_file',
     ElectionSetup_JointKeyUpload_InvalidFile = 'election_setup.joint_key_upload.invalid_file',
+    ElectionSetup_JointKeyUpload_SelectFiles = 'election_setup.joint_key_upload.select_files',
 
     ElectionSetup_JointKeySelect_Title = 'election_setup.joint_key_select.title',
     ElectionSetup_JointKeySelect_Prompt = 'election_setup.joint_key_select.prompt',
     ElectionSetup_JointKeySelect_Next = 'election_setup.joint_key_select.next',
 
+    ElectionSetup_ManifestPreview_Id = 'election_setup.manifest_preview.property.id',
     ElectionSetupManifestPreviewTitle = 'election_setup.manifest_preview.title',
     ElectionSetupManifestPreviewPropertyName = 'election_setup.manifest_preview.property.name',
     ElectionSetupManifestPreviewPropertyNumberOfContests = 'election_setup.manifest_preview.property.number_of_contests',
     ElectionSetupManifestPreviewPropertyNumberOfStyles = 'election_setup.manifest_preview.property.numberOfStyles',
     ElectionSetupManifestPreviewPropertyStartDate = 'election_setup.manifest_preview.property.start_date',
     ElectionSetupManifestPreviewPropertyEndDate = 'election_setup.manifest_preview.property.end_date',
-    ElectionSetupManifestPreviewPropertyFileHash = 'election_setup.manifest_preview.property.file_hash',
     ElectionSetupManifestPreviewPropertyFileName = 'election_setup.manifest_preview.property.file_name',
     ElectionSetupManifestPreviewCaption = 'election_setup.manifest_preview.caption',
     ElectionSetupManifestPreviewNext = 'election_setup.manifest_preview.next',
@@ -58,9 +55,11 @@ enum MessageId {
     ElectionSetup_BasicInfo_Next = 'election_setup.basic_info.next',
     ElectionSetup_BasicInfo_ElectionIdTooltip = 'election_setup.basic_info.election_id_tooltip',
 
-    ElectionSetupUploadManifestTitle = 'election_setup.upload_manifest.title',
-    ElectionSetupUploadManifestUpload = 'election_setup.upload_manifest.upload',
-    ElectionSetupUploadManifestError = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_Title = 'election_setup.upload_manifest.title',
+    ElectionSetup_UploadManifest_Upload = 'election_setup.upload_manifest.upload',
+    ElectionSetup_UploadManifest_Error = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_InvalidFile = 'election_setup.upload_manifest.error',
+    ElectionSetup_UploadManifest_NoFile = 'election_setup.upload_manifest.error',
 
     // Election List
     ElectionListTitle = 'election_list.title',

@@ -21,24 +21,22 @@
     "login_form.password": "Password",
     "login_form.submit": "Submit",
 
-    "election_setup.manifest_menu.title": "Add Election Manifest",
-    "election_setup.manifest_menu.prompt": "Select what you would like to do:",
-
     "election_setup.joint_key_upload.title": "Upload Joint Key",
     "election_setup.joint_key_upload.no_file": "No file found.  Please try again.",
     "election_setup.joint_key_upload.invalid_file": "That file didn't look quite right. Please ensure it's the same key file that was produced by an election ceremony.",
+    "election_setup.joint_key_upload.select_files": "Select Files to Upload",
 
     "election_setup.joint_key_select.title": "Select Guardian Key",
     "election_setup.joint_key_select.prompt": "Guardian Key",
     "election_setup.joint_key_select.next": "Next Step",
 
+    "election_setup.manifest_preview.property.id": "Id",
     "election_setup.manifest_preview.title": "Election Manifest Uploaded",
     "election_setup.manifest_preview.property.name": "Name",
     "election_setup.manifest_preview.property.number_of_contests": "Number of Contests",
     "election_setup.manifest_preview.property.numberOfStyles": "Number of Ballot Styles",
     "election_setup.manifest_preview.property.start_date": "Start Date",
     "election_setup.manifest_preview.property.end_date": "End Date",
-    "election_setup.manifest_preview.property.file_hash": "File Hash",
     "election_setup.manifest_preview.property.file_name": "File Name",
     "election_setup.manifest_preview.caption": "Preview of Manifest",
     "election_setup.manifest_preview.next": "Submit",
@@ -47,6 +45,8 @@
     "election_setup.upload_manifest.title": "Upload Election Manifest",
     "election_setup.upload_manifest.upload": "Select Files to Upload",
     "election_setup.upload_manifest.error": "Manifest upload failed",
+    "election_setup.upload_manifest.invalid_file": "Manifest upload failed",
+    "election_setup.upload_manifest.no_file": "Manifest upload failed",
 
     "election_setup.setup_complete.title": "Congratulations, the election is ready.",
     "election_setup.setup_complete.next": "Return to Election List",

@@ -1,4 +1,9 @@
-import { ApiClientFactory, SubmitElectionRequest } from '@electionguard/api-client';
+import {
+    ApiClientFactory,
+    ClientFactory,
+    SubmitElectionRequest,
+    ValidateManifestRequest,
+} from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +14,6 @@ import WizardStep from '../WizardStep';
 import {
     JointKeyUploadStep,
     JointKeySelectStep,
-    ManifestMenuStep,
     ManifestPreviewStep,
     ManifestUploadStep,
     SetupCompleteStep,
@@ -20,11 +24,9 @@ export enum ElectionSetupStep {
     BasicInfo = 0,
     JointKeySelect = 1,
     JointKeyRetrieved = 2,
-    ManifestMenu = 3,
-    ManifestUpload = 4,
-    ManifestBuild = 5,
-    ManifestPreview = 6,
-    SetupComplete = 7,
+    ManifestUpload = 3,
+    ManifestPreview = 4,
+    SetupComplete = 5,
 }
 
 /**
@@ -32,6 +34,7 @@ export enum ElectionSetupStep {
  */
 export const ElectionSetupWizard: React.FC = () => {
     const [request, setRequest] = useState({} as SubmitElectionRequest);
+    const [manifest, setManifest] = useState({} as ValidateManifestRequest);
     const [step, setStep] = useState(ElectionSetupStep.BasicInfo);
     const { nextStep: getNextStep } = createEnumStepper(ElectionSetupStep);
     const navigate = useNavigate();
@@ -46,10 +49,14 @@ export const ElectionSetupWizard: React.FC = () => {
         };
         setRequest(newRequest);
     };
-
-    const handleSubmit = () => {
+    const handleUploadManifest = (manifestJson: ValidateManifestRequest) => {
+        setManifest(manifestJson);
+    };
+    const handleSubmit = async () => {
+        const v1Client = ClientFactory.GetV1Client();
+        await v1Client.manifestPut(manifest);
         // todo: submit data to API
-        navigate(routeIds.home);
+        setStep(ElectionSetupStep.SetupComplete);
     };
 
     const service = ApiClientFactory.getGuardianApiClient();
@@ -64,26 +71,20 @@ export const ElectionSetupWizard: React.FC = () => {
             <WizardStep active={step === ElectionSetupStep.JointKeyRetrieved}>
                 <JointKeyUploadStep onNext={handleNext} onChanged={handleChanged} />
             </WizardStep>
-            <WizardStep active={step === ElectionSetupStep.ManifestMenu}>
-                <ManifestMenuStep
-                    onUploadManifest={() => setStep(ElectionSetupStep.ManifestUpload)}
-                />
-            </WizardStep>
             <WizardStep active={step === ElectionSetupStep.ManifestUpload}>
-                <ManifestUploadStep
-                    onNext={() => setStep(ElectionSetupStep.ManifestPreview)}
-                    uploadManifest={async () => true}
-                />
+                <ManifestUploadStep onNext={handleNext} onUploadManifest={handleUploadManifest} />
             </WizardStep>
-            <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
-                <ManifestPreviewStep
-                    onNext={handleNext}
-                    backToMenu={() => setStep(ElectionSetupStep.ManifestMenu)}
-                    preview={service.getManifestPreview()}
-                />
-            </WizardStep>
+            {step === ElectionSetupStep.ManifestPreview && (
+                <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
+                    <ManifestPreviewStep
+                        onNext={handleSubmit}
+                        backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
+                        preview={service.getManifestPreview(manifest, request)}
+                    />
+                </WizardStep>
+            )}
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={handleSubmit} />
+                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
             </WizardStep>
         </Box>
     );

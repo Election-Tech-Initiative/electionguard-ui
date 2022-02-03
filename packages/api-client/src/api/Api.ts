@@ -33,6 +33,7 @@ import {
 } from '../models/guardian';
 import { CiphertextTally, CiphertextTallyDecryptionShare, PlaintextTally } from '../models/tally';
 import { Schema } from '../models/base';
+import { SubmitElectionRequest, ValidateManifestRequest } from '../nswag/clients';
 
 export interface ElectionGuardMediatorApiClient {
     getBallot(election_id: string, ballot_id: string): Promise<CiphertextBallot[] | undefined>;
@@ -281,7 +282,10 @@ export interface ElectionGuardGuardianApiClient {
         context: CiphertextElectionContext
     ): Promise<CiphertextTallyDecryptionShare[] | undefined>;
 
-    getManifestPreview(): ManifestPreview;
+    getManifestPreview(
+        manifest: ValidateManifestRequest,
+        request: SubmitElectionRequest
+    ): ManifestPreview;
 }
 
 export default ElectionGuardGuardianApiClient;

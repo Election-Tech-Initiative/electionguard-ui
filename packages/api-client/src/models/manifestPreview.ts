@@ -8,13 +8,12 @@ import { ElementModQ } from './keyCeremony';
  * Data to be shown when Manifest is displayed to user
  */
 export interface ManifestPreview {
+    id: string;
     name: string;
     numberOfContests: number;
     numberOfStyles: number;
     startDate: Date;
     endDate: Date;
-    fileHash: string;
-    fileName: string;
 }
 
 /**

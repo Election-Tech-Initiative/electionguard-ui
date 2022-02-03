@@ -95,10 +95,7 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                 component="label"
                 className={classes.button}
             >
-                <FormattedMessage
-                    id={MessageId.ElectionSetupUploadManifestUpload}
-                    defaultMessage="Select Files to Upload"
-                />
+                <FormattedMessage id={MessageId.ElectionSetup_JointKeyUpload_SelectFiles} />
                 <input
                     id="manifest-upload"
                     accept="application/JSON"

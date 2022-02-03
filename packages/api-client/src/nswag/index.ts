@@ -8,6 +8,7 @@ export {
     KeyCeremony,
     KeyCeremonyQueryResponse,
     SubmitElectionRequest,
+    V1Client,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';
