@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(2),
     },
+    loading: {
+        marginLeft: theme.spacing(1),
+    },
 }));
 
 const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
@@ -147,7 +150,13 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                     className={classes.button}
                 >
                     <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Next} />
-                    {loading && <CircularProgress size={12} variant="indeterminate" />}
+                    {loading && (
+                        <CircularProgress
+                            size={12}
+                            variant="indeterminate"
+                            className={classes.loading}
+                        />
+                    )}
                 </Button>
                 <Button color="primary" onClick={onCancel} className={classes.button}>
                     <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_BackToMenu} />
