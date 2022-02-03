@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
 import { AuthenticatedLayout } from './layouts';
 import { LoginPage } from './pages';
-import useToken from './useToken';
+import useToken from './hooks/useToken';
 
 import AuthenticatedRoutes from './routes/AuthenticatedRoutes';
 import UnauthenticatedLayout from './layouts/UnauthenticatedLayout';
