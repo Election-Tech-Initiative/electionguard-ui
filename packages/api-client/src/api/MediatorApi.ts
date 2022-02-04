@@ -49,7 +49,6 @@ import {
     postShareTally,
 } from '../server/tally';
 import { ElectionGuardMediatorApiClient } from './Api';
-import { postJointKey } from '../server/jointKey';
 import { getJointKeys } from '../server/electionSetup';
 
 export default class MediatorApi implements ElectionGuardMediatorApiClient {
@@ -104,8 +103,6 @@ export default class MediatorApi implements ElectionGuardMediatorApiClient {
     cancelKeyCeremony = cancelKeyCeremony;
 
     getJointKeys = getJointKeys;
-
-    postJointKey = postJointKey;
 
     getJointKeyKeyCeremony = getJointKeyKeyCeremony;
 

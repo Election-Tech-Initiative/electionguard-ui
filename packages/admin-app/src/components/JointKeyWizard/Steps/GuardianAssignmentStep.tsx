@@ -53,7 +53,6 @@ export interface GuardianAssignmentStepProps {
     baseJointKey: BaseJointKey;
     onSubmit: (baseJointKey: BaseJointKey) => void;
     onCancel: () => void;
-    getGuardians: () => AsyncResult<User[]>;
 }
 
 /**
@@ -63,7 +62,6 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     baseJointKey,
     onSubmit,
     onCancel,
-    getGuardians,
 }) => {
     const classes = useStyles();
     const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
@@ -162,7 +160,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                         </Box>
                     </Box>
                     <Box className={classes.tableContainer} width="100%">
-                        <AssignmentTable data={getGuardians} onChanged={onAssign} />
+                        {/* <AssignmentTable data={getGuardians} onChanged={onAssign} /> */}
                     </Box>
                     <Box className={classes.buttonContainer}>
                         <Button

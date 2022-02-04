@@ -18,20 +18,10 @@ export enum JointKeyStep {
     GuardianAssignmentReview = 3,
 }
 
-export interface JointKeyWizardProps {
-    getGuardians: () => AsyncResult<User[]>;
-    createJointKey: (baseJointKey: BaseJointKey) => void;
-    onCancel: () => void;
-}
-
 /**
  * Wizard to setup the election
  */
-export const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
-    createJointKey,
-    onCancel,
-    getGuardians,
-}) => {
+export const JointKeyWizard: React.FC = () => {
     const [step, setStep] = useState(JointKeyStep.KeySetup);
     const { nextStep, previousStep } = createEnumStepper(JointKeyStep);
     const [baseJointKey, setBaseJointKey] = useState<BaseJointKey>({
@@ -43,6 +33,13 @@ export const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
 
     const next = () => setStep(nextStep(step));
     const previous = () => setStep(previousStep(step));
+    const createJointKey = (key: BaseJointKey) => {
+        console.log('creating key', key);
+    };
+
+    const onCancel = () => {
+        console.log('canceling');
+    };
 
     return (
         <Box height="100%">
@@ -65,7 +62,6 @@ export const JointKeyWizard: React.FC<JointKeyWizardProps> = ({
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
                 <GuardianAssignmentStep
                     baseJointKey={baseJointKey}
-                    getGuardians={getGuardians}
                     onSubmit={(key) => {
                         setBaseJointKey(key);
                         next();

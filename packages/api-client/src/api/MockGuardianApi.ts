@@ -6,7 +6,6 @@ import {
     backupVerificationGuardian,
     backupChallengeGuardian,
     verifyChallengeGuardian,
-    findGuardians,
 } from '../mocks/guardians';
 import { decryptSharesBallot } from '../mocks/ballots';
 import { decryptShareTally, decryptSharePostTally } from '../mocks/tally';
@@ -29,8 +28,6 @@ export default class MockGuardianApi implements ElectionGuardGuardianApiClient {
     backupChallengeGuardian = backupChallengeGuardian;
 
     verifyChallengeGuardian = verifyChallengeGuardian;
-
-    findGuardians = findGuardians;
 
     decryptShareTally = decryptShareTally;
 

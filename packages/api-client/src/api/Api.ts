@@ -1,4 +1,4 @@
-import { BaseJointKey, JointKey } from '../models/jointKey';
+import { JointKey } from '../models/jointKey';
 import { ManifestPreview, Manifest } from '../models/manifestPreview';
 import {
     ElectionPartialKeyVerification,
@@ -137,8 +137,6 @@ export interface ElectionGuardMediatorApiClient {
 
     getJointKeys(): Promise<JointKey[]>;
 
-    postJointKey(data: BaseJointKey): Promise<boolean | undefined>;
-
     getJointKeyKeyCeremony(key_name: string): Promise<ElectionJointKey | undefined>;
 
     combineKeyCeremony(
@@ -268,8 +266,6 @@ export interface ElectionGuardGuardianApiClient {
         verifier_id: string,
         challenge: any
     ): Promise<ElectionPartialKeyVerification | undefined>;
-
-    findGuardians(): Promise<Guardian[] | undefined>;
 
     decryptShareTally(
         election_id: string,

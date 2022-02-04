@@ -49,7 +49,6 @@ import {
     postShareTally,
 } from '../mocks/tally';
 import { ElectionGuardMediatorApiClient } from './Api';
-import { postJointKey } from '../mocks/jointKey';
 import { getJointKeys } from '../mocks/electionSetup';
 
 export default class MockMediatorApi implements ElectionGuardMediatorApiClient {
@@ -104,8 +103,6 @@ export default class MockMediatorApi implements ElectionGuardMediatorApiClient {
     cancelKeyCeremony = cancelKeyCeremony;
 
     getJointKeys = getJointKeys;
-
-    postJointKey = postJointKey;
 
     getJointKeyKeyCeremony = getJointKeyKeyCeremony;
 
