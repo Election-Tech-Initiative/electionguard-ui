@@ -32,7 +32,7 @@ const AuthenticatedRoutes: React.FC = () => (
         <Route path="/election/:election-id/upload-ballot" element={<UploadBallotPage />} />
 
         <Route path="/key" element={<KeyListPage />} />
-        <Route path="/key-setup" element={<KeySetupPage />} />
+        <Route path={routeIds.keySetup} element={<KeySetupPage />} />
         <Route path="/key/:key-id/ceremony" element={<KeyCeremonyPage />} />
 
         <Route path="/tally" element={<TallyListPage />} />
