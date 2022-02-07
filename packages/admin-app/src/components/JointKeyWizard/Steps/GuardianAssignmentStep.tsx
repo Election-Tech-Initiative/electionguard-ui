@@ -1,7 +1,6 @@
 import {
     AssignedGuardian,
     BaseJointKey,
-    User,
     GuardianId,
     ElectionPartialKeyBackup,
     PublicKeySet,
@@ -17,7 +16,6 @@ import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
 import { Message, MessageId } from '../../../lang';
-import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
@@ -76,15 +74,14 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
 }) => {
     const classes = useStyles();
     const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
-    //    const [foundGuardians, setFoundGuardians] = useState<User[]>([]);
-    const foundGuardians: User[] = [];
+    const [foundGuardians, setFoundGuardians] = useState<Guardian[]>([]);
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
-        const selected = foundGuardians.filter((user) => ids.includes(user.id));
-        const assigned: AssignedGuardian[] = selected.map((user, i) => ({
-            ...user,
+        const selected = foundGuardians.filter((user) => ids.includes(user.guardian_id));
+        const assigned: AssignedGuardian[] = selected.map((guardian, i) => ({
+            id: guardian.guardian_id,
+            name: guardian.name,
             sequenceOrder: i + 1,
-            color: getColor(i),
         }));
         setAssignedGuardians(assigned);
     };
@@ -116,7 +113,13 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
         },
     ];
 
-    const guardiansQuery = useQuery('guardians', () => findGuardians());
+    const guardiansQuery = useQuery('guardians', async () => {
+        const guardians = await findGuardians();
+        if (guardians) {
+            setFoundGuardians(guardians);
+        }
+        return guardians;
+    });
     const getGuardians = (): AsyncResult<Guardian[]> => guardiansQuery;
 
     return (
