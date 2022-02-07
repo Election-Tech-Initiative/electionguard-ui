@@ -1,4 +1,4 @@
-import { AsyncResult, User } from '@electionguard/api-client';
+import { AsyncResult, Guardian, User } from '@electionguard/api-client';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import * as React from 'react';
@@ -6,12 +6,12 @@ import AsyncContent from '../AsyncContent';
 import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {
-    data: () => AsyncResult<User[]>;
+    data: () => AsyncResult<Guardian[]>;
     onChanged: (selectedIds: string[]) => void;
 }
 
 const columns: GridColDef[] = [
-    { field: 'id', hide: true },
+    { field: 'guardian_id', hide: true },
     { field: 'name', headerName: 'Name', width: 250 },
 ];
 
@@ -33,6 +33,7 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
                         autoHeight
                         rows={userData}
                         columns={columns}
+                        getRowId={(row) => row.guardian_id}
                         components={{
                             Toolbar: FilterToolbar,
                         }}
