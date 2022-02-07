@@ -1,3 +1,4 @@
+import { KeyClient } from '.';
 import { AuthClient, CeremonyClient, V1Client } from './clients';
 
 export class ClientFactory {
@@ -18,5 +19,10 @@ export class ClientFactory {
     public static GetV1Client(): V1Client {
         const url = this.GetUrl();
         return new V1Client(url);
+    }
+
+    public static GetKeyClient(): KeyClient {
+        const url = this.GetUrl();
+        return new KeyClient(url);
     }
 }

@@ -1,6 +1,13 @@
-import { AsyncResult, BaseJointKey, User } from '@electionguard/api-client';
+import {
+    AsyncResult,
+    BaseJointKey,
+    KeyCeremonyCreateRequest,
+    SubmitElectionRequest,
+    User,
+} from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
+import { useKeyClient, useV1Client } from '../../hooks/useClient';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
@@ -33,8 +40,16 @@ export const JointKeyWizard: React.FC = () => {
 
     const next = () => setStep(nextStep(step));
     const previous = () => setStep(previousStep(step));
-    const createJointKey = (key: BaseJointKey) => {
-        console.log('creating key', key);
+
+    const keyClient = useKeyClient();
+    const createJointKey = async (key: BaseJointKey) => {
+        const ceremony = {
+            key_name: key.name,
+            number_of_guardians: 1,
+            quorum: 1,
+            guardian_ids: [],
+        } as KeyCeremonyCreateRequest;
+        await keyClient.ceremonyPut(ceremony);
     };
 
     const onCancel = () => {
