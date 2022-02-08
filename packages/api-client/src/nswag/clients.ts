@@ -90,21 +90,73 @@ export class UserClient {
     }
 
     /**
-     * Me
-     * @param body (optional) 
+     * Find Users
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    me(body: Settings | undefined): Promise<UserInfo> {
-        let url_ = this.baseUrl + "/api/v1/user/me";
+    find(skip: number | undefined, limit: number | undefined, body: UserQueryRequest): Promise<UserQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/user/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processFind(_response);
+        });
+    }
+
+    protected processFind(response: Response): Promise<UserQueryResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <UserQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<UserQueryResponse>(<any>null);
+    }
+
+    /**
+     * Me
+     * @return Successful Response
+     */
+    me(): Promise<UserInfo> {
+        let url_ = this.baseUrl + "/api/v1/user/me";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
                 "Accept": "application/json"
             }
         };
@@ -123,12 +175,6 @@ export class UserClient {
             result200 = _responseText === "" ? null : <UserInfo>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
-        } else if (status === 422) {
-            return response.text().then((_responseText) => {
-            let result422: any = null;
-            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
-            return throwException("Validation Error", status, _responseText, _headers, result422);
-            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -138,58 +184,10 @@ export class UserClient {
     }
 
     /**
-     * Create User
-     * @return Successful Response
-     */
-    create(body: Body_create_user_api_v1_user_create_post): Promise<any> {
-        let url_ = this.baseUrl + "/api/v1/user/create";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ = <RequestInit>{
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCreate(_response);
-        });
-    }
-
-    protected processCreate(response: Response): Promise<any> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
-            return result200;
-            });
-        } else if (status === 422) {
-            return response.text().then((_responseText) => {
-            let result422: any = null;
-            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
-            return throwException("Validation Error", status, _responseText, _headers, result422);
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<any>(<any>null);
-    }
-
-    /**
      * Reset Password
-     * @param body (optional) 
      * @return Successful Response
      */
-    reset_password(username: string, body: Settings | undefined): Promise<any> {
+    reset_password(username: string): Promise<any> {
         let url_ = this.baseUrl + "/api/v1/user/reset_password?";
         if (username === undefined || username === null)
             throw new Error("The parameter 'username' must be defined and cannot be null.");
@@ -197,13 +195,9 @@ export class UserClient {
             url_ += "username=" + encodeURIComponent("" + username) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
-
         let options_ = <RequestInit>{
-            body: content_,
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         };
@@ -245,6 +239,53 @@ export class V1Client {
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Create User
+     * @return Successful Response
+     */
+    user(body: UserInfo): Promise<CreateUserResponse> {
+        let url_ = this.baseUrl + "/api/v1/user";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processUser(_response);
+        });
+    }
+
+    protected processUser(response: Response): Promise<CreateUserResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <CreateUserResponse>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<CreateUserResponse>(<any>null);
     }
 
     /**
@@ -2909,12 +2950,6 @@ export class V1_1Client {
     }
 }
 
-/** An enumeration. */
-export enum ApiMode {
-    Guardian = "guardian",
-    Mediator = "mediator",
-}
-
 /** The Ballot Inventory retains metadata about ballots in an election, including mappings of ballot tracking codes to ballot id's */
 export interface BallotInventory {
     election_id: string;
@@ -2944,11 +2979,6 @@ export interface BaseQueryRequest {
     filter?: any;
 }
 
-export interface Body_create_user_api_v1_user_create_post {
-    user_info: UserInfo;
-    settings?: Settings;
-}
-
 export interface Body_login_for_access_token_api_v1_auth_login_post {
     grant_type?: string;
     username: string;
@@ -2962,12 +2992,12 @@ export interface Body_login_for_access_token_api_v1_auth_login_post {
 export interface CastBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
 /** The meta-data required for an election including keys, manifest, number of guardians, and quorum */
-export interface CiphertextElectionContext {
+export interface CiphertextElectionContextDto {
     number_of_guardians: number;
     quorum: number;
     elgamal_public_key: string;
@@ -3006,11 +3036,19 @@ export interface CreateElectionRequest {
     name: string;
 }
 
+/** A basic response */
+export interface CreateUserResponse {
+    status?: App__api__v1__models__base__ResponseStatus;
+    message?: string;
+    user_info: UserInfo;
+    password: string;
+}
+
 /** Decrypt the provided ballots with the provided shares */
 export interface DecryptBallotsWithSharesRequest {
     encrypted_ballots: any[];
     shares: { [key: string]: any[]; };
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A request to decrypt a specific tally.  Can optionally include the tally to decrypt. */
@@ -3036,7 +3074,7 @@ export interface Election {
     election_id: string;
     key_name: string;
     state: ElectionState;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
     manifest?: any;
 }
 
@@ -3203,7 +3241,7 @@ export interface MakeElectionContextRequest {
 export interface MakeElectionContextResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A basic model object */
@@ -3256,49 +3294,19 @@ export interface PublishElectionJointKeyRequest {
     election_public_keys: any[];
 }
 
-/** An enumeration. */
-export enum QueueMode {
-    Local = "local",
-    Remote = "remote",
-}
-
-/** Base class for settings, allowing values to be overridden by environment variables. This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design. */
-export interface Settings {
-    API_MODE?: ApiMode;
-    QUEUE_MODE?: QueueMode;
-    STORAGE_MODE?: StorageMode;
-    API_V1_STR?: string;
-    API_V1_1_STR?: string;
-    BACKEND_CORS_ORIGINS?: string[];
-    PROJECT_NAME?: string;
-    MONGODB_URI?: string;
-    MESSAGEQUEUE_URI?: string;
-    AUTH_ALGORITHM?: string;
-    AUTH_SECRET_KEY?: string;
-    AUTH_ACCESS_TOKEN_EXPIRE_MINUTES?: number;
-    DEFAULT_ADMIN_USERNAME?: string;
-    DEFAULT_ADMIN_PASSWORD?: string;
-}
-
 /** Spoil the enclosed ballots. */
 export interface SpoilBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
-}
-
-/** An enumeration. */
-export enum StorageMode {
-    Local_storage = "local_storage",
-    Mongo = "mongo",
 }
 
 /** Submit a ballot against a specific election. */
 export interface SubmitBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
@@ -3306,7 +3314,7 @@ export interface SubmitBallotsRequest {
 export interface SubmitElectionRequest {
     election_id: string;
     key_name: string;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
     manifest?: any;
 }
 
@@ -3319,9 +3327,21 @@ export interface Token {
 /** A specific user in the system */
 export interface UserInfo {
     username: string;
+    first_name: string;
+    last_name: string;
     scopes?: UserScope[];
     email?: string;
     disabled?: boolean;
+}
+
+/** A request for users using the specified filter. */
+export interface UserQueryRequest {
+    filter?: any;
+}
+
+/** Returns a collection of Users. */
+export interface UserQueryResponse {
+    users: UserInfo[];
 }
 
 /** An enumeration. */
@@ -3337,7 +3357,7 @@ export interface ValidateBallotRequest {
     schema_override?: any;
     ballot?: any;
     manifest?: any;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A request to validate an Election Description. */
