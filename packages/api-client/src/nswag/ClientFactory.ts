@@ -25,8 +25,10 @@ export class ClientFactory {
         return new KeyClient(url);
     }
 
-    public static GetUserClient(): UserClient {
+    public static GetUserClient(token: string | null): UserClient {
         const url = this.GetUrl();
-        return new UserClient(url);
+        const client = new UserClient(url);
+        client.token = token;
+        return client;
     }
 }
