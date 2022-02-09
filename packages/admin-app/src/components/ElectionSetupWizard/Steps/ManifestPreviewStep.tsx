@@ -1,15 +1,24 @@
 import { ManifestPreview } from '@electionguard/api-client';
-import { Box, Button, Container, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Table,
+    TableBody,
+    TableCell,
+    TableRow,
+} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 
 export interface ManifestPreviewStepProps {
-    onNext: () => void;
-    backToMenu: () => void;
+    onSubmit: () => Promise<void>;
+    onCancel: () => void;
     preview: ManifestPreview;
 }
 
@@ -17,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         height: '100%',
+    },
+    error: {
+        color: 'red',
+        marginBottom: theme.spacing(2),
     },
     spaced: {
         marginBottom: theme.spacing(2),
@@ -27,24 +40,45 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(2),
     },
+    loading: {
+        marginLeft: theme.spacing(1),
+    },
 }));
 
 const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
-    onNext,
-    backToMenu,
+    onSubmit,
+    onCancel,
     preview,
 }) => {
     const classes = useStyles();
-    const onButtonClick = () => {
-        onNext();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string>();
+    const intl = useIntl();
+
+    const setIntlError = (id: string) => {
+        const message = intl.formatMessage({
+            id,
+        });
+        setError(message);
+    };
+
+    const onButtonClick = async () => {
+        setLoading(true);
+        try {
+            await onSubmit();
+        } catch (ex) {
+            setIntlError(MessageId.ElectionSetup_ManifestPreview_SubmitError);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <Grid container className={classes.root}>
-            <Container maxWidth="md">
-                <Box display="flex" flexDirection="column" alignItems="center">
-                    <IconHeader title={new Message(MessageId.ElectionSetupManifestPreviewTitle)} />
-                    <Table aria-label="caption table" className={classes.spaced}>
+        <Container maxWidth="md">
+            <Box display="flex" flexDirection="column" alignItems="center">
+                <IconHeader title={new Message(MessageId.ElectionSetup_ManifestPreview_Title)} />
+                <Table aria-label="caption table" className={classes.spaced}>
+                    <TableBody>
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Id} />
@@ -54,7 +88,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id={MessageId.ElectionSetupManifestPreviewPropertyName}
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyName}
                                 />
                             </TableCell>
                             <TableCell>{preview.name}</TableCell>
@@ -63,7 +97,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                             <TableCell className={classes.property}>
                                 <FormattedMessage
                                     id={
-                                        MessageId.ElectionSetupManifestPreviewPropertyNumberOfContests
+                                        MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfContests
                                     }
                                 />
                             </TableCell>
@@ -73,7 +107,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                             <TableCell className={classes.property}>
                                 <FormattedMessage
                                     id={
-                                        MessageId.ElectionSetupManifestPreviewPropertyNumberOfStyles
+                                        MessageId.ElectionSetup_ManifestPreview_PropertyNumberOfStyles
                                     }
                                 />
                             </TableCell>
@@ -82,7 +116,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id={MessageId.ElectionSetupManifestPreviewPropertyStartDate}
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyStartDate}
                                 />
                             </TableCell>
                             <TableCell>
@@ -93,7 +127,7 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                         <TableRow>
                             <TableCell className={classes.property}>
                                 <FormattedMessage
-                                    id={MessageId.ElectionSetupManifestPreviewPropertyEndDate}
+                                    id={MessageId.ElectionSetup_ManifestPreview_PropertyEndDate}
                                 />
                             </TableCell>
                             <TableCell>
@@ -101,36 +135,37 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                                 {preview.endDate.toLocaleTimeString()}
                             </TableCell>
                         </TableRow>
-                        <caption>
-                            <FormattedMessage
-                                id={MessageId.ElectionSetupManifestPreviewCaption}
-                                defaultMessage="Preview of Manifest"
-                            />
-                        </caption>
-                        <TableBody />
-                    </Table>
-                </Box>
-                <Box display="flex">
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={onButtonClick}
-                        className={classes.button}
-                    >
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupManifestPreviewNext}
-                            defaultMessage="Submit"
+                    </TableBody>
+                </Table>
+            </Box>
+            {error && <div className={classes.error}>{error}</div>}
+            <Box display="flex">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    disabled={loading}
+                    onClick={onButtonClick}
+                    className={classes.button}
+                >
+                    <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_Next} />
+                    {loading && (
+                        <CircularProgress
+                            size={12}
+                            variant="indeterminate"
+                            className={classes.loading}
                         />
-                    </Button>
-                    <Button color="primary" onClick={backToMenu} className={classes.button}>
-                        <FormattedMessage
-                            id={MessageId.ElectionSetupManifestPreviewBackToMenu}
-                            defaultMessage="Cancel"
-                        />
-                    </Button>
-                </Box>
-            </Container>
-        </Grid>
+                    )}
+                </Button>
+                <Button
+                    color="primary"
+                    onClick={onCancel}
+                    className={classes.button}
+                    disabled={loading}
+                >
+                    <FormattedMessage id={MessageId.ElectionSetup_ManifestPreview_BackToMenu} />
+                </Button>
+            </Box>
+        </Container>
     );
 };
 

@@ -1,12 +1,12 @@
 import {
     ApiClientFactory,
-    ClientFactory,
     SubmitElectionRequest,
     ValidateManifestRequest,
 } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useV1Client } from '../../hooks/useClient';
 import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
@@ -43,19 +43,34 @@ export const ElectionSetupWizard: React.FC = () => {
         setStep(nextStep);
     };
     const handleChanged = (requestFromStep: SubmitElectionRequest) => {
-        const newRequest = {
+        const newRequest: SubmitElectionRequest = {
             ...request,
             ...requestFromStep,
+            context: {
+                ...request.context,
+                ...requestFromStep.context,
+            },
         };
         setRequest(newRequest);
     };
     const handleUploadManifest = (manifestJson: ValidateManifestRequest) => {
         setManifest(manifestJson);
     };
+
+    const setManifestHash = (manifestHash: string): SubmitElectionRequest => {
+        const requestWithManifestHash = {
+            ...request,
+            context: { ...request.context, manifest_hash: manifestHash },
+        };
+        setRequest(requestWithManifestHash);
+        return requestWithManifestHash;
+    };
+
+    const v1Client = useV1Client();
     const handleSubmit = async () => {
-        const v1Client = ClientFactory.GetV1Client();
-        await v1Client.manifestPut(manifest);
-        // todo: submit data to API
+        const manifestCreationResult = await v1Client.manifestPut(manifest);
+        const requestWithManifestHash = setManifestHash(manifestCreationResult.manifest_hash);
+        await v1Client.electionPut(requestWithManifestHash);
         setStep(ElectionSetupStep.SetupComplete);
     };
 
@@ -77,14 +92,14 @@ export const ElectionSetupWizard: React.FC = () => {
             {step === ElectionSetupStep.ManifestPreview && (
                 <WizardStep active={step === ElectionSetupStep.ManifestPreview}>
                     <ManifestPreviewStep
-                        onNext={handleSubmit}
-                        backToMenu={() => setStep(ElectionSetupStep.ManifestUpload)}
+                        onSubmit={handleSubmit}
+                        onCancel={() => setStep(ElectionSetupStep.ManifestUpload)}
                         preview={service.getManifestPreview(manifest, request)}
                     />
                 </WizardStep>
             )}
             <WizardStep active={step === ElectionSetupStep.SetupComplete}>
-                <SetupCompleteStep onComplete={() => navigate(routeIds.home)} />
+                <SetupCompleteStep onComplete={() => navigate(routeIds.electionList)} />
             </WizardStep>
         </Box>
     );

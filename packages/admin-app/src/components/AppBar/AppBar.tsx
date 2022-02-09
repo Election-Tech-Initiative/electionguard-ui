@@ -4,7 +4,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { MessageId } from '../../lang';
-import useToken from '../../useToken';
+import useToken from '../../hooks/useToken';
 import { ReactComponent as ElectionGuardLogo } from '../../images/electionguard-logo.svg';
 import routeIds from '../../routes/RouteIds';
 
