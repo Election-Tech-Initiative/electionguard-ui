@@ -5,6 +5,7 @@ import {
     KeyClient,
     V1Client,
 } from '@electionguard/api-client';
+import { UserClient } from '@electionguard/api-client/dist/nswag/clients';
 
 export function useV1Client(): V1Client {
     return ClientFactory.GetV1Client();
@@ -20,4 +21,8 @@ export function useAuthClient(): AuthClient {
 
 export function useKeyClient(): KeyClient {
     return ClientFactory.GetKeyClient();
+}
+
+export function useUserClient(): UserClient {
+    return ClientFactory.GetUserClient();
 }

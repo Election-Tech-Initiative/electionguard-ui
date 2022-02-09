@@ -10,6 +10,7 @@ export {
     SubmitElectionRequest,
     V1Client,
     KeyClient,
+    UserClient,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';

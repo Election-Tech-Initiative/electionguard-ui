@@ -1,13 +1,7 @@
-import {
-    AsyncResult,
-    BaseJointKey,
-    KeyCeremonyCreateRequest,
-    SubmitElectionRequest,
-    User,
-} from '@electionguard/api-client';
+import { BaseJointKey, KeyCeremonyCreateRequest } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
-import { useKeyClient, useV1Client } from '../../hooks/useClient';
+import { useKeyClient } from '../../hooks/useClient';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
