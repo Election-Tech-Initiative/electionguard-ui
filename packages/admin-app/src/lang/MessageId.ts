@@ -68,14 +68,7 @@ enum MessageId {
 
     // Joint Key Setup
     JointKeySetup_KeySetup_Title = 'joint_key_setup.key_setup.title',
-    JointKeySetup_KeySetup_Description = 'joint_key_setup.key_setup.description',
-    JointKeySetup_KeySetup_KeyHeading = 'joint_key_setup.key_setup.key_heading',
     JointKeySetup_KeySetup_NumberOfGuardiansHeading = 'joint_key_setup.key_setup.number_of_guardians_heading',
-    JointKeySetup_KeySetup_NumberOfGuardiansEmphasis = 'joint_key_setup.key_setup.number_of_guardians_emphasis',
-    JointKeySetup_KeySetup_NumberOfGuardiansDescription = 'joint_key_setup.key_setup.number_of_guardians_description',
-    JointKeySetup_KeySetup_QuorumHeading = 'joint_key_setup.key_setup.quorum_heading',
-    JointKeySetup_KeySetup_QuorumEmphasis = 'joint_key_setup.key_setup.quorum_emphasis',
-    JointKeySetup_KeySetup_QuorumDescription = 'joint_key_setup.key_setup.quorum_description',
     JointKeySetup_KeySetupReview_Title = 'joint_key_setup.key_setup_review.title',
     JointKeySetup_GuardianAssignment_Title = 'joint_key_setup.guardian_assignment.title',
     JointKeySetup_GuardianAssignment_Description = 'joint_key_setup.guardian_assignment.description',
@@ -108,7 +101,6 @@ enum MessageId {
 
     KeyCeremony_MeetGuardians_Title = 'key_ceremony.meet_guardians.title',
     KeyCeremony_MeetGuardians_Description = 'key_ceremony.meet_guardians.description',
-    KeyCeremony_MeetGuardians_GuardianHeading = 'key_ceremony.meet_guardians.guardian_heading',
     KeyCeremony_MeetGuardians_Button = 'key_ceremony.meet_guardians.button',
 
     KeyCeremony_CreateKeyPair_Title = 'key_ceremony.create_keypair.title',

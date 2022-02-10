@@ -1,40 +1,19 @@
 import { BaseJointKey } from '@electionguard/api-client';
-import { Box, Button, Container, TextField } from '@mui/material';
+import { Button, Container, Grid, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import clsx from 'clsx';
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
-import InternationalText from '../../InternationalText';
 
 const useStyles = makeStyles((theme) => ({
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-    },
-    description: {
-        marginBottom: theme.spacing(3),
-    },
-    heading: {
-        marginBottom: theme.spacing(1),
-    },
-    field: {
-        minWidth: 80,
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(3),
-    },
-    textField: {
-        width: 400,
-    },
-    buttonContainer: {
-        marginBottom: theme.spacing(2),
-    },
     button: {
         minWidth: 100,
         marginRight: theme.spacing(2),
+    },
+    buttonRow: {
+        textAlign: 'center',
     },
 }));
 
@@ -57,7 +36,7 @@ const KeySetupStep: React.FC<KeySetupStepProps> = ({ onSubmit, onCancel }) => {
 
     const [numberOfGuardians, setNumberofGuardians] = useState<number>(minGuardians);
     const [quorum, setQuorum] = useState<number>(minGuardians);
-    const [name, setName] = useState<string>();
+    const [name, setName] = useState<string>('');
 
     const validate = (): boolean => !!name;
 
@@ -89,90 +68,59 @@ const KeySetupStep: React.FC<KeySetupStepProps> = ({ onSubmit, onCancel }) => {
     };
 
     return (
-        <Container maxWidth="md">
-            <IconHeader title={new Message(MessageId.JointKeySetup_KeySetup_Title)} />
-            <form className={classes.form} onSubmit={handleSubmit}>
-                <InternationalText
-                    className={classes.description}
-                    id={MessageId.JointKeySetup_KeySetup_Description}
-                />
-                <InternationalText
-                    className={classes.heading}
-                    color="primary"
-                    variant="h5"
-                    component="h2"
-                    id={MessageId.JointKeySetup_KeySetup_KeyHeading}
-                />
-                <TextField
-                    required
-                    className={clsx(classes.textField, classes.field)}
-                    variant="outlined"
-                    value={name}
-                    onChange={handleName}
-                    label={formatMessage(new Message(MessageId.JointKey_Name))}
-                />
-                <InternationalText
-                    className={classes.heading}
-                    color="primary"
-                    variant="h5"
-                    component="h2"
-                    id={MessageId.JointKeySetup_KeySetup_NumberOfGuardiansHeading}
-                />
-                <Box>
-                    <InternationalText
-                        color="primary"
-                        id={MessageId.JointKeySetup_KeySetup_NumberOfGuardiansEmphasis}
-                    />{' '}
-                    <InternationalText
-                        id={MessageId.JointKeySetup_KeySetup_NumberOfGuardiansDescription}
-                    />
-                </Box>
-                <TextField
-                    required
-                    className={classes.field}
-                    type="number"
-                    variant="outlined"
-                    value={numberOfGuardians}
-                    onChange={handleNumberOfGuardians}
-                    label={formatMessage(new Message(MessageId.JointKey_NumberOfGuardians))}
-                />
-                <InternationalText
-                    className={classes.heading}
-                    color="primary"
-                    variant="h5"
-                    component="h2"
-                    id={MessageId.JointKeySetup_KeySetup_QuorumHeading}
-                />
-                <Box>
-                    <InternationalText
-                        color="primary"
-                        id={MessageId.JointKeySetup_KeySetup_QuorumEmphasis}
-                    />{' '}
-                    <InternationalText id={MessageId.JointKeySetup_KeySetup_QuorumDescription} />
-                </Box>
-                <TextField
-                    required
-                    className={classes.field}
-                    type="number"
-                    variant="outlined"
-                    value={quorum}
-                    onChange={handleQuorum}
-                    label={formatMessage(new Message(MessageId.JointKey_Quorum))}
-                />
-                <Box className={classes.buttonContainer}>
-                    <Button
-                        disabled={!validate()}
-                        className={classes.button}
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                    >
-                        <FormattedMessage id={MessageId.Actions_Submit} />
-                    </Button>
-                    <Button className={classes.button} color="primary" onClick={onCancel}>
-                        <FormattedMessage id={MessageId.Actions_Cancel} />
-                    </Button>
-                </Box>
+        <Container maxWidth="sm">
+            <form onSubmit={handleSubmit}>
+                <Grid container spacing={2} maxWidth="sm" justifyContent="center">
+                    <Grid item xs={12}>
+                        <IconHeader title={new Message(MessageId.JointKeySetup_KeySetup_Title)} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            variant="outlined"
+                            value={name}
+                            onChange={handleName}
+                            label={formatMessage(new Message(MessageId.JointKey_Name))}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            required
+                            fullWidth
+                            type="number"
+                            variant="outlined"
+                            value={numberOfGuardians}
+                            onChange={handleNumberOfGuardians}
+                            label={formatMessage(new Message(MessageId.JointKey_NumberOfGuardians))}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            required
+                            fullWidth
+                            type="number"
+                            variant="outlined"
+                            value={quorum}
+                            onChange={handleQuorum}
+                            label={formatMessage(new Message(MessageId.JointKey_Quorum))}
+                        />
+                    </Grid>
+                    <Grid item xs={12} className={classes.buttonRow}>
+                        <Button
+                            disabled={!validate()}
+                            className={classes.button}
+                            type="submit"
+                            variant="contained"
+                            color="secondary"
+                        >
+                            <FormattedMessage id={MessageId.Actions_Next} />
+                        </Button>
+                        <Button className={classes.button} color="primary" onClick={onCancel}>
+                            <FormattedMessage id={MessageId.Actions_Cancel} />
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
         </Container>
     );

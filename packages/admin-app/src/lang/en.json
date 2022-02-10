@@ -59,15 +59,7 @@
     "election_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "election_list.go_home": "Return to Home",
 
-    "joint_key_setup.key_setup.title": "Define Key Requirements",
-    "joint_key_setup.key_setup.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
-    "joint_key_setup.key_setup.key_heading": "Name your joint key",
-    "joint_key_setup.key_setup.number_of_guardians_heading": "How many total guardians for this election?",
-    "joint_key_setup.key_setup.number_of_guardians_emphasis": "Intended Number:",
-    "joint_key_setup.key_setup.number_of_guardians_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
-    "joint_key_setup.key_setup.quorum_heading": "Select a quorum number for this key.",
-    "joint_key_setup.key_setup.quorum_emphasis": "What is the quorum and why is it important?",
-    "joint_key_setup.key_setup.quorum_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
+    "joint_key_setup.key_setup.title": "Create Joint Key",
     "joint_key_setup.key_setup_review.title": "Review and Confirm",
     "joint_key_setup.guardian_assignment.title": "Assign Guardians",
     "joint_key_setup.guardian_assignment.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
@@ -204,7 +196,7 @@
     "tally_ceremony.steps.combine_shares": "Combine Shares",
     "tally_ceremony.steps.tally_complete": "Tally Ceremony Complete",
 
-    "joint_key.name": "Name",
+    "joint_key.name": "Key Name",
     "joint_key.number_of_guardians": "Number of Guardians",
     "joint_key.quorum": "Quorum",
 
