@@ -5,18 +5,12 @@ import { useKeyClient } from '../../hooks/useClient';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
-import {
-    GuardianAssignmentReviewStep,
-    GuardianAssignmentStep,
-    KeySetupReviewStep,
-    KeySetupStep,
-} from './Steps';
+import { GuardianAssignmentReviewStep, GuardianAssignmentStep, KeySetupStep } from './Steps';
 
 export enum JointKeyStep {
     KeySetup = 0,
-    KeySetupReview = 1,
-    GuardianAssignment = 2,
-    GuardianAssignmentReview = 3,
+    GuardianAssignment = 1,
+    GuardianAssignmentReview = 2,
 }
 
 /**
@@ -59,13 +53,6 @@ export const JointKeyWizard: React.FC = () => {
                         next();
                     }}
                     onCancel={previous}
-                />
-            </WizardStep>
-            <WizardStep active={step === JointKeyStep.KeySetupReview}>
-                <KeySetupReviewStep
-                    baseJointKey={baseJointKey}
-                    onConfirm={next}
-                    onPrevious={previous}
                 />
             </WizardStep>
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
