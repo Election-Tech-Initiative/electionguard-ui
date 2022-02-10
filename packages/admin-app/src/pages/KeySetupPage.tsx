@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const KeySetupPage: React.FC = () => {
     const classes = useStyles();
-    //    const navigate = useNavigate();
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>

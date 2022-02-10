@@ -7,12 +7,14 @@ import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
-import { GuardianAssignmentReviewStep, GuardianAssignmentStep, KeySetupStep } from './Steps';
+import GuardianAssignmentStep from './Steps/GuardianAssignmentStep';
+import JointKeyReviewStep from './Steps/JointKeyReviewStep';
+import KeySetupStep from './Steps/KeySetupStep';
 
 export enum JointKeyStep {
     KeySetup = 0,
     GuardianAssignment = 1,
-    GuardianAssignmentReview = 2,
+    JointKeyReview = 2,
 }
 
 /**
@@ -51,7 +53,7 @@ export const JointKeyWizard: React.FC = () => {
         <Box height="100%">
             <WizardStep active={step === JointKeyStep.KeySetup}>
                 <KeySetupStep
-                    onSubmit={(key) => {
+                    onSubmit={(key: BaseJointKey) => {
                         setBaseJointKey(key);
                         next();
                     }}
@@ -61,17 +63,17 @@ export const JointKeyWizard: React.FC = () => {
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
                 <GuardianAssignmentStep
                     baseJointKey={baseJointKey}
-                    onSubmit={(key) => {
+                    onSubmit={(key: BaseJointKey) => {
                         setBaseJointKey(key);
                         next();
                     }}
                     onCancel={previous}
                 />
             </WizardStep>
-            <WizardStep active={step === JointKeyStep.GuardianAssignmentReview}>
-                <GuardianAssignmentReviewStep
+            <WizardStep active={step === JointKeyStep.JointKeyReview}>
+                <JointKeyReviewStep
                     baseJointKey={baseJointKey}
-                    onConfirm={(key) => {
+                    onConfirm={(key: BaseJointKey) => {
                         createJointKey(key);
                         next();
                     }}

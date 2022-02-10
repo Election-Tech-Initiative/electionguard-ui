@@ -65,7 +65,7 @@ export interface GuardianAssignmentReviewStepProps {
 /**
  * Guardian Assignment Review Step
  */
-const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> = ({
+const JointKeyReviewStep: React.FC<GuardianAssignmentReviewStepProps> = ({
     onConfirm,
     onEditKeySetup,
     onEditAssignedGuardians,
@@ -179,4 +179,4 @@ const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> 
     );
 };
 
-export default GuardianAssignmentReviewStep;
+export default JointKeyReviewStep;
