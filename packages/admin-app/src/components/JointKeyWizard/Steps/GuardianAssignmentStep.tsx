@@ -9,11 +9,13 @@ import {
     Guardian,
     AsyncResult,
 } from '@electionguard/api-client';
+import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useUserClient } from '../../../hooks/useClient';
 
 import { Message, MessageId } from '../../../lang';
 import AssignmentTable from '../../AssignmentTable';
@@ -96,25 +98,27 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
 
     const queryClient = new QueryClient();
 
-    const findGuardians = async (): Promise<Guardian[] | undefined> => [
-        {
-            guardian_id: 'guardian_1',
-            name: 'Benjamin Franklin',
-            sequence_order: 1,
-            number_of_guardians: 3,
-            quorum: 2,
-            election_keys: {},
-            auxiliary_keys: {},
-            backups: new Map<GuardianId, ElectionPartialKeyBackup>(),
-            cohort_public_keys: new Map<GuardianId, PublicKeySet>(),
-            cohort_backups: new Map<GuardianId, ElectionPartialKeyBackup>(),
-            cohort_verifications: new Map<GuardianId, ElectionPartialKeyVerification>(),
-            cohort_challenges: new Map<GuardianId, ElectionPartialKeyChallenge>(),
-        },
-    ];
+    const userClient = useUserClient();
+    const findGuardians1 = async () =>
+        userClient
+            .find(0, 100, {
+                filter: {},
+            } as UserQueryRequest)
+            .then((response) =>
+                response.users.map(
+                    (u) =>
+                        ({
+                            guardian_id: u.username,
+                            name: `${u.first_name} ${u.last_name}`,
+                            sequence_order: 1,
+                            number_of_guardians: 3,
+                            quorum: 2,
+                        } as Guardian)
+                )
+            );
 
     const guardiansQuery = useQuery('guardians', async () => {
-        const guardians = await findGuardians();
+        const guardians = await findGuardians1();
         if (guardians) {
             setFoundGuardians(guardians);
         }
