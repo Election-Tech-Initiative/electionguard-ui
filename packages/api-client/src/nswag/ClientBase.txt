@@ -1,0 +1,44 @@
+export class ClientBase {
+    /**
+    * Do not change ClientBase or anything in this file.  This base class lives in ClientBase.txt 
+    * and was inserted into clients.ts by NSwag during code generation (`npm run nswag-generate`)
+    */
+
+    /**
+     * authorization token value to be passed in header of all requests
+     */
+    public token?: string;
+
+    /**
+     * if a request receives a 401 it will call this method and error
+     */
+    public onTokenExpired?: (newToken?: Token) => void;
+
+    protected transformOptions(options: RequestInit): Promise<RequestInit> {
+        if (!this.token || !options?.headers) return Promise.resolve(options);
+        const authOptions = {
+            ...options,
+            headers: {
+                ...options.headers,
+                Authorization: `bearer ${this.token}`,
+            },
+        };
+        return Promise.resolve(authOptions);
+    }
+
+    protected transformResult(
+        _url: string,
+        response: Response,
+        next: (r: Response) => Promise<any>
+    ): Promise<any> {
+        if (response.status === 401) {
+            const newToken = undefined; // todo: try to refresh token via API
+            if (this.onTokenExpired) {
+                this.onTokenExpired(newToken);
+            }
+            throw new Error('Session has expired, please log in again.');
+        } else {
+            return next(response);
+        }
+    }
+}

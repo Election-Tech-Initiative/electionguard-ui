@@ -9,13 +9,19 @@
 
 export class ClientBase {
     /**
-     * authorization token value
-     */
-    public token: string | null;
+    * Do not change ClientBase or anything in this file.  This base class lives in ClientBase.txt 
+    * and was inserted into clients.ts by NSwag during code generation (`npm run nswag-generate`)
+    */
 
-    constructor() {
-        this.token = null;
-    }
+    /**
+     * authorization token value to be passed in header of all requests
+     */
+    public token?: string;
+
+    /**
+     * if a request receives a 401 it will call this method and error
+     */
+    public onTokenExpired?: (newToken?: Token) => void;
 
     protected transformOptions(options: RequestInit): Promise<RequestInit> {
         if (!this.token || !options?.headers) return Promise.resolve(options);
@@ -27,6 +33,22 @@ export class ClientBase {
             },
         };
         return Promise.resolve(authOptions);
+    }
+
+    protected transformResult(
+        _url: string,
+        response: Response,
+        next: (r: Response) => Promise<any>
+    ): Promise<any> {
+        if (response.status === 401) {
+            const newToken = undefined; // todo: try to refresh token via API
+            if (this.onTokenExpired) {
+                this.onTokenExpired(newToken);
+            }
+            throw new Error('Session has expired, please log in again.');
+        } else {
+            return next(response);
+        }
     }
 }
 
@@ -65,7 +87,7 @@ export class AuthClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processLogin(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processLogin(_response));
         });
     }
 
@@ -148,7 +170,7 @@ export class UserClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -193,7 +215,7 @@ export class UserClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processMe(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processMe(_response));
         });
     }
 
@@ -236,7 +258,7 @@ export class UserClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processReset_password(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processReset_password(_response));
         });
     }
 
@@ -297,7 +319,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processUser(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processUser(_response));
         });
     }
 
@@ -350,7 +372,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processGuardianGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianGet(_response));
         });
     }
 
@@ -399,7 +421,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processGuardianPut(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianPut(_response));
         });
     }
 
@@ -448,7 +470,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processGuardianPost(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianPost(_response));
         });
     }
 
@@ -497,7 +519,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processElectionGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processElectionGet(_response));
         });
     }
 
@@ -546,7 +568,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processElectionPut(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processElectionPut(_response));
         });
     }
 
@@ -595,7 +617,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processManifestGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processManifestGet(_response));
         });
     }
 
@@ -644,7 +666,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processManifestPut(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processManifestPut(_response));
         });
     }
 
@@ -697,7 +719,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processBallot(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processBallot(_response));
         });
     }
 
@@ -750,7 +772,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processTallyGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processTallyGet(_response));
         });
     }
 
@@ -803,7 +825,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processTallyPost(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processTallyPost(_response));
         });
     }
 
@@ -848,7 +870,7 @@ export class V1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processPing(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processPing(_response));
         });
     }
 
@@ -913,7 +935,7 @@ export class GuardianClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -962,7 +984,7 @@ export class GuardianClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processAnnounce(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processAnnounce(_response));
         });
     }
 
@@ -1011,7 +1033,7 @@ export class GuardianClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processBackup(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processBackup(_response));
         });
     }
 
@@ -1060,7 +1082,7 @@ export class GuardianClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processVerify(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processVerify(_response));
         });
     }
 
@@ -1109,7 +1131,7 @@ export class GuardianClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processChallenge(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processChallenge(_response));
         });
     }
 
@@ -1170,7 +1192,7 @@ export class KeyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processCeremonyGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processCeremonyGet(_response));
         });
     }
 
@@ -1219,7 +1241,7 @@ export class KeyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processCeremonyPut(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processCeremonyPut(_response));
         });
     }
 
@@ -1280,7 +1302,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processState(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processState(_response));
         });
     }
 
@@ -1339,7 +1361,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -1388,7 +1410,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processOpen(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processOpen(_response));
         });
     }
 
@@ -1437,7 +1459,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processClose(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processClose(_response));
         });
     }
 
@@ -1486,7 +1508,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processChallenge(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processChallenge(_response));
         });
     }
 
@@ -1535,7 +1557,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processCancel(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processCancel(_response));
         });
     }
 
@@ -1584,7 +1606,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processJoint_key(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processJoint_key(_response));
         });
     }
 
@@ -1633,7 +1655,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processCombine(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processCombine(_response));
         });
     }
 
@@ -1682,7 +1704,7 @@ export class CeremonyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processPublish(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processPublish(_response));
         });
     }
 
@@ -1743,7 +1765,7 @@ export class ChallengeClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processVerify(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processVerify(_response));
         });
     }
 
@@ -1800,7 +1822,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processConstants(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processConstants(_response));
         });
     }
 
@@ -1853,7 +1875,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -1902,7 +1924,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processOpen(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processOpen(_response));
         });
     }
 
@@ -1951,7 +1973,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processClose(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processClose(_response));
         });
     }
 
@@ -2000,7 +2022,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processPublish(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processPublish(_response));
         });
     }
 
@@ -2049,7 +2071,7 @@ export class ElectionClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processContext(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processContext(_response));
         });
     }
 
@@ -2120,7 +2142,7 @@ export class ManifestClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2169,7 +2191,7 @@ export class ManifestClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processValidate(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processValidate(_response));
         });
     }
 
@@ -2230,7 +2252,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processInventory(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processInventory(_response));
         });
     }
 
@@ -2293,7 +2315,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2347,7 +2369,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processCast(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processCast(_response));
         });
     }
 
@@ -2401,7 +2423,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processSpoil(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processSpoil(_response));
         });
     }
 
@@ -2455,7 +2477,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processSubmit(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmit(_response));
         });
     }
 
@@ -2504,7 +2526,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processValidate(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processValidate(_response));
         });
     }
 
@@ -2553,7 +2575,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processDecrypt(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecrypt(_response));
         });
     }
 
@@ -2602,7 +2624,7 @@ export class BallotClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processEncrypt(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processEncrypt(_response));
         });
     }
 
@@ -2663,7 +2685,7 @@ export class TestClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processSubmit_queue(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmit_queue(_response));
         });
     }
 
@@ -2738,7 +2760,7 @@ export class TallyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2795,7 +2817,7 @@ export class TallyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processDecryptGet(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecryptGet(_response));
         });
     }
 
@@ -2849,7 +2871,7 @@ export class TallyClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processDecryptPost(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecryptPost(_response));
         });
     }
 
@@ -2910,7 +2932,7 @@ export class DecryptClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processSubmitShare(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmitShare(_response));
         });
     }
 
@@ -2973,7 +2995,7 @@ export class DecryptClient extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processFind(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -3034,7 +3056,7 @@ export class V1_1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processElection(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processElection(_response));
         });
     }
 
@@ -3079,7 +3101,7 @@ export class V1_1Client extends ClientBase {
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processPing(_response);
+            return this.transformResult(url_, _response, (_response: Response) => this.processPing(_response));
         });
     }
 

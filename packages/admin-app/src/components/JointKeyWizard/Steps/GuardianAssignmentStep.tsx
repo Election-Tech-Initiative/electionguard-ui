@@ -99,26 +99,27 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const queryClient = new QueryClient();
 
     const userClient = useUserClient();
-    const findGuardians1 = async () =>
-        userClient
-            .find(0, 100, {
-                filter: {},
-            } as UserQueryRequest)
-            .then((response) =>
-                response.users.map(
-                    (u) =>
-                        ({
-                            guardian_id: u.username,
-                            name: `${u.first_name} ${u.last_name}`,
-                            sequence_order: 1,
-                            number_of_guardians: 3,
-                            quorum: 2,
-                        } as Guardian)
-                )
-            );
+    const skip = 0;
+    const take = 100;
+    const findParams = {
+        filter: {},
+    } as UserQueryRequest;
+    const findGuardians = async () =>
+        userClient.find(skip, take, findParams).then((response) =>
+            response.users.map(
+                (u) =>
+                    ({
+                        guardian_id: u.username,
+                        name: `${u.first_name} ${u.last_name}`,
+                        sequence_order: 1,
+                        number_of_guardians: 3,
+                        quorum: 2,
+                    } as Guardian)
+            )
+        );
 
     const guardiansQuery = useQuery('guardians', async () => {
-        const guardians = await findGuardians1();
+        const guardians = await findGuardians();
         if (guardians) {
             setFoundGuardians(guardians);
         }
