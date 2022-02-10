@@ -1,7 +1,9 @@
 import { BaseJointKey, KeyCeremonyCreateRequest } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useKeyClient } from '../../hooks/useClient';
+import routeIds from '../../routes/RouteIds';
 
 import { createEnumStepper } from '../../utils/EnumStepper';
 import WizardStep from '../WizardStep';
@@ -40,8 +42,9 @@ export const JointKeyWizard: React.FC = () => {
         await keyClient.ceremonyPut(ceremony);
     };
 
+    const navigate = useNavigate();
     const onCancel = () => {
-        console.log('canceling');
+        navigate(routeIds.home);
     };
 
     return (
