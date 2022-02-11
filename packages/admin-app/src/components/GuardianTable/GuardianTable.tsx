@@ -1,7 +1,7 @@
 import { AssignedGuardian } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { Theme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 
@@ -22,16 +22,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+const StyledDataGrid = styled(DataGrid)(() => ({
     border: 0,
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell, .MuiDataGrid-columnHeaders': {
         border: 0,
-    },
-    '& .MuiDataGrid-cell': {
-        border: 0,
-    },
-    '& .MuiPaginationItem-root': {
-        borderRadius: 0,
     },
 }));
 

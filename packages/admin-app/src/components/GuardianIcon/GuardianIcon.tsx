@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {
     Brightness1 as CircleIcon,
@@ -29,7 +29,7 @@ const useStyles = (color: string, missing?: boolean) => {
 };
 
 export interface GuardianIconProps {
-    color: string;
+    color?: string;
     sequenceOrder: number;
     missing?: boolean;
 }
@@ -38,7 +38,9 @@ export interface GuardianIconProps {
  * A menu option card for the menu screens
  */
 export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder, missing }) => {
-    const classes = useStyles(color, missing);
+    const theme = useTheme();
+    const colorOrDefault = color || theme.palette.primary.main;
+    const classes = useStyles(colorOrDefault, missing);
     const intl = useIntl();
     return (
         <Box display="grid" alignItems="center" justifyItems="center">

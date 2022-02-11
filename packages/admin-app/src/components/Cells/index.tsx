@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react';
 import { IntlShape } from 'react-intl';
 
 import { Message } from '../../lang';
-import { getColor } from '../../theme';
 import FormattedButton from '../FormattedButton';
 import GuardianIcon from '../GuardianIcon';
 
@@ -17,7 +16,7 @@ export const FormattedDateCell = (params: GridCellParams, intl: IntlShape): Reac
 export const GuardianIconCell = (params: GridCellParams): ReactElement => {
     const { value } = params;
     const sequenceOrder = Number(value);
-    return <GuardianIcon sequenceOrder={sequenceOrder} color={getColor(sequenceOrder)} />;
+    return <GuardianIcon sequenceOrder={sequenceOrder} />;
 };
 
 export const IdButtonCell = (
