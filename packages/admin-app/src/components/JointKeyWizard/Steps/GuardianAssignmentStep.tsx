@@ -1,4 +1,10 @@
-import { AssignedGuardian, BaseJointKey, Guardian, AsyncResult } from '@electionguard/api-client';
+import {
+    AssignedGuardian,
+    BaseJointKey,
+    Guardian,
+    AsyncResult,
+    UserInfo,
+} from '@electionguard/api-client';
 import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
@@ -57,13 +63,13 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>(
         baseJointKey.guardians
     );
-    const [foundGuardians, setFoundGuardians] = useState<Guardian[]>([]);
+    const [users, setUsers] = useState([] as UserInfo[]);
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
-        const selected = foundGuardians.filter((user) => ids.includes(user.guardian_id));
-        const assigned: AssignedGuardian[] = selected.map((guardian, i) => ({
-            id: guardian.guardian_id,
-            name: guardian.name,
+        const selected = users.filter((user) => ids.includes(user.username));
+        const assigned: AssignedGuardian[] = selected.map((user, i) => ({
+            id: user.username,
+            name: `${user.first_name} ${user.last_name}`,
             sequenceOrder: i + 1,
         }));
         setAssignedGuardians(assigned);
@@ -86,28 +92,17 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const findParams = {
         filter: {},
     } as UserQueryRequest;
-    const findGuardians = async () =>
-        userClient.find(skip, take, findParams).then((response) =>
-            response.users.map(
-                (u) =>
-                    ({
-                        guardian_id: u.username,
-                        name: `${u.first_name} ${u.last_name}`,
-                        sequence_order: 1,
-                        number_of_guardians: 3,
-                        quorum: 2,
-                    } as Guardian)
-            )
-        );
+    const findUsers = async () =>
+        userClient.find(skip, take, findParams).then((response) => response.users);
 
-    const guardiansQuery = useQuery('guardians', async () => {
-        const guardians = await findGuardians();
-        if (guardians) {
-            setFoundGuardians(guardians);
+    const usersQuery = useQuery('users', async () => {
+        const foundUsers = await findUsers();
+        if (foundUsers) {
+            setUsers(foundUsers);
         }
-        return guardians;
+        return foundUsers;
     });
-    const getGuardians = (): AsyncResult<Guardian[]> => guardiansQuery;
+    const getUsers = (): AsyncResult<UserInfo[]> => usersQuery;
 
     return (
         <Container maxWidth="sm">
@@ -133,7 +128,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                     </Box>
                     <Box className={classes.tableContainer}>
                         <AssignmentTable
-                            data={getGuardians}
+                            data={getUsers}
                             onChanged={onAssign}
                             initialData={initialGuardians}
                         />
