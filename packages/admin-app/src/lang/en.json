@@ -59,12 +59,12 @@
     "election_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
     "election_list.go_home": "Return to Home",
 
-    "joint_key_setup.key_setup.title": "Create Joint Key",
-    "joint_key_setup.guardian_assignment.title": "Assign Guardians",
+    "joint_key_setup.key_setup.title": "Key Ceremony Info",
+    "joint_key_setup.guardian_assignment.title": "Invite Guardians",
     "joint_key_setup.guardian_assignment.assigned_label": "Guardians",
     "joint_key_setup.guardian_assignment.no_guardians": "You currently have no guardians for this election. You have not met your quorum.",
     "joint_key_setup.guardian_assignment.assign": "Assign Guardian",
-    "joint_key_setup.guardian_assignment_review.title": "Create Key?",
+    "joint_key_setup.guardian_assignment_review.title": "Initiate Key Ceremony?",
 
     "key_ceremony_list.title": "Join a Key Ceremony",
     "key_ceremony_list.description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat magna nec nibh congue, non pretium mauris feugiat. Nam commodo ultrices semper. Praesent hendrerit ut nibh nec mollis. Ut fermentum maximus nibh nec vulputate. Fusce ultricies, arcu quis faucibus egestas, ligula tellus placerat orci, sed scelerisque nisl mi eu nisi. Quisque pulvinar justo justo, non tristique enim pretium non. Cras eu lacus gravida, eleifend magna at, ultricies tortor.",
