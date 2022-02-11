@@ -146,7 +146,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                             variant="contained"
                             color="secondary"
                         >
-                            <FormattedMessage id={MessageId.Actions_Submit} />
+                            <FormattedMessage id={MessageId.Actions_Next} />
                         </Button>
                         <Button className={classes.button} color="primary" onClick={onCancel}>
                             <FormattedMessage id={MessageId.Actions_Back} />

@@ -32,9 +32,10 @@ export const JointKeyWizard: React.FC = () => {
 
     const next = () => setStep(nextStep(step));
     const previous = () => setStep(previousStep(step));
+    const navigate = useNavigate();
 
     const keyClient = useKeyClient();
-    const createJointKey = async (key: BaseJointKey) => {
+    const onSubmit = async (key: BaseJointKey) => {
         const ceremony = {
             key_name: key.name,
             number_of_guardians: 1,
@@ -42,9 +43,9 @@ export const JointKeyWizard: React.FC = () => {
             guardian_ids: [],
         } as KeyCeremonyCreateRequest;
         await keyClient.ceremonyPut(ceremony);
+        navigate(routeIds.home);
     };
 
-    const navigate = useNavigate();
     const onNext = (key: BaseJointKey) => {
         setBaseJointKey(key);
         next();
@@ -68,10 +69,7 @@ export const JointKeyWizard: React.FC = () => {
             <WizardStep active={step === JointKeyStep.JointKeyReview}>
                 <JointKeyReviewStep
                     baseJointKey={baseJointKey}
-                    onConfirm={(key: BaseJointKey) => {
-                        createJointKey(key);
-                        next();
-                    }}
+                    onConfirm={onSubmit}
                     onEditAssignedGuardians={() => setStep(JointKeyStep.GuardianAssignment)}
                     onCancel={onCancel}
                 />
