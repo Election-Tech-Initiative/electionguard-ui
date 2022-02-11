@@ -7,6 +7,7 @@ import AsyncContent from '../AsyncContent';
 export interface AssignmentTableProps {
     data: () => AsyncResult<Guardian[]>;
     onChanged: (selectedIds: string[]) => void;
+    initialData: string[];
 }
 
 const columns: GridColDef[] = [
@@ -14,8 +15,12 @@ const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 250 },
 ];
 
-export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) => {
-    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+export const AssignmentTable: React.FC<AssignmentTableProps> = ({
+    data,
+    onChanged,
+    initialData,
+}) => {
+    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>(initialData);
 
     const onSelectionChange = (rows: GridRowId[]) => {
         setSelectionModel(rows);
@@ -27,20 +32,23 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
     return (
         <Box display="flex" height="100%" width="100%">
             <AsyncContent query={usersQuery} errorMessage="there was an error">
-                {(userData) => (
-                    <DataGrid
-                        autoHeight
-                        rows={userData}
-                        columns={columns}
-                        getRowId={(row) => row.guardian_id}
-                        onSelectionModelChange={(newSelection) => {
-                            onSelectionChange(newSelection);
-                        }}
-                        hideFooterPagination
-                        selectionModel={selectionModel}
-                        checkboxSelection
-                    />
-                )}
+                {(userData) => {
+                    const result = (
+                        <DataGrid
+                            autoHeight
+                            rows={userData}
+                            columns={columns}
+                            getRowId={(row) => row.guardian_id}
+                            onSelectionModelChange={(newSelection) => {
+                                onSelectionChange(newSelection);
+                            }}
+                            hideFooterPagination
+                            selectionModel={selectionModel}
+                            checkboxSelection
+                        />
+                    );
+                    return result;
+                }}
             </AsyncContent>
         </Box>
     );

@@ -54,7 +54,9 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     onCancel,
 }) => {
     const classes = useStyles();
-    const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
+    const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>(
+        baseJointKey.guardians
+    );
     const [foundGuardians, setFoundGuardians] = useState<Guardian[]>([]);
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
@@ -77,6 +79,7 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
 
     const queryClient = new QueryClient();
 
+    const initialGuardians = baseJointKey.guardians.map((g) => g.id);
     const userClient = useUserClient();
     const skip = 0;
     const take = 100;
@@ -129,7 +132,11 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                         </Typography>
                     </Box>
                     <Box className={classes.tableContainer}>
-                        <AssignmentTable data={getGuardians} onChanged={onAssign} />
+                        <AssignmentTable
+                            data={getGuardians}
+                            onChanged={onAssign}
+                            initialData={initialGuardians}
+                        />
                     </Box>
                     <Box>
                         <Button
