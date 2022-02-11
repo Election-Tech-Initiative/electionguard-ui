@@ -1,9 +1,8 @@
-import { AsyncResult, Guardian, User } from '@electionguard/api-client';
+import { AsyncResult, Guardian } from '@electionguard/api-client';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
 import * as React from 'react';
 import AsyncContent from '../AsyncContent';
-import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {
     data: () => AsyncResult<Guardian[]>;
@@ -26,7 +25,7 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
     const usersQuery = data();
 
     return (
-        <Box display="flex" minHeight="500px" height="100%" width="100%">
+        <Box display="flex" height="100%" width="100%">
             <AsyncContent query={usersQuery} errorMessage="there was an error">
                 {(userData) => (
                     <DataGrid
@@ -34,9 +33,6 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
                         rows={userData}
                         columns={columns}
                         getRowId={(row) => row.guardian_id}
-                        components={{
-                            Toolbar: FilterToolbar,
-                        }}
                         onSelectionModelChange={(newSelection) => {
                             onSelectionChange(newSelection);
                         }}

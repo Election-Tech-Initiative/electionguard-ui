@@ -71,7 +71,6 @@ enum MessageId {
     JointKeySetup_KeySetup_NumberOfGuardiansHeading = 'joint_key_setup.key_setup.number_of_guardians_heading',
     JointKeySetup_KeySetupReview_Title = 'joint_key_setup.key_setup_review.title',
     JointKeySetup_GuardianAssignment_Title = 'joint_key_setup.guardian_assignment.title',
-    JointKeySetup_GuardianAssignment_Description = 'joint_key_setup.guardian_assignment.description',
     JointKeySetup_GuardianAssignment_AssignedLabel = 'joint_key_setup.guardian_assignment.assigned_label',
     JointKeySetup_GuardianAssignment_NoGuardians = 'joint_key_setup.guardian_assignment.no_guardians',
     JointKeySetup_GuardianAssignment_Assign = 'joint_key_setup.guardian_assignment.assign',

@@ -1,14 +1,4 @@
-import {
-    AssignedGuardian,
-    BaseJointKey,
-    GuardianId,
-    ElectionPartialKeyBackup,
-    PublicKeySet,
-    ElectionPartialKeyVerification,
-    ElectionPartialKeyChallenge,
-    Guardian,
-    AsyncResult,
-} from '@electionguard/api-client';
+import { AssignedGuardian, BaseJointKey, Guardian, AsyncResult } from '@electionguard/api-client';
 import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
@@ -26,30 +16,11 @@ const useStyles = makeStyles((theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start',
-    },
-    description: {
-        marginBottom: theme.spacing(3),
-    },
-    heading: {
-        fontWeight: 'bold',
-        marginBottom: theme.spacing(1),
-    },
-    buttonContainer: {
-        marginBottom: theme.spacing(2),
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     button: {
         minWidth: 100,
-        marginRight: theme.spacing(2),
-    },
-    jointKeyDisplay: {
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-        borderTop: `1px solid ${theme.palette.divider}`,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        marginBottom: theme.spacing(3),
-    },
-    numberContainer: {
         marginRight: theme.spacing(2),
     },
     numberDisplay: {
@@ -57,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
     },
     tableContainer: {
         marginBottom: theme.spacing(3),
+        width: '100%',
+    },
+    tableHeader: {
+        marginBottom: theme.spacing(2),
+    },
+    guardiansAssignedLabel: {
+        fontWeight: 'bold',
+        color: '#777',
     },
 }));
 
@@ -128,80 +107,31 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     const getGuardians = (): AsyncResult<Guardian[]> => guardiansQuery;
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
             <QueryClientProvider client={queryClient}>
                 <IconHeader title={new Message(MessageId.JointKeySetup_GuardianAssignment_Title)} />
                 <form className={classes.form} onSubmit={handleSubmit}>
-                    <InternationalText
-                        className={classes.description}
-                        id={MessageId.JointKeySetup_GuardianAssignment_Description}
-                    />
-                    <Box
-                        className={classes.jointKeyDisplay}
-                        display="flex"
-                        flexDirection="column"
-                        width="100%"
-                    >
+                    <Box className={classes.tableHeader}>
+                        <InternationalText
+                            noWrap
+                            className={classes.guardiansAssignedLabel}
+                            id={MessageId.JointKeySetup_GuardianAssignment_AssignedLabel}
+                        />
+                        <span>:</span>
                         <Typography
-                            className={classes.heading}
-                            color="secondary"
-                            variant="h5"
-                            component="h2"
+                            className={classes.numberDisplay}
+                            component="span"
+                            color={validate() ? 'primary' : 'error'}
                         >
-                            {baseJointKey.name}
+                            {assignedGuardians.length}
+                            <span>/</span>
+                            {baseJointKey.numberOfGuardians}
                         </Typography>
-                        <Box display="flex" flexWrap="wrap">
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    variant="h6"
-                                    noWrap
-                                    id={MessageId.JointKey_NumberOfGuardians}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color="primary"
-                                    variant="h6"
-                                >
-                                    {baseJointKey.numberOfGuardians}
-                                </Typography>
-                            </Box>
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    noWrap
-                                    variant="h6"
-                                    id={MessageId.JointKey_Quorum}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color="primary"
-                                    variant="h6"
-                                >
-                                    {baseJointKey.quorum}
-                                </Typography>
-                            </Box>
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    noWrap
-                                    variant="h6"
-                                    id={MessageId.JointKeySetup_GuardianAssignment_AssignedLabel}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color={validate() ? 'primary' : 'error'}
-                                    variant="h6"
-                                >
-                                    {assignedGuardians.length}
-                                </Typography>
-                            </Box>
-                        </Box>
                     </Box>
-                    <Box className={classes.tableContainer} width="100%">
+                    <Box className={classes.tableContainer}>
                         <AssignmentTable data={getGuardians} onChanged={onAssign} />
                     </Box>
-                    <Box className={classes.buttonContainer}>
+                    <Box>
                         <Button
                             disabled={!validate()}
                             className={classes.button}
