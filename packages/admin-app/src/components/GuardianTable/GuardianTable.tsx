@@ -1,11 +1,11 @@
 import { AssignedGuardian } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import { Theme, styled } from '@mui/material/styles';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 
 import { GuardianIconCell } from '../Cells';
-import FilterToolbar from '../FilterToolbar';
 
 export interface GuardianTableProps {
     data: AssignedGuardian[];
@@ -19,6 +19,19 @@ const useStyles = makeStyles((theme) => ({
                 opacity: `0 !important`,
             },
         },
+    },
+}));
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+    border: 0,
+    '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell, .MuiDataGrid-columnHeaders': {
+        border: 0,
+    },
+    '& .MuiDataGrid-cell': {
+        border: 0,
+    },
+    '& .MuiPaginationItem-root': {
+        borderRadius: 0,
     },
 }));
 
@@ -37,15 +50,17 @@ const columns: GridColDef[] = [
 export const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
     const classes = useStyles();
     return (
-        <Box display="flex" minHeight="500px" height="100%" width="100%">
-            <DataGrid
+        <Box display="flex" height="100%" width="100%">
+            <StyledDataGrid
                 autoHeight
+                disableSelectionOnClick
+                disableColumnFilter
+                headerHeight={0}
+                disableColumnMenu
+                disableColumnSelector
                 className={classes.root}
                 rows={data}
                 columns={columns}
-                components={{
-                    Toolbar: FilterToolbar,
-                }}
                 hideFooterPagination
             />
         </Box>

@@ -69,15 +69,11 @@ enum MessageId {
     // Joint Key Setup
     JointKeySetup_KeySetup_Title = 'joint_key_setup.key_setup.title',
     JointKeySetup_KeySetup_NumberOfGuardiansHeading = 'joint_key_setup.key_setup.number_of_guardians_heading',
-    JointKeySetup_KeySetupReview_Title = 'joint_key_setup.key_setup_review.title',
     JointKeySetup_GuardianAssignment_Title = 'joint_key_setup.guardian_assignment.title',
     JointKeySetup_GuardianAssignment_AssignedLabel = 'joint_key_setup.guardian_assignment.assigned_label',
     JointKeySetup_GuardianAssignment_NoGuardians = 'joint_key_setup.guardian_assignment.no_guardians',
     JointKeySetup_GuardianAssignment_Assign = 'joint_key_setup.guardian_assignment.assign',
     JointKeySetup_GuardianAssignmentReview_Title = 'joint_key_setup.guardian_assignment_review.title',
-    JointKeySetup_GuardianAssignmentReview_Description = 'joint_key_setup.guardian_assignment_review.description',
-    JointKeySetup_GuardianAssignmentReview_ConfirmationCallout = 'joint_key_setup.guardian_assignment_review.confirmation_callout',
-    JointKeySetup_GuardianAssignmentReview_Confirmation = 'joint_key_setup.guardian_assignment_review.confirmation',
 
     KeyCeremonyList_Title = 'key_ceremony_list.title',
     KeyCeremonyList_Description = 'key_ceremony_list.description',
