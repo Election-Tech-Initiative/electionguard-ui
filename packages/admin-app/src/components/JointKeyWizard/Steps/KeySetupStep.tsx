@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface KeySetupStepProps {
+    baseJointKey: BaseJointKey;
     onSubmit: (baseJointKey: BaseJointKey) => void;
     onCancel: () => void;
 }
@@ -25,18 +26,19 @@ export interface KeySetupStepProps {
 /**
  * Key Setup Step
  */
-const KeySetupStep: React.FC<KeySetupStepProps> = ({ onSubmit, onCancel }) => {
+const KeySetupStep: React.FC<KeySetupStepProps> = ({ baseJointKey, onSubmit, onCancel }) => {
     const classes = useStyles();
     const { formatMessage } = useIntl();
 
     // TODO Migrate joint key defaults to constant file
     const minGuardians = 1;
     const maxGuardians = 10;
-    const defaultKeyName = 'Joint Key';
 
-    const [numberOfGuardians, setNumberofGuardians] = useState<number>(minGuardians);
-    const [quorum, setQuorum] = useState<number>(minGuardians);
-    const [name, setName] = useState<string>('');
+    const [numberOfGuardians, setNumberofGuardians] = useState<number>(
+        baseJointKey.numberOfGuardians
+    );
+    const [quorum, setQuorum] = useState<number>(baseJointKey.quorum);
+    const [name, setName] = useState<string>(baseJointKey.name);
 
     const validate = (): boolean => !!name;
 
@@ -63,7 +65,7 @@ const KeySetupStep: React.FC<KeySetupStepProps> = ({ onSubmit, onCancel }) => {
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
         if (validate()) {
-            onSubmit({ name: name || defaultKeyName, numberOfGuardians, quorum, guardians: [] });
+            onSubmit({ name, numberOfGuardians, quorum, guardians: [] });
         }
     };
 

@@ -24,7 +24,7 @@ export const JointKeyWizard: React.FC = () => {
     const [step, setStep] = useState(JointKeyStep.KeySetup);
     const { nextStep, previousStep } = createEnumStepper(JointKeyStep);
     const [baseJointKey, setBaseJointKey] = useState<BaseJointKey>({
-        name: 'Default Name',
+        name: '',
         numberOfGuardians: 1,
         quorum: 1,
         guardians: [],
@@ -56,7 +56,7 @@ export const JointKeyWizard: React.FC = () => {
     return (
         <Box height="100%">
             <WizardStep active={step === JointKeyStep.KeySetup}>
-                <KeySetupStep onSubmit={onNext} onCancel={onCancel} />
+                <KeySetupStep baseJointKey={baseJointKey} onSubmit={onNext} onCancel={onCancel} />
             </WizardStep>
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
                 <GuardianAssignmentStep
