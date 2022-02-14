@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     guardiansAssignedLabel: {
         fontWeight: 'bold',
-        color: '#777',
+        color: theme.palette.grey[600],
     },
 }));
 
