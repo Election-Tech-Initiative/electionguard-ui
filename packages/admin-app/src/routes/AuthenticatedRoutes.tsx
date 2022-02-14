@@ -15,6 +15,7 @@ import {
     UploadBallotPage,
     UserManagementPage,
 } from '../pages';
+import AddUserPage from '../pages/AddUserPage';
 import routeIds from './RouteIds';
 
 /**
@@ -39,7 +40,8 @@ const AuthenticatedRoutes: React.FC = () => (
         <Route path="/tally-setup" element={<TallySetupPage />} />
         <Route path="/tally/:key-id/ceremony" element={<TallyCeremonyPage />} />
 
-        <Route path="/manage-users" element={<UserManagementPage />} />
+        <Route path={routeIds.manageUsers} element={<UserManagementPage />} />
+        <Route path={routeIds.addUser} element={<AddUserPage />} />
     </Routes>
 );
 

@@ -1,6 +1,7 @@
 import { AsyncResult, UserInfo } from '@electionguard/api-client';
 import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Fab, Grid, IconButton } from '@mui/material';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import makeStyles from '@mui/styles/makeStyles';
 import { DefaultTheme } from '@mui/styles';
 import React from 'react';
@@ -9,11 +10,15 @@ import AssignmentTable from '../components/AssignmentTable';
 import IconHeader from '../components/IconHeader';
 import { useUserClient } from '../hooks/useClient';
 import { Message, MessageId } from '../lang';
+import routeIds from '../routes/RouteIds';
 
 const useStyles = makeStyles((theme: DefaultTheme) => ({
     content: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+    },
+    buttonArea: {
+        textAlign: 'right',
     },
 }));
 
@@ -34,7 +39,17 @@ export const UserManagementPage: React.FC = () => {
     return (
         <Container maxWidth="md" className={classes.content}>
             <Box>
-                <IconHeader title={new Message(MessageId.UserManagement_Title)} />
+                <Grid container alignItems="center">
+                    <Grid item xs={1} />
+                    <Grid item xs={10}>
+                        <IconHeader title={new Message(MessageId.UserManagement_Title)} />
+                    </Grid>
+                    <Grid item xs={1} className={classes.buttonArea}>
+                        <Fab href={routeIds.addUser} color="primary" aria-label="add">
+                            <PersonAddIcon />
+                        </Fab>
+                    </Grid>
+                </Grid>
                 <AssignmentTable data={getUsers} />
             </Box>
         </Container>
