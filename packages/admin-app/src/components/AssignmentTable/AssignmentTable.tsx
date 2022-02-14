@@ -1,4 +1,5 @@
 import { AsyncResult, UserInfo } from '@electionguard/api-client';
+import makeStyles from '@mui/styles/makeStyles';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridRowId, GridValueGetterParams } from '@mui/x-data-grid';
 import * as React from 'react';
@@ -18,6 +19,13 @@ const columns: GridColDef[] = [
     { field: 'fullName', valueGetter: getName, headerName: 'Name', width: 250 },
 ];
 
+const useStyles = makeStyles(() => ({
+    root: {
+        height: '100%',
+        width: '100%',
+    },
+}));
+
 export const AssignmentTable: React.FC<AssignmentTableProps> = ({
     data,
     onChanged,
@@ -31,9 +39,10 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({
     };
 
     const usersQuery = data();
+    const classes = useStyles();
 
     return (
-        <Box display="flex" height="100%" width="100%">
+        <Box display="flex" className={classes.root}>
             <AsyncContent query={usersQuery} errorMessage="there was an error">
                 {(userData) => {
                     const result = (
