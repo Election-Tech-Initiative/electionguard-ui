@@ -19,14 +19,20 @@ const useStyles = makeStyles((theme) => ({
 
 export interface KeySetupStepProps {
     baseJointKey: BaseJointKey;
-    onSubmit: (baseJointKey: BaseJointKey) => void;
+    onNext: () => void;
+    onChanged: (key: BaseJointKey) => void;
     onCancel: () => void;
 }
 
 /**
  * Key Setup Step
  */
-const KeySetupStep: React.FC<KeySetupStepProps> = ({ baseJointKey, onSubmit, onCancel }) => {
+const KeySetupStep: React.FC<KeySetupStepProps> = ({
+    baseJointKey,
+    onNext,
+    onChanged,
+    onCancel,
+}) => {
     const classes = useStyles();
     const { formatMessage } = useIntl();
 
@@ -65,7 +71,8 @@ const KeySetupStep: React.FC<KeySetupStepProps> = ({ baseJointKey, onSubmit, onC
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
         if (validate()) {
-            onSubmit({ name, numberOfGuardians, quorum, guardians: [] });
+            onChanged({ ...baseJointKey, name, numberOfGuardians, quorum });
+            onNext();
         }
     };
 

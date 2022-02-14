@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 export interface GuardianAssignmentStepProps {
     baseJointKey: BaseJointKey;
-    onSubmit: (baseJointKey: BaseJointKey) => void;
+    onNext: () => void;
+    onChanged: (key: BaseJointKey) => void;
     onCancel: () => void;
 }
 
@@ -50,7 +51,8 @@ export interface GuardianAssignmentStepProps {
  */
 const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     baseJointKey,
-    onSubmit,
+    onNext,
+    onChanged,
     onCancel,
 }) => {
     const classes = useStyles();
@@ -71,10 +73,11 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        onSubmit({
+        onChanged({
             ...baseJointKey,
             guardians: assignedGuardians,
         });
+        onNext();
     };
 
     const queryClient = new QueryClient();

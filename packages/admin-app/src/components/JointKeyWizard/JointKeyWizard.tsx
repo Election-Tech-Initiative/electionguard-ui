@@ -46,10 +46,10 @@ export const JointKeyWizard: React.FC = () => {
         navigate(routeIds.home);
     };
 
-    const onNext = (key: BaseJointKey) => {
-        setBaseJointKey(key);
-        next();
-    };
+    const onNext = () => next();
+
+    const handleChanged = setBaseJointKey;
+
     const onCancel = () => {
         navigate(routeIds.home);
     };
@@ -57,12 +57,18 @@ export const JointKeyWizard: React.FC = () => {
     return (
         <Box height="100%">
             <WizardStep active={step === JointKeyStep.KeySetup}>
-                <KeySetupStep baseJointKey={baseJointKey} onSubmit={onNext} onCancel={onCancel} />
+                <KeySetupStep
+                    baseJointKey={baseJointKey}
+                    onChanged={handleChanged}
+                    onNext={onNext}
+                    onCancel={onCancel}
+                />
             </WizardStep>
             <WizardStep active={step === JointKeyStep.GuardianAssignment}>
                 <GuardianAssignmentStep
                     baseJointKey={baseJointKey}
-                    onSubmit={onNext}
+                    onChanged={handleChanged}
+                    onNext={onNext}
                     onCancel={previous}
                 />
             </WizardStep>
