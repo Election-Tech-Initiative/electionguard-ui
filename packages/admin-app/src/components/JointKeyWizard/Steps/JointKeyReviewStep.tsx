@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export interface GuardianAssignmentReviewStepProps {
+export interface JointKeyReviewStepProps {
     onEditAssignedGuardians: () => void;
     baseJointKey: BaseJointKey;
     onConfirm: (baseJointKey: BaseJointKey) => void;
@@ -52,7 +52,7 @@ export interface GuardianAssignmentReviewStepProps {
 /**
  * Guardian Assignment Review Step
  */
-const JointKeyReviewStep: React.FC<GuardianAssignmentReviewStepProps> = ({
+const JointKeyReviewStep: React.FC<JointKeyReviewStepProps> = ({
     onConfirm,
     onEditAssignedGuardians,
     onCancel,
