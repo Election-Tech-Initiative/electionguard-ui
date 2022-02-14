@@ -2,7 +2,8 @@ import { AssignedGuardian } from '@electionguard/api-client';
 import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { styled } from '@mui/material/styles';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { FC } from 'react';
+import { DataGrid, DataGridProps, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 
 import { GuardianIconCell } from '../Cells';
@@ -13,6 +14,11 @@ export interface GuardianTableProps {
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+    },
+    guardianGrid: {
         '& .bold-style--header': {
             marginLeft: -theme.spacing(0.25),
             '& .MuiDataGrid-columnSeparator': {
@@ -22,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const StyledDataGrid = styled(DataGrid)(() => ({
+const StyledDataGrid: FC<DataGridProps> = styled(DataGrid)(() => ({
     border: 0,
     '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell, .MuiDataGrid-columnHeaders': {
         border: 0,
@@ -44,7 +50,7 @@ const columns: GridColDef[] = [
 export const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
     const classes = useStyles();
     return (
-        <Box display="flex" height="100%" width="100%">
+        <Box className={classes.root}>
             <StyledDataGrid
                 autoHeight
                 disableSelectionOnClick
@@ -52,7 +58,7 @@ export const GuardianTable: React.FC<GuardianTableProps> = ({ data }) => {
                 headerHeight={0}
                 disableColumnMenu
                 disableColumnSelector
-                className={classes.root}
+                className={classes.guardianGrid}
                 rows={data}
                 columns={columns}
                 hideFooterPagination

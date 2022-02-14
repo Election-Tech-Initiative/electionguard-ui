@@ -1,10 +1,4 @@
-import {
-    AssignedGuardian,
-    BaseJointKey,
-    Guardian,
-    AsyncResult,
-    UserInfo,
-} from '@electionguard/api-client';
+import { AssignedGuardian, BaseJointKey, AsyncResult, UserInfo } from '@electionguard/api-client';
 import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';

@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     root: {
         height: '100%',
         width: '100%',
+        display: 'flex',
     },
 }));
 
@@ -42,7 +43,7 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({
     const classes = useStyles();
 
     return (
-        <Box display="flex" className={classes.root}>
+        <Box className={classes.root}>
             <AsyncContent query={usersQuery} errorMessage="there was an error">
                 {(userData) => {
                     const result = (
