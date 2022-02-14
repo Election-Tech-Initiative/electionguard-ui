@@ -73,7 +73,7 @@ const JointKeyReviewStep: React.FC<GuardianAssignmentReviewStepProps> = ({
                 >
                     <Typography
                         className={classes.heading}
-                        color="secondary"
+                        color="primary"
                         variant="h5"
                         component="h2"
                     >
