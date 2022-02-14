@@ -11,18 +11,18 @@ import { MessageId } from '../../lang';
 
 const iconSize = 36;
 
-const useStyles = (color: string, missing?: boolean) => {
+const useStyles = (color?: string) => {
     const styles = makeStyles((theme) => ({
         iconContainer: {
             zIndex: 1,
             gridArea: 'area-1',
-            color,
+            color: color || theme.palette.primary.main,
         },
         text: {
             zIndex: 2,
             gridArea: 'area-1',
             fontWeight: 'bold',
-            color: missing ? theme.typography.body1.color : theme.palette.getContrastText(color),
+            color: theme.palette.getContrastText(color || theme.palette.primary.main),
         },
     }));
     return styles();
@@ -31,16 +31,13 @@ const useStyles = (color: string, missing?: boolean) => {
 export interface GuardianIconProps {
     color?: string;
     sequenceOrder: number;
-    missing?: boolean;
 }
 
 /**
  * A menu option card for the menu screens
  */
-export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder, missing }) => {
-    const theme = useTheme();
-    const colorOrDefault = color || theme.palette.primary.main;
-    const classes = useStyles(colorOrDefault, missing);
+export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder }) => {
+    const classes = useStyles(color);
     const intl = useIntl();
     return (
         <Box display="grid" alignItems="center" justifyItems="center">
@@ -54,11 +51,7 @@ export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder
                 zIndex={1}
                 fontSize={iconSize}
             >
-                {missing ? (
-                    <CircleOutlineIcon fontSize="inherit" color="inherit" />
-                ) : (
-                    <CircleIcon fontSize="inherit" color="inherit" />
-                )}
+                <CircleIcon fontSize="inherit" color="inherit" />
             </Box>
             <Typography
                 className={classes.text}
