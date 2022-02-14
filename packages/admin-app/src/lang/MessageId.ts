@@ -237,6 +237,9 @@ enum MessageId {
     ElectionListPage_StateHeader = 'election_list_page.state_header',
     ElectionListPage_KeyNameHeader = 'election_list_page.key_name_header',
     ElectionListPage_ElectionIdHeader = 'election_list_page.election_id_header',
+
+    // User Management
+    UserManagement_Title = 'usermanagement.title',
 }
 
 export default MessageId;
