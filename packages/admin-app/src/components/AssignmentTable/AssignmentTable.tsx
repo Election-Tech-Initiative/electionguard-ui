@@ -45,23 +45,20 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({
     return (
         <Box className={classes.root}>
             <AsyncContent query={usersQuery} errorMessage="there was an error">
-                {(userData) => {
-                    const result = (
-                        <DataGrid
-                            autoHeight
-                            rows={userData}
-                            columns={columns}
-                            getRowId={(row) => row.username}
-                            onSelectionModelChange={(newSelection) => {
-                                onSelectionChange(newSelection);
-                            }}
-                            hideFooterPagination
-                            selectionModel={selectionModel}
-                            checkboxSelection
-                        />
-                    );
-                    return result;
-                }}
+                {(userData) => (
+                    <DataGrid
+                        autoHeight
+                        rows={userData}
+                        columns={columns}
+                        getRowId={(row) => row.username}
+                        onSelectionModelChange={(newSelection) => {
+                            onSelectionChange(newSelection);
+                        }}
+                        hideFooterPagination
+                        selectionModel={selectionModel}
+                        checkboxSelection
+                    />
+                )}
             </AsyncContent>
         </Box>
     );
