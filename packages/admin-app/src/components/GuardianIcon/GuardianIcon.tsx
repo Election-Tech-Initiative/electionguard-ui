@@ -1,9 +1,6 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import {
-    Brightness1 as CircleIcon,
-    Brightness1Outlined as CircleOutlineIcon,
-} from '@mui/icons-material';
+import { Brightness1 as CircleIcon } from '@mui/icons-material';
 import React from 'react';
 import { useIntl } from 'react-intl';
 
