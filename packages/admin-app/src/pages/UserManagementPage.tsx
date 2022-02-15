@@ -1,6 +1,6 @@
 import { AsyncResult, UserInfo } from '@electionguard/api-client';
 import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
-import { Box, Container, Fab, Grid, IconButton } from '@mui/material';
+import { Box, Container, Fab, Grid } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import makeStyles from '@mui/styles/makeStyles';
 import { DefaultTheme } from '@mui/styles';
