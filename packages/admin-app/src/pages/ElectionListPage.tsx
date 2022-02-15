@@ -108,7 +108,7 @@ export const ElectionListPage: React.FC = () => {
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <IconHeader title={new Message(MessageId.ElectionListPage_Title)} />
+            <IconHeader titleId={MessageId.ElectionListPage_Title} />
 
             <DataGrid
                 rows={elections}

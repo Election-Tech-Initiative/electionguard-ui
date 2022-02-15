@@ -18,14 +18,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface IconHeaderProps {
-    title: Message;
+    title?: Message;
+    titleId?: string;
     Icon?: React.ComponentType<SvgIconProps>;
 }
 
 /**
  * A menu option card for the menu screens
  */
-export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
+export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title, titleId }) => {
     const classes = useStyles();
     return (
         <Box className={classes.root} display="flex" flexDirection="column" alignItems="center">
@@ -33,7 +34,7 @@ export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title }) => {
             <InternationalText
                 variant="h3"
                 component="h1"
-                id={title.id}
+                id={title?.id || titleId}
                 description="Heading of header for section"
             />
         </Box>

@@ -1,9 +1,8 @@
-import { Box, Container, IconButton, TextField, Tooltip } from '@mui/material';
+import { Box, Container, IconButton, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 
-import { useIntl } from 'react-intl';
 import { SubmitElectionRequest } from '@electionguard/api-client';
 import { Foundation as FoundationIcon } from '@mui/icons-material';
 import FormattedButton from '../../FormattedButton';
@@ -37,7 +36,6 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
 }) => {
     const [electionId, setElectionId] = useState('');
     const classes = useStyles();
-    const intl = useIntl();
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -50,10 +48,7 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <IconHeader
-                title={new Message(MessageId.ElectionSetup_BasicInfo_Title)}
-                Icon={FoundationIcon}
-            />
+            <IconHeader titleId={MessageId.ElectionSetup_BasicInfo_Title} Icon={FoundationIcon} />
             <Container maxWidth="xs">
                 <form onSubmit={handleSubmit}>
                     <TextField
