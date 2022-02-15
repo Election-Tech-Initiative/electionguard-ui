@@ -14,6 +14,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ValidateManifestRequest } from '@electionguard/api-client';
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 export const alert = (props: AlertProps) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     error: {
-        color: 'red',
         marginBottom: theme.spacing(2),
     },
 }));
@@ -41,22 +41,15 @@ export interface ManifestUploadStepProps {
 
 const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploadManifest }) => {
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState<string>();
+    const [errorMessageId, setErrorMessageId] = useState<string>();
     const intl = useIntl();
-
-    const setIntlError = (id: string) => {
-        const message = intl.formatMessage({
-            id,
-        });
-        setError(message);
-    };
 
     const handleClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {
             return;
         }
 
-        setError(undefined);
+        setErrorMessageId(undefined);
     };
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,12 +69,12 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                 setUploading(false);
                 onNext();
             } catch (ex) {
-                setIntlError(MessageId.ElectionSetup_UploadManifest_InvalidFile);
+                setErrorMessageId(MessageId.ElectionSetup_UploadManifest_InvalidFile);
             } finally {
                 setUploading(false);
             }
         } else {
-            setIntlError(MessageId.ElectionSetup_UploadManifest_NoFile);
+            setErrorMessageId(MessageId.ElectionSetup_UploadManifest_NoFile);
         }
     };
 
@@ -94,7 +87,9 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
                 Icon={PublishOutlined}
             />
 
-            <div className={classes.error}>{error}</div>
+            {errorMessageId && (
+                <ErrorMessage className={classes.error} MessageId={errorMessageId} />
+            )}
 
             <Button disabled={uploading} color="secondary" variant="contained" component="label">
                 <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Upload} />
@@ -109,7 +104,7 @@ const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploa
 
             {uploading && <CircularProgress size={24} variant="indeterminate" />}
 
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={!!errorMessageId} autoHideDuration={6000} onClose={handleClose}>
                 <Alert severity="error" onClose={handleClose}>
                     <FormattedMessage id={MessageId.ElectionSetup_UploadManifest_Error} />
                 </Alert>
