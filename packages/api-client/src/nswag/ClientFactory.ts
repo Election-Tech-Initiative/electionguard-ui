@@ -15,9 +15,15 @@ export class ClientFactory {
         return new CeremonyClient(url);
     }
 
-    public static GetV1Client(): V1Client {
+    public static GetV1Client(
+        token?: string,
+        onTokenExpired?: (newToken?: Token) => void
+    ): V1Client {
         const url = this.GetUrl();
-        return new V1Client(url);
+        const client = new V1Client(url);
+        client.token = token;
+        client.onTokenExpired = onTokenExpired;
+        return client;
     }
 
     public static GetKeyClient(): KeyClient {

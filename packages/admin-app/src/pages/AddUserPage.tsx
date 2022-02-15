@@ -1,26 +1,34 @@
 import { FormattedMessage } from 'react-intl';
 import { Container, Grid, MenuItem, Select, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import { UserInfo, UserScope } from '@electionguard/api-client';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IconHeader from '../components/IconHeader';
 import { Message, MessageId } from '../lang';
 import routeIds from '../routes/RouteIds';
+import { useV1Client } from '../hooks/useClient';
 
 export const AddUserPage: React.FC = () => {
-    const roleGuardian = 'guardian';
-    const roleAdmin = 'admin';
-
     const [username, setUsername] = useState('');
-    const [role, setRole] = useState(roleGuardian);
+    const [role, setRole] = useState<UserScope>(UserScope.Guardian);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
 
     const navigate = useNavigate();
 
+    const v1Client = useV1Client();
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
+        const user: UserInfo = {
+            username,
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            scopes: [role],
+        };
+        v1Client.user(user);
     };
 
     const onCancel = () => {
@@ -48,10 +56,10 @@ export const AddUserPage: React.FC = () => {
                             value={role}
                             label="Role"
                             fullWidth
-                            onChange={(e) => setRole(e.target.value)}
+                            onChange={(e) => setRole(e.target.value as UserScope)}
                         >
-                            <MenuItem value={roleGuardian}>Guardian</MenuItem>
-                            <MenuItem value={roleAdmin}>Admin</MenuItem>
+                            <MenuItem value={UserScope.Guardian}>Guardian</MenuItem>
+                            <MenuItem value={UserScope.Admin}>Admin</MenuItem>
                         </Select>
                     </Grid>
                     <Grid item sm={6} xs={12}>
