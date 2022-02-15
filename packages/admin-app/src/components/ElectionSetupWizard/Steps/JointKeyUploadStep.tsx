@@ -2,11 +2,12 @@ import { Button, CircularProgress, Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { VpnKey as KeyIcon } from '@mui/icons-material';
 import React, { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { CiphertextElectionContext, SubmitElectionRequest } from '@electionguard/api-client';
 import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -20,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
     },
     error: {
-        color: 'red',
         marginBottom: theme.spacing(2),
     },
 }));
@@ -35,16 +35,8 @@ export interface JointKeyUploadStepProps {
  */
 const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChanged }) => {
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState<string>();
+    const [errorMessageId, setErrorMessageId] = useState<string>();
     const classes = useStyles();
-    const intl = useIntl();
-
-    const setIntlError = (id: string) => {
-        const message = intl.formatMessage({
-            id,
-        });
-        setError(message);
-    };
 
     const onFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files?.length) {
@@ -70,12 +62,12 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                 onChanged({ context } as SubmitElectionRequest);
                 onNext();
             } catch (ex) {
-                setIntlError(MessageId.ElectionSetup_JointKeyUpload_InvalidFile);
+                setErrorMessageId(MessageId.ElectionSetup_JointKeyUpload_InvalidFile);
             } finally {
                 setUploading(false);
             }
         } else {
-            setIntlError(MessageId.ElectionSetup_JointKeyUpload_NoFile);
+            setErrorMessageId(MessageId.ElectionSetup_JointKeyUpload_NoFile);
         }
     };
 
@@ -86,7 +78,9 @@ const JointKeyUploadStep: React.FC<JointKeyUploadStepProps> = ({ onNext, onChang
                 Icon={KeyIcon}
             />
 
-            {error && <div className={classes.error}>{error}</div>}
+            {errorMessageId && (
+                <ErrorMessage className={classes.error} MessageId={errorMessageId} />
+            )}
 
             <Button
                 disabled={uploading}

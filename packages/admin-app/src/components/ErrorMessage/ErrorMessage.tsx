@@ -8,9 +8,11 @@ export interface ErrorMessageProps extends AlertProps {
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = (props) => {
     const { MessageId } = props;
+    const alertProps = props as AlertProps;
 
     return (
-        <Alert severity="error">
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <Alert {...alertProps} severity="error">
             <FormattedMessage id={MessageId} />
         </Alert>
     );
