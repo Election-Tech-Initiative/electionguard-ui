@@ -224,5 +224,7 @@
     "election_list_page.state_header": "State",
     "election_list_page.no-rows": "No elections found",
 
-    "usermanagement.title": "Users"
+    "usermanagement.title": "Users",
+
+    "adduser.title": "Add User"
 }

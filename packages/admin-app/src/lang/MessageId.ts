@@ -240,6 +240,9 @@ enum MessageId {
 
     // User Management
     UserManagement_Title = 'usermanagement.title',
+
+    // Add User
+    AddUser_Title = 'adduser.title',
 }
 
 export default MessageId;
