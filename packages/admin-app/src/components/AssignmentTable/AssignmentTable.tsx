@@ -1,22 +1,38 @@
-import { AsyncResult, User } from '@electionguard/api-client';
+import { AsyncResult, UserInfo } from '@electionguard/api-client';
+import makeStyles from '@mui/styles/makeStyles';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowId, GridValueGetterParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import AsyncContent from '../AsyncContent';
-import FilterToolbar from '../FilterToolbar';
 
 export interface AssignmentTableProps {
-    data: () => AsyncResult<User[]>;
+    data: () => AsyncResult<UserInfo[]>;
     onChanged: (selectedIds: string[]) => void;
+    initialData: string[];
 }
 
+const getName = (params: GridValueGetterParams<UserInfo, UserInfo>) =>
+    `${params.row.first_name} ${params.row.last_name}`;
+
 const columns: GridColDef[] = [
-    { field: 'id', hide: true },
-    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'username', hide: true },
+    { field: 'fullName', valueGetter: getName, headerName: 'Name', width: 250 },
 ];
 
-export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChanged }) => {
-    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
+const useStyles = makeStyles(() => ({
+    root: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+    },
+}));
+
+export const AssignmentTable: React.FC<AssignmentTableProps> = ({
+    data,
+    onChanged,
+    initialData,
+}) => {
+    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>(initialData);
 
     const onSelectionChange = (rows: GridRowId[]) => {
         setSelectionModel(rows);
@@ -24,18 +40,17 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({ data, onChange
     };
 
     const usersQuery = data();
+    const classes = useStyles();
 
     return (
-        <Box display="flex" minHeight="500px" height="100%" width="100%">
+        <Box className={classes.root}>
             <AsyncContent query={usersQuery} errorMessage="there was an error">
                 {(userData) => (
                     <DataGrid
                         autoHeight
                         rows={userData}
                         columns={columns}
-                        components={{
-                            Toolbar: FilterToolbar,
-                        }}
+                        getRowId={(row) => row.username}
                         onSelectionModelChange={(newSelection) => {
                             onSelectionChange(newSelection);
                         }}

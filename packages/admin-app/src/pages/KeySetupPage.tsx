@@ -1,4 +1,3 @@
-import { useCreateJointKey, useGetUsersWithGuardianRole } from '@electionguard/api-client';
 import { Container, Grid } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
@@ -16,15 +15,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const KeySetupPage: React.FC = () => {
     const classes = useStyles();
-    //    const navigate = useNavigate();
     return (
         <Grid container className={classes.root}>
             <Container maxWidth="md" className={classes.content}>
-                <JointKeyWizard
-                    getGuardians={useGetUsersWithGuardianRole}
-                    createJointKey={useCreateJointKey}
-                    onCancel={() => {}}
-                />
+                <JointKeyWizard />
             </Container>
         </Grid>
     );

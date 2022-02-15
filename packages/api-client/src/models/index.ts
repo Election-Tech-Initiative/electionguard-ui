@@ -13,4 +13,3 @@ export * from './role';
 export * from './tally';
 export * from './taskStatus';
 export * from './user';
-export * from './userInfo';

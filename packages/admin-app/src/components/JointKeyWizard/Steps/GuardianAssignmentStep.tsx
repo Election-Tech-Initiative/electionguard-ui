@@ -1,12 +1,13 @@
-import { AsyncResult, AssignedGuardian, BaseJointKey, User } from '@electionguard/api-client';
+import { AssignedGuardian, BaseJointKey, AsyncResult, UserInfo } from '@electionguard/api-client';
+import { UserQueryRequest } from '@electionguard/api-client/dist/nswag/clients';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useUserClient } from '../../../hooks/useClient';
 
 import { Message, MessageId } from '../../../lang';
-import { getColor } from '../../../theme';
 import AssignmentTable from '../../AssignmentTable';
 import IconHeader from '../../IconHeader';
 import InternationalText from '../../InternationalText';
@@ -15,30 +16,11 @@ const useStyles = makeStyles((theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start',
-    },
-    description: {
-        marginBottom: theme.spacing(3),
-    },
-    heading: {
-        fontWeight: 'bold',
-        marginBottom: theme.spacing(1),
-    },
-    buttonContainer: {
-        marginBottom: theme.spacing(2),
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     button: {
         minWidth: 100,
-        marginRight: theme.spacing(2),
-    },
-    jointKeyDisplay: {
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-        borderTop: `1px solid ${theme.palette.divider}`,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        marginBottom: theme.spacing(3),
-    },
-    numberContainer: {
         marginRight: theme.spacing(2),
     },
     numberDisplay: {
@@ -46,14 +28,22 @@ const useStyles = makeStyles((theme) => ({
     },
     tableContainer: {
         marginBottom: theme.spacing(3),
+        width: '100%',
+    },
+    tableHeader: {
+        marginBottom: theme.spacing(2),
+    },
+    guardiansAssignedLabel: {
+        fontWeight: 'bold',
+        color: theme.palette.grey[600],
     },
 }));
 
 export interface GuardianAssignmentStepProps {
     baseJointKey: BaseJointKey;
-    onSubmit: (baseJointKey: BaseJointKey) => void;
+    onNext: () => void;
+    onChanged: (key: BaseJointKey) => void;
     onCancel: () => void;
-    getGuardians: () => AsyncResult<User[]>;
 }
 
 /**
@@ -61,110 +51,86 @@ export interface GuardianAssignmentStepProps {
  */
 const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
     baseJointKey,
-    onSubmit,
+    onNext,
+    onChanged,
     onCancel,
-    getGuardians,
 }) => {
     const classes = useStyles();
-    const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>([]);
-    //    const [foundGuardians, setFoundGuardians] = useState<User[]>([]);
-    const foundGuardians: User[] = [];
+    const [assignedGuardians, setAssignedGuardians] = useState<AssignedGuardian[]>(
+        baseJointKey.guardians
+    );
+    const [users, setUsers] = useState([] as UserInfo[]);
     const validate = (): boolean => assignedGuardians.length === baseJointKey.numberOfGuardians;
     const onAssign = (ids: string[]) => {
-        const selected = foundGuardians.filter((user) => ids.includes(user.id));
+        const selected = users.filter((user) => ids.includes(user.username));
         const assigned: AssignedGuardian[] = selected.map((user, i) => ({
-            ...user,
+            id: user.username,
+            name: `${user.first_name} ${user.last_name}`,
             sequenceOrder: i + 1,
-            color: getColor(i),
         }));
         setAssignedGuardians(assigned);
     };
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        onSubmit({
+        onChanged({
             ...baseJointKey,
             guardians: assignedGuardians,
         });
+        onNext();
     };
 
     const queryClient = new QueryClient();
 
+    const initialGuardians = baseJointKey.guardians.map((g) => g.id);
+    const userClient = useUserClient();
+    const skip = 0;
+    const take = 100;
+    const findParams = {
+        filter: {},
+    } as UserQueryRequest;
+    const findUsers = async () =>
+        userClient.find(skip, take, findParams).then((response) => response.users);
+
+    const usersQuery = useQuery('users', async () => {
+        const foundUsers = await findUsers();
+        if (foundUsers) {
+            setUsers(foundUsers);
+        }
+        return foundUsers;
+    });
+    const getUsers = (): AsyncResult<UserInfo[]> => usersQuery;
+
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
             <QueryClientProvider client={queryClient}>
                 <IconHeader title={new Message(MessageId.JointKeySetup_GuardianAssignment_Title)} />
                 <form className={classes.form} onSubmit={handleSubmit}>
-                    <InternationalText
-                        className={classes.description}
-                        id={MessageId.JointKeySetup_GuardianAssignment_Description}
-                    />
-                    <Box
-                        className={classes.jointKeyDisplay}
-                        display="flex"
-                        flexDirection="column"
-                        width="100%"
-                    >
+                    <Box className={classes.tableHeader}>
+                        <InternationalText
+                            noWrap
+                            className={classes.guardiansAssignedLabel}
+                            id={MessageId.JointKeySetup_GuardianAssignment_AssignedLabel}
+                        />
+                        <span>:</span>
                         <Typography
-                            className={classes.heading}
-                            color="secondary"
-                            variant="h5"
-                            component="h2"
+                            className={classes.numberDisplay}
+                            component="span"
+                            color={validate() ? 'primary' : 'error'}
                         >
-                            {baseJointKey.name}
+                            {assignedGuardians.length}
+                            <span>/</span>
+                            {baseJointKey.numberOfGuardians}
                         </Typography>
-                        <Box display="flex" flexWrap="wrap">
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    variant="h6"
-                                    noWrap
-                                    id={MessageId.JointKey_NumberOfGuardians}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color="primary"
-                                    variant="h6"
-                                >
-                                    {baseJointKey.numberOfGuardians}
-                                </Typography>
-                            </Box>
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    noWrap
-                                    variant="h6"
-                                    id={MessageId.JointKey_Quorum}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color="primary"
-                                    variant="h6"
-                                >
-                                    {baseJointKey.quorum}
-                                </Typography>
-                            </Box>
-                            <Box className={classes.numberContainer} display="flex">
-                                <InternationalText
-                                    noWrap
-                                    variant="h6"
-                                    id={MessageId.JointKeySetup_GuardianAssignment_AssignedLabel}
-                                />
-                                <Typography variant="h6">:</Typography>
-                                <Typography
-                                    className={classes.numberDisplay}
-                                    color={validate() ? 'primary' : 'error'}
-                                    variant="h6"
-                                >
-                                    {assignedGuardians.length}
-                                </Typography>
-                            </Box>
-                        </Box>
                     </Box>
-                    <Box className={classes.tableContainer} width="100%">
-                        <AssignmentTable data={getGuardians} onChanged={onAssign} />
+                    <Box className={classes.tableContainer}>
+                        <AssignmentTable
+                            data={getUsers}
+                            onChanged={onAssign}
+                            initialData={initialGuardians}
+                        />
                     </Box>
-                    <Box className={classes.buttonContainer}>
+                    <Box>
                         <Button
                             disabled={!validate()}
                             className={classes.button}
@@ -172,10 +138,10 @@ const GuardianAssignmentStep: React.FC<GuardianAssignmentStepProps> = ({
                             variant="contained"
                             color="secondary"
                         >
-                            <FormattedMessage id={MessageId.Actions_Submit} />
+                            <FormattedMessage id={MessageId.Actions_Next} />
                         </Button>
                         <Button className={classes.button} color="primary" onClick={onCancel}>
-                            <FormattedMessage id={MessageId.Actions_Cancel} />
+                            <FormattedMessage id={MessageId.Actions_Back} />
                         </Button>
                     </Box>
                 </form>

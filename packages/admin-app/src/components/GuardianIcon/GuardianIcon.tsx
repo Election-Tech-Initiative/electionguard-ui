@@ -1,9 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import {
-    Brightness1 as CircleIcon,
-    Brightness1Outlined as CircleOutlineIcon,
-} from '@mui/icons-material';
+import { Brightness1 as CircleIcon } from '@mui/icons-material';
 import React from 'react';
 import { useIntl } from 'react-intl';
 
@@ -11,34 +8,33 @@ import { MessageId } from '../../lang';
 
 const iconSize = 36;
 
-const useStyles = (color: string, missing?: boolean) => {
+const useStyles = (color?: string) => {
     const styles = makeStyles((theme) => ({
         iconContainer: {
             zIndex: 1,
             gridArea: 'area-1',
-            color,
+            color: color || theme.palette.primary.main,
         },
         text: {
             zIndex: 2,
             gridArea: 'area-1',
             fontWeight: 'bold',
-            color: missing ? theme.typography.body1.color : theme.palette.getContrastText(color),
+            color: theme.palette.getContrastText(color || theme.palette.primary.main),
         },
     }));
     return styles();
 };
 
 export interface GuardianIconProps {
-    color: string;
+    color?: string;
     sequenceOrder: number;
-    missing?: boolean;
 }
 
 /**
  * A menu option card for the menu screens
  */
-export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder, missing }) => {
-    const classes = useStyles(color, missing);
+export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder }) => {
+    const classes = useStyles(color);
     const intl = useIntl();
     return (
         <Box display="grid" alignItems="center" justifyItems="center">
@@ -52,11 +48,7 @@ export const GuardianIcon: React.FC<GuardianIconProps> = ({ color, sequenceOrder
                 zIndex={1}
                 fontSize={iconSize}
             >
-                {missing ? (
-                    <CircleOutlineIcon fontSize="inherit" color="inherit" />
-                ) : (
-                    <CircleIcon fontSize="inherit" color="inherit" />
-                )}
+                <CircleIcon fontSize="inherit" color="inherit" />
             </Box>
             <Typography
                 className={classes.text}

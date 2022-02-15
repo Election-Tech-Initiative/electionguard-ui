@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import {
     Guardian,
-    ApiGuardianQueryResponse,
     BackupChallengeResponse,
     ChallengeVerificationRequest,
     ElectionPartialKeyChallenge,
@@ -56,14 +55,6 @@ export const getGuardianPublicKeys = async (
     const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/public-keys?guardian_id=${guardian_id}`;
     const response = await get<{ resp: GuardianPublicKeysResponse }>(path);
     return response.parsedBody?.resp.public_keys;
-};
-
-export const findGuardians = async (): Promise<Guardian[] | undefined> => {
-    const data = {};
-    const path = `${process.env.REACT_APP_GUARDIAN_SERVICE}/api/v1/guardian/find?skip=0&limit=100`;
-
-    const response = await post<{ resp: ApiGuardianQueryResponse }>(path, data);
-    return response.parsedBody?.resp.guardians;
 };
 
 export const backupGuardian = async (

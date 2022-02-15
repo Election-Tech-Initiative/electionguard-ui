@@ -6,7 +6,6 @@ import {
     backupVerificationGuardian,
     backupChallengeGuardian,
     verifyChallengeGuardian,
-    findGuardians,
 } from '../server/guardians';
 import { decryptSharesBallot } from '../server/ballots';
 import { decryptShareTally, decryptSharePostTally } from '../server/tally';
@@ -29,8 +28,6 @@ export default class GuardianApi implements ElectionGuardGuardianApiClient {
     backupChallengeGuardian = backupChallengeGuardian;
 
     verifyChallengeGuardian = verifyChallengeGuardian;
-
-    findGuardians = findGuardians;
 
     decryptShareTally = decryptShareTally;
 

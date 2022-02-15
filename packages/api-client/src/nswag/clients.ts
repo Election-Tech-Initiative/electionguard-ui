@@ -7,12 +7,58 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
-export class AuthClient {
+export class ClientBase {
+    /**
+    * Do not change ClientBase or anything in this file.  This base class lives in ClientBase.txt 
+    * and was inserted into clients.ts by NSwag during code generation (`npm run nswag-generate`)
+    */
+
+    /**
+     * authorization token value to be passed in header of all requests
+     */
+    public token?: string;
+
+    /**
+     * if a request receives a 401 it will call this method and error
+     */
+    public onTokenExpired?: (newToken?: Token) => void;
+
+    protected transformOptions(options: RequestInit): Promise<RequestInit> {
+        if (!this.token || !options?.headers) return Promise.resolve(options);
+        const authOptions = {
+            ...options,
+            headers: {
+                ...options.headers,
+                Authorization: `bearer ${this.token}`,
+            },
+        };
+        return Promise.resolve(authOptions);
+    }
+
+    protected transformResult(
+        _url: string,
+        response: Response,
+        next: (r: Response) => Promise<any>
+    ): Promise<any> {
+        if (response.status === 401) {
+            const newToken = undefined; // todo: try to refresh token via API
+            if (this.onTokenExpired) {
+                this.onTokenExpired(newToken);
+            }
+            throw new Error('Session has expired, please log in again.');
+        } else {
+            return next(response);
+        }
+    }
+}
+
+export class AuthClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -38,8 +84,10 @@ export class AuthClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processLogin(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processLogin(_response));
         });
     }
 
@@ -79,38 +127,95 @@ export class AuthClient {
     }
 }
 
-export class UserClient {
+export class UserClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
-     * Me
-     * @param body (optional) 
+     * Find Users
+     * @param skip (optional) 
+     * @param limit (optional) 
      * @return Successful Response
      */
-    me(body: Settings | undefined): Promise<UserInfo> {
-        let url_ = this.baseUrl + "/api/v1/user/me";
+    find(skip: number | undefined, limit: number | undefined, body: UserQueryRequest): Promise<UserQueryResponse> {
+        let url_ = this.baseUrl + "/api/v1/user/find?";
+        if (skip === null)
+            throw new Error("The parameter 'skip' cannot be null.");
+        else if (skip !== undefined)
+            url_ += "skip=" + encodeURIComponent("" + skip) + "&";
+        if (limit === null)
+            throw new Error("The parameter 'limit' cannot be null.");
+        else if (limit !== undefined)
+            url_ += "limit=" + encodeURIComponent("" + limit) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
 
         let options_ = <RequestInit>{
             body: content_,
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processMe(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
+        });
+    }
+
+    protected processFind(response: Response): Promise<UserQueryResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <UserQueryResponse>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<UserQueryResponse>(<any>null);
+    }
+
+    /**
+     * Me
+     * @return Successful Response
+     */
+    me(): Promise<UserInfo> {
+        let url_ = this.baseUrl + "/api/v1/user/me";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processMe(_response));
         });
     }
 
@@ -123,12 +228,6 @@ export class UserClient {
             result200 = _responseText === "" ? null : <UserInfo>JSON.parse(_responseText, this.jsonParseReviver);
             return result200;
             });
-        } else if (status === 422) {
-            return response.text().then((_responseText) => {
-            let result422: any = null;
-            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
-            return throwException("Validation Error", status, _responseText, _headers, result422);
-            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -138,58 +237,10 @@ export class UserClient {
     }
 
     /**
-     * Create User
-     * @return Successful Response
-     */
-    create(body: Body_create_user_api_v1_user_create_post): Promise<any> {
-        let url_ = this.baseUrl + "/api/v1/user/create";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ = <RequestInit>{
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCreate(_response);
-        });
-    }
-
-    protected processCreate(response: Response): Promise<any> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : <any>JSON.parse(_responseText, this.jsonParseReviver);
-            return result200;
-            });
-        } else if (status === 422) {
-            return response.text().then((_responseText) => {
-            let result422: any = null;
-            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
-            return throwException("Validation Error", status, _responseText, _headers, result422);
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<any>(<any>null);
-    }
-
-    /**
      * Reset Password
-     * @param body (optional) 
      * @return Successful Response
      */
-    reset_password(username: string, body: Settings | undefined): Promise<any> {
+    reset_password(username: string): Promise<any> {
         let url_ = this.baseUrl + "/api/v1/user/reset_password?";
         if (username === undefined || username === null)
             throw new Error("The parameter 'username' must be defined and cannot be null.");
@@ -197,19 +248,17 @@ export class UserClient {
             url_ += "username=" + encodeURIComponent("" + username) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
-
         let options_ = <RequestInit>{
-            body: content_,
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processReset_password(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processReset_password(_response));
         });
     }
 
@@ -237,14 +286,64 @@ export class UserClient {
     }
 }
 
-export class V1Client {
+export class V1Client extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Create User
+     * @return Successful Response
+     */
+    user(body: UserInfo): Promise<CreateUserResponse> {
+        let url_ = this.baseUrl + "/api/v1/user";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processUser(_response));
+        });
+    }
+
+    protected processUser(response: Response): Promise<CreateUserResponse> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <CreateUserResponse>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status === 422) {
+            return response.text().then((_responseText) => {
+            let result422: any = null;
+            result422 = _responseText === "" ? null : <HTTPValidationError>JSON.parse(_responseText, this.jsonParseReviver);
+            return throwException("Validation Error", status, _responseText, _headers, result422);
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<CreateUserResponse>(<any>null);
     }
 
     /**
@@ -270,8 +369,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGuardianGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianGet(_response));
         });
     }
 
@@ -317,8 +418,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGuardianPut(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianPut(_response));
         });
     }
 
@@ -364,8 +467,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGuardianPost(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGuardianPost(_response));
         });
     }
 
@@ -411,8 +516,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processElectionGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processElectionGet(_response));
         });
     }
 
@@ -458,8 +565,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processElectionPut(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processElectionPut(_response));
         });
     }
 
@@ -505,8 +614,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManifestGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processManifestGet(_response));
         });
     }
 
@@ -552,8 +663,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processManifestPut(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processManifestPut(_response));
         });
     }
 
@@ -603,8 +716,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processBallot(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processBallot(_response));
         });
     }
 
@@ -654,8 +769,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTallyGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processTallyGet(_response));
         });
     }
 
@@ -705,8 +822,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processTallyPost(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processTallyPost(_response));
         });
     }
 
@@ -748,8 +867,10 @@ export class V1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processPing(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processPing(_response));
         });
     }
 
@@ -771,12 +892,13 @@ export class V1Client {
     }
 }
 
-export class GuardianClient {
+export class GuardianClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -810,8 +932,10 @@ export class GuardianClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -857,8 +981,10 @@ export class GuardianClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAnnounce(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processAnnounce(_response));
         });
     }
 
@@ -904,8 +1030,10 @@ export class GuardianClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processBackup(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processBackup(_response));
         });
     }
 
@@ -951,8 +1079,10 @@ export class GuardianClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processVerify(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processVerify(_response));
         });
     }
 
@@ -998,8 +1128,10 @@ export class GuardianClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processChallenge(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processChallenge(_response));
         });
     }
 
@@ -1027,12 +1159,13 @@ export class GuardianClient {
     }
 }
 
-export class KeyClient {
+export class KeyClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -1056,8 +1189,10 @@ export class KeyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCeremonyGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processCeremonyGet(_response));
         });
     }
 
@@ -1103,8 +1238,10 @@ export class KeyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCeremonyPut(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processCeremonyPut(_response));
         });
     }
 
@@ -1132,12 +1269,13 @@ export class KeyClient {
     }
 }
 
-export class CeremonyClient {
+export class CeremonyClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -1161,8 +1299,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processState(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processState(_response));
         });
     }
 
@@ -1218,8 +1358,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -1265,8 +1407,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processOpen(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processOpen(_response));
         });
     }
 
@@ -1312,8 +1456,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processClose(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processClose(_response));
         });
     }
 
@@ -1359,8 +1505,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processChallenge(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processChallenge(_response));
         });
     }
 
@@ -1406,8 +1554,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCancel(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processCancel(_response));
         });
     }
 
@@ -1453,8 +1603,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processJoint_key(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processJoint_key(_response));
         });
     }
 
@@ -1500,8 +1652,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCombine(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processCombine(_response));
         });
     }
 
@@ -1547,8 +1701,10 @@ export class CeremonyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processPublish(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processPublish(_response));
         });
     }
 
@@ -1576,12 +1732,13 @@ export class CeremonyClient {
     }
 }
 
-export class ChallengeClient {
+export class ChallengeClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -1605,8 +1762,10 @@ export class ChallengeClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processVerify(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processVerify(_response));
         });
     }
 
@@ -1634,12 +1793,13 @@ export class ChallengeClient {
     }
 }
 
-export class ElectionClient {
+export class ElectionClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -1659,8 +1819,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processConstants(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processConstants(_response));
         });
     }
 
@@ -1710,8 +1872,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -1757,8 +1921,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processOpen(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processOpen(_response));
         });
     }
 
@@ -1804,8 +1970,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processClose(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processClose(_response));
         });
     }
 
@@ -1851,8 +2019,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processPublish(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processPublish(_response));
         });
     }
 
@@ -1898,8 +2068,10 @@ export class ElectionClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processContext(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processContext(_response));
         });
     }
 
@@ -1927,12 +2099,13 @@ export class ElectionClient {
     }
 }
 
-export class ManifestClient {
+export class ManifestClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -1966,8 +2139,10 @@ export class ManifestClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2013,8 +2188,10 @@ export class ManifestClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processValidate(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processValidate(_response));
         });
     }
 
@@ -2042,12 +2219,13 @@ export class ManifestClient {
     }
 }
 
-export class BallotClient {
+export class BallotClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -2071,8 +2249,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processInventory(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processInventory(_response));
         });
     }
 
@@ -2132,8 +2312,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2184,8 +2366,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processCast(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processCast(_response));
         });
     }
 
@@ -2236,8 +2420,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSpoil(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processSpoil(_response));
         });
     }
 
@@ -2288,8 +2474,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSubmit(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmit(_response));
         });
     }
 
@@ -2335,8 +2523,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processValidate(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processValidate(_response));
         });
     }
 
@@ -2382,8 +2572,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDecrypt(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecrypt(_response));
         });
     }
 
@@ -2429,8 +2621,10 @@ export class BallotClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processEncrypt(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processEncrypt(_response));
         });
     }
 
@@ -2458,12 +2652,13 @@ export class BallotClient {
     }
 }
 
-export class TestClient {
+export class TestClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -2487,8 +2682,10 @@ export class TestClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSubmit_queue(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmit_queue(_response));
         });
     }
 
@@ -2516,12 +2713,13 @@ export class TestClient {
     }
 }
 
-export class TallyClient {
+export class TallyClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -2559,8 +2757,10 @@ export class TallyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2614,8 +2814,10 @@ export class TallyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDecryptGet(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecryptGet(_response));
         });
     }
 
@@ -2666,8 +2868,10 @@ export class TallyClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processDecryptPost(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processDecryptPost(_response));
         });
     }
 
@@ -2695,12 +2899,13 @@ export class TallyClient {
     }
 }
 
-export class DecryptClient {
+export class DecryptClient extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -2724,8 +2929,10 @@ export class DecryptClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processSubmitShare(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processSubmitShare(_response));
         });
     }
 
@@ -2785,8 +2992,10 @@ export class DecryptClient {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processFind(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processFind(_response));
         });
     }
 
@@ -2814,12 +3023,13 @@ export class DecryptClient {
     }
 }
 
-export class V1_1Client {
+export class V1_1Client extends ClientBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
         this.http = http ? http : <any>window;
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
@@ -2843,8 +3053,10 @@ export class V1_1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processElection(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processElection(_response));
         });
     }
 
@@ -2886,8 +3098,10 @@ export class V1_1Client {
             }
         };
 
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processPing(_response);
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processPing(_response));
         });
     }
 
@@ -2907,12 +3121,6 @@ export class V1_1Client {
         }
         return Promise.resolve<string>(<any>null);
     }
-}
-
-/** An enumeration. */
-export enum ApiMode {
-    Guardian = "guardian",
-    Mediator = "mediator",
 }
 
 /** The Ballot Inventory retains metadata about ballots in an election, including mappings of ballot tracking codes to ballot id's */
@@ -2944,11 +3152,6 @@ export interface BaseQueryRequest {
     filter?: any;
 }
 
-export interface Body_create_user_api_v1_user_create_post {
-    user_info: UserInfo;
-    settings?: Settings;
-}
-
 export interface Body_login_for_access_token_api_v1_auth_login_post {
     grant_type?: string;
     username: string;
@@ -2962,12 +3165,12 @@ export interface Body_login_for_access_token_api_v1_auth_login_post {
 export interface CastBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
 /** The meta-data required for an election including keys, manifest, number of guardians, and quorum */
-export interface CiphertextElectionContext {
+export interface CiphertextElectionContextDto {
     number_of_guardians: number;
     quorum: number;
     elgamal_public_key: string;
@@ -3006,11 +3209,19 @@ export interface CreateElectionRequest {
     name: string;
 }
 
+/** A basic response */
+export interface CreateUserResponse {
+    status?: App__api__v1__models__base__ResponseStatus;
+    message?: string;
+    user_info: UserInfo;
+    password: string;
+}
+
 /** Decrypt the provided ballots with the provided shares */
 export interface DecryptBallotsWithSharesRequest {
     encrypted_ballots: any[];
     shares: { [key: string]: any[]; };
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A request to decrypt a specific tally.  Can optionally include the tally to decrypt. */
@@ -3036,7 +3247,7 @@ export interface Election {
     election_id: string;
     key_name: string;
     state: ElectionState;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
     manifest?: any;
 }
 
@@ -3203,7 +3414,7 @@ export interface MakeElectionContextRequest {
 export interface MakeElectionContextResponse {
     status?: App__api__v1__models__base__ResponseStatus;
     message?: string;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A basic model object */
@@ -3256,49 +3467,19 @@ export interface PublishElectionJointKeyRequest {
     election_public_keys: any[];
 }
 
-/** An enumeration. */
-export enum QueueMode {
-    Local = "local",
-    Remote = "remote",
-}
-
-/** Base class for settings, allowing values to be overridden by environment variables. This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose), Heroku and any 12 factor app design. */
-export interface Settings {
-    API_MODE?: ApiMode;
-    QUEUE_MODE?: QueueMode;
-    STORAGE_MODE?: StorageMode;
-    API_V1_STR?: string;
-    API_V1_1_STR?: string;
-    BACKEND_CORS_ORIGINS?: string[];
-    PROJECT_NAME?: string;
-    MONGODB_URI?: string;
-    MESSAGEQUEUE_URI?: string;
-    AUTH_ALGORITHM?: string;
-    AUTH_SECRET_KEY?: string;
-    AUTH_ACCESS_TOKEN_EXPIRE_MINUTES?: number;
-    DEFAULT_ADMIN_USERNAME?: string;
-    DEFAULT_ADMIN_PASSWORD?: string;
-}
-
 /** Spoil the enclosed ballots. */
 export interface SpoilBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
-}
-
-/** An enumeration. */
-export enum StorageMode {
-    Local_storage = "local_storage",
-    Mongo = "mongo",
 }
 
 /** Submit a ballot against a specific election. */
 export interface SubmitBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: CiphertextElectionContext;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
@@ -3306,7 +3487,7 @@ export interface SubmitBallotsRequest {
 export interface SubmitElectionRequest {
     election_id: string;
     key_name: string;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
     manifest?: any;
 }
 
@@ -3319,9 +3500,21 @@ export interface Token {
 /** A specific user in the system */
 export interface UserInfo {
     username: string;
+    first_name: string;
+    last_name: string;
     scopes?: UserScope[];
     email?: string;
     disabled?: boolean;
+}
+
+/** A request for users using the specified filter. */
+export interface UserQueryRequest {
+    filter?: any;
+}
+
+/** Returns a collection of Users. */
+export interface UserQueryResponse {
+    users: UserInfo[];
 }
 
 /** An enumeration. */
@@ -3337,7 +3530,7 @@ export interface ValidateBallotRequest {
     schema_override?: any;
     ballot?: any;
     manifest?: any;
-    context: CiphertextElectionContext;
+    context: CiphertextElectionContextDto;
 }
 
 /** A request to validate an Election Description. */

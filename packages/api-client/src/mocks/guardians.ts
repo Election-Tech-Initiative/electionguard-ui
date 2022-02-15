@@ -87,23 +87,6 @@ export const getGuardianPublicKeys = async (
     },
 ];
 
-export const findGuardians = async (): Promise<Guardian[] | undefined> => [
-    {
-        guardian_id: 'guardian_1',
-        name: 'Benjamin Franklin',
-        sequence_order: 1,
-        number_of_guardians: 3,
-        quorum: 2,
-        election_keys: {},
-        auxiliary_keys: {},
-        backups: new Map<GuardianId, ElectionPartialKeyBackup>(),
-        cohort_public_keys: new Map<GuardianId, PublicKeySet>(),
-        cohort_backups: new Map<GuardianId, ElectionPartialKeyBackup>(),
-        cohort_verifications: new Map<GuardianId, ElectionPartialKeyVerification>(),
-        cohort_challenges: new Map<GuardianId, ElectionPartialKeyChallenge>(),
-    },
-];
-
 export const backupGuardian = async (
     _guardian_id: string,
     _quorum: number,

@@ -1,19 +1,9 @@
 import { useQuery } from 'react-query';
 import { ApiClientFactory } from '../api/ApiClientFactory';
 
-import { BaseJointKey, JointKey, User, Election, KeyCeremonyDeprecated } from '../models';
+import { JointKey, Election, KeyCeremonyDeprecated } from '../models';
 import { AsyncResult } from './AsyncResult';
 import { QUERY_NAMES } from './query_names';
-
-export function useGetUsersWithGuardianRole(): AsyncResult<User[]> {
-    const service = ApiClientFactory.getGuardianApiClient();
-    return useQuery(QUERY_NAMES.GUARDIANS, () => service.findGuardians());
-}
-
-export function useCreateJointKey(data: BaseJointKey): AsyncResult<boolean> {
-    const service = ApiClientFactory.getMediatorApiClient();
-    return useQuery(QUERY_NAMES.CREATE_KEY, () => service.postJointKey(data));
-}
 
 export function useGetJointKeys(): AsyncResult<JointKey[]> {
     const service = ApiClientFactory.getMediatorApiClient();
@@ -29,5 +19,3 @@ export function useGetKeyCeremonies(): AsyncResult<KeyCeremonyDeprecated[]> {
     const service = ApiClientFactory.getMediatorApiClient();
     return useQuery(QUERY_NAMES.KEY_CEREMONIES, () => service.getKeyCeremonies(''));
 }
-
-export default useGetUsersWithGuardianRole;

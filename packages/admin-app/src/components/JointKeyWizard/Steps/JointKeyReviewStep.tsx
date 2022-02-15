@@ -1,7 +1,6 @@
 import { BaseJointKey } from '@electionguard/api-client';
 import { Box, Button, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import clsx from 'clsx';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -33,29 +32,17 @@ const useStyles = makeStyles((theme) => ({
     },
     jointKeyDisplay: {
         paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-        borderTop: `1px solid ${theme.palette.divider}`,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        marginBottom: theme.spacing(3),
-    },
-    numberContainer: {
-        marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(1),
     },
     numberDisplay: {
         marginLeft: theme.spacing(1),
     },
     tableContainer: {
-        marginBottom: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-        borderBottom: `1px solid ${theme.palette.divider}`,
-    },
-    confirmation: {
-        marginBottom: theme.spacing(2),
+        width: '100%',
     },
 }));
 
-export interface GuardianAssignmentReviewStepProps {
-    onEditKeySetup: () => void;
+export interface JointKeyReviewStepProps {
     onEditAssignedGuardians: () => void;
     baseJointKey: BaseJointKey;
     onConfirm: (baseJointKey: BaseJointKey) => void;
@@ -65,24 +52,19 @@ export interface GuardianAssignmentReviewStepProps {
 /**
  * Guardian Assignment Review Step
  */
-const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> = ({
+const JointKeyReviewStep: React.FC<JointKeyReviewStepProps> = ({
     onConfirm,
-    onEditKeySetup,
     onEditAssignedGuardians,
     onCancel,
     baseJointKey,
 }) => {
     const classes = useStyles();
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="sm">
             <IconHeader
                 title={new Message(MessageId.JointKeySetup_GuardianAssignmentReview_Title)}
             />
             <Box display="flex" flexDirection="column" alignItems="flex-start">
-                <InternationalText
-                    className={classes.description}
-                    id={MessageId.JointKeySetup_GuardianAssignmentReview_Description}
-                />
                 <Box
                     className={classes.jointKeyDisplay}
                     display="flex"
@@ -91,29 +73,14 @@ const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> 
                 >
                     <Typography
                         className={classes.heading}
-                        color="secondary"
+                        color="primary"
                         variant="h5"
                         component="h2"
                     >
                         {baseJointKey.name}
                     </Typography>
                     <Box display="flex" flexWrap="wrap">
-                        <Box className={classes.numberContainer} display="flex">
-                            <InternationalText
-                                variant="h6"
-                                noWrap
-                                id={MessageId.JointKey_NumberOfGuardians}
-                            />
-                            <Typography variant="h6">:</Typography>
-                            <Typography
-                                className={classes.numberDisplay}
-                                color="primary"
-                                variant="h6"
-                            >
-                                {baseJointKey.numberOfGuardians}
-                            </Typography>
-                        </Box>
-                        <Box className={classes.numberContainer} display="flex">
+                        <Box display="flex">
                             <InternationalText noWrap variant="h6" id={MessageId.JointKey_Quorum} />
                             <Typography variant="h6">:</Typography>
                             <Typography
@@ -125,41 +92,14 @@ const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> 
                             </Typography>
                         </Box>
                     </Box>
-                    <Box className={classes.buttonContainer}>
-                        <Button
-                            className={clsx(classes.button, classes.editButton)}
-                            color="primary"
-                            variant="outlined"
-                            onClick={onEditKeySetup}
-                        >
-                            <FormattedMessage id={MessageId.Actions_Edit} />
-                        </Button>
-                    </Box>
                 </Box>
-                <Box className={classes.tableContainer} width="100%">
+                <Box className={classes.tableContainer}>
                     <InternationalText
                         variant="h6"
                         id={MessageId.JointKeySetup_GuardianAssignment_AssignedLabel}
                     />
+                    <span>:</span>
                     <GuardianTable data={baseJointKey.guardians} />
-                    <Button
-                        className={clsx(classes.button, classes.editButton)}
-                        color="primary"
-                        variant="outlined"
-                        onClick={onEditAssignedGuardians}
-                    >
-                        <FormattedMessage id={MessageId.Actions_Edit} />
-                    </Button>
-                </Box>
-                <Box className={classes.confirmation}>
-                    <InternationalText
-                        className={classes.callout}
-                        id={MessageId.JointKeySetup_GuardianAssignmentReview_ConfirmationCallout}
-                    />{' '}
-                    <InternationalText
-                        className={classes.description}
-                        id={MessageId.JointKeySetup_GuardianAssignmentReview_Confirmation}
-                    />
                 </Box>
                 <Box className={classes.buttonContainer}>
                     <Button
@@ -168,7 +108,14 @@ const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> 
                         color="secondary"
                         onClick={() => onConfirm(baseJointKey)}
                     >
-                        <FormattedMessage id={MessageId.Actions_Confirm} />
+                        <FormattedMessage id={MessageId.Actions_Submit} />
+                    </Button>
+                    <Button
+                        className={classes.button}
+                        color="primary"
+                        onClick={onEditAssignedGuardians}
+                    >
+                        <FormattedMessage id={MessageId.Actions_Back} />
                     </Button>
                     <Button className={classes.button} color="primary" onClick={onCancel}>
                         <FormattedMessage id={MessageId.Actions_Cancel} />
@@ -179,4 +126,4 @@ const GuardianAssignmentReviewStep: React.FC<GuardianAssignmentReviewStepProps> 
     );
 };
 
-export default GuardianAssignmentReviewStep;
+export default JointKeyReviewStep;

@@ -6,6 +6,7 @@ import InternationalText from '../components/InternationalText';
 import { MenuOptions, MenuOptionType, TypedMenuOption } from '../components/MenuOption';
 import WelcomeHeader from '../components/WelcomeHeader';
 import { Message, MessageId } from '../lang';
+import routeIds from '../routes/RouteIds';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,7 @@ export const MenuPage: React.FC = () => {
                     type={MenuOptionType.ManageJointKeys}
                 />{' '}
                 <TypedMenuOption
-                    onClick={() => navigate('/key-setup')}
+                    onClick={() => navigate(routeIds.keySetup)}
                     type={MenuOptionType.SetupJointKeys}
                 />{' '}
             </MenuOptions>
