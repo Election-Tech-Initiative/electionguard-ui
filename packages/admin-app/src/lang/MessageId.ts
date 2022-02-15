@@ -245,6 +245,9 @@ enum MessageId {
     // Add User
     AddUser_Title = 'adduser.title',
     AddUser_Error = 'adduser.error',
+
+    // Election List
+    UploadBallots_Title = 'upload_ballots.title',
 }
 
 export default MessageId;

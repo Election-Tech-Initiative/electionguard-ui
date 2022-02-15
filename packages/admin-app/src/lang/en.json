@@ -228,5 +228,7 @@
     "usermanagement.title": "Users",
 
     "adduser.title": "Add User",
-    "adduser.error": "An error occurred while adding the user"
+    "adduser.error": "An error occurred while adding the user",
+
+    "upload_ballots.title": "Upload Ballots"
 }
