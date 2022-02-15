@@ -8,8 +8,10 @@ import IconHeader from '../components/IconHeader';
 import { Message, MessageId } from '../lang';
 import routeIds from '../routes/RouteIds';
 import { useV1Client } from '../hooks/useClient';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 export const AddUserPage: React.FC = () => {
+    const [errorMessageId, setErrorMessageId] = useState<string>();
     const [username, setUsername] = useState('');
     const [role, setRole] = useState<UserScope>(UserScope.Guardian);
     const [firstName, setFirstName] = useState('');
@@ -28,7 +30,12 @@ export const AddUserPage: React.FC = () => {
             email,
             scopes: [role],
         };
-        v1Client.user(user);
+        try {
+            await v1Client.user(user);
+            navigate(routeIds.manageUsers);
+        } catch (ex) {
+            setErrorMessageId(MessageId.AddUser_Error);
+        }
     };
 
     const onCancel = () => {
@@ -42,6 +49,11 @@ export const AddUserPage: React.FC = () => {
             <IconHeader title={new Message(MessageId.AddUser_Title)} />
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
+                    {errorMessageId && (
+                        <Grid item xs={12}>
+                            <ErrorMessage MessageId={errorMessageId} />
+                        </Grid>
+                    )}
                     <Grid item sm={8} xs={12}>
                         <TextField
                             id="username"

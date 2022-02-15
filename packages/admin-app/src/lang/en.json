@@ -226,5 +226,6 @@
 
     "usermanagement.title": "Users",
 
-    "adduser.title": "Add User"
+    "adduser.title": "Add User",
+    "adduser.error": "An error occurred while adding the user"
 }

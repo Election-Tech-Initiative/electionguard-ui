@@ -243,6 +243,7 @@ enum MessageId {
 
     // Add User
     AddUser_Title = 'adduser.title',
+    AddUser_Error = 'adduser.error',
 }
 
 export default MessageId;

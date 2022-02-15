@@ -45,7 +45,7 @@ export const UserManagementPage: React.FC = () => {
                         <IconHeader title={new Message(MessageId.UserManagement_Title)} />
                     </Grid>
                     <Grid item xs={1} className={classes.buttonArea}>
-                        <Fab href={routeIds.addUser} color="primary" aria-label="add">
+                        <Fab href={routeIds.addUser} color="primary" size="medium" aria-label="add">
                             <PersonAddIcon />
                         </Fab>
                     </Grid>
