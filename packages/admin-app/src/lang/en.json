@@ -223,6 +223,7 @@
     "election_list_page.key_name_header": "Key Name",
     "election_list_page.state_header": "State",
     "election_list_page.no-rows": "No elections found",
+    "election_list_page_upload_ballot": "Upload Ballot",
 
     "usermanagement.title": "Users",
 

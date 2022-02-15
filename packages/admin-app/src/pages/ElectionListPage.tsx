@@ -1,13 +1,16 @@
 import { ApiClientFactory, Election } from '@electionguard/api-client';
 import { Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { DataGrid, GridColDef, GridOverlay } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridColumns, GridOverlay } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useIntl } from 'react-intl';
-import FilterToolbar from '../components/FilterToolbar';
 import GoHomeButton from '../components/GoHomeButton/GoHomeButton';
 import InternationalText from '../components/InternationalText';
 import MessageId from '../lang/MessageId';
+import IconHeader from '../components/IconHeader';
+import { Message } from '../lang';
+import I8nTooltip from '../components/I8nTooltip/I8nTooltip';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,12 +20,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         minHeight: 500,
-        height: '100%',
         width: '100%',
-    },
-    title: {
-        fontSize: 40,
-        paddingBottom: theme.spacing(2),
     },
     grid: {
         width: '100%',
@@ -43,7 +41,18 @@ export const ElectionListPage: React.FC = () => {
     const classes = useStyles();
     const intl = useIntl();
 
-    const columns = (): GridColDef[] => [
+    const actions = () => [
+        <GridActionsCellItem
+            icon={
+                <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
+                    <FileUploadIcon />
+                </I8nTooltip>
+            }
+            label="Upload Ballot"
+        />,
+    ];
+
+    const columns = (): GridColumns => [
         {
             field: 'election_id',
             headerName: intl.formatMessage({
@@ -56,15 +65,22 @@ export const ElectionListPage: React.FC = () => {
             headerName: intl.formatMessage({
                 id: MessageId.ElectionListPage_KeyNameHeader,
             }),
-            width: 300,
+            width: 250,
         },
         {
             field: 'state',
             headerName: intl.formatMessage({
                 id: MessageId.ElectionListPage_StateHeader,
             }),
-            width: 150,
+            width: 100,
             cellClassName: classes.electionState,
+        },
+        {
+            field: 'action',
+            type: 'actions',
+            headerName: 'Action',
+            width: 150,
+            getActions: actions,
         },
     ];
 
@@ -91,17 +107,13 @@ export const ElectionListPage: React.FC = () => {
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <InternationalText className={classes.title} id={MessageId.ElectionListPage_Title} />
+            <IconHeader title={new Message(MessageId.ElectionListPage_Title)} />
 
-            <div className={classes.navArea}>
-                <GoHomeButton id={MessageId.ElectionListPage_GoHome} />
-            </div>
             <DataGrid
                 rows={elections}
                 columns={columns()}
                 getRowId={(r) => r.election_id}
                 components={{
-                    Toolbar: FilterToolbar,
                     NoRowsOverlay: () => noRowsOverlay,
                 }}
                 disableSelectionOnClick
