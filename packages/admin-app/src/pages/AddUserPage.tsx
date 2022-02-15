@@ -1,5 +1,3 @@
-import makeStyles from '@mui/styles/makeStyles';
-import { DefaultTheme } from '@mui/styles';
 import { FormattedMessage } from 'react-intl';
 import { Container, Grid, MenuItem, Select, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -9,13 +7,10 @@ import IconHeader from '../components/IconHeader';
 import { Message, MessageId } from '../lang';
 import routeIds from '../routes/RouteIds';
 
-const useStyles = makeStyles((theme: DefaultTheme) => ({}));
-
 export const AddUserPage: React.FC = () => {
     const roleGuardian = 'guardian';
     const roleAdmin = 'admin';
 
-    const classes = useStyles();
     const [username, setUsername] = useState('');
     const [role, setRole] = useState(roleGuardian);
     const [firstName, setFirstName] = useState('');
@@ -31,6 +26,8 @@ export const AddUserPage: React.FC = () => {
     const onCancel = () => {
         navigate(routeIds.manageUsers);
     };
+
+    const isFormValid: () => boolean = () => !!(username && firstName && lastName && email);
 
     return (
         <Container maxWidth="sm">
@@ -87,19 +84,13 @@ export const AddUserPage: React.FC = () => {
                             variant="contained"
                             color="primary"
                             fullWidth
-                            disabled={false}
+                            disabled={!isFormValid()}
                         >
                             <FormattedMessage id={MessageId.Actions_Submit} />
                         </Button>
                     </Grid>
                     <Grid item sm={4} xs={12}>
-                        <Button
-                            type="button"
-                            color="secondary"
-                            fullWidth
-                            disabled={false}
-                            onClick={onCancel}
-                        >
+                        <Button type="button" color="secondary" fullWidth onClick={onCancel}>
                             <FormattedMessage id={MessageId.Actions_Cancel} />
                         </Button>
                     </Grid>
