@@ -9,6 +9,7 @@ import { Foundation as FoundationIcon } from '@mui/icons-material';
 import FormattedButton from '../../FormattedButton';
 import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
+import I8nTooltip from '../../I8nTooltip/I8nTooltip';
 
 export interface SetupInstructionsStepProps {
     onNext: () => void;
@@ -64,15 +65,13 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
                         onChange={(e) => setElectionId(e.target.value)}
                         InputProps={{
                             endAdornment: (
-                                <Tooltip
-                                    title={intl.formatMessage({
-                                        id: MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip,
-                                    })}
+                                <I8nTooltip
+                                    messageId={MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip}
                                 >
                                     <IconButton>
                                         <InfoIcon />
                                     </IconButton>
-                                </Tooltip>
+                                </I8nTooltip>
                             ),
                         }}
                     />
