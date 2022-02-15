@@ -10,7 +10,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import { PublishOutlined } from '@mui/icons-material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { ValidateManifestRequest } from '@electionguard/api-client';
 import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
@@ -42,7 +42,6 @@ export interface ManifestUploadStepProps {
 const ManifestUploadStep: React.FC<ManifestUploadStepProps> = ({ onNext, onUploadManifest }) => {
     const [uploading, setUploading] = useState(false);
     const [errorMessageId, setErrorMessageId] = useState<string>();
-    const intl = useIntl();
 
     const handleClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
         if (reason === 'clickaway') {

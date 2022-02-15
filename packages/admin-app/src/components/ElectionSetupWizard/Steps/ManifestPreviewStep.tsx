@@ -11,9 +11,10 @@ import {
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { Message, MessageId } from '../../../lang';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import IconHeader from '../../IconHeader';
 
 export interface ManifestPreviewStepProps {
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
     },
     error: {
-        color: 'red',
         marginBottom: theme.spacing(2),
     },
     spaced: {
@@ -52,22 +52,14 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
 }) => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>();
-    const intl = useIntl();
-
-    const setIntlError = (id: string) => {
-        const message = intl.formatMessage({
-            id,
-        });
-        setError(message);
-    };
+    const [errorMessageId, setErrorMessageId] = useState<string>();
 
     const onButtonClick = async () => {
         setLoading(true);
         try {
             await onSubmit();
         } catch (ex) {
-            setIntlError(MessageId.ElectionSetup_ManifestPreview_SubmitError);
+            setErrorMessageId(MessageId.ElectionSetup_ManifestPreview_SubmitError);
         } finally {
             setLoading(false);
         }
@@ -138,7 +130,9 @@ const ManifestPreviewStep: React.FC<ManifestPreviewStepProps> = ({
                     </TableBody>
                 </Table>
             </Box>
-            {error && <div className={classes.error}>{error}</div>}
+            {errorMessageId && (
+                <ErrorMessage className={classes.error} MessageId={errorMessageId} />
+            )}
             <Box display="flex">
                 <Button
                     variant="contained"
