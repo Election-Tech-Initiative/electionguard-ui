@@ -5,12 +5,12 @@ import { DataGrid, GridActionsCellItem, GridColumns, GridOverlay } from '@mui/x-
 import React, { useEffect, useState } from 'react';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useIntl } from 'react-intl';
-import GoHomeButton from '../components/GoHomeButton/GoHomeButton';
 import InternationalText from '../components/InternationalText';
 import MessageId from '../lang/MessageId';
 import IconHeader from '../components/IconHeader';
 import { Message } from '../lang';
 import I8nTooltip from '../components/I8nTooltip/I8nTooltip';
+import routeIds from '../routes/RouteIds';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +43,7 @@ export const ElectionListPage: React.FC = () => {
 
     const actions = () => [
         <GridActionsCellItem
+            href={routeIds.electionListPage}
             icon={
                 <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
                     <FileUploadIcon />
