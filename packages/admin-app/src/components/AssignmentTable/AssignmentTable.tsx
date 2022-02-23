@@ -7,8 +7,8 @@ import AsyncContent from '../AsyncContent';
 
 export interface AssignmentTableProps {
     data: () => AsyncResult<UserInfo[]>;
-    onChanged: (selectedIds: string[]) => void;
-    initialData: string[];
+    onChanged?: (selectedIds: string[]) => void;
+    initialData?: string[];
 }
 
 const getName = (params: GridValueGetterParams<UserInfo, UserInfo>) =>
@@ -32,11 +32,13 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({
     onChanged,
     initialData,
 }) => {
-    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>(initialData);
+    const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>(initialData || []);
 
     const onSelectionChange = (rows: GridRowId[]) => {
         setSelectionModel(rows);
-        onChanged(rows.map((rowId: GridRowId) => rowId.toString()));
+        if (onChanged) {
+            onChanged(rows.map((rowId: GridRowId) => rowId.toString()));
+        }
     };
 
     const usersQuery = data();
@@ -56,7 +58,7 @@ export const AssignmentTable: React.FC<AssignmentTableProps> = ({
                         }}
                         hideFooterPagination
                         selectionModel={selectionModel}
-                        checkboxSelection
+                        checkboxSelection={!!onChanged}
                     />
                 )}
             </AsyncContent>

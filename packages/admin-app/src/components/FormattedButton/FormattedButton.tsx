@@ -54,7 +54,6 @@ export const FormattedButton: React.FC<FormattedButtonProps> = (props) => {
         <Box className={className}>
             <Box display="inline-block" position="relative">
                 <Button
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     {...buttonProps}
                     onClick={upload ? undefined : onClick}
                     className={classes.internal}

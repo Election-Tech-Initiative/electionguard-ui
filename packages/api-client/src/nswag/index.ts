@@ -12,6 +12,7 @@ export {
     KeyClient,
     UserClient,
     UserInfo,
+    UserScope,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';

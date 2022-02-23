@@ -15,7 +15,10 @@ function onTokenExpired(setToken: (token?: Token) => void, newToken?: Token) {
 }
 
 export function useV1Client(): V1Client {
-    return ClientFactory.GetV1Client();
+    const { token, setToken } = useToken();
+    return ClientFactory.GetV1Client(token?.access_token, (newToken?: Token) =>
+        onTokenExpired(setToken, newToken)
+    );
 }
 
 export function useCeremonyClient(): CeremonyClient {
