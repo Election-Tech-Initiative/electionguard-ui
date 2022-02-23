@@ -16,10 +16,7 @@ import { Message, MessageId } from '../../../lang';
 import IconHeader from '../../IconHeader';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
-export const alert = (props: AlertProps) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <MuiAlert elevation={6} variant="filled" {...props} />
-);
+export const alert = (props: AlertProps) => <MuiAlert elevation={6} variant="filled" {...props} />;
 
 const useStyles = makeStyles((theme) => ({
     content: {

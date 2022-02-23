@@ -11,7 +11,6 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = (props) => {
     const alertProps = props as AlertProps;
 
     return (
-        // eslint-disable-next-line react/jsx-props-no-spreading
         <Alert {...alertProps} severity="error">
             <FormattedMessage id={MessageId} />
         </Alert>
