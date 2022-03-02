@@ -59,12 +59,12 @@ export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError 
                 ballotClient.submit(electionId, ballots);
             } catch (ex) {
                 console.error('crap, an error', ex);
-                onError(MessageId.ElectionSetup_JointKeyUpload_InvalidFile);
+                onError(MessageId.UploadBallots_InvalidFile);
             } finally {
                 setUploading(false);
             }
         } else {
-            onError(MessageId.ElectionSetup_JointKeyUpload_NoFile);
+            onError(MessageId.UploadBallots_NoFile);
         }
     };
 

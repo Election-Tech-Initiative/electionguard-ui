@@ -232,6 +232,8 @@
 
     "uploadballots.selectfiles": "Select a Ballot json file",
     "uploadballots.title": "Upload Ballots",
-    "uploadballots_error_noballots": "The ballots json file looks wrong, it should contain at least one ballot",
-    "uploadballots_error_ballotsinvalid": "At least one of the ballots in the ballots json file looks incorrect, ensure they all have an object_id, state, and contests"
+    "uploadballots.error.noballots": "The ballots json file looks wrong, it should contain at least one ballot",
+    "uploadballots.error.ballotsinvalid": "At least one of the ballots in the ballots json file looks incorrect, ensure they all have an object_id, state, and contests",
+    "uploadballots.error.no_file": "No file found.  Please try again.",
+    "uploadballots.error.invalid_file": "That file didn't look quite right. Please ensure it's an encrypted ballot."
 }

@@ -251,6 +251,8 @@ enum MessageId {
     UploadBallots_Title = 'uploadballots.title',
     UploadBallots_Error_NoBallots = 'uploadballots_error_noballots',
     UploadBallots_Error_BallotsInvalid = 'uploadballots_error_ballotsinvalid',
+    UploadBallots_InvalidFile = 'uploadballots.error.invalid_file',
+    UploadBallots_NoFile = 'uploadballots.error.no_file',
 }
 
 export default MessageId;
