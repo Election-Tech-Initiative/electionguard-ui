@@ -247,6 +247,7 @@ enum MessageId {
     AddUser_Error = 'adduser.error',
 
     // Election List
+    UploadBallots_SelectFiles = 'uploadballots.selectfiles',
     UploadBallots_Title = 'uploadballots.title',
     UploadBallots_Error_NoBallots = 'uploadballots_error_noballots',
     UploadBallots_Error_BallotsInvalid = 'uploadballots_error_ballotsinvalid',
