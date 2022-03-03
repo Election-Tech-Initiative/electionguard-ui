@@ -14,6 +14,7 @@ export {
     UserInfo,
     UserScope,
     BallotClient,
+    ElectionClient,
 } from './clients';
 
 export { ClientFactory } from './ClientFactory';

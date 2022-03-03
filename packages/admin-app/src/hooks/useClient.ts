@@ -6,7 +6,11 @@ import {
     V1Client,
     Token,
 } from '@electionguard/api-client';
-import { BallotClient, UserClient } from '@electionguard/api-client/dist/nswag/clients';
+import {
+    BallotClient,
+    ElectionClient,
+    UserClient,
+} from '@electionguard/api-client/dist/nswag/clients';
 import useToken from './useToken';
 
 function onTokenExpired(setToken: (token?: Token) => void, newToken?: Token) {
@@ -45,6 +49,14 @@ export function useUserClient(): UserClient {
     const { token, setToken } = useToken();
 
     return ClientFactory.GetUserClient(token?.access_token, (newToken?: Token) =>
+        onTokenExpired(setToken, newToken)
+    );
+}
+
+export function useElectionClient(): ElectionClient {
+    const { token, setToken } = useToken();
+
+    return ClientFactory.GetElectionClient(token?.access_token, (newToken?: Token) =>
         onTokenExpired(setToken, newToken)
     );
 }

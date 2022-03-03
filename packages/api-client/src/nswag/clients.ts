@@ -1844,6 +1844,45 @@ export class ElectionClient extends ClientBase {
     }
 
     /**
+     * List Elections
+     * @return Successful Response
+     */
+    list(): Promise<ElectionListResponseDto> {
+        let url_ = this.baseUrl + "/api/v1/election/list";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "POST",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processList(_response));
+        });
+    }
+
+    protected processList(response: Response): Promise<ElectionListResponseDto> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <ElectionListResponseDto>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ElectionListResponseDto>(<any>null);
+    }
+
+    /**
      * Find Elections
      * @param skip (optional) 
      * @param limit (optional) 
@@ -3312,6 +3351,13 @@ export interface ElectionJointKeyResponse {
     commitment_hash?: any;
 }
 
+/** A collection of elections. */
+export interface ElectionListResponseDto {
+    status?: App__api__v1__models__base__ResponseStatus;
+    message?: string;
+    elections?: ElectionSummaryDto[];
+}
+
 /** A request for elections using the specified filter. */
 export interface ElectionQueryRequest {
     filter?: any;
@@ -3330,6 +3376,17 @@ export enum ElectionState {
     OPEN = "OPEN",
     CLOSED = "CLOSED",
     PUBLISHED = "PUBLISHED",
+}
+
+/** A basic model object */
+export interface ElectionSummaryDto {
+    election_id: string;
+    name?: any;
+    state: string;
+    number_of_guardians: number;
+    quorum: number;
+    cast_ballots: number;
+    spoiled_ballots: number;
 }
 
 /** A basic model object */

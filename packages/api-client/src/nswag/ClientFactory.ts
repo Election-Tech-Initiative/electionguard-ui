@@ -6,6 +6,7 @@ import {
     KeyClient,
     Token,
     BallotClient,
+    ElectionClient,
 } from './clients';
 
 export class ClientFactory {
@@ -56,6 +57,17 @@ export class ClientFactory {
     ): UserClient {
         const url = this.GetUrl();
         const client = new UserClient(url);
+        client.token = token;
+        client.onTokenExpired = onTokenExpired;
+        return client;
+    }
+
+    public static GetElectionClient(
+        token?: string,
+        onTokenExpired?: (newToken?: Token) => void
+    ): ElectionClient {
+        const url = this.GetUrl();
+        const client = new ElectionClient(url);
         client.token = token;
         client.onTokenExpired = onTokenExpired;
         return client;
