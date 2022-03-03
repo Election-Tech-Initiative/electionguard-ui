@@ -220,8 +220,9 @@
     "election_list_page.title": "Election List",
     "election_list_page.go_home": "Return To Home",
     "election_list_page.election_id_header": "Election ID",
-    "election_list_page.key_name_header": "Key Name",
+    "election_list_page.name_header": "Name",
     "election_list_page.state_header": "State",
+    "election_list_page.ballots_header": "Ballots",
     "election_list_page.no-rows": "No elections found",
     "election_list_page_upload_ballot": "Upload Ballot",
 

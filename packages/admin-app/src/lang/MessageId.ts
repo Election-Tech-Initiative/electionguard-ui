@@ -235,8 +235,9 @@ enum MessageId {
     ElectionListPage_GoHome = 'election_list_page.go_home',
     ElectionListPage_NoRows = 'election_list_page.no-rows',
     ElectionListPage_StateHeader = 'election_list_page.state_header',
-    ElectionListPage_KeyNameHeader = 'election_list_page.key_name_header',
+    ElectionListPage_NameHeader = 'election_list_page.name_header',
     ElectionListPage_ElectionIdHeader = 'election_list_page.election_id_header',
+    ElectionListPage_BallotsHeader = 'election_list_page.ballots_header',
     ElectionListPage_UploadBallot = 'election_list_page_upload_ballot',
 
     // User Management
