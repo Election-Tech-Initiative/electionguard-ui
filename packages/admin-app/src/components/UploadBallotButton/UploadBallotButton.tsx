@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface UploadBallotButtonProps {
+    electionId: string;
     onError: (errorId: MessageId) => void;
 }
 
-export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError }) => {
+export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError, electionId }) => {
     const [uploading, setUploading] = useState(false);
     const classes = useStyles();
 
@@ -54,8 +55,6 @@ export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError 
                     onError(MessageId.UploadBallots_Error_BallotsInvalid);
                     return;
                 }
-                // todo: set electionId
-                const electionId = 'hamilton-general-election-simple';
                 ballotClient.submit(electionId, ballots);
             } catch (ex) {
                 console.error('crap, an error', ex);

@@ -31,7 +31,10 @@ export const ElectionListPage: React.FC = () => {
                 <ErrorMessage className={classes.error} MessageId={errorMessageId} />
             )}
 
-            <UploadBallotButton onError={setErrorMessageId} />
+            <UploadBallotButton
+                onError={setErrorMessageId}
+                electionId="hamilton-general-election-simple"
+            />
         </Container>
     );
 };
