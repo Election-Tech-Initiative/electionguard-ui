@@ -1,4 +1,3 @@
-import { AsyncResult } from '@electionguard/api-client';
 import { Container, Tooltip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {
@@ -45,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
     error: {
         marginBottom: theme.spacing(2),
     },
-    actionButton: {
-        display: 'relative',
-        top: '8px',
-    },
 }));
 
 export const ElectionListPage: React.FC = () => {
@@ -57,14 +52,19 @@ export const ElectionListPage: React.FC = () => {
     const classes = useStyles();
     const intl = useIntl();
 
+    const electionClient = useElectionClient();
+
+    const findElections = () => electionClient.list().then((response) => response.elections);
+    const usersQuery = useQuery('elections', findElections);
+
     const actions = (params: GridRowParams) => [
         <GridActionsCellItem
             href={routeIds.electionListPage}
-            className={classes.actionButton}
             icon={
                 <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
                     <UploadBallotButton
                         onError={setErrorMessageId}
+                        onSuccess={() => usersQuery.refetch()}
                         electionId={params.id.toString()}
                     />
                 </I8nTooltip>
@@ -118,11 +118,6 @@ export const ElectionListPage: React.FC = () => {
             getActions: actions,
         },
     ];
-
-    const electionClient = useElectionClient();
-
-    const findElections = () => electionClient.list().then((response) => response.elections);
-    const usersQuery = useQuery('elections', findElections);
 
     const noRowsOverlay = (
         <GridOverlay>

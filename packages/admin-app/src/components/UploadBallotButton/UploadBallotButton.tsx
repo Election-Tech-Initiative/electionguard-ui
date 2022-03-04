@@ -1,39 +1,26 @@
-/* tslint:disable */
-/* eslint-disable */
 import { useState } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
-import { Button, CircularProgress, IconButton } from '@mui/material';
+import { CircularProgress, IconButton, Stack } from '@mui/material';
 import {
     SubmitBallotsRequestDto,
     SubmittedBallotDto,
 } from '@electionguard/api-client/dist/nswag/clients';
-import { FormattedMessage } from 'react-intl';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { MessageId } from '../../lang';
 import { useBallotClient } from '../../hooks/useClient';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 import I8nTooltip from '../I8nTooltip/I8nTooltip';
-
-const useStyles = makeStyles((theme) => ({
-    content: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    button: {
-        marginBottom: theme.spacing(2),
-    },
-}));
 
 export interface UploadBallotButtonProps {
     electionId: string;
     onError: (errorId: MessageId) => void;
+    onSuccess: () => void;
 }
 
-export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError, electionId }) => {
+export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({
+    onError,
+    onSuccess,
+    electionId,
+}) => {
     const [uploading, setUploading] = useState(false);
-    const classes = useStyles();
 
     const ballotClient = useBallotClient();
 
@@ -57,9 +44,9 @@ export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError,
                     onError(MessageId.UploadBallots_Error_BallotsInvalid);
                     return;
                 }
-                ballotClient.submit(electionId, ballots);
+                await ballotClient.submit(electionId, ballots);
+                onSuccess();
             } catch (ex) {
-                console.error('crap, an error', ex);
                 onError(MessageId.UploadBallots_InvalidFile);
             } finally {
                 setUploading(false);
@@ -70,24 +57,23 @@ export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError,
     };
 
     return (
-        <I8nTooltip messageId={MessageId.UploadBallots_SelectFiles}>
-            <IconButton
-                disabled={uploading}
-                color="secondary"
-                component="label"
-                className={classes.button}
-            >
-                <FileUploadIcon />
-                <input
-                    id="manifest-upload"
-                    accept="application/JSON"
-                    type="file"
-                    hidden
-                    onChange={(e) => onFileUpload(e)}
-                />
-                {uploading && <CircularProgress size={24} variant="indeterminate" />}
-            </IconButton>
-        </I8nTooltip>
+        <Stack>
+            {uploading && <CircularProgress size={24} variant="indeterminate" />}
+            {!uploading && (
+                <I8nTooltip messageId={MessageId.UploadBallots_SelectFiles}>
+                    <IconButton disabled={uploading} color="secondary" component="label">
+                        <FileUploadIcon />
+                        <input
+                            id="manifest-upload"
+                            accept="application/JSON"
+                            type="file"
+                            hidden
+                            onChange={(e) => onFileUpload(e)}
+                        />
+                    </IconButton>
+                </I8nTooltip>
+            )}
+        </Stack>
     );
 };
 
