@@ -250,8 +250,8 @@ enum MessageId {
     // Election List
     UploadBallots_SelectFiles = 'uploadballots.selectfiles',
     UploadBallots_Title = 'uploadballots.title',
-    UploadBallots_Error_NoBallots = 'uploadballots_error_noballots',
-    UploadBallots_Error_BallotsInvalid = 'uploadballots_error_ballotsinvalid',
+    UploadBallots_Error_NoBallots = 'uploadballots.error.noballots',
+    UploadBallots_Error_BallotsInvalid = 'uploadballots.error.ballotsinvalid',
     UploadBallots_InvalidFile = 'uploadballots.error.invalid_file',
     UploadBallots_NoFile = 'uploadballots.error.no_file',
 }
