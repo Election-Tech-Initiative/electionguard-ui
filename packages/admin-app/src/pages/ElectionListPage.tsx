@@ -1,4 +1,4 @@
-import { ApiClientFactory, AsyncResult, Election } from '@electionguard/api-client';
+import { AsyncResult } from '@electionguard/api-client';
 import { Container, Tooltip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {
@@ -9,10 +9,10 @@ import {
     GridRowParams,
     GridValueGetterParams,
 } from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { ElectionSummaryDto } from '@electionguard/api-client/dist/nswag/clients';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import InternationalText from '../components/InternationalText';
 import MessageId from '../lang/MessageId';
 import IconHeader from '../components/IconHeader';
@@ -45,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
     error: {
         marginBottom: theme.spacing(2),
     },
+    actionButton: {
+        display: 'relative',
+        top: '8px',
+    },
 }));
 
 export const ElectionListPage: React.FC = () => {
-    const initialElections: ElectionSummaryDto[] = [];
-    const [elections, setElections] = useState(initialElections);
     const [errorMessageId, setErrorMessageId] = useState<string>();
     const [pageSize, setPageSize] = React.useState(10);
     const classes = useStyles();
@@ -58,6 +60,7 @@ export const ElectionListPage: React.FC = () => {
     const actions = (params: GridRowParams) => [
         <GridActionsCellItem
             href={routeIds.electionListPage}
+            className={classes.actionButton}
             icon={
                 <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
                     <UploadBallotButton
@@ -118,16 +121,8 @@ export const ElectionListPage: React.FC = () => {
 
     const electionClient = useElectionClient();
 
-    const findElections = async () => electionClient.list().then((response) => response.elections);
-    const usersQuery = useQuery('elections', async () => {
-        const foundElections = await findElections();
-        if (foundElections) {
-            setElections(foundElections);
-        }
-        return foundElections;
-    });
-    const electionsQuery = (): AsyncResult<ElectionSummaryDto[]> => usersQuery;
-    const electionsResults = electionsQuery();
+    const findElections = () => electionClient.list().then((response) => response.elections);
+    const usersQuery = useQuery('elections', findElections);
 
     const noRowsOverlay = (
         <GridOverlay>
@@ -141,7 +136,7 @@ export const ElectionListPage: React.FC = () => {
             {errorMessageId && (
                 <ErrorMessage className={classes.error} MessageId={errorMessageId} />
             )}
-            <AsyncContent query={electionsResults} errorMessage="there was an error">
+            <AsyncContent query={usersQuery} errorMessage="there was an error">
                 {(electionsRows) => (
                     <DataGrid
                         rows={electionsRows}
