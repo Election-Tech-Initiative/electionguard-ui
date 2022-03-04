@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { useState } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, IconButton } from '@mui/material';
 import {
     SubmitBallotsRequestDto,
     SubmittedBallotDto,
@@ -10,6 +10,8 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { MessageId } from '../../lang';
 import { useBallotClient } from '../../hooks/useClient';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import I8nTooltip from '../I8nTooltip/I8nTooltip';
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -68,23 +70,24 @@ export const UploadBallotButton: React.FC<UploadBallotButtonProps> = ({ onError,
     };
 
     return (
-        <Button
-            disabled={uploading}
-            color="secondary"
-            variant="contained"
-            component="label"
-            className={classes.button}
-        >
-            <FormattedMessage id={MessageId.UploadBallots_SelectFiles} />
-            <input
-                id="manifest-upload"
-                accept="application/JSON"
-                type="file"
-                hidden
-                onChange={(e) => onFileUpload(e)}
-            />
-            {uploading && <CircularProgress size={24} variant="indeterminate" />}
-        </Button>
+        <I8nTooltip messageId={MessageId.UploadBallots_SelectFiles}>
+            <IconButton
+                disabled={uploading}
+                color="secondary"
+                component="label"
+                className={classes.button}
+            >
+                <FileUploadIcon />
+                <input
+                    id="manifest-upload"
+                    accept="application/JSON"
+                    type="file"
+                    hidden
+                    onChange={(e) => onFileUpload(e)}
+                />
+                {uploading && <CircularProgress size={24} variant="indeterminate" />}
+            </IconButton>
+        </I8nTooltip>
     );
 };
 

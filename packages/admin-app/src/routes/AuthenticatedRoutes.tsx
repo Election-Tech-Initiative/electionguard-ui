@@ -15,7 +15,6 @@ import {
     UserManagementPage,
 } from '../pages';
 import AddUserPage from '../pages/AddUserPage';
-import UploadBallotsPage from '../pages/UploadBallotsPage';
 import routeIds from './RouteIds';
 
 /**
@@ -41,7 +40,6 @@ const AuthenticatedRoutes: React.FC = () => (
 
         <Route path={routeIds.manageUsers} element={<UserManagementPage />} />
         <Route path={routeIds.addUser} element={<AddUserPage />} />
-        <Route path={routeIds.electionListPage} element={<UploadBallotsPage />} />
     </Routes>
 );
 

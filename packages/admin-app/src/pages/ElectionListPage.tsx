@@ -6,10 +6,10 @@ import {
     GridActionsCellItem,
     GridColumns,
     GridOverlay,
+    GridRowParams,
     GridValueGetterParams,
 } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useIntl } from 'react-intl';
 import { ElectionSummaryDto } from '@electionguard/api-client/dist/nswag/clients';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
@@ -20,6 +20,8 @@ import I8nTooltip from '../components/I8nTooltip/I8nTooltip';
 import routeIds from '../routes/RouteIds';
 import { useElectionClient } from '../hooks/useClient';
 import AsyncContent from '../components/AsyncContent';
+import UploadBallotButton from '../components/UploadBallotButton/UploadBallotButton';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,22 +42,28 @@ const useStyles = makeStyles((theme) => ({
     navArea: {
         paddingBottom: theme.spacing(4),
     },
+    error: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 export const ElectionListPage: React.FC = () => {
     const initialElections: ElectionSummaryDto[] = [];
     const [elections, setElections] = useState(initialElections);
-    const [textResult, setTextResult] = useState('');
+    const [errorMessageId, setErrorMessageId] = useState<string>();
     const [pageSize, setPageSize] = React.useState(10);
     const classes = useStyles();
     const intl = useIntl();
 
-    const actions = () => [
+    const actions = (params: GridRowParams) => [
         <GridActionsCellItem
             href={routeIds.electionListPage}
             icon={
                 <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
-                    <FileUploadIcon />
+                    <UploadBallotButton
+                        onError={setErrorMessageId}
+                        electionId={params.id.toString()}
+                    />
                 </I8nTooltip>
             }
             label="Upload Ballot"
@@ -102,7 +110,7 @@ export const ElectionListPage: React.FC = () => {
         {
             field: 'action',
             type: 'actions',
-            headerName: 'Action',
+            headerName: '',
             width: 100,
             getActions: actions,
         },
@@ -130,6 +138,9 @@ export const ElectionListPage: React.FC = () => {
     return (
         <Container maxWidth="md" className={classes.root}>
             <IconHeader titleId={MessageId.ElectionListPage_Title} />
+            {errorMessageId && (
+                <ErrorMessage className={classes.error} MessageId={errorMessageId} />
+            )}
             <AsyncContent query={electionsResults} errorMessage="there was an error">
                 {(electionsRows) => (
                     <DataGrid
@@ -148,7 +159,6 @@ export const ElectionListPage: React.FC = () => {
                     />
                 )}
             </AsyncContent>
-            <div>{textResult}</div>
         </Container>
     );
 };
