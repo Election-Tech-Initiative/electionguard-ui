@@ -74,8 +74,10 @@ export const ElectionListPage: React.FC = () => {
     ];
 
     const getBallots = (params: GridValueGetterParams<ElectionSummaryDto, ElectionSummaryDto>) => (
-        <Tooltip title={`${params.row.cast_ballots} cast, ${params.row.spoiled_ballots} spoiled`}>
-            <span>{params.row.cast_ballots + params.row.spoiled_ballots}</span>
+        <Tooltip
+            title={`${params.row.cast_ballot_count} cast, ${params.row.spoiled_ballot_count} spoiled`}
+        >
+            <span>{params.row.cast_ballot_count + params.row.spoiled_ballot_count}</span>
         </Tooltip>
     );
 

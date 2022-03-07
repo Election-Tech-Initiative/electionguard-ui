@@ -3385,8 +3385,9 @@ export interface ElectionSummaryDto {
     state: string;
     number_of_guardians: number;
     quorum: number;
-    cast_ballots: number;
-    spoiled_ballots: number;
+    cast_ballot_count: number;
+    spoiled_ballot_count: number;
+    index: number;
 }
 
 /** A basic model object */
