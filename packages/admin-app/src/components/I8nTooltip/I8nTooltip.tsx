@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 export interface I8nTooltipProps
     extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'title'> {
     messageId: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     children: React.ReactElement<any, any>;
 }
 
