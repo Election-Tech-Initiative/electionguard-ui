@@ -3216,7 +3216,7 @@ export interface Body_login_for_access_token_api_v1_auth_login_post {
 export interface CastBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
@@ -3592,7 +3592,7 @@ export interface PublishElectionJointKeyRequest {
 export interface SpoilBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
@@ -3600,7 +3600,7 @@ export interface SpoilBallotsRequest {
 export interface SubmitBallotsRequest {
     election_id?: string;
     manifest?: any;
-    context?: any;
+    context?: CiphertextElectionContextDto;
     ballots: any[];
 }
 
