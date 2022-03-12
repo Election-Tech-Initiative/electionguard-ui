@@ -28,6 +28,7 @@ export interface IconHeaderProps {
  */
 export const IconHeader: React.FC<IconHeaderProps> = ({ Icon, title, titleId }) => {
     const classes = useStyles();
+    if (!(title?.id || titleId)) throw new Error('title is required');
     return (
         <Box className={classes.root} display="flex" flexDirection="column" alignItems="center">
             {Icon && <Icon color="primary" fontSize="inherit" />}
