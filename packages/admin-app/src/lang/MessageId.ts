@@ -235,8 +235,10 @@ enum MessageId {
     ElectionListPage_GoHome = 'election_list_page.go_home',
     ElectionListPage_NoRows = 'election_list_page.no-rows',
     ElectionListPage_StateHeader = 'election_list_page.state_header',
-    ElectionListPage_KeyNameHeader = 'election_list_page.key_name_header',
+    ElectionListPage_NameHeader = 'election_list_page.name_header',
     ElectionListPage_ElectionIdHeader = 'election_list_page.election_id_header',
+    ElectionListPage_BallotsHeader = 'election_list_page.ballots_header',
+    ElectionListPage_UploadBallot = 'election_list_page_upload_ballot',
 
     // User Management
     UserManagement_Title = 'usermanagement.title',
@@ -244,6 +246,14 @@ enum MessageId {
     // Add User
     AddUser_Title = 'adduser.title',
     AddUser_Error = 'adduser.error',
+
+    // Election List
+    UploadBallots_SelectFiles = 'uploadballots.selectfiles',
+    UploadBallots_Title = 'uploadballots.title',
+    UploadBallots_Error_NoBallots = 'uploadballots.error.noballots',
+    UploadBallots_Error_BallotsInvalid = 'uploadballots.error.ballotsinvalid',
+    UploadBallots_InvalidFile = 'uploadballots.error.invalid_file',
+    UploadBallots_NoFile = 'uploadballots.error.no_file',
 }
 
 export default MessageId;

@@ -217,15 +217,24 @@
     "task_status.complete": "Complete",
     "task_status.incomplete": "Incomplete",
 
-    "election_list_page.title": "Election List",
+    "election_list_page.title": "Elections",
     "election_list_page.go_home": "Return To Home",
-    "election_list_page.election_id_header": "Election ID",
-    "election_list_page.key_name_header": "Key Name",
+    "election_list_page.election_id_header": "ID",
+    "election_list_page.name_header": "Name",
     "election_list_page.state_header": "State",
+    "election_list_page.ballots_header": "Ballots",
     "election_list_page.no-rows": "No elections found",
+    "election_list_page_upload_ballot": "Upload Ballot",
 
     "usermanagement.title": "Users",
 
     "adduser.title": "Add User",
-    "adduser.error": "An error occurred while adding the user"
+    "adduser.error": "An error occurred while adding the user",
+
+    "uploadballots.selectfiles": "Upload ballots via a .json file",
+    "uploadballots.title": "Upload Ballots",
+    "uploadballots.error.noballots": "The ballots json file looks wrong, it should contain at least one ballot",
+    "uploadballots.error.ballotsinvalid": "At least one of the ballots in the ballots json file looks incorrect, ensure they all have an object_id, state, and contests",
+    "uploadballots.error.no_file": "No file found.  Please try again.",
+    "uploadballots.error.invalid_file": "That file didn't look quite right. Please ensure it's an encrypted ballot."
 }

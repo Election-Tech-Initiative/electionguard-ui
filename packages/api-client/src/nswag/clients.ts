@@ -1844,6 +1844,45 @@ export class ElectionClient extends ClientBase {
     }
 
     /**
+     * List Elections
+     * @return Successful Response
+     */
+    list(): Promise<ElectionListResponseDto> {
+        let url_ = this.baseUrl + "/api/v1/election/list";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "POST",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processList(_response));
+        });
+    }
+
+    protected processList(response: Response): Promise<ElectionListResponseDto> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <ElectionListResponseDto>JSON.parse(_responseText, this.jsonParseReviver);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ElectionListResponseDto>(<any>null);
+    }
+
+    /**
      * Find Elections
      * @param skip (optional) 
      * @param limit (optional) 
@@ -2452,14 +2491,13 @@ export class BallotClient extends ClientBase {
 
     /**
      * Submit Ballots
-     * @param election_id (optional) 
      * @return Successful Response
      */
-    submit(election_id: string | undefined, body: SubmitBallotsRequest): Promise<App__api__v1__models__base__BaseResponse> {
+    submit(election_id: string, body: SubmitBallotsRequestDto): Promise<App__api__v1__models__base__BaseResponse> {
         let url_ = this.baseUrl + "/api/v1/ballot/submit?";
-        if (election_id === null)
-            throw new Error("The parameter 'election_id' cannot be null.");
-        else if (election_id !== undefined)
+        if (election_id === undefined || election_id === null)
+            throw new Error("The parameter 'election_id' must be defined and cannot be null.");
+        else
             url_ += "election_id=" + encodeURIComponent("" + election_id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3147,6 +3185,19 @@ export interface BallotQueryResponse {
     ballots?: any[];
 }
 
+/** A basic model object */
+export interface BallotSelectionDto {
+    object_id: string;
+    sequence_order: number;
+    description_hash: ElementModQDto;
+    ciphertext: ElGamalCiphertextDto;
+    crypto_hash: ElementModQDto;
+    is_placeholder_selection: boolean;
+    nonce?: ElementModQDto;
+    proof: DisjunctiveChaumPedersenProofDto;
+    extended_data?: ElGamalCiphertextDto;
+}
+
 /** Find something */
 export interface BaseQueryRequest {
     filter?: any;
@@ -3204,6 +3255,27 @@ export interface CiphertextTallyQueryResponse {
     tallies?: CiphertextTally[];
 }
 
+/** A basic model object */
+export interface ConstantChaumPedersenProofDto {
+    pad: ElementModPDto;
+    data: ElementModPDto;
+    challenge: ElementModQDto;
+    response: ElementModQDto;
+    constant: number;
+    usage: string;
+}
+
+/** A basic model object */
+export interface ContestDto {
+    object_id: string;
+    description_hash: ElementModQDto;
+    ciphertext_accumulation: ElGamalCiphertextDto;
+    crypto_hash: ElementModQDto;
+    nonce?: ElementModQDto;
+    proof: ConstantChaumPedersenProofDto;
+    ballot_selections: BallotSelectionDto[];
+}
+
 /** Create an election. */
 export interface CreateElectionRequest {
     name: string;
@@ -3242,6 +3314,26 @@ export interface DecryptionShareResponse {
     shares: CiphertextTallyDecryptionShare[];
 }
 
+/** A basic model object */
+export interface DisjunctiveChaumPedersenProofDto {
+    proof_zero_pad: ElementModPDto;
+    proof_zero_data: ElementModPDto;
+    proof_one_pad: ElementModPDto;
+    proof_one_data: ElementModPDto;
+    proof_zero_challenge: ElementModQDto;
+    proof_one_challenge: ElementModQDto;
+    challenge: ElementModQDto;
+    proof_zero_response: ElementModQDto;
+    proof_one_response: ElementModQDto;
+    usage: string;
+}
+
+/** A basic model object */
+export interface ElGamalCiphertextDto {
+    pad: ElementModPDto;
+    data: ElementModPDto;
+}
+
 /** An election object. */
 export interface Election {
     election_id: string;
@@ -3257,6 +3349,13 @@ export interface ElectionJointKeyResponse {
     message?: string;
     elgamal_public_key?: any;
     commitment_hash?: any;
+}
+
+/** A collection of elections. */
+export interface ElectionListResponseDto {
+    status?: App__api__v1__models__base__ResponseStatus;
+    message?: string;
+    elections?: ElectionSummaryDto[];
 }
 
 /** A request for elections using the specified filter. */
@@ -3277,6 +3376,28 @@ export enum ElectionState {
     OPEN = "OPEN",
     CLOSED = "CLOSED",
     PUBLISHED = "PUBLISHED",
+}
+
+/** A basic model object */
+export interface ElectionSummaryDto {
+    election_id: string;
+    name?: any;
+    state: string;
+    number_of_guardians: number;
+    quorum: number;
+    cast_ballot_count: number;
+    spoiled_ballot_count: number;
+    index: number;
+}
+
+/** A basic model object */
+export interface ElementModPDto {
+    data: string;
+}
+
+/** A basic model object */
+export interface ElementModQDto {
+    data: string;
 }
 
 /** A request to encrypt the enclosed ballots. */
@@ -3483,12 +3604,32 @@ export interface SubmitBallotsRequest {
     ballots: any[];
 }
 
+/** Submit a ballot against a specific election. */
+export interface SubmitBallotsRequestDto {
+    schema_override?: any;
+    ballots: SubmittedBallotDto[];
+}
+
 /** Submit an election. */
 export interface SubmitElectionRequest {
     election_id: string;
     key_name: string;
     context: CiphertextElectionContextDto;
     manifest?: any;
+}
+
+/** A basic model object */
+export interface SubmittedBallotDto {
+    state: number;
+    code: ElementModQDto;
+    object_id: string;
+    style_id: string;
+    manifest_hash: ElementModQDto;
+    code_seed: ElementModQDto;
+    crypto_hash: ElementModQDto;
+    nonce?: ElementModQDto;
+    timestamp: number;
+    contests: ContestDto[];
 }
 
 /** An access token and its type. */
@@ -3530,7 +3671,7 @@ export interface ValidateBallotRequest {
     schema_override?: any;
     ballot?: any;
     manifest?: any;
-    context: CiphertextElectionContextDto;
+    context?: any;
 }
 
 /** A request to validate an Election Description. */

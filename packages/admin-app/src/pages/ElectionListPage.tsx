@@ -1,13 +1,26 @@
-import { ApiClientFactory, Election } from '@electionguard/api-client';
-import { Container } from '@mui/material';
+import { Container, Tooltip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { DataGrid, GridColDef, GridOverlay } from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColumns,
+    GridOverlay,
+    GridRowParams,
+    GridValueGetterParams,
+} from '@mui/x-data-grid';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
-import FilterToolbar from '../components/FilterToolbar';
-import GoHomeButton from '../components/GoHomeButton/GoHomeButton';
+import { ElectionSummaryDto } from '@electionguard/api-client/dist/nswag/clients';
+import { useQuery } from 'react-query';
 import InternationalText from '../components/InternationalText';
 import MessageId from '../lang/MessageId';
+import IconHeader from '../components/IconHeader';
+import I8nTooltip from '../components/I8nTooltip/I8nTooltip';
+import routeIds from '../routes/RouteIds';
+import { useElectionClient } from '../hooks/useClient';
+import AsyncContent from '../components/AsyncContent';
+import UploadBallotButton from '../components/UploadBallotButton/UploadBallotButton';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,12 +30,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         minHeight: 500,
-        height: '100%',
         width: '100%',
-    },
-    title: {
-        fontSize: 40,
-        paddingBottom: theme.spacing(2),
     },
     grid: {
         width: '100%',
@@ -33,55 +41,85 @@ const useStyles = makeStyles((theme) => ({
     navArea: {
         paddingBottom: theme.spacing(4),
     },
+    error: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 export const ElectionListPage: React.FC = () => {
-    const initialElections: Election[] = [];
-    const [elections, setElections] = useState(initialElections);
-    const [textResult, setTextResult] = useState('');
+    const [errorMessageId, setErrorMessageId] = useState<string>();
     const [pageSize, setPageSize] = React.useState(10);
     const classes = useStyles();
     const intl = useIntl();
 
-    const columns = (): GridColDef[] => [
+    const electionClient = useElectionClient();
+
+    const findElections = () => electionClient.list().then((response) => response.elections);
+    const usersQuery = useQuery('elections', findElections);
+
+    const actions = (params: GridRowParams) => [
+        <GridActionsCellItem
+            href={routeIds.electionListPage}
+            icon={
+                <I8nTooltip messageId={MessageId.ElectionListPage_UploadBallot}>
+                    <UploadBallotButton
+                        onError={setErrorMessageId}
+                        onSuccess={() => usersQuery.refetch()}
+                        electionId={params.id.toString()}
+                    />
+                </I8nTooltip>
+            }
+            label="Upload Ballot"
+        />,
+    ];
+
+    const getBallots = (params: GridValueGetterParams<ElectionSummaryDto, ElectionSummaryDto>) => (
+        <Tooltip
+            title={`${params.row.cast_ballot_count} cast, ${params.row.spoiled_ballot_count} spoiled`}
+        >
+            <span>{params.row.cast_ballot_count + params.row.spoiled_ballot_count}</span>
+        </Tooltip>
+    );
+
+    const columns = (): GridColumns => [
+        {
+            field: 'name',
+            headerName: intl.formatMessage({
+                id: MessageId.ElectionListPage_NameHeader,
+            }),
+            width: 250,
+        },
         {
             field: 'election_id',
             headerName: intl.formatMessage({
                 id: MessageId.ElectionListPage_ElectionIdHeader,
             }),
-            width: 300,
-        },
-        {
-            field: 'key_name',
-            headerName: intl.formatMessage({
-                id: MessageId.ElectionListPage_KeyNameHeader,
-            }),
-            width: 300,
+            width: 250,
         },
         {
             field: 'state',
             headerName: intl.formatMessage({
                 id: MessageId.ElectionListPage_StateHeader,
             }),
-            width: 150,
+            width: 100,
             cellClassName: classes.electionState,
         },
+        {
+            field: 'ballots',
+            headerName: intl.formatMessage({
+                id: MessageId.ElectionListPage_BallotsHeader,
+            }),
+            renderCell: getBallots,
+            width: 100,
+        },
+        {
+            field: 'action',
+            type: 'actions',
+            headerName: '',
+            width: 100,
+            getActions: actions,
+        },
     ];
-
-    const getElections = async () => {
-        const service = ApiClientFactory.getMediatorApiClient();
-        try {
-            const electionResults = await service.findElection({}, 0, 100);
-            if (electionResults) {
-                setElections(electionResults);
-            }
-        } catch (ex) {
-            setTextResult('An error occurred');
-        }
-    };
-    useEffect(() => {
-        getElections();
-    }, []);
 
     const noRowsOverlay = (
         <GridOverlay>
@@ -91,27 +129,28 @@ export const ElectionListPage: React.FC = () => {
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <InternationalText className={classes.title} id={MessageId.ElectionListPage_Title} />
-
-            <div className={classes.navArea}>
-                <GoHomeButton id={MessageId.ElectionListPage_GoHome} />
-            </div>
-            <DataGrid
-                rows={elections}
-                columns={columns()}
-                getRowId={(r) => r.election_id}
-                components={{
-                    Toolbar: FilterToolbar,
-                    NoRowsOverlay: () => noRowsOverlay,
-                }}
-                disableSelectionOnClick
-                className={classes.grid}
-                pageSize={pageSize}
-                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                rowsPerPageOptions={[10, 50, 100]}
-                pagination
-            />
-            <div>{textResult}</div>
+            <IconHeader titleId={MessageId.ElectionListPage_Title} />
+            {errorMessageId && (
+                <ErrorMessage className={classes.error} MessageId={errorMessageId} />
+            )}
+            <AsyncContent query={usersQuery} errorMessage="there was an error">
+                {(electionsRows) => (
+                    <DataGrid
+                        rows={electionsRows}
+                        columns={columns()}
+                        getRowId={(r) => r.election_id}
+                        components={{
+                            NoRowsOverlay: () => noRowsOverlay,
+                        }}
+                        disableSelectionOnClick
+                        className={classes.grid}
+                        pageSize={pageSize}
+                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                        rowsPerPageOptions={[10, 50, 100]}
+                        pagination
+                    />
+                )}
+            </AsyncContent>
         </Container>
     );
 };

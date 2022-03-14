@@ -1,4 +1,13 @@
-import { AuthClient, CeremonyClient, UserClient, V1Client, KeyClient, Token } from './clients';
+import {
+    AuthClient,
+    CeremonyClient,
+    UserClient,
+    V1Client,
+    KeyClient,
+    Token,
+    BallotClient,
+    ElectionClient,
+} from './clients';
 
 export class ClientFactory {
     private static GetUrl(): string {
@@ -31,12 +40,34 @@ export class ClientFactory {
         return new KeyClient(url);
     }
 
+    public static GetBallotClient(
+        token?: string,
+        onTokenExpired?: (newToken?: Token) => void
+    ): BallotClient {
+        const url = this.GetUrl();
+        const client = new BallotClient(url);
+        client.token = token;
+        client.onTokenExpired = onTokenExpired;
+        return client;
+    }
+
     public static GetUserClient(
         token?: string,
         onTokenExpired?: (newToken?: Token) => void
     ): UserClient {
         const url = this.GetUrl();
         const client = new UserClient(url);
+        client.token = token;
+        client.onTokenExpired = onTokenExpired;
+        return client;
+    }
+
+    public static GetElectionClient(
+        token?: string,
+        onTokenExpired?: (newToken?: Token) => void
+    ): ElectionClient {
+        const url = this.GetUrl();
+        const client = new ElectionClient(url);
         client.token = token;
         client.onTokenExpired = onTokenExpired;
         return client;

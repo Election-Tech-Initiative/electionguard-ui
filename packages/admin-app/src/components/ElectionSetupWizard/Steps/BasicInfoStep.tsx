@@ -1,14 +1,14 @@
-import { Box, Container, IconButton, TextField, Tooltip } from '@mui/material';
+import { Box, Container, IconButton, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 
-import { useIntl } from 'react-intl';
 import { SubmitElectionRequest } from '@electionguard/api-client';
 import { Foundation as FoundationIcon } from '@mui/icons-material';
 import FormattedButton from '../../FormattedButton';
 import IconHeader from '../../IconHeader';
 import { Message, MessageId } from '../../../lang';
+import I8nTooltip from '../../I8nTooltip/I8nTooltip';
 
 export interface SetupInstructionsStepProps {
     onNext: () => void;
@@ -36,7 +36,6 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
 }) => {
     const [electionId, setElectionId] = useState('');
     const classes = useStyles();
-    const intl = useIntl();
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -49,10 +48,7 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
 
     return (
         <Container maxWidth="md" className={classes.root}>
-            <IconHeader
-                title={new Message(MessageId.ElectionSetup_BasicInfo_Title)}
-                Icon={FoundationIcon}
-            />
+            <IconHeader titleId={MessageId.ElectionSetup_BasicInfo_Title} Icon={FoundationIcon} />
             <Container maxWidth="xs">
                 <form onSubmit={handleSubmit}>
                     <TextField
@@ -64,15 +60,13 @@ const BasicInfoStep: React.FC<SetupInstructionsStepProps> = ({
                         onChange={(e) => setElectionId(e.target.value)}
                         InputProps={{
                             endAdornment: (
-                                <Tooltip
-                                    title={intl.formatMessage({
-                                        id: MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip,
-                                    })}
+                                <I8nTooltip
+                                    messageId={MessageId.ElectionSetup_BasicInfo_ElectionIdTooltip}
                                 >
                                     <IconButton>
                                         <InfoIcon />
                                     </IconButton>
-                                </Tooltip>
+                                </I8nTooltip>
                             ),
                         }}
                     />
